@@ -11,25 +11,52 @@
 from optparse import OptionParser
 parser = OptionParser()
 
-parser.add_option('--files', metavar='F', type='string', action='store',
+parser.add_option('--files', type='string', action='store',
                   dest='files',
                   help='Input files')
 
-parser.add_option('--outname', metavar='F', type='string', action='store',
+parser.add_option('--outname', type='string', action='store',
                   default='outplots.root',
                   dest='outname',
                   help='Name of output file')
 
-parser.add_option('--verbose', metavar='D', action='store_true',
+parser.add_option('--verbose', action='store_true',
                   default=False,
                   dest='verbose',
                   help='Print debugging info')
 
-parser.add_option('--maxevents', metavar='M', type='int', action='store',
+parser.add_option('--maxevents', type='int', action='store',
                   default=-1,
                   dest='maxevents',
                   help='Number of events to run. -1 is all events')
 
+parser.add_option('--maxjets', type='int', action='store',
+                  default=999,
+                  dest='maxjets',
+                  help='Number of jets to plot. To plot all jets, set to a big number like 999')
+
+
+
+parser.add_option('--minAK8Pt', type='float', action='store',
+                  default=200.,
+                  dest='minAK8Pt',
+                  help='Minimum PT for AK8 jets')
+
+parser.add_option('--maxAK8Rapidity', type='float', action='store',
+                  default=2.4,
+                  dest='maxAK8Rapidity',
+                  help='Maximum AK8 rapidity')
+
+
+parser.add_option('--minAK4Pt', type='float', action='store',
+                  default=30.,
+                  dest='minAK4Pt',
+                  help='Minimum PT for AK4 jets')
+
+parser.add_option('--maxAK4Rapidity', type='float', action='store',
+                  default=2.4,
+                  dest='maxAK4Rapidity',
+                  help='Maximum AK4 rapidity')
 
 (options, args) = parser.parse_args()
 argv = []
@@ -136,23 +163,26 @@ for ifile in files :
         # loop over jets and fill hists
         ijet = 0
         for jet in jets0 :
-            h_ptAK4.Fill( jet.pt() )
-            h_etaAK4.Fill( jet.eta() )
-            h_yAK4.Fill( jet.y() )
-            h_phiAK4.Fill( jet.phi() )
-            h_mAK4.Fill( jet.mass() )
-            if options.verbose == True : 
-                print ("Jet {0:4.0f}, pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, " +
-                       "nda = {5:3.0f}, vtxmass = {6:6.2f}, area = {7:6.2f}, L1 = {8:6.2f}, L2 = {9:6.2f}, L3 = {10:6.2f}, " +
-                       "currLevel = {11:s}").format(
-                    ijet, jet.pt(), jet.eta(), jet.phi(), jet.mass(), jet.numberOfDaughters(), jet.userFloat('secvtxMass'),
-                    jet.jetArea(), jet.jecFactor("L1FastJet"), jet.jecFactor("L2Relative"), jet.jecFactor("L3Absolute"), jet.currentJECLevel()
-                    ),
-                if jet.genJetFwdRef().isNonnull() and jet.genJetFwdRef().isAvailable() :
-                    genPt = jet.genJetFwdRef().pt()
-                    print (", gen pt = {0:6.2f}").format( genPt )
-                else :
-                    print ''
+            if ijet > options.maxjets :
+                break
+            if jet.pt() > options.minAK4Pt and abs(jet.rapidity()) < options.maxAK4Rapidity :
+                h_ptAK4.Fill( jet.pt() )
+                h_etaAK4.Fill( jet.eta() )
+                h_yAK4.Fill( jet.y() )
+                h_phiAK4.Fill( jet.phi() )
+                h_mAK4.Fill( jet.mass() )
+                if options.verbose == True : 
+                    print ("Jet {0:4.0f}, pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, " +
+                           "nda = {5:3.0f}, vtxmass = {6:6.2f}, area = {7:6.2f}, L1 = {8:6.2f}, L2 = {9:6.2f}, L3 = {10:6.2f}, " +
+                           "currLevel = {11:s}").format(
+                        ijet, jet.pt(), jet.eta(), jet.phi(), jet.mass(), jet.numberOfDaughters(), jet.userFloat('secvtxMass'),
+                        jet.jetArea(), jet.jecFactor("L1FastJet"), jet.jecFactor("L2Relative"), jet.jecFactor("L3Absolute"), jet.currentJECLevel()
+                        ),
+                    if jet.genJetFwdRef().isNonnull() and jet.genJetFwdRef().isAvailable() :
+                        genPt = jet.genJetFwdRef().pt()
+                        print (", gen pt = {0:6.2f}").format( genPt )
+                    else :
+                        print ''
             ijet += 1
 
 
@@ -170,7 +200,9 @@ for ifile in files :
         # loop over jets and fill hists
         ijet = 0
         for jet in jets1 :
-            if jet.pt() > 100. :  # Substructure jets only really make sense at high pt
+            if ijet > options.maxjets :
+                break
+            if jet.pt() > options.minAK8Pt and abs(jet.rapidity()) < options.maxAK8Rapidity :
                 h_ptAK8.Fill( jet.pt() )
                 h_etaAK8.Fill( jet.eta() )
                 h_yAK8.Fill( jet.y() )
