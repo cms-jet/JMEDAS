@@ -93,12 +93,22 @@ h_etaAK4 = ROOT.TH1F("h_etaAK4", "AK4 Jet #eta;#eta", 120, -6, 6)
 h_yAK4 = ROOT.TH1F("h_yAK4", "AK4 Jet Rapidity;y", 120, -6, 6)
 h_phiAK4 = ROOT.TH1F("h_phiAK4", "AK4 Jet #phi;#phi (radians)",100,-ROOT.Math.Pi(),ROOT.Math.Pi())
 h_mAK4 = ROOT.TH1F("h_mAK4", "AK4 Jet Mass;Mass (GeV)", 100, 0, 1000)
+h_areaAK4 = ROOT.TH1F("h_areaAK4", "AK4 Jet Area;Area", 250, 0, 5.0)
+
+h_ptAK4Gen = ROOT.TH1F("h_ptAK4Gen", "AK4Gen Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
+h_etaAK4Gen = ROOT.TH1F("h_etaAK4Gen", "AK4Gen Jet #eta;#eta", 120, -6, 6)
+h_yAK4Gen = ROOT.TH1F("h_yAK4Gen", "AK4Gen Jet Rapidity;y", 120, -6, 6)
+h_phiAK4Gen = ROOT.TH1F("h_phiAK4Gen", "AK4Gen Jet #phi;#phi (radians)",100,-ROOT.Math.Pi(),ROOT.Math.Pi())
+h_mAK4Gen = ROOT.TH1F("h_mAK4Gen", "AK4Gen Jet Mass;Mass (GeV)", 100, 0, 1000)
+h_areaAK4Gen = ROOT.TH1F("h_areaAK4Gen", "AK4Gen Jet Area;Area", 250, 0, 5.0)
+
 
 h_ptAK8 = ROOT.TH1F("h_ptAK8", "AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_etaAK8 = ROOT.TH1F("h_etaAK8", "AK8 Jet #eta;#eta", 120, -6, 6)
 h_yAK8 = ROOT.TH1F("h_yAK8", "AK8 Jet Rapidity;y", 120, -6, 6)
 h_phiAK8 = ROOT.TH1F("h_phiAK8", "AK8 Jet #phi;#phi (radians)",100,-ROOT.Math.Pi(),ROOT.Math.Pi())
 h_mAK8 = ROOT.TH1F("h_mAK8", "AK8 Jet Mass;Mass (GeV)", 100, 0, 1000)
+h_areaAK8 = ROOT.TH1F("h_areaAK8", "AK8 Jet Area;Area", 250, 0, 5.0)
 h_mprunedAK8 = ROOT.TH1F("h_mprunedAK8", "AK8 Pruned Jet Mass;Mass (GeV)", 100, 0, 1000)
 h_mfilteredAK8 = ROOT.TH1F("h_mfilteredAK8", "AK8 Filtered Jet Mass;Mass (GeV)", 100, 0, 1000)
 h_mtrimmedAK8 = ROOT.TH1F("h_mtrimmedAK8", "AK8 Trimmed Jet Mass;Mass (GeV)", 100, 0, 1000)
@@ -107,6 +117,12 @@ h_nsjAK8 = ROOT.TH1F("h_nsjAK8", "AK8 CMS Top Tagger N_{subjets};N_{subjets}", 5
 h_tau21AK8 = ROOT.TH1F("h_tau21AK8", "AK8 Jet #tau_{2} / #tau_{1};Mass#tau_{21}", 100, 0, 1.0)
 h_tau32AK8 = ROOT.TH1F("h_tau32AK8", "AK8 Jet #tau_{3} / #tau_{2};Mass#tau_{32}", 100, 0, 1.0)
 
+h_ptAK8Gen = ROOT.TH1F("h_ptAK8Gen", "AK8Gen Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
+h_etaAK8Gen = ROOT.TH1F("h_etaAK8Gen", "AK8Gen Jet #eta;#eta", 120, -6, 6)
+h_yAK8Gen = ROOT.TH1F("h_yAK8Gen", "AK8Gen Jet Rapidity;y", 120, -6, 6)
+h_phiAK8Gen = ROOT.TH1F("h_phiAK8Gen", "AK8Gen Jet #phi;#phi (radians)",100,-ROOT.Math.Pi(),ROOT.Math.Pi())
+h_mAK8Gen = ROOT.TH1F("h_mAK8Gen", "AK8Gen Jet Mass;Mass (GeV)", 100, 0, 1000)
+h_areaAK8Gen = ROOT.TH1F("h_areaAK8Gen", "AK8Gen Jet Area;Area", 250, 0, 5.0)
 
 ## ___________                    __    .____                         
 ## \_   _____/__  __ ____   _____/  |_  |    |    ____   ____ ______  
@@ -171,6 +187,15 @@ for ifile in files :
                 h_yAK4.Fill( jet.y() )
                 h_phiAK4.Fill( jet.phi() )
                 h_mAK4.Fill( jet.mass() )
+                h_areaAK4.Fill( jet.jetArea() )
+                genJet = jet.genJet()
+                if genJet != None :
+                    h_ptAK4Gen.Fill( genJet.pt() )
+                    h_etaAK4Gen.Fill( genJet.eta() )
+                    h_yAK4Gen.Fill( genJet.y() )
+                    h_phiAK4Gen.Fill( genJet.phi() )
+                    h_mAK4Gen.Fill( genJet.mass() )
+                    h_areaAK4Gen.Fill( genJet.jetArea() )
                 if options.verbose == True : 
                     print ("Jet {0:4.0f}, pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, " +
                            "nda = {5:3.0f}, vtxmass = {6:6.2f}, area = {7:6.2f}, L1 = {8:6.2f}, L2 = {9:6.2f}, L3 = {10:6.2f}, " +
@@ -207,7 +232,8 @@ for ifile in files :
                 h_etaAK8.Fill( jet.eta() )
                 h_yAK8.Fill( jet.y() )
                 h_phiAK8.Fill( jet.phi() )
-                h_mAK8.Fill( jet.mass() )            
+                h_mAK8.Fill( jet.mass() )
+                h_areaAK8.Fill( jet.jetArea() )
                 h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSPrunedLinks') )
                 h_mtrimmedAK8.Fill( jet.userFloat('ak8PFJetsCHSTrimmedLinks') )
                 h_mfilteredAK8.Fill( jet.userFloat('ak8PFJetsCHSFilteredLinks') )
@@ -235,6 +261,14 @@ for ifile in files :
                 else :
                     h_tau32AK8.Fill( -1.0 )
 
+                genJet = jet.genJet()
+                if genJet != None :
+                    h_ptAK8Gen.Fill( genJet.pt() )
+                    h_etaAK8Gen.Fill( genJet.eta() )
+                    h_yAK8Gen.Fill( genJet.y() )
+                    h_phiAK8Gen.Fill( genJet.phi() )
+                    h_mAK8Gen.Fill( genJet.mass() )
+                    h_areaAK8Gen.Fill( genJet.jetArea() )                    
                 if options.verbose == True :
                     if hasTopTagInfo : 
                         print 'Jet {0:4.0f}, pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, nda = {5:3.0f}, pruned m = {6:6.2f}, trimmed m = {7:6.2f}, filtered m = {8:6.2f}, topmass = {9:6.2f}, minmass = {10:6.2f}'.format(
