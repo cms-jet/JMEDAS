@@ -203,9 +203,8 @@ for ifile in files :
                         ijet, jet.pt(), jet.eta(), jet.phi(), jet.mass(), jet.numberOfDaughters(), jet.userFloat('secvtxMass'),
                         jet.jetArea(), jet.jecFactor("L1FastJet"), jet.jecFactor("L2Relative"), jet.jecFactor("L3Absolute"), jet.currentJECLevel()
                         ),
-                    if jet.genJetFwdRef().isNonnull() and jet.genJetFwdRef().isAvailable() :
-                        genPt = jet.genJetFwdRef().pt()
-                        print (", gen pt = {0:6.2f}").format( genPt )
+                    if genJet != None :
+                        print (", gen pt = {0:6.2f}").format( genJet.pt() )
                     else :
                         print ''
             ijet += 1
