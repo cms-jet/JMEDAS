@@ -78,6 +78,23 @@ jetlabel0 = ("slimmedJets")
 jethandle1  = Handle ("std::vector<pat::Jet>")
 jetlabel1 = ("slimmedJetsAK8")
 
+rhoHandle = Handle ("double")
+rhoLabel = ("fixedGridRhoAll")
+
+pvHandle = Handle("std::vector<reco::Vertex>")
+pvLabel = ("offlineSlimmedPrimaryVertices")
+
+### JEC implementation
+
+vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
+vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L1FastJet_AK4PFchs.txt') )
+vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L2Relative_AK4PFchs.txt') )
+vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L3Absolute_AK4PFchs.txt') )
+jec = ROOT.FactorizedJetCorrector( vPar )
+
+jecUnc = ROOT.JetCorrectionUncertainty( 'PHYS14_25_V1_Uncertainty_AK4PFchs.txt' )
+
+
 ##   ___ ___ .__          __                                             
 ##  /   |   \|__| _______/  |_  ____   ________________    _____   ______
 ## /    ~    \  |/  ___/\   __\/  _ \ / ___\_  __ \__  \  /     \ /  ___/
@@ -89,6 +106,9 @@ f = ROOT.TFile(options.outname, "RECREATE")
 f.cd()
 
 h_ptAK4 = ROOT.TH1F("h_ptAK4", "AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
+h_ptJECUpAK4 = ROOT.TH1F("h_ptJECUpAK4", "JEC Up AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
+h_ptJECDownAK4 = ROOT.TH1F("h_ptJECDownAK4", "JEC Down AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
+h_ptUncorrAK4 = ROOT.TH1F("h_ptUncorrAK4", "UnCorrected AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_etaAK4 = ROOT.TH1F("h_etaAK4", "AK4 Jet #eta;#eta", 120, -6, 6)
 h_yAK4 = ROOT.TH1F("h_yAK4", "AK4 Jet Rapidity;y", 120, -6, 6)
 h_phiAK4 = ROOT.TH1F("h_phiAK4", "AK4 Jet #phi;#phi (radians)",100,-ROOT.Math.Pi(),ROOT.Math.Pi())
@@ -104,6 +124,9 @@ h_areaAK4Gen = ROOT.TH1F("h_areaAK4Gen", "AK4Gen Jet Area;Area", 250, 0, 5.0)
 
 
 h_ptAK8 = ROOT.TH1F("h_ptAK8", "AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
+h_ptJECUpAK8 = ROOT.TH1F("h_ptJECUpAK8", "JEC Up AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
+h_ptJECDownAK8 = ROOT.TH1F("h_ptJECDownAK8", "JEC Down AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
+h_ptUncorrAK8 = ROOT.TH1F("h_ptUncorrAK8", "UnCorrected AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_etaAK8 = ROOT.TH1F("h_etaAK8", "AK8 Jet #eta;#eta", 120, -6, 6)
 h_yAK8 = ROOT.TH1F("h_yAK8", "AK8 Jet Rapidity;y", 120, -6, 6)
 h_phiAK8 = ROOT.TH1F("h_phiAK8", "AK8 Jet #phi;#phi (radians)",100,-ROOT.Math.Pi(),ROOT.Math.Pi())
@@ -172,6 +195,15 @@ for ifile in files :
         ##         \/        \/    |__|                \/                                       \/ 
 
 
+	# get rho and vertices for JEC
+	event.getByLabel (rhoLabel, rhoHandle)
+	event.getByLabel (pvLabel, pvHandle)
+
+	rhoValue = rhoHandle.product()
+	pvs = pvHandle.product()
+	#print rhoValue[0]
+
+
         # use getByLabel, just like in cmsRun
         event.getByLabel (jetlabel0, jethandle0)
         # get the product
@@ -182,8 +214,31 @@ for ifile in files :
             if ijet > options.maxjets :
                 break
             if jet.pt() > options.minAK4Pt and abs(jet.rapidity()) < options.maxAK4Rapidity :
-                h_ptAK4.Fill( jet.pt() )
-                h_etaAK4.Fill( jet.eta() )
+                
+		#FInd the jet correction
+		uncorrJet = jet.correctedP4(0)
+		jec.setJetEta( uncorrJet.eta() )
+		jec.setJetPt ( uncorrJet.pt() )
+		jec.setJetE  ( uncorrJet.energy() )
+		jec.setJetA  ( jet.jetArea() )
+		jec.setRho   ( rhoValue[0] )
+		jec.setNPV   ( len(pvs) )
+		corr = jec.getCorrection()
+		#print "JetCorr = ", corr
+
+		#JEC Uncertainty
+		jecUnc.setJetEta( uncorrJet.eta() )
+		jecUnc.setJetPt( corr* uncorrJet.pt() )
+		corrUp = corr * (1 + abs(jecUnc.getUncertainty(1)))
+		jecUnc.setJetEta( uncorrJet.eta() )
+		jecUnc.setJetPt( corr* uncorrJet.pt() )
+		corrDn = corr * (1 - abs(jecUnc.getUncertainty(1)))
+		print corrUp, corrDn
+
+
+		h_ptAK4.Fill( jet.pt() )
+                h_ptUncorrAK4.Fill( uncorrJet.pt() )
+		h_etaAK4.Fill( jet.eta() )
                 h_yAK4.Fill( jet.y() )
                 h_phiAK4.Fill( jet.phi() )
                 h_mAK4.Fill( jet.mass() )
