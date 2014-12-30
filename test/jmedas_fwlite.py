@@ -91,8 +91,15 @@ vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L1FastJet_AK4PFchs.txt
 vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L2Relative_AK4PFchs.txt') )
 vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L3Absolute_AK4PFchs.txt') )
 jec = ROOT.FactorizedJetCorrector( vPar )
-
 jecUnc = ROOT.JetCorrectionUncertainty( 'PHYS14_25_V1_Uncertainty_AK4PFchs.txt' )
+
+vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
+vParAK8.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L1FastJet_AK8PFchs.txt') )
+vParAK8.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L2Relative_AK8PFchs.txt') )
+vParAK8.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L3Absolute_AK8PFchs.txt') )
+jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
+
+jecUncAK8 = ROOT.JetCorrectionUncertainty( 'PHYS14_25_V1_Uncertainty_AK8PFchs.txt' )
 
 
 ##   ___ ___ .__          __                                             
@@ -109,6 +116,7 @@ h_ptAK4 = ROOT.TH1F("h_ptAK4", "AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_ptJECUpAK4 = ROOT.TH1F("h_ptJECUpAK4", "JEC Up AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_ptJECDownAK4 = ROOT.TH1F("h_ptJECDownAK4", "JEC Down AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_ptUncorrAK4 = ROOT.TH1F("h_ptUncorrAK4", "UnCorrected AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
+h_JECValueAK4 = ROOT.TH1F("h_JECValueAK4", "Value of JEC for AK4 Jet", 100, 0.8, 1.1)
 h_etaAK4 = ROOT.TH1F("h_etaAK4", "AK4 Jet #eta;#eta", 120, -6, 6)
 h_yAK4 = ROOT.TH1F("h_yAK4", "AK4 Jet Rapidity;y", 120, -6, 6)
 h_phiAK4 = ROOT.TH1F("h_phiAK4", "AK4 Jet #phi;#phi (radians)",100,-ROOT.Math.Pi(),ROOT.Math.Pi())
@@ -127,6 +135,7 @@ h_ptAK8 = ROOT.TH1F("h_ptAK8", "AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_ptJECUpAK8 = ROOT.TH1F("h_ptJECUpAK8", "JEC Up AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_ptJECDownAK8 = ROOT.TH1F("h_ptJECDownAK8", "JEC Down AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_ptUncorrAK8 = ROOT.TH1F("h_ptUncorrAK8", "UnCorrected AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
+h_JECValueAK8 = ROOT.TH1F("h_JECValueAK8", "Value of JEC for AK8 Jet", 100, 0.8, 1.1)
 h_etaAK8 = ROOT.TH1F("h_etaAK8", "AK8 Jet #eta;#eta", 120, -6, 6)
 h_yAK8 = ROOT.TH1F("h_yAK8", "AK8 Jet Rapidity;y", 120, -6, 6)
 h_phiAK8 = ROOT.TH1F("h_phiAK8", "AK8 Jet #phi;#phi (radians)",100,-ROOT.Math.Pi(),ROOT.Math.Pi())
@@ -233,11 +242,13 @@ for ifile in files :
 		jecUnc.setJetEta( uncorrJet.eta() )
 		jecUnc.setJetPt( corr* uncorrJet.pt() )
 		corrDn = corr * (1 - abs(jecUnc.getUncertainty(1)))
-		print corrUp, corrDn
 
 
-		h_ptAK4.Fill( jet.pt() )
-                h_ptUncorrAK4.Fill( uncorrJet.pt() )
+		h_ptAK4.Fill( corr * uncorrJet.pt() )
+                h_JECValueAK4.Fill( corr )
+		h_ptUncorrAK4.Fill( uncorrJet.pt() )
+                h_ptJECDownAK4.Fill( corrDn * uncorrJet.pt() )
+                h_ptJECUpAK4.Fill( corrUp * uncorrJet.pt() )
 		h_etaAK4.Fill( jet.eta() )
                 h_yAK4.Fill( jet.y() )
                 h_phiAK4.Fill( jet.phi() )
@@ -282,7 +293,34 @@ for ifile in files :
             if ijet > options.maxjets :
                 break
             if jet.pt() > options.minAK8Pt and abs(jet.rapidity()) < options.maxAK8Rapidity :
-                h_ptAK8.Fill( jet.pt() )
+                
+		#FInd the jet correction
+		uncorrJet = jet.correctedP4(0)
+		jecAK8.setJetEta( uncorrJet.eta() )
+		jecAK8.setJetPt ( uncorrJet.pt() )
+		jecAK8.setJetE  ( uncorrJet.energy() )
+		jecAK8.setJetA  ( jet.jetArea() )
+		jecAK8.setRho   ( rhoValue[0] )
+		jecAK8.setNPV   ( len(pvs) )
+		corr = jecAK8.getCorrection()
+		#print "JetCorr = ", corr
+
+		#JEC Uncertainty
+		jecUncAK8.setJetEta( uncorrJet.eta() )
+		jecUncAK8.setJetPt( corr* uncorrJet.pt() )
+		corrUp = corr * (1 + abs(jecUncAK8.getUncertainty(1)))
+		jecUncAK8.setJetEta( uncorrJet.eta() )
+		jecUncAK8.setJetPt( corr* uncorrJet.pt() )
+		corrDn = corr * (1 - abs(jecUncAK8.getUncertainty(1)))
+
+
+
+
+		h_ptAK8.Fill( corr * uncorrJet.pt() )
+                h_JECValueAK8.Fill( corr )
+                h_ptUncorrAK8.Fill( uncorrJet.pt() )
+                h_ptJECDownAK8.Fill( corrDn * uncorrJet.pt() )
+                h_ptJECUpAK8.Fill( corrUp * uncorrJet.pt() )
                 h_etaAK8.Fill( jet.eta() )
                 h_yAK8.Fill( jet.y() )
                 h_phiAK8.Fill( jet.phi() )
