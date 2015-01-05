@@ -25,6 +25,12 @@ parser.add_option('--verbose', action='store_true',
                   dest='verbose',
                   help='Print debugging info')
 
+parser.add_option('--correctJets', action='store_true',
+                  default=False,
+                  dest='correctJets',
+                  help='Apply latest jet corrections.')
+
+
 parser.add_option('--maxevents', type='int', action='store',
                   default=-1,
                   dest='maxevents',
@@ -84,22 +90,25 @@ rhoLabel = ("fixedGridRhoAll")
 pvHandle = Handle("std::vector<reco::Vertex>")
 pvLabel = ("offlineSlimmedPrimaryVertices")
 
-### JEC implementation
 
-vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
-vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L1FastJet_AK4PFchs.txt') )
-vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L2Relative_AK4PFchs.txt') )
-vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L3Absolute_AK4PFchs.txt') )
-jec = ROOT.FactorizedJetCorrector( vPar )
-jecUnc = ROOT.JetCorrectionUncertainty( 'PHYS14_25_V1_Uncertainty_AK4PFchs.txt' )
 
-vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
-vParAK8.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L1FastJet_AK8PFchs.txt') )
-vParAK8.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L2Relative_AK8PFchs.txt') )
-vParAK8.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L3Absolute_AK8PFchs.txt') )
-jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
+if options.correctJets : 
+    ### JEC implementation
 
-jecUncAK8 = ROOT.JetCorrectionUncertainty( 'PHYS14_25_V1_Uncertainty_AK8PFchs.txt' )
+    vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
+    vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L1FastJet_AK4PFchs.txt') )
+    vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L2Relative_AK4PFchs.txt') )
+    vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L3Absolute_AK4PFchs.txt') )
+    jec = ROOT.FactorizedJetCorrector( vPar )
+    jecUnc = ROOT.JetCorrectionUncertainty( 'PHYS14_25_V1_Uncertainty_AK4PFchs.txt' )
+
+    vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
+    vParAK8.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L1FastJet_AK8PFchs.txt') )
+    vParAK8.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L2Relative_AK8PFchs.txt') )
+    vParAK8.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L3Absolute_AK8PFchs.txt') )
+    jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
+
+    jecUncAK8 = ROOT.JetCorrectionUncertainty( 'PHYS14_25_V1_Uncertainty_AK8PFchs.txt' )
 
 
 ##   ___ ___ .__          __                                             
@@ -246,30 +255,35 @@ for ifile in files :
 
                 if not goodJet :
                     continue
-                
-                jec.setJetEta( uncorrJet.eta() )
-                jec.setJetPt ( uncorrJet.pt() )
-                jec.setJetE  ( uncorrJet.energy() )
-                jec.setJetA  ( jet.jetArea() )
-                jec.setRho   ( rhoValue[0] )
-                jec.setNPV   ( len(pvs) )
-                corr = jec.getCorrection()
-                #print "JetCorr = ", corr
-
-                #JEC Uncertainty
-                jecUnc.setJetEta( uncorrJet.eta() )
-                jecUnc.setJetPt( corr* uncorrJet.pt() )
-                corrUp = corr * (1 + abs(jecUnc.getUncertainty(1)))
-                jecUnc.setJetEta( uncorrJet.eta() )
-                jecUnc.setJetPt( corr* uncorrJet.pt() )
-                corrDn = corr * (1 - abs(jecUnc.getUncertainty(1)))
 
 
-                h_ptAK4.Fill( corr * uncorrJet.pt() )
-                h_JECValueAK4.Fill( corr )
-                h_ptUncorrAK4.Fill( uncorrJet.pt() )
-                h_ptJECDownAK4.Fill( corrDn * uncorrJet.pt() )
-                h_ptJECUpAK4.Fill( corrUp * uncorrJet.pt() )
+                if options.correctJets : 
+                    jec.setJetEta( uncorrJet.eta() )
+                    jec.setJetPt ( uncorrJet.pt() )
+                    jec.setJetE  ( uncorrJet.energy() )
+                    jec.setJetA  ( jet.jetArea() )
+                    jec.setRho   ( rhoValue[0] )
+                    jec.setNPV   ( len(pvs) )
+                    corr = jec.getCorrection()
+                    #print "JetCorr = ", corr
+
+                    #JEC Uncertainty
+                    jecUnc.setJetEta( uncorrJet.eta() )
+                    jecUnc.setJetPt( corr* uncorrJet.pt() )
+                    corrUp = corr * (1 + abs(jecUnc.getUncertainty(1)))
+                    jecUnc.setJetEta( uncorrJet.eta() )
+                    jecUnc.setJetPt( corr* uncorrJet.pt() )
+                    corrDn = corr * (1 - abs(jecUnc.getUncertainty(1)))
+
+
+                    h_ptAK4.Fill( corr * uncorrJet.pt() )
+                    h_JECValueAK4.Fill( corr )
+                    h_ptUncorrAK4.Fill( uncorrJet.pt() )
+                    h_ptJECDownAK4.Fill( corrDn * uncorrJet.pt() )
+                    h_ptJECUpAK4.Fill( corrUp * uncorrJet.pt() )
+                else : 
+                    h_ptAK4.Fill( jet.pt() )
+
                 h_etaAK4.Fill( jet.eta() )
                 h_yAK4.Fill( jet.y() )
                 h_phiAK4.Fill( jet.phi() )
@@ -337,32 +351,35 @@ for ifile in files :
                 if not goodJet :
                     continue
 
-                
-                jecAK8.setJetEta( uncorrJet.eta() )
-                jecAK8.setJetPt ( uncorrJet.pt() )
-                jecAK8.setJetE  ( uncorrJet.energy() )
-                jecAK8.setJetA  ( jet.jetArea() )
-                jecAK8.setRho   ( rhoValue[0] )
-                jecAK8.setNPV   ( len(pvs) )
-                corr = jecAK8.getCorrection()
-                #print "JetCorr = ", corr
+                if options.correctJets : 
+                    jecAK8.setJetEta( uncorrJet.eta() )
+                    jecAK8.setJetPt ( uncorrJet.pt() )
+                    jecAK8.setJetE  ( uncorrJet.energy() )
+                    jecAK8.setJetA  ( jet.jetArea() )
+                    jecAK8.setRho   ( rhoValue[0] )
+                    jecAK8.setNPV   ( len(pvs) )
+                    corr = jecAK8.getCorrection()
+                    #print "JetCorr = ", corr
 
-                #JEC Uncertainty
-                jecUncAK8.setJetEta( uncorrJet.eta() )
-                jecUncAK8.setJetPt( corr* uncorrJet.pt() )
-                corrUp = corr * (1 + abs(jecUncAK8.getUncertainty(1)))
-                jecUncAK8.setJetEta( uncorrJet.eta() )
-                jecUncAK8.setJetPt( corr* uncorrJet.pt() )
-                corrDn = corr * (1 - abs(jecUncAK8.getUncertainty(1)))
-
-
+                    #JEC Uncertainty
+                    jecUncAK8.setJetEta( uncorrJet.eta() )
+                    jecUncAK8.setJetPt( corr* uncorrJet.pt() )
+                    corrUp = corr * (1 + abs(jecUncAK8.getUncertainty(1)))
+                    jecUncAK8.setJetEta( uncorrJet.eta() )
+                    jecUncAK8.setJetPt( corr* uncorrJet.pt() )
+                    corrDn = corr * (1 - abs(jecUncAK8.getUncertainty(1)))
 
 
-                h_ptAK8.Fill( corr * uncorrJet.pt() )
-                h_JECValueAK8.Fill( corr )
-                h_ptUncorrAK8.Fill( uncorrJet.pt() )
-                h_ptJECDownAK8.Fill( corrDn * uncorrJet.pt() )
-                h_ptJECUpAK8.Fill( corrUp * uncorrJet.pt() )
+
+
+                    h_ptAK8.Fill( corr * uncorrJet.pt() )
+                    h_JECValueAK8.Fill( corr )
+                    h_ptUncorrAK8.Fill( uncorrJet.pt() )
+                    h_ptJECDownAK8.Fill( corrDn * uncorrJet.pt() )
+                    h_ptJECUpAK8.Fill( corrUp * uncorrJet.pt() )
+                else :
+                    h_ptAK8.Fill( jet.pt() )
+                    
                 h_etaAK8.Fill( jet.eta() )
                 h_yAK8.Fill( jet.y() )
                 h_phiAK8.Fill( jet.phi() )
