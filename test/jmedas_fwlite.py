@@ -224,32 +224,53 @@ for ifile in files :
                 break
             if jet.pt() > options.minAK4Pt and abs(jet.rapidity()) < options.maxAK4Rapidity :
                 
-		#FInd the jet correction
-		uncorrJet = jet.correctedP4(0)
-		jec.setJetEta( uncorrJet.eta() )
-		jec.setJetPt ( uncorrJet.pt() )
-		jec.setJetE  ( uncorrJet.energy() )
-		jec.setJetA  ( jet.jetArea() )
-		jec.setRho   ( rhoValue[0] )
-		jec.setNPV   ( len(pvs) )
-		corr = jec.getCorrection()
-		#print "JetCorr = ", corr
+                
+                #FInd the jet correction
+                uncorrJet = jet.correctedP4(0)
 
-		#JEC Uncertainty
-		jecUnc.setJetEta( uncorrJet.eta() )
-		jecUnc.setJetPt( corr* uncorrJet.pt() )
-		corrUp = corr * (1 + abs(jecUnc.getUncertainty(1)))
-		jecUnc.setJetEta( uncorrJet.eta() )
-		jecUnc.setJetPt( corr* uncorrJet.pt() )
-		corrDn = corr * (1 - abs(jecUnc.getUncertainty(1)))
+                # Apply jet ID to uncorrected jet
+                nhf = uncorrJet.neutralHadronEnergy() / uncorrJet.E()
+                nef = uncorrJet.neutralEmEnergy() / uncorrJet.E()
+                chf = uncorrJet.chargedHadronEnergy() / uncorrJet.E()
+                cef = uncorrJet.chargedEmEnergy() / uncorrJet.E()
+                nconstituents = uncorrJet.numberOfDaughters()
+                nch = uncorrJet.chargedMultiplicity()
+                goodJet = \
+                  nhf < 0.99 and \
+                  nef < 0.99 and \
+                  chf > 0.00 and \
+                  cef < 0.99 and \
+                  nconstituents > 1 and \
+                  nch > 0
 
 
-		h_ptAK4.Fill( corr * uncorrJet.pt() )
+                if not goodJet :
+                    continue
+                
+                jec.setJetEta( uncorrJet.eta() )
+                jec.setJetPt ( uncorrJet.pt() )
+                jec.setJetE  ( uncorrJet.energy() )
+                jec.setJetA  ( jet.jetArea() )
+                jec.setRho   ( rhoValue[0] )
+                jec.setNPV   ( len(pvs) )
+                corr = jec.getCorrection()
+                #print "JetCorr = ", corr
+
+                #JEC Uncertainty
+                jecUnc.setJetEta( uncorrJet.eta() )
+                jecUnc.setJetPt( corr* uncorrJet.pt() )
+                corrUp = corr * (1 + abs(jecUnc.getUncertainty(1)))
+                jecUnc.setJetEta( uncorrJet.eta() )
+                jecUnc.setJetPt( corr* uncorrJet.pt() )
+                corrDn = corr * (1 - abs(jecUnc.getUncertainty(1)))
+
+
+                h_ptAK4.Fill( corr * uncorrJet.pt() )
                 h_JECValueAK4.Fill( corr )
-		h_ptUncorrAK4.Fill( uncorrJet.pt() )
+                h_ptUncorrAK4.Fill( uncorrJet.pt() )
                 h_ptJECDownAK4.Fill( corrDn * uncorrJet.pt() )
                 h_ptJECUpAK4.Fill( corrUp * uncorrJet.pt() )
-		h_etaAK4.Fill( jet.eta() )
+                h_etaAK4.Fill( jet.eta() )
                 h_yAK4.Fill( jet.y() )
                 h_phiAK4.Fill( jet.phi() )
                 h_mAK4.Fill( jet.mass() )
@@ -294,29 +315,50 @@ for ifile in files :
                 break
             if jet.pt() > options.minAK8Pt and abs(jet.rapidity()) < options.maxAK8Rapidity :
                 
-		#FInd the jet correction
-		uncorrJet = jet.correctedP4(0)
-		jecAK8.setJetEta( uncorrJet.eta() )
-		jecAK8.setJetPt ( uncorrJet.pt() )
-		jecAK8.setJetE  ( uncorrJet.energy() )
-		jecAK8.setJetA  ( jet.jetArea() )
-		jecAK8.setRho   ( rhoValue[0] )
-		jecAK8.setNPV   ( len(pvs) )
-		corr = jecAK8.getCorrection()
-		#print "JetCorr = ", corr
+                #FInd the jet correction
+                uncorrJet = jet.correctedP4(0)
 
-		#JEC Uncertainty
-		jecUncAK8.setJetEta( uncorrJet.eta() )
-		jecUncAK8.setJetPt( corr* uncorrJet.pt() )
-		corrUp = corr * (1 + abs(jecUncAK8.getUncertainty(1)))
-		jecUncAK8.setJetEta( uncorrJet.eta() )
-		jecUncAK8.setJetPt( corr* uncorrJet.pt() )
-		corrDn = corr * (1 - abs(jecUncAK8.getUncertainty(1)))
-
+                # Apply jet ID to uncorrected jet
+                nhf = uncorrJet.neutralHadronEnergy() / uncorrJet.E()
+                nef = uncorrJet.neutralEmEnergy() / uncorrJet.E()
+                chf = uncorrJet.chargedHadronEnergy() / uncorrJet.E()
+                cef = uncorrJet.chargedEmEnergy() / uncorrJet.E()
+                nconstituents = uncorrJet.numberOfDaughters()
+                nch = uncorrJet.chargedMultiplicity()
+                goodJet = \
+                  nhf < 0.99 and \
+                  nef < 0.99 and \
+                  chf > 0.00 and \
+                  cef < 0.99 and \
+                  nconstituents > 1 and \
+                  nch > 0
 
 
+                if not goodJet :
+                    continue
 
-		h_ptAK8.Fill( corr * uncorrJet.pt() )
+                
+                jecAK8.setJetEta( uncorrJet.eta() )
+                jecAK8.setJetPt ( uncorrJet.pt() )
+                jecAK8.setJetE  ( uncorrJet.energy() )
+                jecAK8.setJetA  ( jet.jetArea() )
+                jecAK8.setRho   ( rhoValue[0] )
+                jecAK8.setNPV   ( len(pvs) )
+                corr = jecAK8.getCorrection()
+                #print "JetCorr = ", corr
+
+                #JEC Uncertainty
+                jecUncAK8.setJetEta( uncorrJet.eta() )
+                jecUncAK8.setJetPt( corr* uncorrJet.pt() )
+                corrUp = corr * (1 + abs(jecUncAK8.getUncertainty(1)))
+                jecUncAK8.setJetEta( uncorrJet.eta() )
+                jecUncAK8.setJetPt( corr* uncorrJet.pt() )
+                corrDn = corr * (1 - abs(jecUncAK8.getUncertainty(1)))
+
+
+
+
+                h_ptAK8.Fill( corr * uncorrJet.pt() )
                 h_JECValueAK8.Fill( corr )
                 h_ptUncorrAK8.Fill( uncorrJet.pt() )
                 h_ptJECDownAK8.Fill( corrDn * uncorrJet.pt() )
