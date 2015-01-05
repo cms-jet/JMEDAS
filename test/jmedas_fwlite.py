@@ -229,12 +229,12 @@ for ifile in files :
                 uncorrJet = jet.correctedP4(0)
 
                 # Apply jet ID to uncorrected jet
-                nhf = uncorrJet.neutralHadronEnergy() / uncorrJet.E()
-                nef = uncorrJet.neutralEmEnergy() / uncorrJet.E()
-                chf = uncorrJet.chargedHadronEnergy() / uncorrJet.E()
-                cef = uncorrJet.chargedEmEnergy() / uncorrJet.E()
-                nconstituents = uncorrJet.numberOfDaughters()
-                nch = uncorrJet.chargedMultiplicity()
+                nhf = jet.neutralHadronEnergy() / uncorrJet.E()
+                nef = jet.neutralEmEnergy() / uncorrJet.E()
+                chf = jet.chargedHadronEnergy() / uncorrJet.E()
+                cef = jet.chargedEmEnergy() / uncorrJet.E()
+                nconstituents = jet.numberOfDaughters()
+                nch = jet.chargedMultiplicity()
                 goodJet = \
                   nhf < 0.99 and \
                   nef < 0.99 and \
@@ -319,12 +319,12 @@ for ifile in files :
                 uncorrJet = jet.correctedP4(0)
 
                 # Apply jet ID to uncorrected jet
-                nhf = uncorrJet.neutralHadronEnergy() / uncorrJet.E()
-                nef = uncorrJet.neutralEmEnergy() / uncorrJet.E()
-                chf = uncorrJet.chargedHadronEnergy() / uncorrJet.E()
-                cef = uncorrJet.chargedEmEnergy() / uncorrJet.E()
-                nconstituents = uncorrJet.numberOfDaughters()
-                nch = uncorrJet.chargedMultiplicity()
+                nhf = jet.neutralHadronEnergy() / uncorrJet.E()
+                nef = jet.neutralEmEnergy() / uncorrJet.E()
+                chf = jet.chargedHadronEnergy() / uncorrJet.E()
+                cef = jet.chargedEmEnergy() / uncorrJet.E()
+                nconstituents = jet.numberOfDaughters()
+                nch = jet.chargedMultiplicity()
                 goodJet = \
                   nhf < 0.99 and \
                   nef < 0.99 and \
