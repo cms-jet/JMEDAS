@@ -157,7 +157,7 @@ pileupTreeMaker::pileupTreeMaker(const edm::ParameterSet& iConfig)
   // Jet CORRECTOR
   if(!JetCorLevels_.empty()) {
     vector<JetCorrectorParameters> vPar;
-    string jetCorPar = "PHYS14_V2_MC_L1FastJet_"+JetCorLabel_.substr(0,JetCorLabel_.size()-2)+".txt";
+    string jetCorPar = "../data/PHYS14_V2_MC_L1FastJet_"+JetCorLabel_.substr(0,JetCorLabel_.size()-2)+".txt";
     cout << "Getting JEC from file " << jetCorPar  << " ... ";
     vPar.push_back(JetCorrectorParameters(jetCorPar));
     jetCorrector_ = new FactorizedJetCorrector(vPar);
