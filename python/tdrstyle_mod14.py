@@ -464,3 +464,45 @@ def tdrCanvas(canvName, h, iPeriod=2, iPos=11, square=False) :
   canv.GetFrame().Draw()
   
   return canv
+
+def tdrCanvasMultipad(canvName, h, iPeriod=2, iPos=11, nPadsX=1, nPadsY=1) :
+  setTDRStyle()
+  nPads = nPadsX * nPadsY
+
+  W_ref = 400
+  H_ref = 400
+  W = W_ref * nPadsX
+  H = H_ref * nPadsY
+
+  # references for T, B, L, R
+  T = 0.07*H_ref
+  B = 0.13*H_ref
+  L = 0.15*W_ref
+  R = 0.05*W_ref
+
+  canv = TCanvas(canvName,canvName,50,50,W,H)
+  canv.Divide(nPadsX,nPadsY)
+  for p in range(0,nPads) :
+      canv.cd(p+1)
+      canv.SetFillColor(0)
+      canv.SetBorderMode(0)
+      canv.SetFrameFillStyle(0)
+      canv.SetFrameBorderMode(0)
+      canv.SetLeftMargin( L/W_ref )
+      canv.SetRightMargin( R/W_ref )
+      canv.SetTopMargin( T/H_ref )
+      canv.SetBottomMargin( B/H_ref )
+      assert(h[p])
+      h[p].GetYaxis().SetTitleOffset(1.25)
+      h[p].GetXaxis().SetTitleOffset(1.0)
+      h[p].Draw("AXIS")
+
+      # writing the lumi information and the CMS "logo"
+      CMS_lumi( canv.GetPad(p+1), iPeriod, iPos )
+  
+      canv.Update()
+      canv.RedrawAxis()
+      canv.GetFrame().Draw()
+  
+  return canv
+
