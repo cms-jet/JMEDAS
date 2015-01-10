@@ -179,6 +179,7 @@ def setTDRStyle() :
   # tdrStyle.SetBarWidth(Float_t barwidth = 0.5)
   # tdrStyle.SetPaintTextFormat(const char* format = "g")
   # tdrStyle.SetPalette(Int_t ncolors = 0, Int_t* colors = 0)
+  tdrStyle.SetPalette(1)
   # tdrStyle.SetTimeOffset(Double_t toffset)
   # tdrStyle.SetHistMinimumZero(kTRUE)
 
@@ -201,7 +202,6 @@ cmsTextFont   = 61  # default is helvetic-bold
 
 writeExtraText = True#False
 isSimulation = True#False
-extraText   = TString("Preliminary")
 extraTextFont = 52  # default is helvetica-italics
 
 # text sizes and text offsets with respect to the top frame
@@ -236,7 +236,7 @@ def CMS_lumi(pad, iPeriod=3, iPosX=10) :
   global cmsTextFont
   global writeExtraText
   global isSimulation
-  global extraText
+  extraText   = TString("Preliminary")
   global extraTextFont
   global lumiTextSize
   global lumiTextOffset
@@ -386,7 +386,7 @@ def CMS_lumi(pad, iPeriod=3, iPosX=10) :
       latex.SetTextSize(extraTextSize*t)
       latex.SetTextAlign(align_)
       if(isSimulation) :
-          extraText = Form("Simulation %s",extraText.Data())
+          extraText = "Simulation "+str(extraText)
       latex.DrawLatex(posX_, posY_, str(extraText))
   return
 
