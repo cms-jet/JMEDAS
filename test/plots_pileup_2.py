@@ -2,7 +2,7 @@ from ROOT import *
 from Analysis.JMEDAS.tdrstyle_mod14 import *
 
 # Flag to turn PUPPI jets on or off
-doPUPPI = True
+doPUPPI = False
 
 # Set the ROOT style
 gROOT.Macro("rootlogon.C")
@@ -16,7 +16,6 @@ settings = {'response' : (0.0,2.0,0.0,1700,"Response (p_{T}^{RECO}/p_{T}^{GEN})"
 			}
 
 # Create and draw the canvas
-#frames = [TH1D(),TH1D(),TH1D(),TH1D()]
 frames = []
 for f, s in enumerate(settings) :
 	frame = TH1D()
