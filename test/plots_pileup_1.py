@@ -6,10 +6,10 @@ gROOT.Macro("rootlogon.C")
 setTDRStyle()
 
 #Settings for each of the pads in the canvas
-settings = {'X'         : (0.0,40.0,0.0,1500,"X","Number of Jets"), #2
-			'RhoVsNpv'  : (0.0,40.0,0.0,40.0,"N_{PV}","#rho"), #1
-			'NpvVsTnpu' : (0.0,40.0,0.0,40.0,"#mu","N_{PV}"), #4
-			'RhoVsTnpu'	: (0.0,40.0,0.0,40.0,"#mu","#rho") #3
+settings = {'X'         : (0.0,40.0,0.0,1500,"X","Number of Jets"),
+			'RhoVsNpv'  : (0.0,40.0,0.0,40.0,"N_{PV}","#rho"),
+			'NpvVsTnpu' : (0.0,40.0,0.0,40.0,"#mu","N_{PV}"),
+			'RhoVsTnpu'	: (0.0,40.0,0.0,40.0,"#mu","#rho")
 			}
 
 # Create and draw the canvas
