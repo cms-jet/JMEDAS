@@ -383,6 +383,10 @@ void pileupTreeMaker::analyze(const edm::Event& iEvent,
     PUNtuple_->muphi[i] = muPtr->phi();
     PUNtuple_->mue[i]   = muPtr->energy();
 
+    //Raw Isolation
+    //I = [sumChargedHadronPt+ max(0.,sumNeutralHadronPt+sumPhotonPt]/pt
+    PUNtuple_->muIsoSTAND[i] = ((*VMCHSTAND)[muPtr] + max(0.0,(*VMNHSTAND)[muPtr]+(*VMPhSTAND)[muPtr]))/muPtr->pt();
+
     //Delta Beta (see https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideMuonId#Muon_Isolation for more details)
     //I = [sumChargedHadronPt+ max(0.,sumNeutralHadronPt+sumPhotonPt-0.5sumPUPt]/pt
     PUNtuple_->muIsoSTAND[i] = ((*VMCHSTAND)[muPtr] + max(0.0,(*VMNHSTAND)[muPtr]+(*VMPhSTAND)[muPtr]-(0.5*(*VMPUSTAND)[muPtr])))/muPtr->pt();

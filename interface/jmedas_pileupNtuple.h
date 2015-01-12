@@ -65,6 +65,7 @@ public :
    Float_t         mueta[92];   //[nmu]
    Float_t         muphi[92];   //[nmu]
    Float_t         mue[92];   //[nmu]
+   Float_t         muIsoRAW[92];   //[nmu]
    Float_t         muIsoSTAND[92];   //[nmu]
    Float_t         muIsoPFWGT[92];   //[nmu]
    Float_t         muIsoPUPPI[92];   //[nmu]
@@ -111,6 +112,7 @@ public :
    TBranch        *b_mueta;   //!
    TBranch        *b_muphi;   //!
    TBranch        *b_mue;   //!
+   TBranch        *b_muIsoRAW;   //!
    TBranch        *b_muIsoSTAND;   //!
    TBranch        *b_muIsoPFWGT;   //!
    TBranch        *b_muIsoPUPPI;   //!
@@ -227,6 +229,7 @@ void pileupNtuple::MakeTree(TTree *tree)
    fChain->Branch("mueta", mueta, "mueta[nmu]/F");
    fChain->Branch("muphi", muphi, "muphi[nmu]/F");
    fChain->Branch("mue", mue, "mue[nmu]/F");
+   fChain->Branch("muIsoRAW", muIsoRAW, "muIsoRAW[nmu]/F");
    fChain->Branch("muIsoSTAND", muIsoSTAND, "muIsoSTAND[nmu]/F");
    fChain->Branch("muIsoPFWGT", muIsoPFWGT, "muIsoPFWGT[nmu]/F");
    fChain->Branch("muIsoPUPPI", muIsoPUPPI, "muIsoPUPPI[nmu]/F");
@@ -295,6 +298,7 @@ void pileupNtuple::Init(TTree *tree)
    fChain->SetBranchAddress("mueta", mueta, &b_mueta);
    fChain->SetBranchAddress("muphi", muphi, &b_muphi);
    fChain->SetBranchAddress("mue", mue, &b_mue);
+   fChain->SetBranchAddress("muIsoRAW", muIsoRAW, &b_muIsoRAW);
    fChain->SetBranchAddress("muIsoSTAND", muIsoSTAND, &b_muIsoSTAND);
    fChain->SetBranchAddress("muIsoPFWGT", muIsoPFWGT, &b_muIsoPFWGT);
    fChain->SetBranchAddress("muIsoPUPPI", muIsoPUPPI, &b_muIsoPUPPI);
