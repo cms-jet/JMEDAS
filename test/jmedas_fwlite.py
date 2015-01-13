@@ -240,7 +240,7 @@ files = []
 nevents = 0
 for ifile in filesraw :
     if len( ifile ) > 2 : 
-        s = 'xrootd://' + options.xrootd + '/' + ifile.rstrip()
+        s = 'root://' + options.xrootd + '/' + ifile.rstrip()
         files.append( s )
         print 'Added ' + s
 
