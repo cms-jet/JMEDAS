@@ -6,7 +6,7 @@ gROOT.Macro("rootlogon.C")
 setTDRStyle()
 
 #Settings for each of the pads in the canvas
-settings = {'X'         : (0.0,40.0,0.0,1500,"X","Number of Jets"),
+settings = {'X'         : (0.0,40.0,0.0,0.16,"X","a.u."),
 			'RhoVsNpv'  : (0.0,40.0,0.0,40.0,"N_{PV}","#rho"),
 			'NpvVsTnpu' : (0.0,40.0,0.0,40.0,"#mu","N_{PV}"),
 			'RhoVsTnpu'	: (0.0,40.0,0.0,40.0,"#mu","#rho")
@@ -45,6 +45,10 @@ tAK4PFchs.Draw("npv>>hAK4PFchs_npv","","goff")
 tAK4PFchs.Draw("rho>>hAK4PFchs_rho","","goff")
 tAK4PFchs.Draw("npus[12]>>hAK4PFchs_npu","","goff")
 tAK4PFchs.Draw("tnpus[12]>>hAK4PFchs_tnpu","","goff")
+hAK4PFchs_npv.Scale(1.0/hAK4PFchs_npv.Integral())
+hAK4PFchs_rho.Scale(1.0/hAK4PFchs_rho.Integral())
+hAK4PFchs_npu.Scale(1.0/hAK4PFchs_npu.Integral())
+hAK4PFchs_tnpu.Scale(1.0/hAK4PFchs_tnpu.Integral())
 c.cd(1)
 tAK4PFchs.Draw("rho:npv","","colz")
 c.cd(4)

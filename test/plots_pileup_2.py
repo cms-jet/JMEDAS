@@ -9,10 +9,10 @@ gROOT.Macro("rootlogon.C")
 setTDRStyle()
 
 #Settings for each of the pads in the canvas
-settings = {'response' : (0.0,2.0,0.0,1700,"Response (p_{T}^{RECO}/p_{T}^{GEN})","Number of Jets",False),
-			'pt'       : (10.0,200.0,0.0,6000,"p_{T}^{RECO}","Number of Jets",True),
-			'eta' 	   : (-5,5,0.0,800,"#eta","Number of Jets",False),
-			'phi' 	   : (-3.14159,3.14159,0.0,350,"#phi","Number of Jets",False)
+settings = {'response' : (0.0,2.0,0.0,0.12,"Response (p_{T}^{RECO}/p_{T}^{GEN})","a.u.",False),
+			'pt'       : (30.0,200.0,0.0,0.26,"p_{T}^{RECO}","a.u.",True),
+			'eta' 	   : (-5,5,0.0,0.07,"#eta","a.u.",False),
+			'phi' 	   : (-3.14159,3.14159,0.0,0.04,"#phi","a.u.",False)
 			}
 
 # Create and draw the canvas
@@ -44,26 +44,40 @@ hAK4PUPPI_response   = TH1D("hAK4PUPPI_response","hAK4PUPPI_response",80,0,2)
 hAK4PFchs_pt   		 = TH1D("hAK4PFchs_pt","hAK4PFchs_pt",200,0,1000)
 hAK4PFchsl1_pt 		 = TH1D("hAK4PFchsl1_pt","hAK4PFchsl1_pt",200,0,1000)
 hAK4PUPPI_pt   		 = TH1D("hAK4PUPPI_pt","hAK4PUPPI_pt",200,0,1000)
-hAK4PFchs_eta   	 = TH1D("hAK4PFchs_eta","hAK4PFchs_eta",100,-5,5)
-hAK4PFchsl1_eta 	 = TH1D("hAK4PFchsl1_eta","hAK4PFchsl1_eta",100,-5,5)
-hAK4PUPPI_eta   	 = TH1D("hAK4PUPPI_eta","hAK4PUPPI_eta",100,-5,5)
-hAK4PFchs_phi   	 = TH1D("hAK4PFchs_phi","hAK4PFchs_phi",100,-3.14159,3.14159)
-hAK4PFchsl1_phi 	 = TH1D("hAK4PFchsl1_phi","hAK4PFchsl1_phi",100,-3.14159,3.14159)
-hAK4PUPPI_phi   	 = TH1D("hAK4PUPPI_phi","hAK4PUPPI_phi",100,-3.14159,3.14159)
+hAK4PFchs_eta   	 = TH1D("hAK4PFchs_eta","hAK4PFchs_eta",50,-5,5)
+hAK4PFchsl1_eta 	 = TH1D("hAK4PFchsl1_eta","hAK4PFchsl1_eta",50,-5,5)
+hAK4PUPPI_eta   	 = TH1D("hAK4PUPPI_eta","hAK4PUPPI_eta",50,-5,5)
+hAK4PFchs_phi   	 = TH1D("hAK4PFchs_phi","hAK4PFchs_phi",50,-3.14159,3.14159)
+hAK4PFchsl1_phi 	 = TH1D("hAK4PFchsl1_phi","hAK4PFchsl1_phi",50,-3.14159,3.14159)
+hAK4PUPPI_phi   	 = TH1D("hAK4PUPPI_phi","hAK4PUPPI_phi",50,-3.14159,3.14159)
 
 # Fill the histograms
-tAK4PFchs.Draw("jtpt/refpt>>hAK4PFchs_response","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>10 && jteta<1.3","goff")
-tAK4PFchs.Draw("jtpt>>hAK4PFchs_pt","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>10 && jteta<1.3","goff")
-tAK4PFchs.Draw("jteta>>hAK4PFchs_eta","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>10","goff")
-tAK4PFchs.Draw("jtphi>>hAK4PFchs_phi","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>10 && jteta<1.3","goff")
-tAK4PFchsl1.Draw("jtpt/refpt>>hAK4PFchsl1_response","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>10 && jteta<1.3","goff")
-tAK4PFchsl1.Draw("jtpt>>hAK4PFchsl1_pt","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>10 && jteta<1.3","goff")
-tAK4PFchsl1.Draw("jteta>>hAK4PFchsl1_eta","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>10","goff")
-tAK4PFchsl1.Draw("jtphi>>hAK4PFchsl1_phi","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>10 && jteta<1.3","goff")
-tAK4PUPPI.Draw("jtpt/refpt>>hAK4PUPPI_response","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>10 && jteta<1.3","goff")
-tAK4PUPPI.Draw("jtpt>>hAK4PUPPI_pt","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>10 && jteta<1.3","goff")
-tAK4PUPPI.Draw("jteta>>hAK4PUPPI_eta","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>10","goff")
-tAK4PUPPI.Draw("jtphi>>hAK4PUPPI_phi","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>10 && jteta<1.3","goff")
+tAK4PFchs.Draw("jtpt/refpt>>hAK4PFchs_response","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
+tAK4PFchs.Draw("jtpt>>hAK4PFchs_pt","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
+tAK4PFchs.Draw("jteta>>hAK4PFchs_eta","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30","goff")
+tAK4PFchs.Draw("jtphi>>hAK4PFchs_phi","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
+tAK4PFchsl1.Draw("jtpt/refpt>>hAK4PFchsl1_response","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
+tAK4PFchsl1.Draw("jtpt>>hAK4PFchsl1_pt","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
+tAK4PFchsl1.Draw("jteta>>hAK4PFchsl1_eta","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30","goff")
+tAK4PFchsl1.Draw("jtphi>>hAK4PFchsl1_phi","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
+tAK4PUPPI.Draw("jtpt/refpt>>hAK4PUPPI_response","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
+tAK4PUPPI.Draw("jtpt>>hAK4PUPPI_pt","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
+tAK4PUPPI.Draw("jteta>>hAK4PUPPI_eta","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30","goff")
+tAK4PUPPI.Draw("jtphi>>hAK4PUPPI_phi","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
+
+#Normalize the histograms
+hAK4PFchs_response.Scale(1.0/hAK4PFchs_response.Integral())
+hAK4PFchsl1_response.Scale(1.0/hAK4PFchsl1_response.Integral())
+hAK4PUPPI_response.Scale(1.0/hAK4PUPPI_response.Integral())
+hAK4PFchs_pt.Scale(1.0/hAK4PFchs_pt.Integral())
+hAK4PFchsl1_pt.Scale(1.0/hAK4PFchsl1_pt.Integral())
+hAK4PUPPI_pt.Scale(1.0/hAK4PUPPI_pt.Integral())
+hAK4PFchs_eta.Scale(1.0/hAK4PFchs_eta.Integral())
+hAK4PFchsl1_eta.Scale(1.0/hAK4PFchsl1_eta.Integral())
+hAK4PUPPI_eta.Scale(1.0/hAK4PUPPI_eta.Integral())
+hAK4PFchs_phi.Scale(1.0/hAK4PFchs_phi.Integral())
+hAK4PFchsl1_phi.Scale(1.0/hAK4PFchsl1_phi.Integral())
+hAK4PUPPI_phi.Scale(1.0/hAK4PUPPI_phi.Integral())
 
 #Draw the histograms
 c.cd(1)

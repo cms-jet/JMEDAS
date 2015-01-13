@@ -6,10 +6,10 @@ gROOT.Macro("rootlogon.C")
 setTDRStyle()
 
 #Settings for each of the pads in the canvas
-settings = {'isolation': (0.0,1.6,1.0,4000,"Isolation","Number of Muons",False), #1
-			'pt'       : (10.0,100.0,0.0,200,"p_{T}^{RECO}","Number of Muons",True), #4
-			'eta' 	   : (-2.4,2.4,0.0,300,"#eta","Number of Muons",False), #3
-			'phi' 	   : (-3.14159,3.14159,0.0,250,"#phi","Number of Muons",False) #2
+settings = {'isolation': (0.0,1.6,1.0,1,"Isolation","a.u.",False), #1
+			'pt'       : (10.0,100.0,0.0,0.035,"p_{T}^{RECO}","a.u.",True), #4
+			'eta' 	   : (-2.4,2.4,0.0,0.065,"#eta","a.u.",False), #3
+			'phi' 	   : (-3.14159,3.14159,0.0,0.05,"#phi","a.u.",False) #2
 			}
 
 # Create and draw the canvas
@@ -39,12 +39,19 @@ hmuon_pt   			 = TH1D("hmuon_pt","hmuon_pt",1000,0,1000)
 hmuon_eta   		 = TH1D("hmuon_eta","hmuon_eta",50,-5,5)
 hmuon_phi   		 = TH1D("hmuon_phi","hmuon_phi",30,-3.14159,3.14159)
 
-# Fill the histograms
+#Fill the histograms
 tAK4PFchs.Draw("muIsoSTAND>>hmuon_isolationSTAND","","goff")
 tAK4PFchs.Draw("muIsoPUPPI>>hmuon_isolationPUPPI","","goff")
 tAK4PFchs.Draw("mupt>>hmuon_pt","","goff")
 tAK4PFchs.Draw("mueta>>hmuon_eta","","goff")
 tAK4PFchs.Draw("muphi>>hmuon_phi","","goff")
+
+#Normalized the histograms
+hmuon_isolationSTAND.Scale(1.0/hmuon_isolationSTAND.Integral())
+hmuon_isolationPUPPI.Scale(1.0/hmuon_isolationPUPPI.Integral())
+hmuon_pt.Scale(1.0/hmuon_pt.Integral())
+hmuon_eta.Scale(1.0/hmuon_eta.Integral())
+hmuon_phi.Scale(1.0/hmuon_phi.Integral())
 
 #Draw the histograms
 c.cd(1)
