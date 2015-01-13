@@ -69,6 +69,13 @@ parser.add_option('--maxAK4Rapidity', type='float', action='store',
                   dest='maxAK4Rapidity',
                   help='Maximum AK4 rapidity')
 
+
+parser.add_option('--xrootd', type='string', action='store',
+                  default='cmsxrootd.fnal.gov',
+                  dest='xrootd',
+                  help='xrootd redirect string')
+
+
 (options, args) = parser.parse_args()
 argv = []
 
@@ -233,7 +240,7 @@ files = []
 nevents = 0
 for ifile in filesraw :
     if len( ifile ) > 2 : 
-        s = 'root://cmsxrootd.fnal.gov/' + ifile.rstrip()
+        s = 'xrootd://' + options.xrootd + '/' + ifile.rstrip()
         files.append( s )
         print 'Added ' + s
 
