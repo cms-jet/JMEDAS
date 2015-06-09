@@ -11,7 +11,7 @@
 #include <TFile.h>
 #include <TLorentzVector.h> 
 #include <cmath>
-#include "DataFormats/JetReco/interface/CATopJetTagInfo.h"
+#include "DataFormats/BTauReco/interface/CATopJetTagInfo.h"
 #include "DataFormats/Math/interface/LorentzVector.h"
 #include "DataFormats/Math/interface/Vector.h"
 #include "DataFormats/PatCandidates/interface/Jet.h"
