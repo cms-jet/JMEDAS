@@ -22,6 +22,7 @@
 <use   name="rootmath"/>
 <use   name="rootcore"/>
 <use   name="rootMinuit"/>
+<use   name="fastjet"/>
 <flags   EDM_PLUGIN="1"/>
 <export>
   <lib   name="1"/>
