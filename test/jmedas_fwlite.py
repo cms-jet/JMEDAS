@@ -163,6 +163,7 @@ h_yAK8 = ROOT.TH1F("h_yAK8", "AK8 Jet Rapidity;y", 120, -6, 6)
 h_phiAK8 = ROOT.TH1F("h_phiAK8", "AK8 Jet #phi;#phi (radians)",100,-ROOT.Math.Pi(),ROOT.Math.Pi())
 h_mAK8 = ROOT.TH1F("h_mAK8", "AK8 Jet Mass;Mass (GeV)", 100, 0, 1000)
 h_areaAK8 = ROOT.TH1F("h_areaAK8", "AK8 Jet Area;Area", 250, 0, 5.0)
+h_msoftdropAK8 = ROOT.TH1F("h_msoftdropAK8", "AK8 Softdrop Jet Mass;Mass (GeV)", 100, 0, 1000)
 h_mprunedAK8 = ROOT.TH1F("h_mprunedAK8", "AK8 Pruned Jet Mass;Mass (GeV)", 100, 0, 1000)
 h_mfilteredAK8 = ROOT.TH1F("h_mfilteredAK8", "AK8 Filtered Jet Mass;Mass (GeV)", 100, 0, 1000)
 h_mtrimmedAK8 = ROOT.TH1F("h_mtrimmedAK8", "AK8 Trimmed Jet Mass;Mass (GeV)", 100, 0, 1000)
@@ -271,15 +272,17 @@ for ifile in files :
         ##         \/        \/    |__|                \/                                       \/ 
 
 
-	# get rho and vertices for JEC
-	event.getByLabel (rhoLabel, rhoHandle)
-	event.getByLabel (pvLabel, pvHandle)
+        # get rho and vertices for JEC
+        event.getByLabel (rhoLabel, rhoHandle)
+        event.getByLabel (pvLabel, pvHandle)
 
-	rhoValue = rhoHandle.product()
-	pvs = pvHandle.product()
-	#print rhoValue[0]
+        rhoValue = rhoHandle.product()
+        pvs = pvHandle.product()
+        #print rhoValue[0]
 
 
+        if options.verbose :
+            print '------ AK4 jets ------'
         # use getByLabel, just like in cmsRun
         event.getByLabel (jetlabel0, jethandle0)
         # get the product
@@ -294,7 +297,11 @@ for ifile in files :
                 
                 #FInd the jet correction
                 uncorrJet = copy.copy( jet.correctedP4(0) ) # For some reason, in python this is interfering with jet.genJet() in strange ways without the copy.copy
-            
+
+                if uncorrJet.E() < 0.00001 :
+                    print 'Very strange. Uncorrected jet E = ' + str( uncorrJet.E()) + ', but Corrected jet E = ' + str( jet.energy() )
+                    continue
+                    
                 # Apply jet ID to uncorrected jet
                 nhf = jet.neutralHadronEnergy() / uncorrJet.E()
                 nef = jet.neutralEmEnergy() / uncorrJet.E()
@@ -400,7 +407,8 @@ for ifile in files :
         ## /    |    \    |  \/   --   \ /\__|    \  ___/|  |    |    |   |  |_(  <_> )  |  \___ \ 
         ## \____|__  /____|__ \______  / \________|\___  >__|    |____|   |____/\____/|__| /____  >
         ##         \/        \/      \/                \/                                       \/ 
-
+        if options.verbose :
+            print '------ AK8 jets ------'
         # use getByLabel, just like in cmsRun
         event.getByLabel (jetlabel1, jethandle1)
         # get the product
@@ -415,6 +423,9 @@ for ifile in files :
                 #FInd the jet correction
                 uncorrJet = copy.copy( jet.correctedP4(0) ) # For some reason, in python this is interfering with jet.genJet() in strange ways without the copy.copy
 
+
+                if uncorrJet.E() < 0.000001 :
+                    continue
                 # Apply jet ID to uncorrected jet
                 nhf = jet.neutralHadronEnergy() / uncorrJet.E()
                 nef = jet.neutralEmEnergy() / uncorrJet.E()
@@ -491,9 +502,10 @@ for ifile in files :
                 h_phiAK8.Fill( jet.phi() )
                 h_mAK8.Fill( jet.mass() )
                 h_areaAK8.Fill( jet.jetArea() )
-                h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSPrunedLinks') )
-                h_mtrimmedAK8.Fill( jet.userFloat('ak8PFJetsCHSTrimmedLinks') )
-                h_mfilteredAK8.Fill( jet.userFloat('ak8PFJetsCHSFilteredLinks') )
+                h_msoftdropAK8.Fill( jet.userFloat('ak8PFJetsCHSSoftdropMass') )
+                h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSPrunedMass') )
+                h_mtrimmedAK8.Fill( jet.userFloat('ak8PFJetsCHSTrimmedMass') )
+                h_mfilteredAK8.Fill( jet.userFloat('ak8PFJetsCHSFilteredMass') )
                 # Make sure there are top tags if we want to plot them 
                 tagInfoLabels = jet.tagInfoLabels()
                 hasTopTagInfo = 'caTop' in tagInfoLabels 
@@ -528,15 +540,18 @@ for ifile in files :
                     h_areaAK8Gen.Fill( genJet.jetArea() )                    
                 if options.verbose == True :
                     if hasTopTagInfo : 
-                        print 'Jet {0:4.0f}, pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, nda = {5:3.0f}, pruned m = {6:6.2f}, trimmed m = {7:6.2f}, filtered m = {8:6.2f}, topmass = {9:6.2f}, minmass = {10:6.2f}'.format(
-                            ijet, jet.pt(), jet.eta(), jet.phi(), jet.mass(), jet.numberOfDaughters(), 
-                            jet.userFloat('ak8PFJetsCHSPrunedLinks'), jet.userFloat('ak8PFJetsCHSTrimmedLinks'), jet.userFloat('ak8PFJetsCHSFilteredLinks'),
+                        print 'Jet {0:4.0f}, pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, nda = {5:3.0f}, softdrop m = {6:6.2f}, pruned m = {7:6.2f}, trimmed m = {8:6.2f}, filtered m = {9:6.2f}, topmass = {10:6.2f}, minmass = {11:6.2f}'.format(
+                            ijet, jet.pt(), jet.eta(), jet.phi(), jet.mass(), jet.numberOfDaughters(),
+                            jet.userFloat('ak8PFJetsCHSSoftDropMass'),
+                            jet.userFloat('ak8PFJetsCHSPrunedMass'), jet.userFloat('ak8PFJetsCHSTrimmedMass'), jet.userFloat('ak8PFJetsCHSFilteredMass'),
                             jet.tagInfo('caTop').properties().topMass, jet.tagInfo('caTop').properties().minMass
                             )
                     else :
-                        print 'Jet {0:4.0f}, pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, nda = {5:3.0f}, pruned m = {6:6.2f}, trimmed m = {7:6.2f}, filtered m = {8:6.2f}, topmass = {9:6.2f}, minmass = {10:6.2f}'.format(
-                            ijet, jet.pt(), jet.eta(), jet.phi(), jet.mass(), jet.numberOfDaughters(), 
-                            jet.userFloat('ak8PFJetsCHSPrunedLinks'), jet.userFloat('ak8PFJetsCHSTrimmedLinks'), jet.userFloat('ak8PFJetsCHSFilteredLinks'), -1.0, -1.0
+                       print 'Jet {0:4.0f}, pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, nda = {5:3.0f}, softdrop m = {6:6.2f}, pruned m = {7:6.2f}, trimmed m = {8:6.2f}, filtered m = {9:6.2f}, topmass = {10:6.2f}, minmass = {11:6.2f}'.format(
+                            ijet, jet.pt(), jet.eta(), jet.phi(), jet.mass(), jet.numberOfDaughters(),
+                            jet.userFloat('ak8PFJetsCHSSoftDropMass'),
+                            jet.userFloat('ak8PFJetsCHSPrunedMass'), jet.userFloat('ak8PFJetsCHSTrimmedMass'), jet.userFloat('ak8PFJetsCHSFilteredMass'),
+                            -1.0, -1.0
                             )
             ijet += 1
 
