@@ -502,7 +502,7 @@ for ifile in files :
                 h_phiAK8.Fill( jet.phi() )
                 h_mAK8.Fill( jet.mass() )
                 h_areaAK8.Fill( jet.jetArea() )
-                h_msoftdropAK8.Fill( jet.userFloat('ak8PFJetsCHSSoftdropMass') )
+                h_msoftdropAK8.Fill( jet.userFloat('ak8PFJetsCHSSoftDropMass') )
                 h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSPrunedMass') )
                 h_mtrimmedAK8.Fill( jet.userFloat('ak8PFJetsCHSTrimmedMass') )
                 h_mfilteredAK8.Fill( jet.userFloat('ak8PFJetsCHSFilteredMass') )

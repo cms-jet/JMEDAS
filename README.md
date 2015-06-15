@@ -11,6 +11,8 @@ JME POG CMS Data Analysis School (CMSDAS) exercise
 
 `git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS`
 
+`git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_74X`
+
 `cd Analysis/JMEDAS`
 
 `scram b -j 10`
@@ -20,3 +22,7 @@ JME POG CMS Data Analysis School (CMSDAS) exercise
 `voms-proxy-init`
 
 `python jmedas_fwlite.py --files qcdflat.txt  --outname qcdflat.root`
+
+Later in the exercise we will do:
+
+`cr ClusterWithToolboxAndMakeHistos.py`
