@@ -315,10 +315,10 @@ void treeMaker::analyze(const edm::Event& iEvent,
      //L1FastJet = 1
      //L2Relative = 2
      //L3Absolute = 3
-     try {
+     if(jet.jecSetsAvailable()) {
        PUNtuple_->jtjec[nref_]=1.0/jet.jecFactor(0);
      }
-     catch(int e) {
+     else {
       PUNtuple_->jtjec[nref_]=1.0;
      }
 
