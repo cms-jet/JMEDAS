@@ -129,16 +129,6 @@ pileupTreeMaker::pileupTreeMaker(const edm::ParameterSet& iConfig)
   , srcJet_        (iConfig.getParameter<edm::InputTag>                 ("srcJet"))
   , srcRho_        (iConfig.getParameter<edm::InputTag>                 ("srcRho"))
   , srcVtx_        (iConfig.getParameter<edm::InputTag>                 ("srcVtx"))
-  , srcMuons_      (iConfig.getParameter<edm::InputTag>               ("srcMuons"))
-  , srcVMCHSTAND_  (iConfig.getParameter<edm::InputTag>           ("srcVMCHSTAND"))
-  , srcVMNHSTAND_  (iConfig.getParameter<edm::InputTag>           ("srcVMNHSTAND"))
-  , srcVMPhSTAND_  (iConfig.getParameter<edm::InputTag>           ("srcVMPhSTAND"))
-  , srcVMPUSTAND_  (iConfig.getParameter<edm::InputTag>           ("srcVMPUSTAND"))
-  , srcVMNHPFWGT_  (iConfig.getParameter<edm::InputTag>           ("srcVMNHPFWGT"))
-  , srcVMPhPFWGT_  (iConfig.getParameter<edm::InputTag>           ("srcVMPhPFWGT"))
-  , srcVMCHPUPPI_  (iConfig.getParameter<edm::InputTag>           ("srcVMCHPUPPI"))
-  , srcVMNHPUPPI_  (iConfig.getParameter<edm::InputTag>           ("srcVMNHPUPPI"))
-  , srcVMPhPUPPI_  (iConfig.getParameter<edm::InputTag>           ("srcVMPhPUPPI"))
   , doComposition_ (iConfig.getParameter<bool>                   ("doComposition"))
   , doFlavor_      (iConfig.getParameter<bool>                        ("doFlavor"))
   , nJetMax_       (iConfig.getParameter<unsigned int>                 ("nJetMax"))
@@ -147,6 +137,20 @@ pileupTreeMaker::pileupTreeMaker(const edm::ParameterSet& iConfig)
   , deltaRPartonMax_(0.0)
   , jetCorrector_(0)
 {
+
+   if(iConfig.exists("srcMuons")) {
+      srcMuons_     = iConfig.getParameter<edm::InputTag>    ("srcMuons");
+      srcVMCHSTAND_ = iConfig.getParameter<edm::InputTag>("srcVMCHSTAND");
+      srcVMNHSTAND_ = iConfig.getParameter<edm::InputTag>("srcVMNHSTAND");
+      srcVMPhSTAND_ = iConfig.getParameter<edm::InputTag>("srcVMPhSTAND");
+      srcVMPUSTAND_ = iConfig.getParameter<edm::InputTag>("srcVMPUSTAND");
+      srcVMNHPFWGT_ = iConfig.getParameter<edm::InputTag>("srcVMNHPFWGT");
+      srcVMPhPFWGT_ = iConfig.getParameter<edm::InputTag>("srcVMPhPFWGT");
+      srcVMCHPUPPI_ = iConfig.getParameter<edm::InputTag>("srcVMCHPUPPI");
+      srcVMNHPUPPI_ = iConfig.getParameter<edm::InputTag>("srcVMNHPUPPI");
+      srcVMPhPUPPI_ = iConfig.getParameter<edm::InputTag>("srcVMPhPUPPI");
+         }
+
   if (iConfig.exists("deltaRMax")) {
     deltaRMax_=iConfig.getParameter<double>("deltaRMax");
   }
@@ -156,12 +160,12 @@ pileupTreeMaker::pileupTreeMaker(const edm::ParameterSet& iConfig)
 
   // Jet CORRECTOR
   if(!JetCorLevels_.empty()) {
-    vector<JetCorrectorParameters> vPar;
-    string jetCorPar = "../data/PHYS14_V2_MC_L1FastJet_"+JetCorLabel_.substr(0,JetCorLabel_.size()-2)+".txt";
-    cout << "Getting JEC from file " << jetCorPar  << " ... ";
-    vPar.push_back(JetCorrectorParameters(jetCorPar));
-    jetCorrector_ = new FactorizedJetCorrector(vPar);
-    cout << "DONE" << endl;
+     vector<JetCorrectorParameters> vPar;
+     string jetCorPar = "../data/PHYS14_V2_MC_L1FastJet_"+JetCorLabel_.substr(0,JetCorLabel_.size()-2)+".txt";
+     cout << "Getting JEC from file " << jetCorPar  << " ... ";
+     vPar.push_back(JetCorrectorParameters(jetCorPar));
+     jetCorrector_ = new FactorizedJetCorrector(vPar);
+     cout << "DONE" << endl;
   }
   
 }
@@ -336,6 +340,9 @@ void pileupTreeMaker::analyze(const edm::Event& iEvent,
         jetCorrector_->setRho(PUNtuple_->rho);
         jetCorrector_->setNPV(PUNtuple_->npv);
         PUNtuple_->jtjec[nref_]=jetCorrector_->getCorrection();
+        //for(unsigned int ijec = 0; ijec<jet.availableJECLevels().size(); ijec++) {
+        //   cout << jet.availableJECLevels()[ijec] << endl;
+        //}
      }
      else {
         PUNtuple_->jtjec[nref_]=1.0;
@@ -363,39 +370,41 @@ void pileupTreeMaker::analyze(const edm::Event& iEvent,
   
 
   // MUON SECTION
-  iEvent.getByLabel(srcMuons_, muons);
-  iEvent.getByLabel(srcVMCHSTAND_, VMCHSTAND);
-  iEvent.getByLabel(srcVMNHSTAND_, VMNHSTAND);
-  iEvent.getByLabel(srcVMPhSTAND_, VMPhSTAND);
-  iEvent.getByLabel(srcVMPUSTAND_, VMPUSTAND);
-  iEvent.getByLabel(srcVMNHPFWGT_, VMNHPFWGT);
-  iEvent.getByLabel(srcVMPhPFWGT_, VMPhPFWGT);
-  iEvent.getByLabel(srcVMCHPUPPI_, VMCHPUPPI);
-  iEvent.getByLabel(srcVMNHPUPPI_, VMNHPUPPI);
-  iEvent.getByLabel(srcVMPhPUPPI_, VMPhPUPPI);
-
-  PUNtuple_->nmu = muons->size();
-  //for(auto iMuon = muons->begin(); iMuon!=muons->end(); ++iMuon) {
-  for(size_t i = 0, n = muons->size(); i < n; ++i) {
-    edm::Ptr<pat::Muon> muPtr = muons->ptrAt(i);
-    PUNtuple_->mupt[i]  = muPtr->pt();
-    PUNtuple_->mueta[i] = muPtr->eta();
-    PUNtuple_->muphi[i] = muPtr->phi();
-    PUNtuple_->mue[i]   = muPtr->energy();
-
-    //Raw Isolation
-    //I = [sumChargedHadronPt+ max(0.,sumNeutralHadronPt+sumPhotonPt]/pt
-    PUNtuple_->muIsoSTAND[i] = ((*VMCHSTAND)[muPtr] + max(0.0,(*VMNHSTAND)[muPtr]+(*VMPhSTAND)[muPtr]))/muPtr->pt();
-
-    //Delta Beta (see https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideMuonId#Muon_Isolation for more details)
-    //I = [sumChargedHadronPt+ max(0.,sumNeutralHadronPt+sumPhotonPt-0.5sumPUPt]/pt
-    PUNtuple_->muIsoSTAND[i] = ((*VMCHSTAND)[muPtr] + max(0.0,(*VMNHSTAND)[muPtr]+(*VMPhSTAND)[muPtr]-(0.5*(*VMPUSTAND)[muPtr])))/muPtr->pt();
+  if(srcMuons_.label()!="") {
+     iEvent.getByLabel(srcMuons_, muons);
+     iEvent.getByLabel(srcVMCHSTAND_, VMCHSTAND);
+     iEvent.getByLabel(srcVMNHSTAND_, VMNHSTAND);
+     iEvent.getByLabel(srcVMPhSTAND_, VMPhSTAND);
+     iEvent.getByLabel(srcVMPUSTAND_, VMPUSTAND);
+     iEvent.getByLabel(srcVMNHPFWGT_, VMNHPFWGT);
+     iEvent.getByLabel(srcVMPhPFWGT_, VMPhPFWGT);
+     iEvent.getByLabel(srcVMCHPUPPI_, VMCHPUPPI);
+     iEvent.getByLabel(srcVMNHPUPPI_, VMNHPUPPI);
+     iEvent.getByLabel(srcVMPhPUPPI_, VMPhPUPPI);
+     
+     PUNtuple_->nmu = muons->size();
+     //for(auto iMuon = muons->begin(); iMuon!=muons->end(); ++iMuon) {
+     for(size_t i = 0, n = muons->size(); i < n; ++i) {
+        edm::Ptr<pat::Muon> muPtr = muons->ptrAt(i);
+        PUNtuple_->mupt[i]  = muPtr->pt();
+        PUNtuple_->mueta[i] = muPtr->eta();
+        PUNtuple_->muphi[i] = muPtr->phi();
+        PUNtuple_->mue[i]   = muPtr->energy();
+        
+        //Raw Isolation
+        //I = [sumChargedHadronPt+ max(0.,sumNeutralHadronPt+sumPhotonPt]/pt
+        PUNtuple_->muIsoSTAND[i] = ((*VMCHSTAND)[muPtr] + max(0.0,(*VMNHSTAND)[muPtr]+(*VMPhSTAND)[muPtr]))/muPtr->pt();
+        
+        //Delta Beta (see https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideMuonId#Muon_Isolation for more details)
+        //I = [sumChargedHadronPt+ max(0.,sumNeutralHadronPt+sumPhotonPt-0.5sumPUPt]/pt
+        PUNtuple_->muIsoSTAND[i] = ((*VMCHSTAND)[muPtr] + max(0.0,(*VMNHSTAND)[muPtr]+(*VMPhSTAND)[muPtr]-(0.5*(*VMPUSTAND)[muPtr])))/muPtr->pt();
+        
+        // PF Weighted (see https://twiki.cern.ch/twiki/bin/viewauth/CMS/MuonIsolationForRun2 for more details)
+        PUNtuple_->muIsoPFWGT[i] = ((*VMCHSTAND)[muPtr]+(*VMNHPFWGT)[muPtr]+(*VMPhPFWGT)[muPtr])/muPtr->pt();
     
-    // PF Weighted (see https://twiki.cern.ch/twiki/bin/viewauth/CMS/MuonIsolationForRun2 for more details)
-    PUNtuple_->muIsoPFWGT[i] = ((*VMCHSTAND)[muPtr]+(*VMNHPFWGT)[muPtr]+(*VMPhPFWGT)[muPtr])/muPtr->pt();
-    
-    // PUPPI Weighted (see https://twiki.cern.ch/twiki/bin/viewauth/CMS/MuonIsolationForRun2 for more details)
-    PUNtuple_->muIsoPUPPI[i] = ((*VMCHPUPPI)[muPtr]+(*VMNHPUPPI)[muPtr]+(*VMPhPUPPI)[muPtr])/muPtr->pt();;
+        // PUPPI Weighted (see https://twiki.cern.ch/twiki/bin/viewauth/CMS/MuonIsolationForRun2 for more details)
+        PUNtuple_->muIsoPUPPI[i] = ((*VMCHPUPPI)[muPtr]+(*VMNHPUPPI)[muPtr]+(*VMPhPUPPI)[muPtr])/muPtr->pt();
+     }
   }
 
   tree_->Fill();
