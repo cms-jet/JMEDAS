@@ -116,7 +116,7 @@ private:
   
   // tree
   TTree*        tree_;
-  pileupNtuple* PUNtuple_;
+  ntuple* PUNtuple_;
 };
 
 
@@ -181,7 +181,7 @@ void treeMaker::beginJob()
 				"TFileService missing from configuration!");
   
   tree_=fs->make<TTree>("t","t");
-  PUNtuple_ = new pileupNtuple(tree_,true);
+  PUNtuple_ = new ntuple(tree_,true);
 
 }
 
@@ -315,7 +315,12 @@ void treeMaker::analyze(const edm::Event& iEvent,
      //L1FastJet = 1
      //L2Relative = 2
      //L3Absolute = 3
-     PUNtuple_->jtjec[nref_]=1.0/jet.jecFactor(0);
+     try {
+       PUNtuple_->jtjec[nref_]=1.0/jet.jecFactor(0);
+     }
+     catch(int e) {
+      PUNtuple_->jtjec[nref_]=1.0;
+     }
 
      PUNtuple_->jte[nref_]    =jet.energy()*PUNtuple_->jtjec[nref_];
      PUNtuple_->jtpt[nref_]   =jet.pt()*PUNtuple_->jtjec[nref_];

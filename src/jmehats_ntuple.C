@@ -1,4 +1,4 @@
-#define pileupNtuple_cxx
+#define ntuple_cxx
 #include "Analysis/JMEDAS/interface/jmehats_ntuple.h"
 #include <TH2.h>
 #include <TStyle.h>

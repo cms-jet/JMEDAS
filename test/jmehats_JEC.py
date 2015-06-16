@@ -33,7 +33,7 @@ PileupNtupleMakerParameters = cms.PSet(
 process = cms.Process("JRA")
 applyDBFile = False
 era = 'PHYS14_V4_MC'
-doJetToolbox = True
+doJetToolbox = False
 process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(True) )
 process.options.allowUnscheduled = cms.untracked.bool(True)
 doMiniAOD = True
