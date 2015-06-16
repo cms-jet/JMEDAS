@@ -34,7 +34,7 @@ f = TFile("JECNtuple.root")
 
 # Access and store the necessary trees
 tAK4PF   = f.Get("AK4PF/t")
-tAK4PFchs = f.Get("AK4PFchs/t")
+tAK4PFchs = f.Get("AK4PFCHS/t")
 tAK4PUPPI   = f.Get("AK4PUPPI/t")
 
 # Crease some histograms
@@ -60,24 +60,26 @@ tAK4PFchs.Draw("jtpt/refpt>>hAK4PFchs_response","jtpt/refpt<2 && jtpt/refpt>0 &&
 tAK4PFchs.Draw("jtpt>>hAK4PFchs_pt","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
 tAK4PFchs.Draw("jteta>>hAK4PFchs_eta","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30","goff")
 tAK4PFchs.Draw("jtphi>>hAK4PFchs_phi","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
-tAK4PUPPI.Draw("jtpt/refpt>>hAK4PUPPI_response","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
-tAK4PUPPI.Draw("jtpt>>hAK4PUPPI_pt","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
-tAK4PUPPI.Draw("jteta>>hAK4PUPPI_eta","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30","goff")
-tAK4PUPPI.Draw("jtphi>>hAK4PUPPI_phi","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
+if doPUPPI:
+	tAK4PUPPI.Draw("jtpt/refpt>>hAK4PUPPI_response","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
+	tAK4PUPPI.Draw("jtpt>>hAK4PUPPI_pt","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
+	tAK4PUPPI.Draw("jteta>>hAK4PUPPI_eta","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30","goff")
+	tAK4PUPPI.Draw("jtphi>>hAK4PUPPI_phi","jtpt/refpt<2 && jtpt/refpt>0 && jtpt>30 && jteta<1.3","goff")
 
 #Normalize the histograms
 hAK4PF_response.Scale(1.0/hAK4PF_response.Integral())
-hAK4PFchs_response.Scale(1.0/hAK4PFchs_response.Integral())
-hAK4PUPPI_response.Scale(1.0/hAK4PUPPI_response.Integral())
 hAK4PF_pt.Scale(1.0/hAK4PF_pt.Integral())
-hAK4PFchs_pt.Scale(1.0/hAK4PFchs_pt.Integral())
-hAK4PUPPI_pt.Scale(1.0/hAK4PUPPI_pt.Integral())
 hAK4PF_eta.Scale(1.0/hAK4PF_eta.Integral())
-hAK4PFchs_eta.Scale(1.0/hAK4PFchs_eta.Integral())
-hAK4PUPPI_eta.Scale(1.0/hAK4PUPPI_eta.Integral())
 hAK4PF_phi.Scale(1.0/hAK4PF_phi.Integral())
+hAK4PFchs_response.Scale(1.0/hAK4PFchs_response.Integral())
+hAK4PFchs_pt.Scale(1.0/hAK4PFchs_pt.Integral())
+hAK4PFchs_eta.Scale(1.0/hAK4PFchs_eta.Integral())
 hAK4PFchs_phi.Scale(1.0/hAK4PFchs_phi.Integral())
-hAK4PUPPI_phi.Scale(1.0/hAK4PUPPI_phi.Integral())
+if doPUPPI:
+	hAK4PUPPI_response.Scale(1.0/hAK4PUPPI_response.Integral())
+	hAK4PUPPI_pt.Scale(1.0/hAK4PUPPI_pt.Integral())
+	hAK4PUPPI_eta.Scale(1.0/hAK4PUPPI_eta.Integral())
+	hAK4PUPPI_phi.Scale(1.0/hAK4PUPPI_phi.Integral())
 
 #Draw the histograms
 c.cd(1)
