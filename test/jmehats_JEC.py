@@ -82,7 +82,7 @@ jetsCollections = {
 #		'jec_payloads': ['AK4PFPUPPI', 'AK4PFchs', 'AK4PF'],
 		'jec_payloads': ['AK4PFchs', 'AK4PF'],
 #		'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute']
-		'jec_levels': ['L3Absolute']
+		'jec_levels': []
 		},
 
         'AK8': {
@@ -92,7 +92,7 @@ jetsCollections = {
 #		'jec_payloads': ['AK8PFPUPPI', 'AK8PFchs', 'AK8PF'],
 		'jec_payloads': ['AK8PFchs', 'AK8PF'],
 #		'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute']
-		'jec_levels': ['L3Absolute']
+		'jec_levels': []
 		},
 	}
 
@@ -147,7 +147,10 @@ if doJetToolbox:
 	for name, params in jetsCollections.items():
 		for index, pu_method in enumerate(params['pu_methods']):
 			# Add the jet collection
-			jetToolbox(process, params['algo'], 'dummy', 'out', PUMethod = pu_method, JETCorrPayload = params['jec_payloads'][index], JETCorrLevels = params['jec_levels'], miniAOD = doMiniAOD)
+			if len(params['jec_levels'])>0:
+				jetToolbox(process, params['algo'], 'dummy', 'out', PUMethod = pu_method, JETCorrPayload = params['jec_payloads'][index], JETCorrLevels = params['jec_levels'], miniAOD = doMiniAOD)
+			else:
+				jetToolbox(process, params['algo'], 'dummy', 'out', PUMethod = pu_method, miniAOD = doMiniAOD)
 elif not doJetToolbox and doMiniAOD:
 	# https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2015#Advanced_topics_re_clustering_ev
 	from Analysis.JMEDAS.JetReconstruction_cff import *
@@ -184,20 +187,35 @@ elif not doJetToolbox and doMiniAOD:
 			from PhysicsTools.PatAlgos.tools.jetTools import *
 			from itertools import groupby
 			## Add PAT jet collection based on the above-defined ak5PFJetsCHS
-			addJetCollection(
-				process,
-				labelName = params['algo'].upper()+'PF'+pu_method,
-				jetSource = cms.InputTag(params['algo']+'PFJets'+pu_method),
-				pvSource = cms.InputTag('offlineSlimmedPrimaryVertices'),
-				pfCandidates = cms.InputTag('packedPFCandidates'),
-				svSource = cms.InputTag('slimmedSecondaryVertices'),
-				btagDiscriminators = bTagDiscriminators,
-				jetCorrections = (params['algo'].upper()+'PF'+pu_method.replace("CHS","chs"), params['jec_levels'], 'None'),
-				genJetCollection = cms.InputTag(params['algo']+'GenJetsNoNu'),
-				genParticles = cms.InputTag('prunedGenParticles'),
-				algo = [''.join(g) for _, g in groupby(params['algo'], str.isalpha)][0].upper(),
-				rParam = float([''.join(g) for _, g in groupby(params['algo'], str.isalpha)][1])/10.0
-				)
+			if len(params['jec_levels'])>0:
+				addJetCollection(
+					process,
+					labelName = params['algo'].upper()+'PF'+pu_method,
+					jetSource = cms.InputTag(params['algo']+'PFJets'+pu_method),
+					pvSource = cms.InputTag('offlineSlimmedPrimaryVertices'),
+					pfCandidates = cms.InputTag('packedPFCandidates'),
+					svSource = cms.InputTag('slimmedSecondaryVertices'),
+					btagDiscriminators = bTagDiscriminators,
+					jetCorrections = (params['algo'].upper()+'PF'+pu_method.replace("CHS","chs"), params['jec_levels'], 'None'),
+					genJetCollection = cms.InputTag(params['algo']+'GenJetsNoNu'),
+					genParticles = cms.InputTag('prunedGenParticles'),
+					algo = [''.join(g) for _, g in groupby(params['algo'], str.isalpha)][0].upper(),
+					rParam = float([''.join(g) for _, g in groupby(params['algo'], str.isalpha)][1])/10.0
+					)
+			else:
+				addJetCollection(
+					process,
+					labelName = params['algo'].upper()+'PF'+pu_method,
+					jetSource = cms.InputTag(params['algo']+'PFJets'+pu_method),
+					pvSource = cms.InputTag('offlineSlimmedPrimaryVertices'),
+					pfCandidates = cms.InputTag('packedPFCandidates'),
+					svSource = cms.InputTag('slimmedSecondaryVertices'),
+					btagDiscriminators = bTagDiscriminators,
+					genJetCollection = cms.InputTag(params['algo']+'GenJetsNoNu'),
+					genParticles = cms.InputTag('prunedGenParticles'),
+					algo = [''.join(g) for _, g in groupby(params['algo'], str.isalpha)][0].upper(),
+					rParam = float([''.join(g) for _, g in groupby(params['algo'], str.isalpha)][1])/10.0
+					)
 	
 			getattr(process,'selectedPatJets'+params['algo'].upper()+'PF'+pu_method).cut = cms.string('pt > 10')
 			setattr(process,params['algo']+'PFJets'+pu_method,eval(params['algo']+'PFJets'+pu_method))

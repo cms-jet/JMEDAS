@@ -6,7 +6,7 @@
 //                        06/15/2015 Alexx Perloff   <aperloff@physics.tamu.edu>
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "Analysis/JMEDAS/interface/jmedas_pileupNtuple.h"
+#include "Analysis/JMEDAS/interface/jmehats_ntuple.h"
 
 #include "FWCore/Framework/interface/Frameworkfwd.h"
 #include "FWCore/Framework/interface/EDAnalyzer.h"
@@ -243,6 +243,12 @@ void treeMaker::analyze(const edm::Event& iEvent,
 
      pat::Jet jet = jets->at(iJet);
      const reco::GenJet* ref = jet.genJet();
+
+     //Remove jets which are unmatched with a generator level jet
+     if(!ref) {
+      PUNtuple_->nref--;
+      continue;
+     }
 
      jesUncScale = 1.0;
       if (doJESUncertainty_) {

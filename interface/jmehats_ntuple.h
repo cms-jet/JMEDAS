@@ -4,8 +4,8 @@
 // from TTree t/t
 //////////////////////////////////////////////////////////
 
-#ifndef pileupNtuple_h
-#define pileupNtuple_h
+#ifndef ntuple_h
+#define ntuple_h
 
 #include <TROOT.h>
 #include <TChain.h>
@@ -18,7 +18,7 @@
 
 using std::vector;
 
-class pileupNtuple {
+class ntuple {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
    Int_t           fCurrent; //!current Tree number in a TChain
@@ -60,15 +60,6 @@ public :
    Float_t         jtmuf[92];   //[nref]
    Float_t         jthfhf[92];   //[nref]
    Float_t         jthfef[92];   //[nref]
-   UChar_t         nmu;
-   Float_t         mupt[92];   //[nmu]
-   Float_t         mueta[92];   //[nmu]
-   Float_t         muphi[92];   //[nmu]
-   Float_t         mue[92];   //[nmu]
-   Float_t         muIsoRAW[92];   //[nmu]
-   Float_t         muIsoSTAND[92];   //[nmu]
-   Float_t         muIsoPFWGT[92];   //[nmu]
-   Float_t         muIsoPUPPI[92];   //[nmu]
 
    // List of branches
    TBranch        *b_npus;   //!
@@ -107,18 +98,9 @@ public :
    TBranch        *b_jtmuf;   //!
    TBranch        *b_jthfhf;   //!
    TBranch        *b_jthfef;   //!
-   TBranch        *b_nmu;   //!
-   TBranch        *b_mupt;   //!
-   TBranch        *b_mueta;   //!
-   TBranch        *b_muphi;   //!
-   TBranch        *b_mue;   //!
-   TBranch        *b_muIsoRAW;   //!
-   TBranch        *b_muIsoSTAND;   //!
-   TBranch        *b_muIsoPFWGT;   //!
-   TBranch        *b_muIsoPUPPI;   //!
 
-   pileupNtuple(TTree *tree=0, bool newTree = false);
-   virtual ~pileupNtuple();
+   ntuple(TTree *tree=0, bool newTree = false);
+   virtual ~ntuple();
    virtual Int_t    Cut(Long64_t entry);
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
@@ -135,8 +117,8 @@ public :
 
 #endif
 
-#ifdef pileupNtuple_cxx
-pileupNtuple::pileupNtuple(TTree *tree, bool newTree) : fChain(0) 
+#ifdef ntuple_cxx
+ntuple::ntuple(TTree *tree, bool newTree) : fChain(0) 
 {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
@@ -148,19 +130,19 @@ pileupNtuple::pileupNtuple(TTree *tree, bool newTree) : fChain(0)
    }
 }
 
-pileupNtuple::~pileupNtuple()
+ntuple::~ntuple()
 {
    if (!fChain) return;
    delete fChain->GetCurrentFile();
 }
 
-Int_t pileupNtuple::GetEntry(Long64_t entry)
+Int_t ntuple::GetEntry(Long64_t entry)
 {
 // Read contents of entry.
    if (!fChain) return 0;
    return fChain->GetEntry(entry);
 }
-Long64_t pileupNtuple::LoadTree(Long64_t entry)
+Long64_t ntuple::LoadTree(Long64_t entry)
 {
 // Set the environment to read one entry
    if (!fChain) return -5;
@@ -173,7 +155,7 @@ Long64_t pileupNtuple::LoadTree(Long64_t entry)
    return centry;
 }
 
-void pileupNtuple::MakeTree(TTree *tree)
+void ntuple::MakeTree(TTree *tree)
 {
    gROOT->ProcessLine("#include <vector>");
 
@@ -224,19 +206,10 @@ void pileupNtuple::MakeTree(TTree *tree)
    fChain->Branch("jtmuf", jtmuf, "jtmuf[nref]/F");
    fChain->Branch("jthfhf", jthfhf, "jthfhf[nref]/F");
    fChain->Branch("jthfef", jthfef, "jthfef[nref]/F");
-   fChain->Branch("nmu", &nmu, "nmu/b");
-   fChain->Branch("mupt", mupt, "mupt[nmu]/F");
-   fChain->Branch("mueta", mueta, "mueta[nmu]/F");
-   fChain->Branch("muphi", muphi, "muphi[nmu]/F");
-   fChain->Branch("mue", mue, "mue[nmu]/F");
-   fChain->Branch("muIsoRAW", muIsoRAW, "muIsoRAW[nmu]/F");
-   fChain->Branch("muIsoSTAND", muIsoSTAND, "muIsoSTAND[nmu]/F");
-   fChain->Branch("muIsoPFWGT", muIsoPFWGT, "muIsoPFWGT[nmu]/F");
-   fChain->Branch("muIsoPUPPI", muIsoPUPPI, "muIsoPUPPI[nmu]/F");
    Notify();
 }
 
-void pileupNtuple::Init(TTree *tree)
+void ntuple::Init(TTree *tree)
 {
    // The Init() function is called when the selector needs to initialize
    // a new tree or chain. Typically here the branch addresses and branch
@@ -293,19 +266,10 @@ void pileupNtuple::Init(TTree *tree)
    fChain->SetBranchAddress("jtmuf", jtmuf, &b_jtmuf);
    fChain->SetBranchAddress("jthfhf", jthfhf, &b_jthfhf);
    fChain->SetBranchAddress("jthfef", jthfef, &b_jthfef);
-   fChain->SetBranchAddress("nmu", &nmu, &b_nmu);
-   fChain->SetBranchAddress("mupt", mupt, &b_mupt);
-   fChain->SetBranchAddress("mueta", mueta, &b_mueta);
-   fChain->SetBranchAddress("muphi", muphi, &b_muphi);
-   fChain->SetBranchAddress("mue", mue, &b_mue);
-   fChain->SetBranchAddress("muIsoRAW", muIsoRAW, &b_muIsoRAW);
-   fChain->SetBranchAddress("muIsoSTAND", muIsoSTAND, &b_muIsoSTAND);
-   fChain->SetBranchAddress("muIsoPFWGT", muIsoPFWGT, &b_muIsoPFWGT);
-   fChain->SetBranchAddress("muIsoPUPPI", muIsoPUPPI, &b_muIsoPUPPI);
    Notify();
 }
 
-Bool_t pileupNtuple::Notify()
+Bool_t ntuple::Notify()
 {
    // The Notify() function is called when a new file is opened. This
    // can be either for a new TTree in a TChain or when when a new TTree
@@ -316,18 +280,18 @@ Bool_t pileupNtuple::Notify()
    return kTRUE;
 }
 
-void pileupNtuple::Show(Long64_t entry)
+void ntuple::Show(Long64_t entry)
 {
 // Print contents of entry.
 // If entry is not specified, print current entry
    if (!fChain) return;
    fChain->Show(entry);
 }
-Int_t pileupNtuple::Cut(Long64_t entry)
+Int_t ntuple::Cut(Long64_t entry)
 {
 // This function may be called from Loop.
 // returns  1 if entry is accepted.
 // returns -1 otherwise.
    return 1;
 }
-#endif // #ifdef pileupNtuple_cxx
+#endif // #ifdef ntuple_cxx
