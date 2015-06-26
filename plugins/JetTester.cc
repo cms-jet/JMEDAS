@@ -312,18 +312,18 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     if (tau1!=2) tau21 = tau2/tau1;
     if (tau2!=2) tau32 = tau3/tau2;
 
-	// Soft Drop + Nsubjettiness tagger
-	bool SoftDropTau32Tagged = false;
-	if (softDropMass<230 && softDropMass>140 && tau32 <0.65) SoftDropTau32Tagged = true;
+    // Soft Drop + Nsubjettiness tagger
+    bool SoftDropTau32Tagged = false;
+    if (softDropMass<230 && softDropMass>140 && tau32 <0.65) SoftDropTau32Tagged = true;
 
-	//CMS Top Tagger
-	reco::CATopJetTagInfo const * tagInfo =  dynamic_cast<reco::CATopJetTagInfo const *>( ijet->tagInfo("caTop"));
-	bool Run1CMStopTagged = false;
-	if ( tagInfo != 0 ) {
-   		double minMass = tagInfo->properties().minMass;
-   		double topMass = tagInfo->properties().topMass;
-   		int nSubJets = tagInfo->properties().nSubJets;
-   		if ( nSubJets > 2 && minMass > 50.0 && topMass > 140.0 &&  topMass < 250.0 ) Run1CMStopTagged = true;
+    //CMS Top Tagger
+    reco::CATopJetTagInfo const * tagInfo =  dynamic_cast<reco::CATopJetTagInfo const *>( ijet->tagInfo("caTop"));
+    bool Run1CMStopTagged = false;
+    if ( tagInfo != 0 ) {
+        double minMass = tagInfo->properties().minMass;
+        double topMass = tagInfo->properties().topMass;
+        int nSubJets = tagInfo->properties().nSubJets;
+        if ( nSubJets > 2 && minMass > 50.0 && topMass > 140.0 &&  topMass < 250.0 ) Run1CMStopTagged = true;
 	}	
 
 	//Print some jet info
