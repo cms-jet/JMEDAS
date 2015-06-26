@@ -33,6 +33,10 @@
 #include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/JetReco/interface/PFJet.h"
 #include "DataFormats/JetReco/interface/PFJetCollection.h"
+
+#include "RecoJets/JetAlgorithms/interface/CATopJetHelper.h"
+#include "DataFormats/BTauReco/interface/CATopJetTagInfo.h"
+
 //#include "DataFormats/JetReco/interface/CaloJet.h"
 //#include "DataFormats/JetReco/interface/CaloJetCollection.h"
 //#include "DataFormats/Candidate/interface/Candidate.h"
@@ -307,6 +311,27 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     double tau32 = 99;
     if (tau1!=2) tau21 = tau2/tau1;
     if (tau2!=2) tau32 = tau3/tau2;
+
+	// Soft Drop + Nsubjettiness tagger
+	bool SoftDropTau32Tagged = false;
+	if (softDropMass<230 && softDropMass>140 && tau32 <0.65) SoftDropTau32Tagged = true;
+
+	//CMS Top Tagger
+	reco::CATopJetTagInfo const * tagInfo =  dynamic_cast<reco::CATopJetTagInfo const *>( ijet->tagInfo("caTop"));
+	bool Run1CMStopTagged = false;
+	if ( tagInfo != 0 ) {
+   		double minMass = tagInfo->properties().minMass;
+   		double topMass = tagInfo->properties().topMass;
+   		int nSubJets = tagInfo->properties().nSubJets;
+   		if ( nSubJets > 2 && minMass > 50.0 && topMass > 140.0 &&  topMass < 250.0 ) Run1CMStopTagged = true;
+	}	
+
+	cout<<"Jet with pT "<<pt<<" sdMass "<<softDropMass<<endl;
+	if (SoftDropTau32Tagged) cout<<"->SoftDropTau32Tagged"<<endl;
+	if (Run1CMStopTagged)    cout<<"->Run1CMStopTagged"<<endl;
+
+
+
     h_ak8chs_pt           ->Fill( pt           );
     h_ak8chs_mass         ->Fill( mass         );
     h_ak8chs_rapidity     ->Fill( rapidity     );
