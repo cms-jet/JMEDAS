@@ -326,12 +326,12 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
    		if ( nSubJets > 2 && minMass > 50.0 && topMass > 140.0 &&  topMass < 250.0 ) Run1CMStopTagged = true;
 	}	
 
-	cout<<"Jet with pT "<<pt<<" sdMass "<<softDropMass<<endl;
-	if (SoftDropTau32Tagged) cout<<"->SoftDropTau32Tagged"<<endl;
-	if (Run1CMStopTagged)    cout<<"->Run1CMStopTagged"<<endl;
+	//Print some jet info
+    cout<<"Jet with pT "<<pt<<" sdMass "<<softDropMass<<endl;
+    if (SoftDropTau32Tagged) cout<<"->SoftDropTau32Tagged"<<endl;
+    if (Run1CMStopTagged)    cout<<"->Run1CMStopTagged"<<endl;
 
-
-
+	// Fill histograms
     h_ak8chs_pt           ->Fill( pt           );
     h_ak8chs_mass         ->Fill( mass         );
     h_ak8chs_rapidity     ->Fill( rapidity     );
