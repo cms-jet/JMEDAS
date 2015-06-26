@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-// pileupTreeMaker
-// ---------------
+// treeMaker
+// ---------
 //
-//                        01/07/2014 Alexx Perloff   <aperloff@physics.tamu.edu>
+//                        06/15/2015 Alexx Perloff   <aperloff@physics.tamu.edu>
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "Analysis/JMEDAS/interface/jmedas_pileupNtuple.h"
+#include "Analysis/JMEDAS/interface/jmehats_ntuple.h"
 
 #include "FWCore/Framework/interface/Frameworkfwd.h"
 #include "FWCore/Framework/interface/EDAnalyzer.h"
@@ -43,6 +43,7 @@
 #include "JetMETCorrections/Objects/interface/JetCorrector.h"
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
 #include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
+#include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
 #include "PhysicsTools/Utilities/interface/LumiReWeighting.h"
 
 #include "SimDataFormats/JetMatching/interface/JetMatchedPartons.h"
@@ -69,18 +70,19 @@ using namespace std;
 // class definition
 ////////////////////////////////////////////////////////////////////////////////
 
-class pileupTreeMaker : public edm::EDAnalyzer
+class treeMaker : public edm::EDAnalyzer
 {
 public:
   // construction/destruction
-  explicit pileupTreeMaker(const edm::ParameterSet& iConfig);
-  virtual ~pileupTreeMaker();
+  explicit treeMaker(const edm::ParameterSet& iConfig);
+  virtual ~treeMaker();
 
 private:
   // member functions
   void beginJob();
   void analyze(const edm::Event& iEvent,const edm::EventSetup& iSetup);
   void endJob(){;}
+  double getJERfactor(double pt, double eta, double ptgen);
 
 private:
   // member data
@@ -91,29 +93,30 @@ private:
   edm::InputTag srcJet_;
   edm::InputTag srcRho_;
   edm::InputTag srcVtx_;
-  edm::InputTag srcMuons_;
-  edm::InputTag srcVMCHSTAND_;
-  edm::InputTag srcVMNHSTAND_;
-  edm::InputTag srcVMPhSTAND_;
-  edm::InputTag srcVMPUSTAND_;
-  edm::InputTag srcVMNHPFWGT_;
-  edm::InputTag srcVMPhPFWGT_;
-  edm::InputTag srcVMCHPUPPI_;
-  edm::InputTag srcVMNHPUPPI_;
-  edm::InputTag srcVMPhPUPPI_;
 
   bool          doComposition_;
   bool          doFlavor_;
+  bool          doJER_;
+  string        JERUncertainty_;
+  bool          doJESUncertainty_;
+  string        JESUncertainty_;
+  string        JESUncertaintyType_;
+  string        JESUncertaintyFile_;
   unsigned int  nJetMax_;
   double        deltaRMax_;
   double        deltaPhiMin_;
   double        deltaRPartonMax_;
+  double        JERCor;
+  double        jesUncScale;
+  double        uncert;
+
   int           nref_;
   FactorizedJetCorrector* jetCorrector_;
+  JetCorrectionUncertainty* jecUnc;
   
   // tree
   TTree*        tree_;
-  pileupNtuple* PUNtuple_;
+  ntuple* PUNtuple_;
 };
 
 
@@ -122,34 +125,27 @@ private:
 ////////////////////////////////////////////////////////////////////////////////
 
 //______________________________________________________________________________
-pileupTreeMaker::pileupTreeMaker(const edm::ParameterSet& iConfig)
-  : moduleLabel_   (iConfig.getParameter<std::string>            ("@module_label"))
-  , JetCorLabel_   (iConfig.getParameter<std::string>              ("JetCorLabel"))
-  , JetCorLevels_  (iConfig.getParameter<vector<string> >         ("JetCorLevels"))
-  , srcJet_        (iConfig.getParameter<edm::InputTag>                 ("srcJet"))
-  , srcRho_        (iConfig.getParameter<edm::InputTag>                 ("srcRho"))
-  , srcVtx_        (iConfig.getParameter<edm::InputTag>                 ("srcVtx"))
-  , doComposition_ (iConfig.getParameter<bool>                   ("doComposition"))
-  , doFlavor_      (iConfig.getParameter<bool>                        ("doFlavor"))
-  , nJetMax_       (iConfig.getParameter<unsigned int>                 ("nJetMax"))
+treeMaker::treeMaker(const edm::ParameterSet& iConfig)
+  : moduleLabel_       (iConfig.getParameter<std::string>            ("@module_label"))
+  , JetCorLabel_       (iConfig.getParameter<std::string>              ("JetCorLabel"))
+  , JetCorLevels_      (iConfig.getParameter<vector<string> >         ("JetCorLevels"))
+  , srcJet_            (iConfig.getParameter<edm::InputTag>                 ("srcJet"))
+  , srcRho_            (iConfig.getParameter<edm::InputTag>                 ("srcRho"))
+  , srcVtx_            (iConfig.getParameter<edm::InputTag>                 ("srcVtx"))
+  , doComposition_     (iConfig.getParameter<bool>                   ("doComposition"))
+  , doFlavor_          (iConfig.getParameter<bool>                        ("doFlavor"))
+  , doJER_             (iConfig.getParameter<bool>                           ("doJER"))
+  , JERUncertainty_    (iConfig.getParameter<string>                ("JERUncertainty"))
+  , doJESUncertainty_  (iConfig.getParameter<bool>                ("doJESUncertainty"))
+  , JESUncertainty_    (iConfig.getParameter<string>                ("JESUncertainty"))
+  , JESUncertaintyType_(iConfig.getParameter<string>            ("JESUncertaintyType"))
+  , JESUncertaintyFile_(iConfig.getParameter<string>            ("JESUncertaintyFile"))
+  , nJetMax_           (iConfig.getParameter<unsigned int>                 ("nJetMax"))
   , deltaRMax_(0.0)
   , deltaPhiMin_(3.141)
   , deltaRPartonMax_(0.0)
   , jetCorrector_(0)
 {
-
-   if(iConfig.exists("srcMuons")) {
-      srcMuons_     = iConfig.getParameter<edm::InputTag>    ("srcMuons");
-      srcVMCHSTAND_ = iConfig.getParameter<edm::InputTag>("srcVMCHSTAND");
-      srcVMNHSTAND_ = iConfig.getParameter<edm::InputTag>("srcVMNHSTAND");
-      srcVMPhSTAND_ = iConfig.getParameter<edm::InputTag>("srcVMPhSTAND");
-      srcVMPUSTAND_ = iConfig.getParameter<edm::InputTag>("srcVMPUSTAND");
-      srcVMNHPFWGT_ = iConfig.getParameter<edm::InputTag>("srcVMNHPFWGT");
-      srcVMPhPFWGT_ = iConfig.getParameter<edm::InputTag>("srcVMPhPFWGT");
-      srcVMCHPUPPI_ = iConfig.getParameter<edm::InputTag>("srcVMCHPUPPI");
-      srcVMNHPUPPI_ = iConfig.getParameter<edm::InputTag>("srcVMNHPUPPI");
-      srcVMPhPUPPI_ = iConfig.getParameter<edm::InputTag>("srcVMPhPUPPI");
-         }
 
   if (iConfig.exists("deltaRMax")) {
     deltaRMax_=iConfig.getParameter<double>("deltaRMax");
@@ -158,21 +154,16 @@ pileupTreeMaker::pileupTreeMaker(const edm::ParameterSet& iConfig)
     throw cms::Exception("MissingParameter")<<"Set *either* deltaRMax (matching)"
 					    <<" *or* deltaPhiMin (balancing)";
 
-  // Jet CORRECTOR
-  if(!JetCorLevels_.empty()) {
-     vector<JetCorrectorParameters> vPar;
-     string jetCorPar = "../data/PHYS14_V2_MC_L1FastJet_"+JetCorLabel_.substr(0,JetCorLabel_.size()-2)+".txt";
-     cout << "Getting JEC from file " << jetCorPar  << " ... ";
-     vPar.push_back(JetCorrectorParameters(jetCorPar));
-     jetCorrector_ = new FactorizedJetCorrector(vPar);
-     cout << "DONE" << endl;
+  if ( iConfig.exists("JESUncertainty") ){
+    if (JESUncertainty_ == "up" || JESUncertainty_ == "down") {
+      jecUnc =  new JetCorrectionUncertainty(*(new JetCorrectorParameters(JESUncertaintyFile_, JESUncertaintyType_)));
+    }
   }
-  
 }
 
 
 //______________________________________________________________________________
-pileupTreeMaker::~pileupTreeMaker()
+treeMaker::~treeMaker()
 {
 
 }
@@ -183,40 +174,29 @@ pileupTreeMaker::~pileupTreeMaker()
 ////////////////////////////////////////////////////////////////////////////////
 
 //______________________________________________________________________________
-void pileupTreeMaker::beginJob()
+void treeMaker::beginJob()
 {
   edm::Service<TFileService> fs;
   if (!fs) throw edm::Exception(edm::errors::Configuration,
 				"TFileService missing from configuration!");
   
   tree_=fs->make<TTree>("t","t");
-  PUNtuple_ = new pileupNtuple(tree_,true);
+  PUNtuple_ = new ntuple(tree_,true);
 
 }
 
 
 //______________________________________________________________________________
-void pileupTreeMaker::analyze(const edm::Event& iEvent,
+void treeMaker::analyze(const edm::Event& iEvent,
                                   const edm::EventSetup& iSetup)
 {
   // EVENT DATA HANDLES
   nref_=0;
   edm::Handle<GenEventInfoProduct>               genInfo;
   edm::Handle<vector<PileupSummaryInfo> >        puInfos;  
-  edm::Handle<reco::CandidateView>               refs;
   edm::Handle<std::vector<pat::Jet> >            jets;
   edm::Handle<double>                            rho;
   edm::Handle<std::vector<reco::Vertex> >        vtx;
-  edm::Handle<edm::View<pat::Muon> >             muons;
-  edm::Handle<edm::ValueMap<double> >            VMCHSTAND;
-  edm::Handle<edm::ValueMap<double> >            VMNHSTAND;
-  edm::Handle<edm::ValueMap<double> >            VMPhSTAND;
-  edm::Handle<edm::ValueMap<double> >            VMPUSTAND;
-  edm::Handle<edm::ValueMap<double> >            VMNHPFWGT;
-  edm::Handle<edm::ValueMap<double> >            VMPhPFWGT;
-  edm::Handle<edm::ValueMap<double> >            VMCHPUPPI;
-  edm::Handle<edm::ValueMap<double> >            VMNHPUPPI;
-  edm::Handle<edm::ValueMap<double> >            VMPhPUPPI;
 
   //RHO INFORMATION
   PUNtuple_->rho = 0.0;
@@ -264,6 +244,42 @@ void pileupTreeMaker::analyze(const edm::Event& iEvent,
      pat::Jet jet = jets->at(iJet);
      const reco::GenJet* ref = jet.genJet();
 
+     //Remove jets which are unmatched with a generator level jet
+     if(!ref) {
+      PUNtuple_->nref--;
+      continue;
+     }
+
+     jesUncScale = 1.0;
+      if (doJESUncertainty_) {
+         if (JESUncertainty_ == "none") {
+            jesUncScale *= 1.0;
+         }
+         else {
+            jecUnc->setJetEta(jet.eta());
+            jecUnc->setJetPt(jet.pt());
+
+            uncert = jecUnc->getUncertainty(true);
+
+            if (JESUncertainty_ == "up") {
+               jesUncScale *= (1 + uncert);
+            }
+            else if (JESUncertainty_ == "down") {
+               jesUncScale *= (1 - uncert);
+            }
+         }
+      }
+
+     JERCor = 1.0;
+     if (doJER_) {
+        // get the JER correction factor for this jet
+        (ref && jet.pt()>10)? JERCor = getJERfactor(jet.pt(), jet.eta(), ref->pt()) : JERCor = 1.0;
+        //Remember to propogate the corrections to the MET if you care about MET
+      }
+
+      jet.scaleEnergy(jesUncScale);
+      jet.scaleEnergy(JERCor);
+
      if(ref) {
        PUNtuple_->refdrjt[nref_]  =reco::deltaR(jet.eta(),jet.phi(),ref->eta(),ref->phi());
        if (PUNtuple_->refdrjt[nref_]>deltaRMax_) continue;
@@ -272,44 +288,6 @@ void pileupTreeMaker::analyze(const edm::Event& iEvent,
        PUNtuple_->refdrjt[nref_] = 0;
      }
      
-     // Beta/Beta Star Calculation
-     PUNtuple_->beta = 0.0;
-     PUNtuple_->betaStar = 0.0;
-     //---- vertex association -----------
-     //---- get the vector of tracks -----
-     reco::TrackRefVector vTrks(jet.associatedTracks());
-     float sumTrkPt(0.0),sumTrkPtBeta(0.0),sumTrkPtBetaStar(0.0);
-     //---- loop over the tracks of the jet ----
-     for(reco::TrackRefVector::const_iterator i_trk = vTrks.begin(); i_trk != vTrks.end(); i_trk++) {
-        //if (npv_ == 0) break;
-        if ((*vtx).size() == 0) break;
-        sumTrkPt += (*i_trk)->pt();
-        //---- loop over all vertices ----------------------------
-        for(unsigned ivtx = 0;ivtx < (*vtx).size();ivtx++) {
-           //---- loop over the tracks associated with the vertex ---
-           if (!((*vtx)[ivtx].isFake()) && (*vtx)[ivtx].ndof() >= 4 && fabs((*vtx)[ivtx].z()) <= 24) {
-              for(reco::Vertex::trackRef_iterator i_vtxTrk = (*vtx)[ivtx].tracks_begin(); i_vtxTrk != (*vtx)[ivtx].tracks_end(); ++i_vtxTrk) {
-                 //---- match the jet track to the track from the vertex ----
-                 reco::TrackRef trkRef(i_vtxTrk->castTo<reco::TrackRef>());
-                 //---- check if the tracks match -------------------------
-                 if (trkRef == (*i_trk)) {
-                    if (ivtx == 0) {
-                       sumTrkPtBeta += (*i_trk)->pt();
-                    }
-                    else {
-                       sumTrkPtBetaStar += (*i_trk)->pt();
-                    }   
-                    break;
-                 }
-              }
-           } 
-        }
-     }
-     if (sumTrkPt > 0) {
-        PUNtuple_->beta     = sumTrkPtBeta/sumTrkPt;
-        PUNtuple_->betaStar = sumTrkPtBetaStar/sumTrkPt;
-     }
-
      PUNtuple_->refrank[nref_]=nref_;
      PUNtuple_->refpdgid_algorithmicDef[nref_] = 0;
      PUNtuple_->refpdgid_physicsDef[nref_] = 0;
@@ -332,20 +310,16 @@ void pileupTreeMaker::analyze(const edm::Event& iEvent,
         PUNtuple_->refarea[nref_]  = 0;      
      }
 
-     if (0!=jetCorrector_) {
-        jetCorrector_->setJetEta(jet.eta());
-        jetCorrector_->setJetPt(jet.pt());
-        jetCorrector_->setJetE(jet.energy());
-        jetCorrector_->setJetA(jet.jetArea());
-        jetCorrector_->setRho(PUNtuple_->rho);
-        jetCorrector_->setNPV(PUNtuple_->npv);
-        PUNtuple_->jtjec[nref_]=jetCorrector_->getCorrection();
-        //for(unsigned int ijec = 0; ijec<jet.availableJECLevels().size(); ijec++) {
-        //   cout << jet.availableJECLevels()[ijec] << endl;
-        //}
+     //Options are:
+     //Uncorrected = 0
+     //L1FastJet = 1
+     //L2Relative = 2
+     //L3Absolute = 3
+     if(jet.jecSetsAvailable()) {
+       PUNtuple_->jtjec[nref_]=1.0/jet.jecFactor(0);
      }
      else {
-        PUNtuple_->jtjec[nref_]=1.0;
+      PUNtuple_->jtjec[nref_]=1.0;
      }
 
      PUNtuple_->jte[nref_]    =jet.energy()*PUNtuple_->jtjec[nref_];
@@ -368,53 +342,80 @@ void pileupTreeMaker::analyze(const edm::Event& iEvent,
      nref_++;
   }
   
-
-  // MUON SECTION
-  if(srcMuons_.label()!="") {
-     iEvent.getByLabel(srcMuons_, muons);
-     iEvent.getByLabel(srcVMCHSTAND_, VMCHSTAND);
-     iEvent.getByLabel(srcVMNHSTAND_, VMNHSTAND);
-     iEvent.getByLabel(srcVMPhSTAND_, VMPhSTAND);
-     iEvent.getByLabel(srcVMPUSTAND_, VMPUSTAND);
-     iEvent.getByLabel(srcVMNHPFWGT_, VMNHPFWGT);
-     iEvent.getByLabel(srcVMPhPFWGT_, VMPhPFWGT);
-     iEvent.getByLabel(srcVMCHPUPPI_, VMCHPUPPI);
-     iEvent.getByLabel(srcVMNHPUPPI_, VMNHPUPPI);
-     iEvent.getByLabel(srcVMPhPUPPI_, VMPhPUPPI);
-     
-     PUNtuple_->nmu = muons->size();
-     //for(auto iMuon = muons->begin(); iMuon!=muons->end(); ++iMuon) {
-     for(size_t i = 0, n = muons->size(); i < n; ++i) {
-        edm::Ptr<pat::Muon> muPtr = muons->ptrAt(i);
-        PUNtuple_->mupt[i]  = muPtr->pt();
-        PUNtuple_->mueta[i] = muPtr->eta();
-        PUNtuple_->muphi[i] = muPtr->phi();
-        PUNtuple_->mue[i]   = muPtr->energy();
-        
-        //Raw Isolation
-        //I = [sumChargedHadronPt+ max(0.,sumNeutralHadronPt+sumPhotonPt]/pt
-        PUNtuple_->muIsoSTAND[i] = ((*VMCHSTAND)[muPtr] + max(0.0,(*VMNHSTAND)[muPtr]+(*VMPhSTAND)[muPtr]))/muPtr->pt();
-        
-        //Delta Beta (see https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideMuonId#Muon_Isolation for more details)
-        //I = [sumChargedHadronPt+ max(0.,sumNeutralHadronPt+sumPhotonPt-0.5sumPUPt]/pt
-        PUNtuple_->muIsoSTAND[i] = ((*VMCHSTAND)[muPtr] + max(0.0,(*VMNHSTAND)[muPtr]+(*VMPhSTAND)[muPtr]-(0.5*(*VMPUSTAND)[muPtr])))/muPtr->pt();
-        
-        // PF Weighted (see https://twiki.cern.ch/twiki/bin/viewauth/CMS/MuonIsolationForRun2 for more details)
-        PUNtuple_->muIsoPFWGT[i] = ((*VMCHSTAND)[muPtr]+(*VMNHPFWGT)[muPtr]+(*VMPhPFWGT)[muPtr])/muPtr->pt();
-    
-        // PUPPI Weighted (see https://twiki.cern.ch/twiki/bin/viewauth/CMS/MuonIsolationForRun2 for more details)
-        PUNtuple_->muIsoPUPPI[i] = ((*VMCHPUPPI)[muPtr]+(*VMNHPUPPI)[muPtr]+(*VMPhPUPPI)[muPtr])/muPtr->pt();
-     }
-  }
-
   tree_->Fill();
   
   return;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// implement additional functions
+////////////////////////////////////////////////////////////////////////////////
+
+//______________________________________________________________________________
+double treeMaker::getJERfactor(double pt, double eta, double ptgen){
+
+  double jer = 1;
+
+  if(JERUncertainty_ == "none") {
+    if (fabs(eta) < 0.5)
+      jer = 1.079;
+    else if (fabs(eta) < 1.1)
+      jer = 1.099;
+    else if (fabs(eta) < 1.7)
+      jer = 1.121;
+    else if (fabs(eta) < 2.3)
+      jer = 1.208;
+    else if (fabs(eta) < 2.8)
+      jer = 1.253;
+    else if (fabs(eta) < 3.2)
+      jer = 1.395;
+    else if (fabs(eta) < 5.0)
+      jer = 1.056;
+  }
+  else if(JERUncertainty_ == "up") {
+    if (fabs(eta) < 0.5)
+      jer = 1.105;
+    else if (fabs(eta) < 1.1)
+      jer = 1.127;
+    else if (fabs(eta) < 1.7)
+      jer = 1.150;
+    else if (fabs(eta) < 2.3)
+      jer = 1.254;
+    else if (fabs(eta) < 2.8)
+      jer = 1.316;
+    else if (fabs(eta) < 3.2)
+      jer = 1.458;
+    else if (fabs(eta) < 5.0)
+      jer = 1.247;
+  }
+  else if(JERUncertainty_ == "down") {
+    if (fabs(eta) < 0.5)
+      jer = 1.053;
+    else if (fabs(eta) < 1.1)
+      jer = 1.071;
+    else if (fabs(eta) < 1.7)
+      jer = 1.092;
+    else if (fabs(eta) < 2.3)
+      jer = 1.162;
+    else if (fabs(eta) < 2.8)
+      jer = 1.192;
+    else if (fabs(eta) < 3.2)
+      jer = 1.332;
+    else if (fabs(eta) < 5.0)
+      jer = 0.865;
+  }
+  else {
+    cout << "ERROR::treeMaker::getJERfactor Unrecognized JERUncertainty_ value." << endl;
+    return 1.0;
+  }
+  double corr = ptgen / pt;
+
+  return  max(0.0,corr + jer * (1 - corr));
+
+}
 
 ////////////////////////////////////////////////////////////////////////////////
-// define pileupTreeMaker as a plugin
+// define treeMaker as a plugin
 ////////////////////////////////////////////////////////////////////////////////
 
-DEFINE_FWK_MODULE(pileupTreeMaker);
+DEFINE_FWK_MODULE(treeMaker);
