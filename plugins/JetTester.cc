@@ -37,39 +37,9 @@
 #include "RecoJets/JetAlgorithms/interface/CATopJetHelper.h"
 #include "DataFormats/BTauReco/interface/CATopJetTagInfo.h"
 
-//#include "DataFormats/JetReco/interface/CaloJet.h"
-//#include "DataFormats/JetReco/interface/CaloJetCollection.h"
-//#include "DataFormats/Candidate/interface/Candidate.h"
-//#include "DataFormats/HepMCCandidate/interface/GenParticle.h"
-//#include "DataFormats/Candidate/interface/Candidate.h"
-//#include "DataFormats/Candidate/interface/CompositeCandidate.h"
-//#include "DataFormats/Candidate/interface/Particle.h"
-//#include "DataFormats/Candidate/interface/Candidate.h"
-//#include "DataFormats/Candidate/interface/CandidateFwd.h"
-//#include "DataFormats/Candidate/interface/CandMatchMap.h" 
-//#include "DataFormats/RecoCandidate/interface/RecoCandidate.h"
-//#include "DataFormats/Math/interface/LorentzVector.h"
-//#include "SimDataFormats/PileupSummaryInfo/interface/PileupSummaryInfo.h" 
-// JEC
-//#include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
-//#include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
-//#include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
-
-// utilities
-//#include "DataFormats/Math/interface/deltaR.h"
-//#include "DataFormats/Math/interface/deltaPhi.h"
-
 // TFile
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
-
-// fastjet
-//#include <fastjet/JetDefinition.hh>
-//#include <fastjet/PseudoJet.hh>
-//#include "fastjet/tools/Filter.hh"
-//#include <fastjet/ClusterSequence.hh>
-//#include <fastjet/ClusterSequenceArea.hh>
-
 
 // root
 #include "TH1.h"
@@ -223,9 +193,6 @@ JetTester::JetTester(const edm::ParameterSet& iConfig)
   h_ak8chsmod_softDropMass    =  fs->make<TH1D>("h_ak8chsmod_softDropMass"       ,"",100,0,300);
   h_ak8chsmod_ndau            =  fs->make<TH1D>("h_ak8chsmod_ndau"               ,"",100,0,300);
 
-  // JetTree = new TTree("JetTree","JetTree");  
-  // JetTree->Branch("EventNumber"                         ,  & EventNumber               , "EventNumber/I"                      );
-  // JetTree->Branch("Weight" 
 }
 
 
@@ -292,6 +259,27 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   // AK R=0.8 jets - default miniAOD
   edm::Handle<std::vector<pat::Jet> > AK8MINI;
   iEvent.getByLabel( "slimmedJetsAK8", AK8MINI );
+  edm::Handle<std::vector<pat::Jet> > AK8MINI_SD_Subjets;
+  iEvent.getByLabel( "slimmedJetsAK8PFCHSSoftDropPacked", "SubJets", AK8MINI_SD_Subjets );
+  edm::Handle<std::vector<pat::Jet> > AK8MINI_CMSTopTag_Subjets;
+  iEvent.getByLabel( "slimmedJetsCMSTopTagCHSPacked", "SubJets", AK8MINI_CMSTopTag_Subjets );
+
+
+  for ( std::vector<pat::Jet>::const_iterator jetBegin = AK8MINI_SD_Subjets->begin(), jetEnd = AK8MINI_SD_Subjets->end(), ijet = jetBegin; ijet != jetEnd; ++ijet ) 
+  {
+        double pt           = ijet->pt();
+        double bdisc        = ijet->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags");
+        cout<<"SD subjet pt "<<pt<<" bdisc "<<bdisc<<endl;
+  }
+  cout<<endl;
+  for ( std::vector<pat::Jet>::const_iterator jetBegin = AK8MINI_CMSTopTag_Subjets->begin(), jetEnd = AK8MINI_CMSTopTag_Subjets->end(), ijet = jetBegin; ijet != jetEnd; ++ijet ) 
+  {
+        double pt           = ijet->pt();
+        double bdisc        = ijet->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags");
+        cout<<"CMSTT subjet pt "<<pt<<" bdisc "<<bdisc<<endl;
+  }
+
+
   for ( std::vector<pat::Jet>::const_iterator jetBegin = AK8MINI->begin(), jetEnd = AK8MINI->end(), ijet = jetBegin; ijet != jetEnd; ++ijet ) 
   {
     double pt           = ijet->pt();
@@ -312,6 +300,9 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     if (tau1!=2) tau21 = tau2/tau1;
     if (tau2!=2) tau32 = tau3/tau2;
 
+    cout<<"\nJet with pT "<<pt<<" sdMass "<<softDropMass<<endl;
+
+
     // Soft Drop + Nsubjettiness tagger
     bool SoftDropTau32Tagged = false;
     if (softDropMass<230 && softDropMass>140 && tau32 <0.65) SoftDropTau32Tagged = true;
@@ -319,19 +310,53 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     //CMS Top Tagger
     reco::CATopJetTagInfo const * tagInfo =  dynamic_cast<reco::CATopJetTagInfo const *>( ijet->tagInfo("caTop"));
     bool Run1CMStopTagged = false;
+    int nSubJetsCATop = 0;
     if ( tagInfo != 0 ) {
-        double minMass = tagInfo->properties().minMass;
-        double topMass = tagInfo->properties().topMass;
-        int nSubJets = tagInfo->properties().nSubJets;
-        if ( nSubJets > 2 && minMass > 50.0 && topMass > 140.0 &&  topMass < 250.0 ) Run1CMStopTagged = true;
-	}	
+      double minMass = tagInfo->properties().minMass;
+      double topMass = tagInfo->properties().topMass;
+      nSubJetsCATop = tagInfo->properties().nSubJets;
+      if ( nSubJetsCATop > 2 && minMass > 50.0 && topMass > 140.0 &&  topMass < 250.0 ) Run1CMStopTagged = true;  
+    }
 
-	//Print some jet info
-    cout<<"Jet with pT "<<pt<<" sdMass "<<softDropMass<<endl;
+    // Get Soft drop subjets for subjet b-tagging
+    auto const & sdSubjets = ijet->subjets("SoftDrop");
+    cout<<"sdSubjets size "<<sdSubjets.size()<<endl;
+    for ( auto const & it : sdSubjets ) {
+      double subjetPt       = it->pt();
+      double subjetPtUncorr = it->pt();
+      double subjetEta      = it->eta();
+      double subjetPhi      = it->phi();
+      double subjetMass     = it->mass();
+      double subjetBdisc    = it->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags"); 
+      double deltaRsubjetJet = deltaR(ijet->eta(), ijet->phi(), subjetEta, subjetPhi);
+      cout<<" SD Subjet pt "<<subjetPt<<" uncorr "<<subjetPtUncorr<<" Eta "<<subjetEta<<" deltaRsubjetJet "<<deltaRsubjetJet<<" Mass "<<subjetMass<<" Bdisc "<<subjetBdisc<<endl;
+    }
+
+    // Get top tagged subjets 
+    auto const & topSubjets = ijet->subjets("CMSTopTag");
+    cout<<"topSubjets size "<<topSubjets.size()<<endl;
+    int countTopSubjetLoop = 0;
+    for ( auto const & it : topSubjets ) {
+      countTopSubjetLoop++;
+      double subjetPt       = it->pt();
+      double subjetPtUncorr = it->pt();
+      double subjetEta      = it->eta();
+      double subjetPhi      = it->phi();
+      double subjetMass     = it->mass();
+      double subjetBdisc    = it->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags"); 
+      double deltaRsubjetJet = deltaR(ijet->eta(), ijet->phi(), subjetEta, subjetPhi);
+      cout<<" CMSTT Subjet pt "<<subjetPt<<" uncorr "<<subjetPtUncorr<<" Eta "<<subjetEta<<" deltaRsubjetJet "<<deltaRsubjetJet<<" Mass "<<subjetMass<<" Bdisc "<<subjetBdisc<<endl;
+    }
+
+    cout<<"nSubJetsCATop     "<< nSubJetsCATop     <<endl;
+    cout<<"topSubjets.size() "<< topSubjets.size() <<endl;
+    cout<<"countSubjetLoop   "<< countTopSubjetLoop<<endl;
+
+    //Print some jet info
     if (SoftDropTau32Tagged) cout<<"->SoftDropTau32Tagged"<<endl;
     if (Run1CMStopTagged)    cout<<"->Run1CMStopTagged"<<endl;
 
-	// Fill histograms
+    // Fill histograms
     h_ak8chs_pt           ->Fill( pt           );
     h_ak8chs_mass         ->Fill( mass         );
     h_ak8chs_rapidity     ->Fill( rapidity     );
