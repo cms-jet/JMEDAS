@@ -71,3 +71,52 @@ double pileupNtuple::sumLOOT() {
    }
    return sum;
 }
+
+//______________________________________________________________________________
+bool CheckValue(ROOT::TTreeReaderValueBase* value) {
+   if (value->GetSetupStatus() < 0) {
+      std::cerr << "Error " << value->GetSetupStatus()
+                << "setting up reader for " << value->GetBranchName() << '\n';
+      return false;
+   }
+   return true;
+}
+
+//______________________________________________________________________________
+void pileupNtuple::printJEC(Long64_t entry, Long64_t jet) {
+   // The TTreeReader gives access to the TTree to the TTreeReaderValue and
+   // TTreeReaderArray objects. It knows the current entry number and knows
+   // how to iterate through the TTree.
+   TTreeReader reader(fChain);
+   // Read a single float value in each tree entries:
+   TTreeReaderArray<JECInfo> r_jtjec(reader, "jtjec");
+   //if (!CheckValue(r_jtjec)) {
+   //   std::cout << "ERROR::pileupNtuple::printJEC Can't read information from the jtjec branch" << std::endl;
+   //   return;
+   //}
+
+   // Now iterate through the TTree entries and print
+   while (reader.Next()) {
+      if(entry>-1)
+         reader.SetEntry(entry);
+
+      if (reader.GetEntryStatus() == TTreeReader::kEntryValid) {
+         std::cout << "Loaded entry " << reader.GetCurrentEntry() << '\n';
+      }
+      else {
+         return;
+      }
+
+      unsigned int min = (jet>-1) ? jet : 0;
+      unsigned int max = (jet>-1) ? jet+1 : r_jtjec.GetSize();
+      for(unsigned int ijet=min; ijet<max; ijet++) {
+         std::cout << "\tJet " << ijet << ":" << std::endl;
+         for(unsigned int ijec=0; ijec<r_jtjec[ijet].size(); ijec++) {
+            std::cout << "\t\tJEC level: " << r_jtjec[ijet][ijec].first << "\tJEC Factor: " << r_jtjec[ijet][ijec].second << std::endl;
+         }
+      }
+
+      if(entry>-1)
+         break;
+   } // TTree entry / event loop
+}
