@@ -15,6 +15,7 @@
 <use   name="DataFormats/Math"/>
 <use   name="DataFormats/HepMCCandidate"/>
 <use   name="DataFormats/Common"/>
+<use   name="DataFormats/StdDictionaries"/>
 <use   name="SimDataFormats/GeneratorProducts"/>
 <use   name="SimDataFormats/JetMatching"/>
 <use   name="PhysicsTools/Utilities"/>
@@ -23,7 +24,7 @@
 <use   name="rootcore"/>
 <use   name="rootMinuit"/>
 <use   name="fastjet"/>
-<flags   EDM_PLUGIN="1"/>
+<!--<flags   EDM_PLUGIN="1"/>-->
 <export>
   <lib   name="1"/>
 </export>
