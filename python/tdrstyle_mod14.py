@@ -315,7 +315,9 @@ def CMS_lumi(pad, iPeriod=3, iPosX=10) :
       if( outOfFrame) : 
           lumiText += "}"
   elif ( iPeriod==12 ) :
-      lumiText += "8 TeV"
+      lumiText += "(8 TeV)"
+  elif ( iPeriod==14 ) :
+      lumiText += "(13 TeV)"
    
   print lumiText
 
@@ -502,7 +504,6 @@ def tdrCanvasMultipad(canvName, h, iPeriod=2, iPos=11, nPadsX=1, nPadsY=1) :
   
       canv.Update()
       canv.RedrawAxis()
-      canv.GetFrame().Draw()
   
   return canv
 
