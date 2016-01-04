@@ -30,6 +30,14 @@ parser.add_option('--correctJets', action='store_true',
                   dest='correctJets',
                   help='Apply latest jet corrections.')
 
+
+
+parser.add_option('--isData', action='store_true',
+                  default=False,
+                  dest='isData',
+                  help='Run on data')
+
+
 parser.add_option('--smearJets', action='store_true',
                   default=False,
                   dest='smearJets',
@@ -103,25 +111,45 @@ rhoLabel = ("fixedGridRhoAll")
 pvHandle = Handle("std::vector<reco::Vertex>")
 pvLabel = ("offlineSlimmedPrimaryVertices")
 
-
+if options.smearJets and options.isData :
+    print 'Misconfiguration. I cannot access generator-level jets on data. Not smearing jets.'
+    options.smearJets = False
 
 if options.correctJets : 
     ### JEC implementation
 
-    vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
-    vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L1FastJet_AK4PFchs.txt') )
-    vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L2Relative_AK4PFchs.txt') )
-    vPar.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L3Absolute_AK4PFchs.txt') )
-    jec = ROOT.FactorizedJetCorrector( vPar )
-    jecUnc = ROOT.JetCorrectionUncertainty( 'PHYS14_25_V1_Uncertainty_AK4PFchs.txt' )
+    if not options.isData : 
+        vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
+        vPar.push_back( ROOT.JetCorrectorParameters('74X_mcRun2_asymptotic_v4_L1FastJet_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('74X_mcRun2_asymptotic_v4_L2Relative_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('74X_mcRun2_asymptotic_v4_L3Absolute_AK4PFchs.txt') )
+        jec = ROOT.FactorizedJetCorrector( vPar )
+        jecUnc = ROOT.JetCorrectionUncertainty( '74X_mcRun2_asymptotic_v4_Uncertainty_AK4PFchs.txt' )
 
-    vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
-    vParAK8.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L1FastJet_AK8PFchs.txt') )
-    vParAK8.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L2Relative_AK8PFchs.txt') )
-    vParAK8.push_back( ROOT.JetCorrectorParameters('PHYS14_25_V1_L3Absolute_AK8PFchs.txt') )
-    jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
+        vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
+        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_mcRun2_asymptotic_v4_L1FastJet_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_mcRun2_asymptotic_v4_L2Relative_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_mcRun2_asymptotic_v4_L3Absolute_AK8PFchs.txt') )
+        jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
 
-    jecUncAK8 = ROOT.JetCorrectionUncertainty( 'PHYS14_25_V1_Uncertainty_AK8PFchs.txt' )
+        jecUncAK8 = ROOT.JetCorrectionUncertainty( '74X_mcRun2_asymptotic_v4_Uncertainty_AK8PFchs.txt' )
+    else :
+        vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
+        vPar.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L1FastJet_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L2Relative_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L3Absolute_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L2L3Residual_AK4PFchs.txt') ) # Need residual correction for data
+        jec = ROOT.FactorizedJetCorrector( vPar )
+        jecUnc = ROOT.JetCorrectionUncertainty( '74X_dataRun2_v5_Uncertainty_AK4PFchs.txt' )
+
+        vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
+        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L1FastJet_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L2Relative_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L3Absolute_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L2L3Residual_AK8PFchs.txt') ) # Need residual correction for data
+        jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
+
+        jecUncAK8 = ROOT.JetCorrectionUncertainty( '74X_dataRun2_v5_Uncertainty_AK8PFchs.txt' )
 
 
 ##   ___ ___ .__          __                                             

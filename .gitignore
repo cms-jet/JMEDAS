@@ -1,0 +1,7 @@
+*.pyc
+*__init__*.py
+*~
+74*.txt
+*.pdf
+*.png
+*.root
