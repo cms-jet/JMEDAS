@@ -199,6 +199,12 @@ h_minmassAK8 = ROOT.TH1F("h_minmassAK8", "AK8 CMS Top Tagger Min Mass Paring;m_{
 h_nsjAK8 = ROOT.TH1F("h_nsjAK8", "AK8 CMS Top Tagger N_{subjets};N_{subjets}", 5, 0, 5)
 h_tau21AK8 = ROOT.TH1F("h_tau21AK8", "AK8 Jet #tau_{2} / #tau_{1};Mass#tau_{21}", 100, 0, 1.0)
 h_tau32AK8 = ROOT.TH1F("h_tau32AK8", "AK8 Jet #tau_{3} / #tau_{2};Mass#tau_{32}", 100, 0, 1.0)
+h_ptGroomedCorrAK8 = ROOT.TH1F("h_ptGroomedCorrAK8", "AK8 Corrected Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
+h_msoftdropCorrAK8 = ROOT.TH1F("h_msoftdropCorrAK8", "AK8 Softdrop Jet Mass, Corrected;Mass (GeV)", 100, 0, 1000)
+h_rhoRatioAK8 = ROOT.TH1F("h_rhoRatioAK8", "AK8 Jet #rho = (m/p_{T}R)^{2};Mass#tau_{21}#rho", 100, 0, 1.0)
+h_mSubjet0AK8 = ROOT.TH1F("h_mSubjet0AK8", "AK8 Highest-mass Subjet Jet Mass;Mass (GeV)", 100, 0, 1000)
+h_mSubjet1AK8 = ROOT.TH1F("h_mSubjet1AK8", "AK8 Lowest-mass Subjet Jet Mass;Mass (GeV)", 100, 0, 1000)
+
 
 h_ptAK8Gen = ROOT.TH1F("h_ptAK8Gen", "AK8Gen Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_etaAK8Gen = ROOT.TH1F("h_etaAK8Gen", "AK8Gen Jet #eta;#eta", 120, -6, 6)
@@ -390,9 +396,11 @@ for ifile in files :
 
                     #JEC Uncertainty
                     jecUnc.setJetEta( uncorrJet.eta() )
+                    jecUnc.setJetPhi( uncorrJet.phi() )
                     jecUnc.setJetPt( corr * uncorrJet.pt() )
                     corrUp += jecUnc.getUncertainty(1)
                     jecUnc.setJetEta( uncorrJet.eta() )
+                    jecUnc.setJetPhi( uncorrJet.phi() )
                     jecUnc.setJetPt( corr * uncorrJet.pt() )
                     corrDn -= jecUnc.getUncertainty(0)
 
@@ -520,6 +528,21 @@ for ifile in files :
                     corrDn -= jecUncAK8.getUncertainty(0)
 
 
+                subjets = jet.subjets("SoftDrop")
+                groomedJet = None
+                rhoRatio = None
+                msubjet0 = None
+                msubjet1 = None                
+                if len(subjets) >= 2 : 
+                    groomedJet = subjets[0].p4() + subjets[1].p4()
+                    if subjets[1].mass() > subjets[0].mass() : 
+                        msubjet0 = subjets[1].mass()
+                        msubjet1 = subjets[0].mass()
+                    else :
+                        msubjet0 = subjets[0].mass()
+                        msubjet1 = subjets[1].mass()
+                    rhoRatio = pow( groomedJet.mass() / (groomedJet.pt()*0.8), 2)
+                
                 h_ptAK8.Fill( corr * uncorrJet.pt() )
                 h_JECValueAK8.Fill( corr )
                 h_ptUncorrAK8.Fill( uncorrJet.pt() )
@@ -534,6 +557,12 @@ for ifile in files :
                 h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSPrunedMass') )
                 h_mtrimmedAK8.Fill( jet.userFloat('ak8PFJetsCHSTrimmedMass') )
                 h_mfilteredAK8.Fill( jet.userFloat('ak8PFJetsCHSFilteredMass') )
+                if groomedJet != None : 
+                    h_ptGroomedCorrAK8.Fill( groomedJet.pt() )
+                    h_msoftdropCorrAK8.Fill( groomedJet.mass() )
+                    h_rhoRatioAK8.Fill( rhoRatio )
+                    h_mSubjet0AK8.Fill( msubjet0 )
+                    h_mSubjet1AK8.Fill( msubjet1 )
                 # Make sure there are top tags if we want to plot them 
                 tagInfoLabels = jet.tagInfoLabels()
                 hasTopTagInfo = 'caTop' in tagInfoLabels 
