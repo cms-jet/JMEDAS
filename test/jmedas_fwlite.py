@@ -201,7 +201,7 @@ h_tau21AK8 = ROOT.TH1F("h_tau21AK8", "AK8 Jet #tau_{2} / #tau_{1};Mass#tau_{21}"
 h_tau32AK8 = ROOT.TH1F("h_tau32AK8", "AK8 Jet #tau_{3} / #tau_{2};Mass#tau_{32}", 100, 0, 1.0)
 h_ptGroomedCorrAK8 = ROOT.TH1F("h_ptGroomedCorrAK8", "AK8 Corrected Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_msoftdropCorrAK8 = ROOT.TH1F("h_msoftdropCorrAK8", "AK8 Softdrop Jet Mass, Corrected;Mass (GeV)", 100, 0, 1000)
-h_rhoRatioAK8 = ROOT.TH1F("h_rhoRatioAK8", "AK8 Jet #rho = (m/p_{T}R)^{2};Mass#tau_{21}#rho", 100, 0, 1.0)
+h_rhoRatioAK8 = ROOT.TH1F("h_rhoRatioAK8", "AK8 Jet #rho = (m/p_{T}R)^{2};#rho", 100, 0, 1.0)
 h_mSubjet0AK8 = ROOT.TH1F("h_mSubjet0AK8", "AK8 Highest-mass Subjet Jet Mass;Mass (GeV)", 100, 0, 1000)
 h_mSubjet1AK8 = ROOT.TH1F("h_mSubjet1AK8", "AK8 Lowest-mass Subjet Jet Mass;Mass (GeV)", 100, 0, 1000)
 

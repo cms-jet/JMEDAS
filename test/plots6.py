@@ -30,5 +30,5 @@ h_mAK8.GetXaxis().SetRangeUser(0, 200)
 
 leg.Draw()
 
-c.Print('plots5.png', 'png')
-c.Print('plots5.pdf', 'pdf')
+c.Print('plots6.png', 'png')
+c.Print('plots6.pdf', 'pdf')
