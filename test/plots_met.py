@@ -8,6 +8,9 @@ gROOT.Macro("rootlogon.C")
 setTDRStyle()
 
 file = TFile("pileupNtuple.root", "READ")
+# Large ntuples for DYjets and QCD are available
+#file = TFile.Open("root://cmseos.fnal.gov//store/user/cmsdas/2016/SHORT_EXERCISES/PileupAndMET/pileupNtuple_QCD.root","READ")
+#file = TFile.Open("root://cmseos.fnal.gov//store/user/cmsdas/2016/SHORT_EXERCISES/PileupAndMET/pileupNtuple_DYjets.root","READ")
 
 tree = file.Get("AK4PFPuppiL1L2L3/t")
 entries = tree.GetEntriesFast()
