@@ -146,10 +146,9 @@ for hs in hsettings:
 	#Draw the legend
 	c.cd(hsettings[hs][0])
 	legends[legname].Draw("same")	
+c.Update()
+c.Draw()
+
 
 # Save the canvases
-# Causes an issue with the CMS text in the current window after the operation
-# However, the saved files do not show this problem
-#c.Print('plots_pileup_2.png', 'png')
-#c.Print('plots_pileup_2.pdf', 'pdf')
-
+c.Print('plots_pileup_2.png', 'png')

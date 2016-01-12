@@ -110,10 +110,9 @@ l_metphi.AddEntry(hmetNoHF_phi,"MET NoHF","l")
 l_metphi.AddEntry(hmetPUPPI_phi,"PUPPET","l")
 l_metphi.Draw("same")
 
+c.Update()
+c.Draw()
 
 # Save the canvases
-# Causes an issue with the CMS text in the current window after the operation
-# However, the saved files do not show this problem
-#c.Print('plots_pileup_3.png', 'png')
-#c.Print('plots_pileup_3.pdf', 'pdf')
+c.Print('plots_pileup_3.png', 'png')
 
