@@ -81,8 +81,8 @@ l_X.AddEntry(hAK4PFchs_npu,"N_{PU}","l")
 l_X.AddEntry(hAK4PFchs_tnpu,"#mu","l")
 l_X.Draw("same")
 
-# Save the canvases
-# Causes an issue with the CMS text in the current window after the operation
-# However, the saved files do not show this problem
-#c.SaveAs('plots_pileup_1.png')
-#c.SaveAs('plots_pileup_1.pdf')
+c.Update()
+c.Draw()
+
+# Save the Canvas
+c.SaveAs('plots_pileup_1.png')
