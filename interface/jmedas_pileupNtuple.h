@@ -182,7 +182,7 @@ public :
    int itIndex();
    double sumEOOT();
    double sumLOOT();
-   bool CheckValue(ROOT::TTreeReaderValueBase* value);
+   bool CheckValue(ROOT::Internal::TTreeReaderValueBase* value);
    void printJEC(Long64_t entry = -1, Long64_t jet = -1);
 };
 

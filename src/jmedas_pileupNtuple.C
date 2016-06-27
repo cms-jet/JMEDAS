@@ -73,7 +73,7 @@ double pileupNtuple::sumLOOT() {
 }
 
 //______________________________________________________________________________
-bool CheckValue(ROOT::TTreeReaderValueBase* value) {
+bool CheckValue(ROOT::Internal::TTreeReaderValueBase* value) {
    if (value->GetSetupStatus() < 0) {
       std::cerr << "Error " << value->GetSetupStatus()
                 << "setting up reader for " << value->GetBranchName() << '\n';
