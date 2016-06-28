@@ -55,6 +55,21 @@ options.register('jerfile',
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  'The path to a text file containing the JER scale factors. Used when applying them on-the-fly.')
+options.register('UncertaintyOTF',
+                 0,
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.int,
+                 'Controls whether or not the uncertainties are done on-the-fly (1) or using EDProducers (0).')
+options.register('JERUncertainty',
+                 'none',
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.string,
+                 'Controls the type of JER smearing, including the systematic uncertainties. The options are: {none,nominal,up,down}')
+options.register('JESUncertainty',
+                 'none',
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.string,
+                 'Controls whether of not the JES uncertainties are applied. The options are: {none,up,down}')
 
 options.parseArguments()
 
@@ -124,65 +139,17 @@ else:
 jcr = cms.VPSet()
 jrr = cms.VPSet()
 jetsCollections = {
-#	'AK4': 			{
-#					'algo': 'ak4',
-#					'pu_methods': ['Puppi', 'CHS', ''],
-#					'jec_payloads': ['None','None','None'],
-#					'jec_levels': []
-#					},
-#	'AK4L1': 		{
-#			  		'algo': 'ak4',
-#			  		'pu_methods': ['Puppi', 'CHS', ''],
-#			  		'jec_payloads': ['AK4PFPuppi', 'AK4PFchs', 'AK4PF'],
-#			  		'jec_levels': ['L1FastJet']
-#			  		},
-#	'AK4L1L2L3': 	{
-#					'algo': 'ak4',
-#					'pu_methods': ['Puppi', 'CHS', ''],
-#					'jec_payloads': ['AK4PFPuppi', 'AK4PFchs', 'AK4PF'],
-#					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'],
-#					'UncertaintyOTF': False,
-#					'JERUncertainty': 'none', #Options: {none,nominal,up,down}
-#					'JESUncertainty': 'none', #Options: {none,up,down}
-#					},
 	'AK4L1L2L3': 	{
 					'algo': 'ak4',
-					'pu_methods': ['CHS'],
-					'jec_payloads': ['AK4PFchs'],
-					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'],
-					'UncertaintyOTF': False,
-					'JERUncertainty': 'none', #Options: {none,nominal,up,down}
-					'JESUncertainty': 'none', #Options: {none,up,down}
+					'pu_methods': ['CHS'], #Options: {Puppi,CHS,''}
+					'jec_payloads': ['AK4PFchs'], #Options: {AK4PFPuppi,AK4PFchs,AK4PF,AK8Calo,AK8JPT}
+					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'], #Options: {L1FastJet,L2Relative,L3Absolute,L2L3Residual,L5Flavor,L7Parton}
 					},
-#	'AK8': 			{
-#					'algo': 'ak8',
-#					'pu_methods': ['Puppi', 'CHS', ''],
-#					'jec_payloads': ['None','None','None'],
-#					'jec_levels': []
-#					},
-#	'AK8L1': 		{
-#			  		'algo': 'ak8',
-#			  		'pu_methods': ['Puppi', 'CHS', ''],
-#			  		'jec_payloads': ['AK8PFPuppi', 'AK8PFchs', 'AK8PF'],
-#			  		'jec_levels': ['L1FastJet']
-#			  		},
-#	'AK8L1L2L3': 	{
-#					'algo': 'ak8',
-#					'pu_methods': ['Puppi', 'CHS', ''],
-#					'jec_payloads': ['AK8PFPuppi', 'AK8PFchs', 'AK8PF'],
-#					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'],
-#					'UncertaintyOTF': False,
-#					'JERUncertainty': 'none', #Options: {none,nominal,up,down}
-#					'JESUncertainty': 'none', #Options: {none,up,down}
-#					},
 	'AK8L1L2L3': 	{
 					'algo': 'ak8',
-					'pu_methods': ['CHS'],
-					'jec_payloads': ['AK8PFchs'],
-					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'],
-					'UncertaintyOTF': False,
-					'JERUncertainty': 'none', #Options: {none,nominal,up,down}
-					'JESUncertainty': 'none', #Options: {none,up,down}
+					'pu_methods': ['CHS'], #Options: {Puppi,CHS,''}
+					'jec_payloads': ['AK8PFchs'], #Options: {AK8PFPuppi,AK8PFchs,AK8PF,AK8Calo,AK8JPT}
+					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'], #Options: {L1FastJet,L2Relative,L3Absolute,L2L3Residual,L5Flavor,L7Parton}
 					},
 				  }
 jetsCollectionsSorted = collections.OrderedDict(sorted(jetsCollections.items(), key=lambda x:x[0], reverse=False))
@@ -531,23 +498,23 @@ for name, params in jetsCollectionsSorted.items():
 		#################################################
 		from Analysis.JMEDAS.JetDepot import JetDepot
 
-		if not params['UncertaintyOTF']:
-			if params['JESUncertainty']!='none':
+		if not options.UncertaintyOTF:
+			if options.JESUncertainty!='none':
 				process, jetCollection = JetDepot(process,
 												  sequence=algorithm + 'Sequence',
 												  JetTag=jetCollection,
 												  JetType=params['jec_payloads'][index],
-												  jecUncDir=1 if params['JESUncertainty']=="up" else -1,
+												  jecUncDir=1 if options.JESUncertainty=="up" else -1,
 												  doSmear=False,
 												  jerUncDir=0
 												  )
-			if params['JERUncertainty']!='none':
+			if options.JERUncertainty!='none':
 				process, jetCollection = JetDepot(process,
 												  sequence=algorithm + 'Sequence',
 												  JetTag=jetCollection,
 												  jecUncDir=0,
 												  doSmear=True,
-												  jerUncDir=1 if params['JERUncertainty']=="up" else -1
+												  jerUncDir=1 if options.JERUncertainty=="up" else -1
 												  )
 
 		#################################################
@@ -583,12 +550,12 @@ for name, params in jetsCollectionsSorted.items():
 							 srcRho            = cms.InputTag('fixedGridRhoFastjetAll'),
 							 srcVtx            = cms.InputTag(vtxCol),
 							 srcPileupInfo     = cms.InputTag("slimmedAddPileupInfo") if options.doMiniAOD else cms.InputTag("addPileupInfo"),
-							 JERUncertainty    = cms.string(params['JERUncertainty'] if params['UncertaintyOTF'] else 'none'),
+							 JERUncertainty    = cms.string(options.JERUncertainty if options.UncertaintyOTF else 'none'),
 							 JERLegacy         = cms.bool(False),
 							 JERUncertaintyFile= cms.string(""),
-							 JESUncertainty    = cms.string(params['JESUncertainty'] if params['UncertaintyOTF'] else 'none'),
+							 JESUncertainty    = cms.string(options.JESUncertainty if options.UncertaintyOTF else 'none'),
 							 JESUncertaintyType= cms.string("TotalNoTime"),
-							 JESUncertaintyFile= cms.string("../data/Winter14_V5_DATA_UncertaintySources_AK5PFchs.txt"),
+							 JESUncertaintyFile= cms.string("../data/Spring16_25nsV5_MC_UncertaintySources_AK4PFchs.txt"),
 							 )
 		setattr(process,algorithm,pnm)
 
