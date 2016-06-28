@@ -181,8 +181,8 @@ JetMiniValidation::JetMiniValidation(const edm::ParameterSet& iConfig):
     ak8genjetToken_(consumes<reco::GenJetCollection>(edm::InputTag("slimmedGenJetsAK8"))),
     prunedGenToken_(consumes<edm::View<reco::GenParticle> >(edm::InputTag("prunedGenParticles"))),
     rhoToken_(consumes<double>(edm::InputTag("fixedGridRhoFastjetAll"))),
-    vtxToken_(consumes<std::vector<reco::Vertex> >(edm::InputTag("offlineSlimmedPrimaryVertices"))),
-    jecPayloads_        (iConfig.getParameter<std::vector<std::string> >  ("jecPayloads"))
+    vtxToken_(consumes<std::vector<reco::Vertex> >(edm::InputTag("offlineSlimmedPrimaryVertices")))
+    // jecPayloads_        (iConfig.getParameter<std::vector<std::string> >  ("jecPayloads"))
 {
   usesResource("TFileService");
   edm::Service<TFileService> fs;
