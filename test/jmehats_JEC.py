@@ -555,7 +555,7 @@ for name, params in jetsCollectionsSorted.items():
 							 JERUncertaintyFile= cms.string(""),
 							 JESUncertainty    = cms.string(options.JESUncertainty if options.UncertaintyOTF else 'none'),
 							 JESUncertaintyType= cms.string("TotalNoTime"),
-							 JESUncertaintyFile= cms.string("../data/Spring16_25nsV5_MC_UncertaintySources_AK4PFchs.txt"),
+							 JESUncertaintyFile= cms.string("../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_UncertaintySources_AK4PFchs.txt"),
 							 )
 		setattr(process,algorithm,pnm)
 
