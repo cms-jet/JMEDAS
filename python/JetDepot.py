@@ -24,7 +24,7 @@ def JetDepot(process, sequence, JetTag, JetType, jecUncDir=0, doSmear=True, jerU
     if jecUncDir!=0:
         #JEC unc up or down
         patJetsJEC = cms.EDProducer('JetUncertaintyProducer',
-            JetTag = JetTagOut,
+            JetTag = cms.InputTag(JetTagOut.value()),
             JetType = cms.string(JetType),
             jecUncDir = cms.int32(jecUncDir)
         )
@@ -39,7 +39,7 @@ def JetDepot(process, sequence, JetTag, JetType, jecUncDir=0, doSmear=True, jerU
     
     if doSmear:
         patSmearedJets = cms.EDProducer("SmearedPATJetProducer",
-            src = JetTagOut,
+            src = cms.InputTag(JetTagOut.value()),
             enabled = cms.bool(True),
             rho = cms.InputTag("fixedGridRhoFastjetAll"),
             skipGenMatching = cms.bool(False),
@@ -58,4 +58,4 @@ def JetDepot(process, sequence, JetTag, JetType, jecUncDir=0, doSmear=True, jerU
         setattr(process,JetTagOut.value(),patSmearedJets)
         theSequence = getattr(process,JetTagOut.value()) * theSequence
     
-    return (process, JetTagOut)
+    return (process, JetTagOut.value())

@@ -70,6 +70,11 @@ options.register('JESUncertainty',
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  'Controls whether of not the JES uncertainties are applied. The options are: {none,up,down}')
+options.register('ofilename',
+                 'JECNtuple.root',
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.string,
+                 'The name of the output ROOT file.')
 
 options.parseArguments()
 
@@ -115,7 +120,7 @@ process.load('Configuration.StandardSequences.Services_cff')
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
 process.MessageLogger.cerr.FwkReport.reportEvery = 500
 process.load('CommonTools.UtilAlgos.TFileService_cfi')
-process.TFileService.fileName=cms.string('JECNtuple.root')
+process.TFileService.fileName=cms.string(options.ofilename)
 
 #!  _____ _   _ _____  _    _ _______ 
 #! |_   _| \ | |  __ \| |  | |__   __|
@@ -124,7 +129,7 @@ process.TFileService.fileName=cms.string('JECNtuple.root')
 #!  _| |_| |\  | |    | |__| |  | |   
 #! |_____|_| \_|_|     \____/   |_|                                       
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(1000))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(100))
 if options.doMiniAOD:
 	process.load("Analysis.JMEDAS.qcdflat_MINIAODSIM_v3_cff")
 else:
@@ -502,7 +507,7 @@ for name, params in jetsCollectionsSorted.items():
 			if options.JESUncertainty!='none':
 				process, jetCollection = JetDepot(process,
 												  sequence=algorithm + 'Sequence',
-												  JetTag=jetCollection,
+												  JetTag=cms.InputTag(jetCollection),
 												  JetType=params['jec_payloads'][index],
 												  jecUncDir=1 if options.JESUncertainty=="up" else -1,
 												  doSmear=False,
@@ -511,7 +516,8 @@ for name, params in jetsCollectionsSorted.items():
 			if options.JERUncertainty!='none':
 				process, jetCollection = JetDepot(process,
 												  sequence=algorithm + 'Sequence',
-												  JetTag=jetCollection,
+												  JetTag=cms.InputTag(jetCollection),
+												  JetType=params['jec_payloads'][index],
 												  jecUncDir=0,
 												  doSmear=True,
 												  jerUncDir=1 if options.JERUncertainty=="up" else -1
