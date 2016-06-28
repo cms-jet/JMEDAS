@@ -98,6 +98,7 @@ argv = []
 import ROOT
 import sys
 import copy
+from array import array
 from DataFormats.FWLite import Events, Handle
 ROOT.gROOT.Macro("rootlogon.C")
 jethandle0  = Handle ("std::vector<pat::Jet>")
@@ -111,6 +112,9 @@ rhoLabel = ("fixedGridRhoAll")
 pvHandle = Handle("std::vector<reco::Vertex>")
 pvLabel = ("offlineSlimmedPrimaryVertices")
 
+
+
+
 if options.smearJets and options.isData :
     print 'Misconfiguration. I cannot access generator-level jets on data. Not smearing jets.'
     options.smearJets = False
@@ -120,36 +124,36 @@ if options.correctJets :
 
     if not options.isData : 
         vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vPar.push_back( ROOT.JetCorrectorParameters('74X_mcRun2_asymptotic_v4_L1FastJet_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('74X_mcRun2_asymptotic_v4_L2Relative_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('74X_mcRun2_asymptotic_v4_L3Absolute_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_MC_L1FastJet_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_MC_L2Relative_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_MC_L3Absolute_AK4PFchs.txt') )
         jec = ROOT.FactorizedJetCorrector( vPar )
-        jecUnc = ROOT.JetCorrectionUncertainty( '74X_mcRun2_asymptotic_v4_Uncertainty_AK4PFchs.txt' )
+        jecUnc = ROOT.JetCorrectionUncertainty( 'Spring16_25nsV5_MC_Uncertainty_AK4PFchs.txt' )
 
         vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_mcRun2_asymptotic_v4_L1FastJet_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_mcRun2_asymptotic_v4_L2Relative_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_mcRun2_asymptotic_v4_L3Absolute_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_MC_L1FastJet_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_MC_L2Relative_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_MC_L3Absolute_AK8PFchs.txt') )
         jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
 
-        jecUncAK8 = ROOT.JetCorrectionUncertainty( '74X_mcRun2_asymptotic_v4_Uncertainty_AK8PFchs.txt' )
+        jecUncAK8 = ROOT.JetCorrectionUncertainty( 'Spring16_25nsV5_MC_Uncertainty_AK8PFchs.txt' )
     else :
         vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vPar.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L1FastJet_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L2Relative_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L3Absolute_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L2L3Residual_AK4PFchs.txt') ) # Need residual correction for data
+        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L1FastJet_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L2Relative_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L3Absolute_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L2L3Residual_AK4PFchs.txt') ) # Need residual correction for data
         jec = ROOT.FactorizedJetCorrector( vPar )
-        jecUnc = ROOT.JetCorrectionUncertainty( '74X_dataRun2_v5_Uncertainty_AK4PFchs.txt' )
+        jecUnc = ROOT.JetCorrectionUncertainty( 'Spring16_25nsV5_DATA_Uncertainty_AK4PFchs.txt' )
 
         vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L1FastJet_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L2Relative_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L3Absolute_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('74X_dataRun2_v5_L2L3Residual_AK8PFchs.txt') ) # Need residual correction for data
+        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L1FastJet_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L2Relative_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L3Absolute_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L2L3Residual_AK8PFchs.txt') ) # Need residual correction for data
         jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
 
-        jecUncAK8 = ROOT.JetCorrectionUncertainty( '74X_dataRun2_v5_Uncertainty_AK8PFchs.txt' )
+        jecUncAK8 = ROOT.JetCorrectionUncertainty( 'Spring16_25nsV5_DATA_Uncertainty_AK8PFchs.txt' )
 
 
 ##   ___ ___ .__          __                                             
@@ -182,19 +186,21 @@ h_areaAK4Gen = ROOT.TH1F("h_areaAK4Gen", "AK4Gen Jet Area;Area", 250, 0, 5.0)
 
 
 h_ptAK8 = ROOT.TH1F("h_ptAK8", "AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
+h_ptAK8Puppi = ROOT.TH1F("h_ptAK8Puppi", "AK8Puppi Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_ptUpAK8 = ROOT.TH1F("h_ptUpAK8", "JEC Up AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_ptDownAK8 = ROOT.TH1F("h_ptDownAK8", "JEC Down AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_ptUncorrAK8 = ROOT.TH1F("h_ptUncorrAK8", "UnCorrected AK8 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_JECValueAK8 = ROOT.TH1F("h_JECValueAK8", "Value of JEC for AK8 Jet", 100, 0.8, 1.1)
 h_etaAK8 = ROOT.TH1F("h_etaAK8", "AK8 Jet #eta;#eta", 120, -6, 6)
+h_etaAK8Puppi = ROOT.TH1F("h_etaAK8Puppi", "AK8Puppi Jet #eta;#eta", 120, -6, 6)
 h_yAK8 = ROOT.TH1F("h_yAK8", "AK8 Jet Rapidity;y", 120, -6, 6)
 h_phiAK8 = ROOT.TH1F("h_phiAK8", "AK8 Jet #phi;#phi (radians)",100,-ROOT.Math.Pi(),ROOT.Math.Pi())
+h_phiAK8Puppi = ROOT.TH1F("h_phiAK8Puppi", "AK8Puppi Jet #phi;#phi (radians)",100,-ROOT.Math.Pi(),ROOT.Math.Pi())
 h_mAK8 = ROOT.TH1F("h_mAK8", "AK8 Jet Mass;Mass (GeV)", 100, 0, 1000)
 h_areaAK8 = ROOT.TH1F("h_areaAK8", "AK8 Jet Area;Area", 250, 0, 5.0)
 h_msoftdropAK8 = ROOT.TH1F("h_msoftdropAK8", "AK8 Softdrop Jet Mass;Mass (GeV)", 100, 0, 1000)
 h_mprunedAK8 = ROOT.TH1F("h_mprunedAK8", "AK8 Pruned Jet Mass;Mass (GeV)", 100, 0, 1000)
-h_mfilteredAK8 = ROOT.TH1F("h_mfilteredAK8", "AK8 Filtered Jet Mass;Mass (GeV)", 100, 0, 1000)
-h_mtrimmedAK8 = ROOT.TH1F("h_mtrimmedAK8", "AK8 Trimmed Jet Mass;Mass (GeV)", 100, 0, 1000)
+h_mpuppiAK8 = ROOT.TH1F("h_mpuppiAK8", "AK8 PUPPI Jet Mass;Mass (GeV)", 100, 0, 1000)
 h_minmassAK8 = ROOT.TH1F("h_minmassAK8", "AK8 CMS Top Tagger Min Mass Paring;m_{min} (GeV)", 100, 0, 1000)
 h_nsjAK8 = ROOT.TH1F("h_nsjAK8", "AK8 CMS Top Tagger N_{subjets};N_{subjets}", 5, 0, 5)
 h_tau21AK8 = ROOT.TH1F("h_tau21AK8", "AK8 Jet #tau_{2} / #tau_{1};Mass#tau_{21}", 100, 0, 1.0)
@@ -213,8 +219,26 @@ h_phiAK8Gen = ROOT.TH1F("h_phiAK8Gen", "AK8Gen Jet #phi;#phi (radians)",100,-ROO
 h_mAK8Gen = ROOT.TH1F("h_mAK8Gen", "AK8Gen Jet Mass;Mass (GeV)", 100, 0, 1000)
 h_areaAK8Gen = ROOT.TH1F("h_areaAK8Gen", "AK8Gen Jet Area;Area", 250, 0, 5.0)
 
+varTree = ROOT.TTree("varTree", "varTree")
+ak8pt = array('f', [-1.])
+ak8eta = array('f', [-1.])
+ak8phi = array('f', [-1.])
+ak8mass = array('f', [-1.])
+ak8SDmass = array('f', [-1.])
+ak8PUPPImass = array('f', [-1.])
+ak8tau32 = array('f', [-1.])
+ak8tau21 = array('f', [-1.])
+npv = array('f', [-1.])
 
-
+varTree.Branch('ak8pt', ak8pt, 'ak8pt/F')
+varTree.Branch('ak8eta', ak8eta, 'ak8eta/F')
+varTree.Branch('ak8phi', ak8phi, 'ak8phi/F')
+varTree.Branch('ak8mass', ak8mass, 'ak8mass/F')
+varTree.Branch('ak8SDmass', ak8SDmass, 'ak8SDmass/F')
+varTree.Branch('ak8PUPPImass', ak8PUPPImass, 'ak8PUPPImass/F')
+varTree.Branch('ak8tau32', ak8tau32, 'ak8tau32/F')
+varTree.Branch('ak8tau21', ak8tau21, 'ak8tau21/F')
+varTree.Branch('npv', npv, 'npv/F')
 
 ##      ____.       __    __________                    .__          __  .__               
 ##     |    | _____/  |_  \______   \ ____   __________ |  |  __ ___/  |_|__| ____   ____  
@@ -276,7 +300,7 @@ nevents = 0
 for ifile in filesraw :
     if len( ifile ) > 2 : 
         s = 'root://' + options.xrootd + '/' + ifile.rstrip()
-        files.append( s )
+	files.append( s )
         print 'Added ' + s
 
 
@@ -348,7 +372,6 @@ for ifile in files :
                   nef < 0.99 and \
                   chf > 0.00 and \
                   cef < 0.99 and \
-                  nconstituents > 1 and \
                   nch > 0
 
 
@@ -427,7 +450,7 @@ for ifile in files :
                 if options.verbose == True : 
                     print ("Jet {0:4.0f}, orig pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, " +
                            "nda = {5:3.0f}, vtxmass = {6:6.2f}, area = {7:6.2f}, corr = {8:6.3f} +{9:6.3f} -{10:6.3f} ").format(
-                        ijet, jet.pt(), jet.eta(), jet.phi(), jet.mass(), jet.numberOfDaughters(), jet.userFloat('secvtxMass'),
+                        ijet, jet.pt(), jet.eta(), jet.phi(), jet.mass(), jet.numberOfDaughters(), jet.userFloat('vtxMass'),
                         jet.jetArea(), corr, abs(corrUp - corr), abs(corr - corrDn)
                         ),
                     if genJet != None :
@@ -450,7 +473,9 @@ for ifile in files :
         # get the product
         jets1 = jethandle1.product()
         # loop over jets and fill hists
-        ijet = 0
+        if options.verbose :
+	    print jets1.size()
+	ijet = 0
         for jet in jets1 :
             if ijet >= options.maxjets :
                 break
@@ -476,7 +501,6 @@ for ifile in files :
                   cef < 0.99 and \
                   nconstituents > 1 and \
                   nch > 0
-
 
                 if not goodJet :
                     continue
@@ -544,6 +568,7 @@ for ifile in files :
                     rhoRatio = pow( groomedJet.mass() / (groomedJet.pt()*0.8), 2)
                 
                 h_ptAK8.Fill( corr * uncorrJet.pt() )
+                h_ptAK8Puppi.Fill( corr * jet.userFloat('ak8PFJetsPuppiValueMap:pt') )
                 h_JECValueAK8.Fill( corr )
                 h_ptUncorrAK8.Fill( uncorrJet.pt() )
                 h_ptDownAK8.Fill( corrDn * uncorrJet.pt() )
@@ -551,13 +576,21 @@ for ifile in files :
                 h_etaAK8.Fill( jet.eta() )
                 h_yAK8.Fill( jet.y() )
                 h_phiAK8.Fill( jet.phi() )
+                h_etaAK8Puppi.Fill( jet.userFloat('ak8PFJetsPuppiValueMap:eta') )
+                h_phiAK8Puppi.Fill( jet.userFloat('ak8PFJetsPuppiValueMap:phi') )
                 h_mAK8.Fill( jet.mass() )
                 h_areaAK8.Fill( jet.jetArea() )
                 h_msoftdropAK8.Fill( jet.userFloat('ak8PFJetsCHSSoftDropMass') )
                 h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSPrunedMass') )
-                h_mtrimmedAK8.Fill( jet.userFloat('ak8PFJetsCHSTrimmedMass') )
-                h_mfilteredAK8.Fill( jet.userFloat('ak8PFJetsCHSFilteredMass') )
-                if groomedJet != None : 
+                h_mpuppiAK8.Fill( jet.userFloat('ak8PFJetsPuppiValueMap:mass') )
+                ak8pt[0] = corr * uncorrJet.pt()
+		ak8eta[0] = jet.eta()
+		ak8phi[0] = jet.phi()
+		ak8mass[0] = jet.mass()
+		ak8SDmass[0] = jet.userFloat('ak8PFJetsCHSSoftDropMass')
+		ak8PUPPImass[0] = jet.userFloat('ak8PFJetsPuppiValueMap:mass')
+		npv[0] = float(len(pvs))
+		if groomedJet != None : 
                     h_ptGroomedCorrAK8.Fill( groomedJet.pt() )
                     h_msoftdropCorrAK8.Fill( groomedJet.mass() )
                     h_rhoRatioAK8.Fill( rhoRatio )
@@ -578,15 +611,17 @@ for ifile in files :
                 tau3 = jet.userFloat('NjettinessAK8:tau3')
                 if tau1 > 0.0001 :
                     tau21 = tau2 / tau1
-                    h_tau21AK8.Fill( tau21 )
+                    ak8tau21[0] = tau21
+		    h_tau21AK8.Fill( tau21 )
                 else :
                     h_tau21AK8.Fill( -1.0 )
                 if tau2 > 0.0001 :
                     tau32 = tau3 / tau2
-                    h_tau32AK8.Fill( tau32 )
+                    ak8tau32[0] = tau32
+		    h_tau32AK8.Fill( tau32 )
                 else :
                     h_tau32AK8.Fill( -1.0 )
-
+		varTree.Fill()
                 genJet = jet.genJet()
                 if genJet != None :
                     h_ptAK8Gen.Fill( genJet.pt() )
@@ -597,18 +632,17 @@ for ifile in files :
                     h_areaAK8Gen.Fill( genJet.jetArea() )                    
                 if options.verbose == True :
                     if hasTopTagInfo : 
-                        print 'Jet {0:4.0f}, pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, nda = {5:3.0f}, softdrop m = {6:6.2f}, pruned m = {7:6.2f}, trimmed m = {8:6.2f}, filtered m = {9:6.2f}, topmass = {10:6.2f}, minmass = {11:6.2f}'.format(
+                        print 'Jet {0:4.0f}, pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, nda = {5:3.0f}, softdrop m = {6:6.2f}, pruned m = {7:6.2f}, topmass = {10:6.2f}, minmass = {11:6.2f}'.format(
                             ijet, jet.pt(), jet.eta(), jet.phi(), jet.mass(), jet.numberOfDaughters(),
                             jet.userFloat('ak8PFJetsCHSSoftDropMass'),
-                            jet.userFloat('ak8PFJetsCHSPrunedMass'), jet.userFloat('ak8PFJetsCHSTrimmedMass'), jet.userFloat('ak8PFJetsCHSFilteredMass'),
+                            jet.userFloat('ak8PFJetsCHSPrunedMass'),
                             jet.tagInfo('caTop').properties().topMass, jet.tagInfo('caTop').properties().minMass
                             )
                     else :
-                       print 'Jet {0:4.0f}, pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, nda = {5:3.0f}, softdrop m = {6:6.2f}, pruned m = {7:6.2f}, trimmed m = {8:6.2f}, filtered m = {9:6.2f}, topmass = {10:6.2f}, minmass = {11:6.2f}'.format(
+                       print 'Jet {0:4.0f}, pt = {1:10.2f}, eta = {2:6.2f}, phi = {3:6.2f}, m = {4:6.2f}, nda = {5:3.0f}, softdrop m = {6:6.2f}, pruned m = {7:6.2f}'.format(
                             ijet, jet.pt(), jet.eta(), jet.phi(), jet.mass(), jet.numberOfDaughters(),
                             jet.userFloat('ak8PFJetsCHSSoftDropMass'),
-                            jet.userFloat('ak8PFJetsCHSPrunedMass'), jet.userFloat('ak8PFJetsCHSTrimmedMass'), jet.userFloat('ak8PFJetsCHSFilteredMass'),
-                            -1.0, -1.0
+                            jet.userFloat('ak8PFJetsCHSPrunedMass'),
                             )
             ijet += 1
 
