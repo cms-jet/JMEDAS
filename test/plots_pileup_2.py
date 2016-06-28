@@ -41,7 +41,7 @@ c = tdrCanvasMultipad("c",frames,14,11,2,2)
 f = TFile("pileupNtuple.root")
 
 # Access and store the necessary trees
-tAK4PF   	= f.Get("AK4PFL1L2L3/t")
+tAK4PF      = f.Get("AK4PFL1L2L3/t")
 tAK4PFchs   = f.Get("AK4PFCHSL1L2L3/t")
 tAK4PFPuppi = f.Get("AK4PFPuppiL1L2L3/t")
 
@@ -80,7 +80,7 @@ for hs in hsettings:
 
 			print "\tDoing the histogram",hname,"..."
 
-			histograms[hname] = TH1D(hname,hname,hsettings[hs][1],hsettings[hs][2],hsettings[hs][3])
+			histograms[hname] = TH1D(hname,hname,hsettingsTMP[hs][1],hsettingsTMP[hs][2],hsettingsTMP[hs][3])
 
 			# Fill the histograms
 			for event in tree:
@@ -127,24 +127,24 @@ for hs in hsettings:
 			# Add entries to the legend		
 			legends[legname].AddEntry(histograms[hname],str(alg_size+jt+cor).replace("Uncorrected",""),"l")
 
-			c.cd(hsettings[hs][0])
+			c.cd(hsettingsTMP[hs][0])
 			tdrDraw(histograms[hname],"HIST",kNone,jetTypes[jt],corrections[cor],-1,0,0)
 
 			if hs == "response":
 				# Draw the fits
 				if drawFits:
-					c.cd(hsettings[hs][0])
+					c.cd(hsettingsTMP[hs][0])
 					fits[fname].Draw("same")
 
 				# Draw the lines
 				if drawLines:
-					c.cd(hsettings[hs][0])
+					c.cd(hsettingsTMP[hs][0])
 					lines[lname].Draw("same")
 			elif hs == "pt":
 				gPad.SetLogx()
 
 	#Draw the legend
-	c.cd(hsettings[hs][0])
+	c.cd(hsettingsTMP[hs][0])
 	legends[legname].Draw("same")	
 c.Update()
 c.Draw()

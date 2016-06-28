@@ -13,3 +13,4 @@
 <use   name="CommonTools/Utils"/>
 <use   name="CommonTools/UtilAlgos"/>
 <use   name="CondFormats/JetMETObjects"/>
+<use   name="Analysis/JMEDAS"/>

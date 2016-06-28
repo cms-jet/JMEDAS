@@ -33,9 +33,9 @@ c = tdrCanvasMultipad("c",frames,2,11,2,2)
 f = TFile("JECNtuple.root")
 
 # Access and store the necessary trees
-tAK4PF   = f.Get("AK4PF/t")
-tAK4PFchs = f.Get("AK4PFCHS/t")
-tAK4PUPPI   = f.Get("AK4PUPPI/t")
+tAK4PF   = TTree(f.Get("AK4PF/t"))
+tAK4PFchs = TTree(f.Get("AK4PFCHS/t"))
+tAK4PUPPI   = TTree(f.Get("AK4PUPPI/t"))
 
 # Crease some histograms
 hAK4PF_response    = TH1D("hAK4PF_response","hAK4PF_response",80,0,2)

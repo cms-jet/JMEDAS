@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 # event setup
-from Configuration.StandardSequences.Geometry_cff import *
+from Configuration.StandardSequences.GeometryRecoDB_cff import *
 from Configuration.StandardSequences.MagneticField_cff import *
 
 # jet reconstruction

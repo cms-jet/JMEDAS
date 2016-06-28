@@ -150,6 +150,7 @@ print "{:<15} {:<30} {:<30}".format('---------','--------------',"--------------
 
 from JMEAnalysis.JetToolbox.jetToolbox_cff import *
 #jetToolbox( process, jetType, jetSequence, outputFile,
+#	            newPFCollection=False, nameNewPFCollection = '',
 #               PUMethod='CHS',                    #### Options: Puppi, CS, SK, Plain
 #               JETCorrPayload='None', JETCorrLevels = [ 'None' ],
 #               subJETCorrPayload='None', subJETCorrLevels = [ 'None' ],

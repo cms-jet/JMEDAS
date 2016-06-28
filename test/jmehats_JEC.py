@@ -1,28 +1,80 @@
 #! Text To ASCII from http://patorjk.com/software/taag/#p=display&f=Big&t=MUON%20ISOLATION
 
 import FWCore.ParameterSet.Config as cms
-
-#!       _ ______ _______            _____  ______ ______ ______ _____  ______ _   _  _____ ______   _  _______ _   _ ______ __  __       _______ _____ _____    _____ _    _ _______ _____ 
-#!      | |  ____|__   __|   ___    |  __ \|  ____|  ____|  ____|  __ \|  ____| \ | |/ ____|  ____| | |/ /_   _| \ | |  ____|  \/  |   /\|__   __|_   _/ ____|  / ____| |  | |__   __/ ____|
-#!      | | |__     | |     ( _ )   | |__) | |__  | |__  | |__  | |__) | |__  |  \| | |    | |__    | ' /  | | |  \| | |__  | \  / |  /  \  | |    | || |      | |    | |  | |  | | | (___  
-#!  _   | |  __|    | |     / _ \/\ |  _  /|  __| |  __| |  __| |  _  /|  __| | . ` | |    |  __|   |  <   | | | . ` |  __| | |\/| | / /\ \ | |    | || |      | |    | |  | |  | |  \___ \ 
-#! | |__| | |____   | |    | (_>  < | | \ \| |____| |    | |____| | \ \| |____| |\  | |____| |____  | . \ _| |_| |\  | |____| |  | |/ ____ \| |   _| || |____  | |____| |__| |  | |  ____) |
-#!  \____/|______|  |_|     \___/\/ |_|  \_\______|_|    |______|_|  \_\______|_| \_|\_____|______| |_|\_\_____|_| \_|______|_|  |_/_/    \_\_|  |_____\_____|  \_____|\____/   |_| |_____/ 
-
-PileupNtupleMakerParameters = cms.PSet(
-    # record flavor information, consider both RefPt and JetPt
-    doComposition   = cms.bool(True),
-    doFlavor        = cms.bool(True),
-    doRefPt         = cms.bool(True),
-    doJetPt         = cms.bool(True),
-    # MATCHING MODE: deltaR(ref,jet)
-    deltaRMax       = cms.double(99.9),
-    # deltaR(ref,parton) IF doFlavor is True
-    deltaRPartonMax = cms.double(0.25),
-    # consider all matched references
-    nJetMax         = cms.uint32(0),
-)
+import FWCore.ParameterSet.VarParsing as VarParsing
+import collections
+from Analysis.JMEDAS.colors import bcolors
+from itertools import groupby
+from optparse import OptionParser
  
+#!   ____  _____ _______ _____ ____  _   _  _____ 
+#!  / __ \|  __ \__   __|_   _/ __ \| \ | |/ ____|
+#! | |  | | |__) | | |    | || |  | |  \| | (___  
+#! | |  | |  ___/  | |    | || |  | | . ` |\___ \ 
+#! | |__| | |      | |   _| || |__| | |\  |____) |
+#!  \____/|_|      |_|  |_____\____/|_| \_|_____/ 
+
+'''
+How to pass command line arguments can be found at:
+https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideAboutPythonConfigFile#Passing_Command_Line_Arguments_T
+'''
+options = VarParsing.VarParsing()
+
+options.register('applyDBFile',
+				 0, # default value, use integer for boolean flags (1 = True, 0 = False) 
+                 VarParsing.VarParsing.multiplicity.singleton, # singleton or list
+                 VarParsing.VarParsing.varType.int,          # string, int, or float
+                 "Take the JEC not from a global tag or text files, but from an SQLite file.")
+options.register('doMiniAOD',
+                 1,
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.int,
+                 'If true, will use a MiniAOD sample as opposed to an AODSIM sample.')
+options.register('doJetToolbox',
+                 0,
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.int,
+                 'If true, will use the JetToolbox to recluster the jets and apply the JEC.')
+options.register('doReclustering',
+                 0,
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.int,
+                 'If true, will recluster the jets as opposed to taking them from the MC samples.')
+options.register('useUpdater',
+                 0,
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.int,
+                 'If true, the jets taken from the MiniAOD sample and not reclustered will have new JEC applied.')
+options.register('era',
+                 'Spring16_25nsV3_MC',
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.string,
+                 'The era of the JEC. Used when accessing an SQLite file or a series of text files.')
+options.register('jerfile',
+                 'none',
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.string,
+                 'The path to a text file containing the JER scale factors. Used when applying them on-the-fly.')
+
+options.parseArguments()
+
+#Check the options
+if options.doJetToolbox and not options.doReclustering:
+	print bcolors.FAIL+"ERROR::In order to use the JetToolbox you must be willing to recluster your jets."+bcolors.ENDC
+	exit(-4)
+elif options.useUpdater and not options.doMiniAOD and not options.doJetToolbox:
+	print bcolors.FAIL+"ERROR::Right now only reco::Jets come out of the PFBRECO method."+bcolors.ENDC
+	print bcolors.FAIL+"\tThe patJetUpdater can't use reco::Jets and can onlyuse as input pat::Jets"+bcolors.ENDC
+	exit(-5)
+elif options.doMiniAOD and options.doReclustering and options.useUpdater:
+	print bcolors.FAIL+"ERROR::This option will already have the latest corrections applied."+bcolors.ENDC
+	print bcolors.FAIL+"\tNo need to use the patJetUpdater."+bcolors.ENDC
+	exit(-6)
+elif not options.doMiniAOD and options.doReclustering and options.useUpdater:
+	print bcolors.FAIL+"ERROR::This option will already have the latest corrections applied."+bcolors.ENDC
+	print bcolors.FAIL+"\tNo need to use the patJetUpdater."+bcolors.ENDC
+	exit(-7)
+
 #!  _____  _____   ____   _____ ______  _____ _____ 
 #! |  __ \|  __ \ / __ \ / ____|  ____|/ ____/ ____|
 #! | |__) | |__) | |  | | |    | |__  | (___| (___  
@@ -31,25 +83,8 @@ PileupNtupleMakerParameters = cms.PSet(
 #! |_|    |_|  \_\\____/ \_____|______|_____/_____/ 
 
 process = cms.Process("JRA")
-applyDBFile = False
-era = 'PHYS14_V4_MC'
-doJetToolbox = False
-process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(True) )
+process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(False) )
 process.options.allowUnscheduled = cms.untracked.bool(True)
-doMiniAOD = True
-
-#!  _____ _   _ _____  _    _ _______ 
-#! |_   _| \ | |  __ \| |  | |__   __|
-#!   | | |  \| | |__) | |  | |  | |   
-#!   | | | . ` |  ___/| |  | |  | |   
-#!  _| |_| |\  | |    | |__| |  | |   
-#! |_____|_| \_|_|     \____/   |_|                                       
-
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(1000))
-if doMiniAOD:
-	process.load("Analysis.JMEDAS.qcdflat_MINIAODSIM_cff")
-else:
-	process.load("Analysis.JMEDAS.qcdflat_AODSIM_cff")
 
 #!   _____ ______ _______      _______ _____ ______  _____ 
 #!  / ____|  ____|  __ \ \    / /_   _/ ____|  ____|/ ____|
@@ -67,6 +102,19 @@ process.MessageLogger.cerr.FwkReport.reportEvery = 500
 process.load('CommonTools.UtilAlgos.TFileService_cfi')
 process.TFileService.fileName=cms.string('JECNtuple.root')
 
+#!  _____ _   _ _____  _    _ _______ 
+#! |_   _| \ | |  __ \| |  | |__   __|
+#!   | | |  \| | |__) | |  | |  | |   
+#!   | | | . ` |  ___/| |  | |  | |   
+#!  _| |_| |\  | |    | |__| |  | |   
+#! |_____|_| \_|_|     \____/   |_|                                       
+
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(1000))
+if options.doMiniAOD:
+	process.load("Analysis.JMEDAS.qcdflat_MINIAODSIM_v3_cff")
+else:
+	process.load("Analysis.JMEDAS.qcdflat_AODSIM_v3_cff")
+
 #!           _      _____  ____  _____  _____ _______ _    _ __  __  _____ 
 #!     /\   | |    / ____|/ __ \|  __ \|_   _|__   __| |  | |  \/  |/ ____|
 #!    /  \  | |   | |  __| |  | | |__) | | |    | |  | |__| | \  / | (___  
@@ -74,33 +122,125 @@ process.TFileService.fileName=cms.string('JECNtuple.root')
 #!  / ____ \| |___| |__| | |__| | | \ \ _| |_   | |  | |  | | |  | |____) |
 #! /_/    \_\______\_____|\____/|_|  \_\_____|  |_|  |_|  |_|_|  |_|_____/                                                                        
 jcr = cms.VPSet()
+jrr = cms.VPSet()
 jetsCollections = {
-        'AK4': {
-		'algo': 'ak4',
-#		'pu_methods': ['Puppi', 'CHS', ''],
-		'pu_methods': ['CHS', ''],
-#		'jec_payloads': ['AK4PFPUPPI', 'AK4PFchs', 'AK4PF'],
-		'jec_payloads': ['AK4PFchs', 'AK4PF'],
-#		'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute']
-		'jec_levels': []
-		},
+#	'AK4': 			{
+#					'algo': 'ak4',
+#					'pu_methods': ['Puppi', 'CHS', ''],
+#					'jec_payloads': ['None','None','None'],
+#					'jec_levels': []
+#					},
+#	'AK4L1': 		{
+#			  		'algo': 'ak4',
+#			  		'pu_methods': ['Puppi', 'CHS', ''],
+#			  		'jec_payloads': ['AK4PFPuppi', 'AK4PFchs', 'AK4PF'],
+#			  		'jec_levels': ['L1FastJet']
+#			  		},
+#	'AK4L1L2L3': 	{
+#					'algo': 'ak4',
+#					'pu_methods': ['Puppi', 'CHS', ''],
+#					'jec_payloads': ['AK4PFPuppi', 'AK4PFchs', 'AK4PF'],
+#					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'],
+#					'UncertaintyOTF': False,
+#					'JERUncertainty': 'none', #Options: {none,nominal,up,down}
+#					'JESUncertainty': 'none', #Options: {none,up,down}
+#					},
+	'AK4L1L2L3': 	{
+					'algo': 'ak4',
+					'pu_methods': ['CHS'],
+					'jec_payloads': ['AK4PFchs'],
+					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'],
+					'UncertaintyOTF': False,
+					'JERUncertainty': 'none', #Options: {none,nominal,up,down}
+					'JESUncertainty': 'none', #Options: {none,up,down}
+					},
+#	'AK8': 			{
+#					'algo': 'ak8',
+#					'pu_methods': ['Puppi', 'CHS', ''],
+#					'jec_payloads': ['None','None','None'],
+#					'jec_levels': []
+#					},
+#	'AK8L1': 		{
+#			  		'algo': 'ak8',
+#			  		'pu_methods': ['Puppi', 'CHS', ''],
+#			  		'jec_payloads': ['AK8PFPuppi', 'AK8PFchs', 'AK8PF'],
+#			  		'jec_levels': ['L1FastJet']
+#			  		},
+#	'AK8L1L2L3': 	{
+#					'algo': 'ak8',
+#					'pu_methods': ['Puppi', 'CHS', ''],
+#					'jec_payloads': ['AK8PFPuppi', 'AK8PFchs', 'AK8PF'],
+#					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'],
+#					'UncertaintyOTF': False,
+#					'JERUncertainty': 'none', #Options: {none,nominal,up,down}
+#					'JESUncertainty': 'none', #Options: {none,up,down}
+#					},
+	'AK8L1L2L3': 	{
+					'algo': 'ak8',
+					'pu_methods': ['CHS'],
+					'jec_payloads': ['AK8PFchs'],
+					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'],
+					'UncertaintyOTF': False,
+					'JERUncertainty': 'none', #Options: {none,nominal,up,down}
+					'JESUncertainty': 'none', #Options: {none,up,down}
+					},
+				  }
+jetsCollectionsSorted = collections.OrderedDict(sorted(jetsCollections.items(), key=lambda x:x[0], reverse=False))
 
-        'AK8': {
-		'algo': 'ak8',
-#		'pu_methods': ['Puppi', 'CHS', ''],
-		'pu_methods': ['CHS', ''],
-#		'jec_payloads': ['AK8PFPUPPI', 'AK8PFchs', 'AK8PF'],
-		'jec_payloads': ['AK8PFchs', 'AK8PF'],
-#		'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute']
-		'jec_levels': []
-		},
-	}
+#Check for multiple collections of the same cone size
+csCounter = {}
+for name, params in jetsCollectionsSorted.items():
+	if params['algo'] not in csCounter:
+		csCounter[params['algo']] = 1
+	else:
+		csCounter[params['algo']]+=1
+if any(v > 1 for v in csCounter.itervalues()):
+	print bcolors.FAIL+"NOTE: This code has a problem running multiple collections of the same cone size."+bcolors.ENDC
+	print "\tPlease choose one!"
+	exit(-3)
 
+maxA = maxJC = maxJP = maxCL = 0
 for name, params in jetsCollections.items():
+	maxCL = len(str(params['jec_levels'])) if len(str(params['jec_levels'])) > maxCL else maxCL
 	for index, pu_method in enumerate(params['pu_methods']):
+		PUSuffix = ''
+		for c in params['jec_levels']:
+			PUSuffix += c[:2]
+		PUSuffix = PUSuffix.lower()
+		maxJC = len('selectedPatJets'+params['algo'].upper()+'PF'+pu_method) if len('selectedPatJets'+params['algo'].upper()+'PF'+pu_method) > maxJC else maxJC
+		maxA = len(params['algo'].upper()+'PF'+pu_method+PUSuffix.upper()) if len(params['algo'].upper()+'PF'+pu_method+PUSuffix.upper()) > maxA else maxA
+		maxJP = len(params['jec_payloads'][index]) if len(params['jec_payloads'][index]) > maxJP else maxJP 
+
 		jcr.append(cms.PSet(record = cms.string("JetCorrectionsRecord"),
-				    tag = cms.string("JetCorrectorParametersCollection_"+era+"_"+params['jec_payloads'][index]),
-				    label= cms.untracked.string(params['jec_payloads'][index])))
+				   			tag = cms.string("JetCorrectorParametersCollection_"+options.era+"_"+params['jec_payloads'][index]),
+				   			label = cms.untracked.string(params['jec_payloads'][index])))
+
+		JERera = options.jerfile.split('/')[-1]
+		jrr.append(cms.PSet(record = cms.string('JetResolutionRcd'),
+		            		tag = cms.string('JR_'+JERera+'_PtResolution_AK4PFchs'),
+		            		label = cms.untracked.string(params['jec_payloads'][index]+'_pt')))
+		jrr.append(cms.PSet(record = cms.string('JetResolutionScaleFactorRcd'),
+                    		tag    = cms.string('JR_'+JERera+'_SF_'+params['jec_payloads'][index]),
+                    		label  = cms.untracked.string(params['jec_payloads'][index])))
+
+		if options.doMiniAOD and not options.doReclustering:
+			doExit = False
+			if not any(alg in params['algo'] for alg in ['ak4','ak8']):
+				print bcolors.FAIL+"ERROR::Can't continue because doReclustering is set to False and the 2016 MiniAOD files only contain AK4 and AK8 jets"+bcolors.ENDC
+				doExit = True
+			if params['algo'] == 'ak4' and not any(pu in pu_method for pu in ['CHS','Puppi']):
+				print bcolors.FAIL+"ERROR::Can't continue because doReclustering is set to False and the 2016 MiniAOD files only have AK4 jets using CHS or PFPuppi"+bcolors.ENDC
+				doExit = True
+			if params['algo'] == 'ak8' and pu_method!='CHS':
+				print bcolors.FAIL+"ERROR::Can't continue because doReclustering is set to False and the 2016 MiniAOD files only have AK8 jets using CHS"+bcolors.ENDC
+				doExit = True
+			if doExit:
+				exit(-1)
+
+maxA = max(maxA,len("Algorithm"))
+maxJC = max(maxJC,len("Jet Collection"))
+maxJP = max(maxJP,len("JEC Payload"))
+maxCL = max(maxCL,len("Correction Levels"))
 
 #!   _____ ____  _   _ _____ _____ _______ _____ ____  _   _  _____ 
 #!  / ____/ __ \| \ | |  __ \_   _|__   __|_   _/ __ \| \ | |/ ____|
@@ -108,26 +248,33 @@ for name, params in jetsCollections.items():
 #! | |   | |  | | . ` | |  | || |    | |    | || |  | | . ` |\___ \ 
 #! | |___| |__| | |\  | |__| || |_   | |   _| || |__| | |\  |____) |
 #!  \_____\____/|_| \_|_____/_____|  |_|  |_____\____/|_| \_|_____/ 
-                                                                  
-process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
-process.GlobalTag.globaltag = "MCRUN2_74_V7::All"
-if applyDBFile:
-        from CondCore.DBCommon.CondDBSetup_cfi import *
-        process.jec = cms.ESSource("PoolDBESSource",CondDBSetup,
-                                   connect = cms.string('sqlite_file:'+era+'.db'),
-                                   #cms.string("frontier://FrontierPrep/CMS_COND_PHYSICSTOOLS"),
-                                   toGet =  cms.VPSet(jcr))
-        process.es_prefer_jec = cms.ESPrefer("PoolDBESSource","jec")
+																  
+process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff")
+process.GlobalTag.globaltag = cms.string('80X_mcRun2_asymptotic_2016_miniAODv2')
+if options.applyDBFile:
+	from CondCore.DBCommon.CondDBSetup_cfi import *
+	process.jec = cms.ESSource("PoolDBESSource",CondDBSetup,
+							   connect = cms.string('sqlite_file:'+options.era+'.db'),
+							   #cms.string("frontier://FrontierPrep/CMS_COND_PHYSICSTOOLS"),
+							   toGet =  cms.VPSet(jcr))
+	process.es_prefer_jec = cms.ESPrefer("PoolDBESSource","jec")
+
+	if not options.jerfile == 'none':
+		process.jer = cms.ESSource("PoolDBESSource",CondDBSetup,
+								   connect = cms.string('sqlite_file:'+options.jerfile+'.db'),
+								   toGet = cms.VPSet(jrr))	
+		process.es_prefer_jer = cms.ESPrefer("PoolDBESSource","jer")
 
 #      _ _____ _____   _____ ___   ___  _     ____   _____  __
 #     | | ____|_   _| |_   _/ _ \ / _ \| |   | __ ) / _ \ \/ /
 #  _  | |  _|   | |     | || | | | | | | |   |  _ \| | | \  / 
 # | |_| | |___  | |     | || |_| | |_| | |___| |_) | |_| /  \ 
 #  \___/|_____| |_|     |_| \___/ \___/|_____|____/ \___/_/\_\
-                                                             
+															 
 
 from JMEAnalysis.JetToolbox.jetToolbox_cff import *
 #jetToolbox( process, jetType, jetSequence, outputFile,
+#	            newPFCollection=False, nameNewPFCollection = '',
 #               PUMethod='CHS',                    #### Options: Puppi, CS, SK, Plain
 #               JETCorrPayload='None', JETCorrLevels = [ 'None' ],
 #               subJETCorrPayload='None', subJETCorrLevels = [ 'None' ],
@@ -143,22 +290,33 @@ from JMEAnalysis.JetToolbox.jetToolbox_cff import *
 #               addNsub=False, maxTau=4,
 #               addQJets=False
 #               ):
-if doJetToolbox:
-	for name, params in jetsCollections.items():
+if options.doJetToolbox:
+	for name, params in jetsCollectionsSorted.items():
 		for index, pu_method in enumerate(params['pu_methods']):
 			# Add the jet collection
+			nPFc = False
+			nNPFc = ''
+			if pu_method=='Puppi' and options.doMiniAOD:
+				process.load('CommonTools.PileupAlgos.Puppi_cff')
+				#This will speed up the processing of PUPPI by using the pre-existing weights in MiniAOD
+				process.puppi.useExistingWeights = True
+				process.puppi.candName = "packedPFCandidates"
+				process.puppi.vertexName = "offlineSlimmedPrimaryVertices"
+				nPFc = True
+				nNPFc = 'puppi'
 			if len(params['jec_levels'])>0:
-				jetToolbox(process, params['algo'], 'dummy', 'out', PUMethod = pu_method, JETCorrPayload = params['jec_payloads'][index], JETCorrLevels = params['jec_levels'], miniAOD = doMiniAOD)
+				jetToolbox(process, params['algo'], 'dummy', 'out', newPFCollection = nPFc, nameNewPFCollection = nNPFc, PUMethod = pu_method, JETCorrPayload = params['jec_payloads'][index], JETCorrLevels = params['jec_levels'], miniAOD = options.doMiniAOD)
 			else:
-				jetToolbox(process, params['algo'], 'dummy', 'out', PUMethod = pu_method, miniAOD = doMiniAOD)
-elif not doJetToolbox and doMiniAOD:
+				jetToolbox(process, params['algo'], 'dummy', 'out', newPFCollection = nPFc, nameNewPFCollection = nNPFc, PUMethod = pu_method, miniAOD = options.doMiniAOD)
+
+elif not options.doJetToolbox and options.doMiniAOD and options.doReclustering:
 	# https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2015#Advanced_topics_re_clustering_ev
 	from Analysis.JMEDAS.JetReconstruction_cff import *
 	
 	## Filter out neutrinos from packed GenParticles
 	process.packedGenParticlesForJetsNoNu = cms.EDFilter("CandPtrSelector", src = cms.InputTag("packedGenParticles"), cut = cms.string("abs(pdgId) != 12 && abs(pdgId) != 14 && abs(pdgId) != 16"))
 
-	for name, params in jetsCollections.items():
+	for name, params in jetsCollectionsSorted.items():
 		for index, pu_method in enumerate(params['pu_methods']):
 			#################################################
 			## Remake jets
@@ -174,6 +332,12 @@ elif not doJetToolbox and doMiniAOD:
 				## Define PFJetsCHS
 				eval(params['algo']+'PFJets'+pu_method).src = 'pfCHS'
 				eval(params['algo']+'PFJets'+pu_method).doAreaFastjet = True
+			elif pu_method == 'Puppi':
+				process.load('CommonTools.PileupAlgos.Puppi_cff')
+				#This will speed up the processing of PUPPI by using the pre-existing weights in MiniAOD
+				process.puppi.useExistingWeights = True
+				process.puppi.candName = "packedPFCandidates"
+				process.puppi.vertexName = "offlineSlimmedPrimaryVertices"
 			elif pu_method == '':
 				eval(params['algo']+'PFJets'+pu_method).src = 'packedPFCandidates'
 
@@ -185,44 +349,128 @@ elif not doJetToolbox and doMiniAOD:
 			bTagDiscriminators = ['pfCombinedInclusiveSecondaryVertexV2BJetTags']
 
 			from PhysicsTools.PatAlgos.tools.jetTools import *
-			from itertools import groupby
-			## Add PAT jet collection based on the above-defined ak5PFJetsCHS
+			## Add PAT jet collection based on the above-defined jet collection
 			if len(params['jec_levels'])>0:
-				addJetCollection(
-					process,
-					labelName = params['algo'].upper()+'PF'+pu_method,
-					jetSource = cms.InputTag(params['algo']+'PFJets'+pu_method),
-					pvSource = cms.InputTag('offlineSlimmedPrimaryVertices'),
-					pfCandidates = cms.InputTag('packedPFCandidates'),
-					svSource = cms.InputTag('slimmedSecondaryVertices'),
-					btagDiscriminators = bTagDiscriminators,
-					jetCorrections = (params['algo'].upper()+'PF'+pu_method.replace("CHS","chs"), params['jec_levels'], 'None'),
-					genJetCollection = cms.InputTag(params['algo']+'GenJetsNoNu'),
-					genParticles = cms.InputTag('prunedGenParticles'),
-					algo = [''.join(g) for _, g in groupby(params['algo'], str.isalpha)][0].upper(),
-					rParam = float([''.join(g) for _, g in groupby(params['algo'], str.isalpha)][1])/10.0
-					)
+				jetCorrectionsParameter = (params['algo'].upper()+'PF'+pu_method.replace("CHS","chs"), params['jec_levels'], 'None')
 			else:
-				addJetCollection(
-					process,
-					labelName = params['algo'].upper()+'PF'+pu_method,
-					jetSource = cms.InputTag(params['algo']+'PFJets'+pu_method),
-					pvSource = cms.InputTag('offlineSlimmedPrimaryVertices'),
-					pfCandidates = cms.InputTag('packedPFCandidates'),
-					svSource = cms.InputTag('slimmedSecondaryVertices'),
-					btagDiscriminators = bTagDiscriminators,
-					genJetCollection = cms.InputTag(params['algo']+'GenJetsNoNu'),
-					genParticles = cms.InputTag('prunedGenParticles'),
-					algo = [''.join(g) for _, g in groupby(params['algo'], str.isalpha)][0].upper(),
-					rParam = float([''.join(g) for _, g in groupby(params['algo'], str.isalpha)][1])/10.0
-					)
+				jetCorrectionsParameter = None
+
+			addJetCollection(process,
+							 labelName = params['algo'].upper()+'PF'+pu_method,
+							 jetSource = cms.InputTag(params['algo']+'PFJets'+pu_method),
+							 pvSource = cms.InputTag('offlineSlimmedPrimaryVertices'),
+							 pfCandidates = cms.InputTag('packedPFCandidates'),
+							 svSource = cms.InputTag('slimmedSecondaryVertices'),
+							 btagDiscriminators = bTagDiscriminators,
+							 jetCorrections = jetCorrectionsParameter,
+							 genJetCollection = cms.InputTag(params['algo']+'GenJetsNoNu'),
+							 genParticles = cms.InputTag('prunedGenParticles'),
+							 algo = [''.join(g) for _, g in groupby(params['algo'], str.isalpha)][0].upper(),
+							 rParam = float([''.join(g) for _, g in groupby(params['algo'], str.isalpha)][1])/10.0
+							 )
 	
 			getattr(process,'selectedPatJets'+params['algo'].upper()+'PF'+pu_method).cut = cms.string('pt > 10')
 			setattr(process,params['algo']+'PFJets'+pu_method,eval(params['algo']+'PFJets'+pu_method))
 			setattr(process,params['algo']+'GenJetsNoNu',eval(params['algo']+'GenJetsNoNu'))
+elif not options.doJetToolbox and options.doMiniAOD and not options.doReclustering:
+	print bcolors.WARNING+"NOTE: These jets will be taken straight from the MiniAOD file."+bcolors.ENDC
 else:
-	print "ERROR::Not equipped to handle AODSIM without PAT."
-	exit(0)
+	if not options.doReclustering:
+		print bcolors.WARNING+"NOTE: The way this method is implemented only works with reclustering on."+bcolors.ENDC
+		exit(-2)
+
+	process.load('CommonTools.ParticleFlow.pfNoPileUpJME_cff')
+	process.pfPileUp.checkClosestZVertex = False
+	from Analysis.JMEDAS.JetReconstruction_cff import *
+	from Analysis.JMEDAS.JetCorrection_cff     import *
+	from CommonTools.PileupAlgos.Puppi_cff import *
+	process.load('Analysis.JMEDAS.JetCorrection_cff')
+
+	for name, params in jetsCollectionsSorted.items():
+		for index, pu_method in enumerate(params['pu_methods']):
+
+			#Gen Particle
+			setattr(process,'genParticlesForJetsNoNu',genParticlesForJetsNoNu)
+			sequence = cms.Sequence(genParticlesForJetsNoNu)
+
+			#Algo Specific
+			if pu_method == 'Puppi':
+				process.load('CommonTools.PileupAlgos.Puppi_cff')
+				sequence = cms.Sequence(sequence * puppi)
+			elif pu_method == 'CHS':
+				sequence = cms.Sequence(process.pfNoPileUpJMESequence * sequence)
+
+			#Gen Jets
+			setattr(process, params['algo']+"GenJetsNoNu", eval(params['algo']+"GenJetsNoNu"))
+			sequence = cms.Sequence(sequence * eval(params['algo']+"GenJetsNoNu"))
+
+			#Rec Jets
+			eval(params['algo']+"PFJets"+pu_method).jetPtMin = cms.double(3.0)
+			setattr(process, params['algo']+"PFJets"+pu_method, eval(params['algo']+"PFJets"+pu_method))
+			sequence = cms.Sequence(sequence * eval(params['algo']+"PFJets"+pu_method))
+
+			PUSuffix = ''
+			for c in params['jec_levels']:
+				PUSuffix += c[:2]
+			PUSuffix = PUSuffix.replace('L1','L1Fast')
+
+			if len(params['jec_levels'])>0:
+				#Cor Rec Jets
+				setattr(process, params['algo']+"PFJets"+pu_method+PUSuffix, eval(params['algo']+"PFJets"+pu_method+PUSuffix))
+				sequence = cms.Sequence(sequence * eval(params['algo']+"PFJets"+pu_method+PUSuffix))
+
+			#Ref Jet Kinematics
+			refPtEta = cms.EDFilter('EtaPtMinCandViewRefSelector',
+				etaMin = cms.double(-5.5),
+				etaMax = cms.double(5.5),
+				ptMin = cms.double(1.0),
+				src = cms.InputTag(params['algo']+"GenJetsNoNu")
+			)
+			setattr(process, params['algo']+"PFJets"+pu_method+'GenPtEta', refPtEta)
+			if not options.doReclustering:
+				refPtEta.src = params['algo']+"GenJets"
+			sequence = cms.Sequence(sequence * refPtEta)
+
+			#Cor Rec Jet Kinematics
+			jetPtEta = cms.EDFilter('EtaPtMinCandViewRefSelector',
+				etaMin = cms.double(-5.5),
+				etaMax = cms.double(5.5),
+				ptMin = cms.double(1.0),
+				src = cms.InputTag(params['algo']+"PFJets"+pu_method)
+			)
+			setattr(process, params['algo']+"PFJets"+pu_method+PUSuffix+'PtEta', jetPtEta)
+			if len(params['jec_levels'])>0:	
+				jetPtEta.src = params['algo']+"PFJets"+pu_method+PUSuffix
+			sequence = cms.Sequence(sequence * jetPtEta)
+
+			setattr(process, params['algo']+"PFJets"+pu_method+PUSuffix + 'Sequence', sequence)
+
+			#################################################
+			## Remake PAT jets
+			#################################################
+			from PhysicsTools.PatAlgos.tools.jetTools import *
+			## b-tag discriminators
+			bTagDiscriminators = ['pfCombinedInclusiveSecondaryVertexV2BJetTags']
+			addJetCollection(process,
+							 labelName = params['algo'].upper()+'PF'+pu_method,
+							 jetSource = cms.InputTag(params['algo']+'PFJets'+pu_method+PUSuffix+'PtEta'),
+							 pvSource = cms.InputTag('offlinePrimaryVertices'),
+							 pfCandidates = cms.InputTag('PFCandidates'),
+							 svSource = cms.InputTag('SecondaryVertices'),
+							 btagDiscriminators = bTagDiscriminators,
+							 jetCorrections = None,
+							 genJetCollection = cms.InputTag(params['algo']+'GenJetsNoNu'),
+							 genParticles = cms.InputTag('genParticlesForJetsNoNu'),
+							 algo = [''.join(g) for _, g in groupby(params['algo'], str.isalpha)][0].upper(),
+							 rParam = float([''.join(g) for _, g in groupby(params['algo'], str.isalpha)][1])/10.0
+							 )
+	
+			getattr(process,'selectedPatJets'+params['algo'].upper()+'PF'+pu_method).cut = cms.string('pt > 10')
+
+			print "For this to work you will need to convert from reco jets to pat jets, which will contain the gen jets. Otherwise the analyzer will have problems. Right now it's not finding some collections"
+			print "You should really use PFBRECO only when your analyzer uses reco::Jets"
+			print "ERROR::Not equipped to handle AODSIM without PAT."
+			exit(0)
 
 #           _   _          _  __     ______________ _____  
 #     /\   | \ | |   /\   | | \ \   / /___  /  ____|  __ \ 
@@ -231,52 +479,131 @@ else:
 #  / ____ \| |\  |/ ____ \| |____| |   / /__| |____| | \ \ 
 # /_/    \_\_| \_/_/    \_\______|_|  /_____|______|_|  \_\
 
-
-process.p = cms.Path()
-print "{:<15} {:<20} {:<30}".format('Algorithm','Jet Collection',"Correction Levels")
-print "{:<15} {:<20} {:<30}".format('---------','--------------',"-----------------")
-for name, params in jetsCollections.items():
+print "{A:<{widthA}s} {JC:<{widthJC}s} {JP:<{widthJP}s} {CL:<{widthCL}s}".format(A='Algorithm',JC='Jet Collection',JP='JEC Payload',CL="Correction Levels",widthA=maxA,widthJC=maxJC,widthJP=maxJP,widthCL=maxCL)
+print "{A:<{widthA}s} {JC:<{widthJC}s} {JP:<{widthJP}s} {CL:<{widthCL}s}".format(A='---------',JC='--------------',JP='-----------',CL="-----------------",widthA=maxA,widthJC=maxJC,widthJP=maxJP,widthCL=maxCL)
+for name, params in jetsCollectionsSorted.items():
 	for index, pu_method in enumerate(params['pu_methods']):
 		PUSuffix = ''
 		for c in params['jec_levels']:
 			PUSuffix += c[:2]
 		PUSuffix = PUSuffix.lower()
 
-		algorithm = params['algo'].upper()+'PF'+pu_method+PUSuffix
-		jetCollection = 'selectedPatJets'+params['algo'].upper()+'PF'+pu_method
-		if doMiniAOD:
+		algorithm = params['algo'].upper()+'PF'+pu_method+PUSuffix.upper()
+
+		#################################################
+		## Controls the sequence
+		#################################################
+		if hasattr(process, params['algo']+"PFJets"+pu_method+PUSuffix.upper().replace("L1","L1Fast") + 'Sequence'):
+			sequence = cms.Sequence(getattr(process,params['algo']+"PFJets"+pu_method+PUSuffix.upper().replace("L1","L1Fast") + 'Sequence') * pnm)
+		else:
+			sequence = cms.Sequence()
+		sequence = cms.Sequence(sequence)
+		setattr(process, algorithm + 'Sequence', sequence)
+
+		#################################################
+		## Controls the jet collection used in the analyzer
+		#################################################
+		if options.doJetToolbox:
+			jetCollection = 'selectedPatJets'+params['algo'].upper()+'PF'+pu_method
+		elif options.doMiniAOD and not options.doReclustering:
+			#straight from MiniAOD
+			jetCollection = "slimmedJets"
+			if params['algo'] == 'ak4' and pu_method == "Puppi":
+				jetCollection+= "Puppi"
+			elif params['algo'] == 'ak8':
+				jetCollection+="AK8"
+
+			#If updated the JEC using the patJetUpdater
+			if options.useUpdater:
+				from PhysicsTools.PatAlgos.tools.jetTools import updateJetCollection
+				updateJetCollection(process,
+									jetSource = cms.InputTag(jetCollection),
+									postfix = 'UpdatedJEC'+params['jec_payloads'][index],
+									jetCorrections = (params['jec_payloads'][index], params['jec_levels'], 'None')
+				)
+				jetCollection = 'updatedPatJetsUpdatedJEC'+params['jec_payloads'][index]
+		elif not options.doMiniAOD and not options.doJetToolbox:
+			jetCollection = 'selectedPatJets'+params['algo'].upper()+'PF'+pu_method
+			#jetCollection = params['algo']+'PFJets'+pu_method+PUSuffix.upper().replace("L1","L1Fast")
+
+		#################################################
+		## Controls the JER and JES used in the analyzer
+		#################################################
+		from Analysis.JMEDAS.JetDepot import JetDepot
+
+		if not params['UncertaintyOTF']:
+			if params['JESUncertainty']!='none':
+				process, jetCollection = JetDepot(process,
+												  sequence=algorithm + 'Sequence',
+												  JetTag=jetCollection,
+												  JetType=params['jec_payloads'][index],
+												  jecUncDir=1 if params['JESUncertainty']=="up" else -1,
+												  doSmear=False,
+												  jerUncDir=0
+												  )
+			if params['JERUncertainty']!='none':
+				process, jetCollection = JetDepot(process,
+												  sequence=algorithm + 'Sequence',
+												  JetTag=jetCollection,
+												  jecUncDir=0,
+												  doSmear=True,
+												  jerUncDir=1 if params['JERUncertainty']=="up" else -1
+												  )
+
+		#################################################
+		## Controls the vertex collection used in the analyzer
+		#################################################
+		if options.doMiniAOD:
 			vtxCol = 'offlineSlimmedPrimaryVertices'
 		else:
 			vtxCol = 'offlinePrimaryVertices'
-		pnm = cms.EDAnalyzer('treeMaker',
-				     PileupNtupleMakerParameters,
-				     JetCorLabel       = cms.string(algorithm),
-				     JetCorLevels      = cms.vstring(params['jec_levels']),
-				     srcJet            = cms.InputTag(jetCollection),
-				     srcRho            = cms.InputTag('fixedGridRhoAll'),
-				     srcVtx            = cms.InputTag(vtxCol),
-				     doJER             = cms.bool(False),
-				     JERUncertainty    = cms.string("none"), #Options: {none,up,down}
-				     doJESUncertainty  = cms.bool(False),
-				     JESUncertainty    = cms.string("none"), #Options: {none,up,down}
-				     JESUncertaintyType= cms.string("TotalNoTime"),
-				     JESUncertaintyFile= cms.string("../data/Winter14_V5_DATA_UncertaintySources_AK5PFchs.txt"),
-				     )
+
+		#################################################
+		## Controls the analyzer
+		#################################################
+
+		PileupNtupleMakerParameters = cms.PSet(
+			# record flavor information, consider both RefPt and JetPt
+			doComposition   = cms.bool(True),
+			doFlavor        = cms.bool(True),
+			doRefPt         = cms.bool(True),
+			doJetPt         = cms.bool(True),
+			# MATCHING MODE: deltaR(ref,jet)
+			deltaRMax       = cms.double(99.9),
+			# deltaR(ref,parton) IF doFlavor is True
+			deltaRPartonMax = cms.double(0.25),
+			# consider all matched references
+			nJetMax         = cms.uint32(0),
+			)
+
+		pnm = cms.EDAnalyzer('pileupTreeMaker',
+							 PileupNtupleMakerParameters,
+							 jetType 		   = cms.string(params['jec_payloads'][index]),
+							 srcJet            = cms.InputTag(jetCollection),
+							 srcRho            = cms.InputTag('fixedGridRhoFastjetAll'),
+							 srcVtx            = cms.InputTag(vtxCol),
+							 srcPileupInfo     = cms.InputTag("slimmedAddPileupInfo") if options.doMiniAOD else cms.InputTag("addPileupInfo"),
+							 JERUncertainty    = cms.string(params['JERUncertainty'] if params['UncertaintyOTF'] else 'none'),
+							 JERLegacy         = cms.bool(False),
+							 JERUncertaintyFile= cms.string(""),
+							 JESUncertainty    = cms.string(params['JESUncertainty'] if params['UncertaintyOTF'] else 'none'),
+							 JESUncertaintyType= cms.string("TotalNoTime"),
+							 JESUncertaintyFile= cms.string("../data/Winter14_V5_DATA_UncertaintySources_AK5PFchs.txt"),
+							 )
 		setattr(process,algorithm,pnm)
-		sequence = cms.Sequence(pnm)
-		
-		sequence = cms.Sequence(sequence)
-		setattr(process, algorithm + 'Sequence', sequence)
+
+		process.p = cms.Path()
 		path = process.p.copy()
-		if doJetToolbox:
-			path *= sequence
-		elif not doJetToolbox and doMiniAOD:
-			path *= eval(params['algo']+'GenJetsNoNu') * eval(params['algo']+'PFJets'+pu_method) * getattr(process, 'selectedPatJets'+params['algo'].upper()+'PF'+pu_method) * sequence
+		if options.doJetToolbox:
+			path *= sequence *pnm
+		elif not options.doJetToolbox and options.doMiniAOD and options.doReclustering and not options.useUpdater:
+			path *= eval(params['algo']+'GenJetsNoNu') * eval(params['algo']+'PFJets'+pu_method) * getattr(process, 'selectedPatJets'+params['algo'].upper()+'PF'+pu_method) * sequence *pnm
+		elif not options.doJetToolbox and options.doMiniAOD and not options.doReclustering and options.useUpdater:
+			path *= eval("process.patJetCorrFactorsUpdatedJEC"+params['jec_payloads'][index]) * eval("process.updatedPatJetsUpdatedJEC"+params['jec_payloads'][index]) * sequence *pnm
 		else:
-			print "ERROR::Not equipped to handle AODSIM without PAT."
-			exit(0)
+			path *= sequence *pnm
 		setattr(process, algorithm + 'Path', path)
-		print "{:<15} {:<20} {:<30}".format(algorithm,jetCollection,params['jec_levels'])
+		print str(bcolors.BFAIL+"{A:<{widthA}s}"+bcolors.BWARNING+" {JC:<{widthJC}s}"+bcolors.OKBLUE+" {JP:<{widthJP}s}"+bcolors.BOKGREEN+" {CL:<{widthCL}s}"+bcolors.ENDC).format(A=algorithm,JC=jetCollection,JP=params['jec_payloads'][index],CL=params['jec_levels'],widthA=maxA,widthJC=maxJC,widthJP=maxJP,widthCL=maxCL)
 
 #!
 #! THAT'S ALL! CAN YOU BELIEVE IT? :-D
