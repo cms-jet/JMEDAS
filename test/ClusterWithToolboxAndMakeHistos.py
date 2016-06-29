@@ -29,14 +29,11 @@ process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(False) )
 process.options.allowUnscheduled = cms.untracked.bool(True)
 
 ### INPUT
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
 
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
-        # 'root://cmseos.fnal.gov:///store/user/jdolen/HATS/2016/MINIAOD/ZprimeToTT_M-4000_W-40_RunIISpring16MiniAODv2_0C59.root'
-        'root://cmsxrootd.fnal.gov:///store/mc/RunIISpring16MiniAODv2/ZprimeToTT_M-3000_W-900_13TeV-madgraph/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/10000/00694A03-DB3A-E611-AEDF-002590552120.root',
-        'root://cmsxrootd.fnal.gov:///store/mc/RunIISpring16MiniAODv2/ZprimeToTT_M-3000_W-900_13TeV-madgraph/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/10000/82738509-B33A-E611-ACAA-0CC47AA98F98.root',
-        'root://cmsxrootd.fnal.gov:///store/mc/RunIISpring16MiniAODv2/ZprimeToTT_M-3000_W-900_13TeV-madgraph/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/10000/EAA4BB9E-DF3A-E611-B1B1-0CC47A6C1818.root'
+        'root://cmseos.fnal.gov:///store/user/jdolen/HATS/2016/MINIAOD/ZprimeToTT_M-4000_W-40_RunIISpring16MiniAODv2_0C59.root'
     )
 )
 
@@ -129,7 +126,7 @@ process.ana = cms.EDAnalyzer('JetTester'
 
 ### OUT
 process.TFileService = cms.Service("TFileService",
-      fileName = cms.string("JetClusterHistos_ZP3000w900.root"),
+      fileName = cms.string("JetClusterHistos_ZP4.root"),
       closeFileFast = cms.untracked.bool(True)
   )
 

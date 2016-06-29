@@ -391,9 +391,11 @@ JetMiniValidation::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
   edm::Handle<reco::GenJetCollection> AK8GENJET;  
   iEvent.getByToken(ak8genjetToken_, AK8GENJET);
 
+  int count_AK8MINI = 0;
   for (const pat::Jet &ijet : *AK8MINI) {  
+    count_AK8MINI++;
+    if (count_AK8MINI>=2) break;
     double pt           = ijet.pt();
-    if (pt<200) continue;
     double mass         = ijet.mass();
     double rapidity     = ijet.rapidity();
     double ndau         = ijet.numberOfDaughters();
@@ -423,7 +425,7 @@ JetMiniValidation::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
     if (puppi_tau1!=0) puppi_tau21 = puppi_tau2/puppi_tau1;
     if (puppi_tau2!=0) puppi_tau32 = puppi_tau3/puppi_tau2;
 
-    cout<<"\nJet with pT "<<pt<<" sdMass "<<softDropMass<<endl;
+    if (verbose) cout<<"\nJet with pT "<<pt<<" sdMass "<<softDropMass<<endl;
 
 
     // Soft Drop + Nsubjettiness tagger
@@ -435,14 +437,13 @@ JetMiniValidation::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
     int count_SD =0;
     auto const & sdSubjets = ijet.subjets("SoftDrop");
     for ( auto const & it : sdSubjets ) {
-      double subjetPt       = it->pt();
-      double subjetPtUncorr = it->pt();
-      double subjetEta      = it->eta();
-      double subjetPhi      = it->phi();
-      double subjetMass     = it->mass();
+      double subjetPt       = it->correctedP4(0).pt();
+      double subjetEta      = it->correctedP4(0).eta();
+      double subjetPhi      = it->correctedP4(0).phi();
+      double subjetMass     = it->correctedP4(0).mass();
       double subjetBdisc    = it->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags"); 
       double deltaRsubjetJet = deltaR(ijet.eta(), ijet.phi(), subjetEta, subjetPhi);
-      if (verbose) cout<<" SD Subjet pt "<<subjetPt<<" uncorr "<<subjetPtUncorr<<" Eta "<<subjetEta<<" deltaRsubjetJet "<<deltaRsubjetJet<<" Mass "<<subjetMass<<" Bdisc "<<subjetBdisc<<endl;
+      if (verbose) cout<<" SD Subjet pt "<<subjetPt<<" Eta "<<subjetEta<<" deltaRsubjetJet "<<deltaRsubjetJet<<" Mass "<<subjetMass<<" Bdisc "<<subjetBdisc<<endl;
       h_ak8chs_sdSubjetMass ->Fill( subjetMass );
       if (subjetMass > mostMassiveSDsubjetMass) mostMassiveSDsubjetMass = subjetMass;
       count_SD++;
@@ -455,14 +456,13 @@ JetMiniValidation::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
     auto const & sdSubjetsPuppi = ijet.subjets("SoftDropPuppi");
     int count_pup=0;
     for ( auto const & it : sdSubjetsPuppi ) {
-      double subjetPt       = it->pt();
-      double subjetPtUncorr = it->pt();
-      double subjetEta      = it->eta();
-      double subjetPhi      = it->phi();
-      double subjetMass     = it->mass();
+      double subjetPt       = it->correctedP4(0).pt();
+      double subjetEta      = it->correctedP4(0).eta();
+      double subjetPhi      = it->correctedP4(0).phi();
+      double subjetMass     = it->correctedP4(0).mass();
       double subjetBdisc    = it->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags"); 
       double deltaRsubjetJet = deltaR(ijet.eta(), ijet.phi(), subjetEta, subjetPhi);
-      if (verbose) cout<<" SD Subjet pt "<<subjetPt<<" uncorr "<<subjetPtUncorr<<" Eta "<<subjetEta<<" deltaRsubjetJet "<<deltaRsubjetJet<<" Mass "<<subjetMass<<" Bdisc "<<subjetBdisc<<endl; 
+      if (verbose) cout<<" SD Subjet pt "<<subjetPt<<" Eta "<<subjetEta<<" deltaRsubjetJet "<<deltaRsubjetJet<<" Mass "<<subjetMass<<" Bdisc "<<subjetBdisc<<endl; 
       h_ak8puppi_sdSubjetMass ->Fill( subjetMass );
       if (count_pup==0) pup0.SetPtEtaPhiM( subjetPt, subjetEta, subjetPhi, subjetMass);
       if (count_pup==1) pup1.SetPtEtaPhiM( subjetPt, subjetEta, subjetPhi, subjetMass);
@@ -474,11 +474,11 @@ JetMiniValidation::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
     if (count_pup>1)
     {
       puppiSD = pup0 + pup1;
-      cout<<pup0.M()<<" "<<pup1.M()<<" "<<puppiSD.M()<<" "<<endl;
+      if (verbose) cout<<pup0.M()<<" "<<pup1.M()<<" "<<puppiSD.M()<<" "<<endl;
     }
 
     //Print some jet info
-    if (SoftDropTau32Tagged) cout<<"->SoftDropTau32Tagged"<<endl;
+    if (SoftDropTau32Tagged && verbose) cout<<"->SoftDropTau32Tagged"<<endl;
 
     // Fill histograms
     h_ak8chs_pt           ->Fill( pt           );
