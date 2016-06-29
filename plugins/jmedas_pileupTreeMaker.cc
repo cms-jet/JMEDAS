@@ -45,6 +45,7 @@
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
 #include "JetMETCorrections/Objects/interface/JetCorrectionsRecord.h"
 #include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
+#include "JetMETCorrections/Modules/interface/JetResolution.h"
 #include "PhysicsTools/Utilities/interface/LumiReWeighting.h"
 
 #include "SimDataFormats/JetMatching/interface/JetMatchedPartons.h"
@@ -339,9 +340,9 @@ void pileupTreeMaker::analyze(const edm::Event& iEvent,
             resolution_sf = JME::JetResolutionScaleFactor::get(iSetup, jetType_);
           }
           JME::JetParameters parameters = {{JME::Binning::JetEta, jet.eta()}, {JME::Binning::Rho, PUNtuple_->rho}};
-          JERCor = JERUncertainty_ == "up" ? resolution.getScaleFactor(parameters, Variation::UP) :
-                   JERUncertainty_ == "down" ? resolution.getScaleFactor(parameters, Variation::DOWN) :
-                   resolution.getScaleFactor(parameters);          
+          JERCor = JERUncertainty_ == "up" ? resolution_sf.getScaleFactor(parameters, Variation::UP) :
+                   JERUncertainty_ == "down" ? resolution_sf.getScaleFactor(parameters, Variation::DOWN) :
+                   resolution_sf.getScaleFactor(parameters);          
         }
      }
 
