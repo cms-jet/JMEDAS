@@ -14,6 +14,8 @@ parser.add_option('--ifilename', type='string', action='store', default='pileupN
 		  dest='ifilename', help='The name of the input ROOT file.')
 parser.add_option('--algsize', type='string', action='store', default='AK4', dest='algsize',
 		  help="The algorithm and size of the jet collections to get from the ntuple.")
+parser.add_option('--maxEvents', type='int', action='store', default=-1, dest='maxEvents',
+                  help="The maximum number of events in the tree to use (default=-1 is all events).")
 (options, args) = parser.parse_args()
 
 # Set the ROOT style
@@ -85,7 +87,9 @@ for hs in hsettings:
 			histograms[hname] = TH1D(hname,hname,hsettingsTMP[hs][1],hsettingsTMP[hs][2],hsettingsTMP[hs][3])
 
 			# Fill the histograms
-			for event in tree:
+			for ievent, event in enumerate(tree):
+				if options.maxEvents>-1 and ievent > options.maxEvents:
+					continue
 				for jet, pt_from_tree in enumerate(event.jtpt):
 					if cor == "Uncorrected":
 						pt_updated = (pt_from_tree/event.jtjec[jet][0].second)
