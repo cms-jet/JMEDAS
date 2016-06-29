@@ -639,16 +639,16 @@ for ifile in files :
                 if tau1 > 0.0001 :
                     tau21 = tau2 / tau1
                     ak8tau21[0] = tau21
-		                h_tau21AK8.Fill( tau21 )
+                    h_tau21AK8.Fill( tau21 )
                 else :
                     h_tau21AK8.Fill( -1.0 )
                 if tau2 > 0.0001 :
                     tau32 = tau3 / tau2
                     ak8tau32[0] = tau32
-		                h_tau32AK8.Fill( tau32 )
+                    h_tau32AK8.Fill( tau32 )
                 else :
                     h_tau32AK8.Fill( -1.0 )
-		            varTree.Fill()
+                varTree.Fill()
                 genJet = jet.genJet()
                 if genJet != None :
                     h_ptAK8Gen.Fill( genJet.pt() )
