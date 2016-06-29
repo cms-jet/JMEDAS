@@ -124,36 +124,36 @@ if options.correctJets :
 
     if not options.isData : 
         vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_MC_L1FastJet_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_MC_L2Relative_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_MC_L3Absolute_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_L1FastJet_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_L2Relative_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_L3Absolute_AK4PFchs.txt') )
         jec = ROOT.FactorizedJetCorrector( vPar )
-        jecUnc = ROOT.JetCorrectionUncertainty( 'Spring16_25nsV5_MC_Uncertainty_AK4PFchs.txt' )
+        jecUnc = ROOT.JetCorrectionUncertainty( '../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_Uncertainty_AK4PFchs.txt' )
 
         vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_MC_L1FastJet_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_MC_L2Relative_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_MC_L3Absolute_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_L1FastJet_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_L2Relative_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_L3Absolute_AK8PFchs.txt') )
         jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
 
-        jecUncAK8 = ROOT.JetCorrectionUncertainty( 'Spring16_25nsV5_MC_Uncertainty_AK8PFchs.txt' )
+        jecUncAK8 = ROOT.JetCorrectionUncertainty( '../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_Uncertainty_AK8PFchs.txt' )
     else :
         vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L1FastJet_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L2Relative_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L3Absolute_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L2L3Residual_AK4PFchs.txt') ) # Need residual correction for data
+        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L1FastJet_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L2Relative_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L3Absolute_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L2L3Residual_AK4PFchs.txt') ) # Need residual correction for data
         jec = ROOT.FactorizedJetCorrector( vPar )
-        jecUnc = ROOT.JetCorrectionUncertainty( 'Spring16_25nsV5_DATA_Uncertainty_AK4PFchs.txt' )
+        jecUnc = ROOT.JetCorrectionUncertainty( '../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_Uncertainty_AK4PFchs.txt' )
 
         vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L1FastJet_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L2Relative_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L3Absolute_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('Spring16_25nsV5_DATA_L2L3Residual_AK8PFchs.txt') ) # Need residual correction for data
+        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L1FastJet_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L2Relative_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L3Absolute_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L2L3Residual_AK8PFchs.txt') ) # Need residual correction for data
         jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
 
-        jecUncAK8 = ROOT.JetCorrectionUncertainty( 'Spring16_25nsV5_DATA_Uncertainty_AK8PFchs.txt' )
+        jecUncAK8 = ROOT.JetCorrectionUncertainty( '../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_Uncertainty_AK8PFchs.txt' )
 
 
 ##   ___ ___ .__          __                                             
@@ -551,6 +551,31 @@ for ifile in files :
                     jecUncAK8.setJetPt( corr * uncorrJet.pt() )
                     corrDn -= jecUncAK8.getUncertainty(0)
 
+                    # Get individual JEC levels
+                    #  need to first reset jecAK8
+                    jecAK8.setJetEta( uncorrJet.eta() )
+                    jecAK8.setJetPt ( uncorrJet.pt() )
+                    jecAK8.setJetE  ( uncorrJet.energy() )
+                    jecAK8.setJetA  ( jet.jetArea() )
+                    jecAK8.setRho   ( rhoValue[0] )
+                    jecAK8.setNPV   ( len(pvs) )
+                    factors = jecAK8.getSubCorrections();
+                    L1cor = 1.0
+                    L12cor = 1.0
+                    L123cor = 1.0
+                    L123rescor = 1.0
+                    if factors.size() > 0:
+                        L1cor = factors[0]
+                    if factors.size() > 1:
+                        L12cor = factors[1]
+                    if factors.size() > 2:
+                        L123cor = factors[2]
+                    
+                    #calculate L2L3 correction (needed for correcting jet mass)
+                    L2cor = L12cor/L1cor
+                    L3cor = L123cor/L12cor
+                    L23cor = L2cor*L3cor
+                    print 'L1cor '+str(L1cor)+' L2cor '+str(L2cor)+' L3cor '+str(L3cor)+' L23cor '+str(L23cor)+' L123cor '+str(L123cor)
 
                 subjets = jet.subjets("SoftDrop")
                 groomedJet = None
