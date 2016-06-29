@@ -525,7 +525,7 @@ for name, params in jetsCollectionsSorted.items():
 												  JetType=params['jec_payloads'][index],
 												  jecUncDir=0,
 												  doSmear=True,
-												  jerUncDir=1 if options.JERUncertainty=="up" else -1
+												  jerUncDir=1 if options.JERUncertainty=="up" else -1 if options.JERUncertainty=="down" else 0
 												  )
 
 		#################################################

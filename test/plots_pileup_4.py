@@ -90,7 +90,7 @@ for ifilename_suffix in ifilenames:
     
     # Create lines based on the fits
     lname = "l"+options.jetcollection+ifilename_suffix
-    lines[lname] = TLine(fits[fname].GetParameter(1),0.0,fits[fname].GetParameter(1),0.12)
+    lines[lname] = TLine(fits[fname].GetParameter(1),0.0,fits[fname].GetParameter(1),0.07)
     lines[lname].SetLineColor(ifilenames[ifilename_suffix])
     lines[lname].SetLineStyle(style)
 
