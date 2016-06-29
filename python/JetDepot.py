@@ -44,14 +44,15 @@ def JetDepot(process, sequence, JetTag, JetType, jecUncDir=0, doSmear=True, jerU
             rho = cms.InputTag("fixedGridRhoFastjetAll"),
             skipGenMatching = cms.bool(False),
             # Read from GT
-            algopt = cms.string('AK4PFchs_pt'),
-            algo = cms.string('AK4PFchs'),
+            algopt = cms.string(JetType+'_pt'),
+            algo = cms.string(JetType),
             # Gen jet matching
             genJets = cms.InputTag("slimmedGenJets"),
             dRMax = cms.double(0.2),
             dPtMaxFactor = cms.double(3),
             variation = cms.int32(jerUncDir),
             seed = cms.uint32(37428479),
+            debug = cms.untracked.bool(False)
         )
         dir = "" if jerUncDir==0 else ("up" if jerUncDir>0 else "down")
         JetTagOut = cms.InputTag(JetTagOut.value()+"JER"+dir)

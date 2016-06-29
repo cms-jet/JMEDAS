@@ -8,14 +8,14 @@ parser.add_option('--doPUPPI', action='store_true', default=False, dest='doPUPPI
                   help='Plot the PFPuppi algorithm as well (if it exists in the ntuple')
 parser.add_option('--drawFits', action='store_true', default=False, dest='drawFits',
                   help='Flag to draw, or not, the Gaussian fits to the response curves')
-parser.add_option('--drawLines', action='store_false', default=True, dest='drawLines',
+parser.add_option('--noDrawLines', action='store_false', default=True, dest='drawLines',
                   help='Flag to draw, or not, the lines at the mean of the Gaussian fit')
-parser.add_option('--ifilename', type='string', action='store', default='pileupNtuple.root',
-                  dest='ifilename', help='The name of the input ROOT file.')
 parser.add_option('--jetcollection', type='string', action='store', default='AK4PFCHSL1L2L3',
                   dest='jetcollection', help="The jet collections to get from the ntuple.")
 parser.add_option('--nsigma', type='int', action='store', default=1.0, dest='nsigma',
                   help="The number of sigma from the histogram mean which is used to determine the fit range.")
+parser.add_option('--maxEvents', type='int', action='store', default=-1, dest='maxEvents',
+                  help="The maximum number of events in the tree to use (default=-1 is all events).")
 (options, args) = parser.parse_args()
 
 # Set the ROOT style
@@ -23,18 +23,18 @@ gROOT.Macro("rootlogon.C")
 setTDRStyle()
 
 # Filename suffixes
-ifilenames = OrderedDict([("",kBlack),("_JESUncertaintyUp",kBlack),("_JESUncertaintyDown",kBlack),("_JER",kRed),("_JERUncertaintyUp",kRed),("_JERUncertaintyDown",kRed)])
+ifilenames = OrderedDict([("",kBlack),("_JESUncertaintyUp",kGray+2),("_JESUncertaintyDown",kGray+2),("_JER",kRed),("_JERUncertaintyUp",kRed+2),("_JERUncertaintyDown",kRed+2)])
 
 # Create and draw the canvas
 frame = TH1D()
-frame.GetXaxis().SetLimits(0.0,2.0)
-frame.GetYaxis().SetRangeUser(0.0,0.12)
+frame.GetXaxis().SetLimits(0.6,1.6)
+frame.GetYaxis().SetRangeUser(0.0,0.07)
 frame.GetXaxis().SetTitle("Response (p_{T}^{RECO}/p_{T}^{GEN})")
 frame.GetYaxis().SetTitle("a.u.")
 c = tdrCanvas("c",frame,14,11,True)
 
-leg = tdrLeg(0.65,0.50,0.9,0.9)
-leg.SetTextSize(0.035)
+leg = tdrLeg(0.6,0.50,0.85,0.9)
+leg.SetTextSize(0.03)
 histograms = {}
 fits = {}
 lines = {}
@@ -55,10 +55,13 @@ for ifilename_suffix in ifilenames:
 
     print "\tDoing the histogram",hname,"..."
 
-    histograms[hname] = TH1D(hname,hname,80,0,2)
+    histograms[hname] = TH1D(hname,hname,80,0.6,1.6)
+    histograms[hname].SetDirectory(None)
 
     # Fill the histograms
-    for event in tree:
+    for ievent, event in enumerate(tree):
+        if options.maxEvents>-1 and ievent > options.maxEvents:
+            continue
         for jet, pt_from_tree in enumerate(event.jtpt):
             pt_updated = pt_from_tree
             if event.refpt[jet]==0:

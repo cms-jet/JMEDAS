@@ -75,6 +75,11 @@ options.register('ofilename',
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  'The name of the output ROOT file.')
+options.register('maxEvents',
+                 1000,
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.int,
+                 'The maximum number of events to process.')
 
 options.parseArguments()
 
@@ -129,7 +134,7 @@ process.TFileService.fileName=cms.string(options.ofilename)
 #!  _| |_| |\  | |    | |__| |  | |   
 #! |_____|_| \_|_|     \____/   |_|                                       
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(100))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(options.maxEvents))
 if options.doMiniAOD:
 	process.load("Analysis.JMEDAS.qcdflat_MINIAODSIM_v3_cff")
 else:
