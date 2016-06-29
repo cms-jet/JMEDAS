@@ -1,15 +1,20 @@
 from ROOT import *
-from collections import OrderedDict
 from Analysis.JMEDAS.tdrstyle_mod14 import *
+from collections import OrderedDict
+from optparse import OptionParser
 
-# Flag to turn PUPPI jets on or off
-doPUPPI = False
-
-# Flag to draw, or not, the Gaussian fits to the response curves
-drawFits = False
-
-# Flag to draw, or not, the lines at the mean of the Gaussian fit
-drawLines = True
+parser = OptionParser()
+parser.add_option('--doPUPPI', action='store_true', default=False, dest='doPUPPI',
+                  help='Plot the PFPuppi algorithm as well (if it exists in the ntuple')
+parser.add_option('--drawFits', action='store_true', default=False, dest='drawFits',
+                  help='Flag to draw, or not, the Gaussian fits to the response curves')
+parser.add_option('--drawLines', action='store_false', default=True, dest='drawLines',
+                  help='Flag to draw, or not, the lines at the mean of the Gaussian fit')
+parser.add_option('--ifilename', type='string', action='store', default='pileupNtuple.root',
+		  dest='ifilename', help='The name of the input ROOT file.')
+parser.add_option('--algsize', type='string', action='store', default='AK4', dest='algsize'
+		  help="The algorithm and size of the jet collections to get from the ntuple.")
+(options, args) = parser.parse_args()
 
 # Set the ROOT style
 gROOT.Macro("rootlogon.C")
@@ -38,16 +43,10 @@ for f, s in enumerate(settings) :
 c = tdrCanvasMultipad("c",frames,14,11,2,2)
 
 # Open the ROOT file with the ntuple
-f = TFile("pileupNtuple.root")
-
-# Access and store the necessary trees
-tAK4PF      = f.Get("AK4PFL1L2L3/t")
-tAK4PFchs   = f.Get("AK4PFCHSL1L2L3/t")
-tAK4PFPuppi = f.Get("AK4PFPuppiL1L2L3/t")
+f = TFile(options.ifilename)
 
 # Histogram settings
-NHISTOGRAMS = 4
-alg_size = "AK4"
+alg_size = options.algsize
 jetTypes = OrderedDict([("PF" , kBlack),("PFchs" , kRed),("PFPuppi" , kGreen)])
 corrections = OrderedDict([("Uncorrected" , kDotted),("L1" , kDashed),("L1L2L3" , kSolid)])
 hsettingsTMP = {'response' : (1,80,0,2),
@@ -70,9 +69,12 @@ for hs in hsettings:
 	legends[legname].SetTextSize(0.035)
 
 	for jt in jetTypes:
-		if not doPUPPI and jt == "PFPuppi":
+		if not options.doPUPPI and jt == "PFPuppi":
 			continue
-		tree = eval("t"+alg_size+jt)
+		if not f.GetDirectory(alg_size+jt.upper()+"L1L2L3"):
+			continue
+
+		tree = f.Get(alg_size+jt.upper()+"L1L2L3/t")
 
 		for cor in corrections:	
 			# Create the histograms
@@ -132,12 +134,12 @@ for hs in hsettings:
 
 			if hs == "response":
 				# Draw the fits
-				if drawFits:
+				if options.drawFits:
 					c.cd(hsettingsTMP[hs][0])
 					fits[fname].Draw("same")
 
 				# Draw the lines
-				if drawLines:
+				if options.drawLines:
 					c.cd(hsettingsTMP[hs][0])
 					lines[lname].Draw("same")
 			elif hs == "pt":
