@@ -475,8 +475,8 @@ for ifile in files :
         jets1 = jethandle1.product()
         # loop over jets and fill hists
         if options.verbose :
-	    print jets1.size()
-	ijet = 0
+          print jets1.size()
+          ijet = 0
         for jet in jets1 :
             if ijet >= options.maxjets :
                 break
@@ -610,14 +610,14 @@ for ifile in files :
                 h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSPrunedMass') )
                 h_mpuppiAK8.Fill( jet.userFloat('ak8PFJetsPuppiValueMap:mass') )
                 ak8pt[0] = corr * uncorrJet.pt()
-		ak8eta[0] = jet.eta()
-		ak8phi[0] = jet.phi()
-		ak8mass[0] = jet.mass()
-		ak8SDmass[0] = jet.userFloat('ak8PFJetsCHSSoftDropMass')
-		ak8PrunedMass[0] = jet.userFloat('ak8PFJetsCHSPrunedMass') 
-		ak8PUPPImass[0] = jet.userFloat('ak8PFJetsPuppiValueMap:mass')
-		npv[0] = float(len(pvs))
-		if groomedJet != None : 
+                ak8eta[0] = jet.eta()
+                ak8phi[0] = jet.phi()
+                ak8mass[0] = jet.mass()
+                ak8SDmass[0] = jet.userFloat('ak8PFJetsCHSSoftDropMass')
+                ak8PrunedMass[0] = jet.userFloat('ak8PFJetsCHSPrunedMass') 
+                ak8PUPPImass[0] = jet.userFloat('ak8PFJetsPuppiValueMap:mass')
+                npv[0] = float(len(pvs))
+                if groomedJet != None : 
                     h_ptGroomedCorrAK8.Fill( groomedJet.pt() )
                     h_msoftdropCorrAK8.Fill( groomedJet.mass() )
                     h_rhoRatioAK8.Fill( rhoRatio )
@@ -639,16 +639,16 @@ for ifile in files :
                 if tau1 > 0.0001 :
                     tau21 = tau2 / tau1
                     ak8tau21[0] = tau21
-		    h_tau21AK8.Fill( tau21 )
+		                h_tau21AK8.Fill( tau21 )
                 else :
                     h_tau21AK8.Fill( -1.0 )
                 if tau2 > 0.0001 :
                     tau32 = tau3 / tau2
                     ak8tau32[0] = tau32
-		    h_tau32AK8.Fill( tau32 )
+		                h_tau32AK8.Fill( tau32 )
                 else :
                     h_tau32AK8.Fill( -1.0 )
-		varTree.Fill()
+		            varTree.Fill()
                 genJet = jet.genJet()
                 if genJet != None :
                     h_ptAK8Gen.Fill( genJet.pt() )

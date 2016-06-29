@@ -181,8 +181,8 @@ JetMiniValidation::JetMiniValidation(const edm::ParameterSet& iConfig):
     ak8genjetToken_(consumes<reco::GenJetCollection>(edm::InputTag("slimmedGenJetsAK8"))),
     prunedGenToken_(consumes<edm::View<reco::GenParticle> >(edm::InputTag("prunedGenParticles"))),
     rhoToken_(consumes<double>(edm::InputTag("fixedGridRhoFastjetAll"))),
-    vtxToken_(consumes<std::vector<reco::Vertex> >(edm::InputTag("offlineSlimmedPrimaryVertices")))
-    // jecPayloads_        (iConfig.getParameter<std::vector<std::string> >  ("jecPayloads"))
+    vtxToken_(consumes<std::vector<reco::Vertex> >(edm::InputTag("offlineSlimmedPrimaryVertices"))),
+    jecPayloads_        (iConfig.getParameter<std::vector<std::string> >  ("jecPayloads"))
 {
   usesResource("TFileService");
   edm::Service<TFileService> fs;
@@ -298,6 +298,18 @@ JetMiniValidation::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
   bool verbose = false;
 
+  // JEC 
+
+  std::vector<JetCorrectorParameters> vPar;
+   for ( std::vector<std::string>::const_iterator ipayload = jecPayloads_.begin(),
+     ipayloadEnd = jecPayloads_.end(); ipayload != ipayloadEnd - 1; ++ipayload ) {
+     // std::cout << "Adding payload " << *ipayload << std::endl;
+     JetCorrectorParameters pars(*ipayload);
+     vPar.push_back(pars);
+  }
+  jec_ = boost::shared_ptr<FactorizedJetCorrector> ( new FactorizedJetCorrector(vPar) );
+
+
   // Vertices
   edm::Handle<std::vector<reco::Vertex> > vertices;
   iEvent.getByToken(vtxToken_, vertices);
@@ -395,6 +407,37 @@ JetMiniValidation::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
   for (const pat::Jet &ijet : *AK8MINI) {  
     count_AK8MINI++;
     if (count_AK8MINI>=2) break;
+
+    //------------------------------------
+    // Get uncorrected and corrected jet
+    //------------------------------------
+    reco::Candidate::LorentzVector uncorrJet = ijet.correctedP4(0);
+    jec_->setJetEta( uncorrJet.eta() );
+    jec_->setJetPt ( uncorrJet.pt() );
+    jec_->setJetE  ( uncorrJet.energy() );
+    jec_->setJetA  ( ijet.jetArea() );
+    jec_->setRho   ( rho );
+    jec_->setNPV   ( nvtx );
+    double corr = jec_->getCorrection();
+
+    reco::Candidate::LorentzVector corrJet = corr * uncorrJet;
+    cout<<"uncorrected AK8 jet pt "<<uncorrJet.pt()<<" corrected jet pt "<<corrJet.pt()<<endl;
+    
+    jec_->setJetEta( uncorrJet.eta() );
+    jec_->setJetPt ( uncorrJet.pt() );
+    jec_->setJetE  ( uncorrJet.energy() );
+    jec_->setJetA  ( ijet.jetArea() );
+    jec_->setRho   ( rho );
+    jec_->setNPV   ( nvtx );
+    vector<float> factors = jec_->getSubCorrections();
+    float L1cor = 1.0;
+    float L12cor = 1.0;
+    float L123cor = 1.0;
+    if (factors.size() > 0) L1cor = factors[0];
+    if (factors.size() > 1) L12cor = factors[1];
+    if (factors.size() > 2) L123cor = factors[2];
+    cout<<"L1cor "<<L1cor<<" L12cor "<<L12cor<<" L123cor "<<L123cor<<endl;
+
     double pt           = ijet.pt();
     double mass         = ijet.mass();
     double rapidity     = ijet.rapidity();
