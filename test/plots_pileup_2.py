@@ -12,7 +12,7 @@ parser.add_option('--drawLines', action='store_false', default=True, dest='drawL
                   help='Flag to draw, or not, the lines at the mean of the Gaussian fit')
 parser.add_option('--ifilename', type='string', action='store', default='pileupNtuple.root',
 		  dest='ifilename', help='The name of the input ROOT file.')
-parser.add_option('--algsize', type='string', action='store', default='AK4', dest='algsize'
+parser.add_option('--algsize', type='string', action='store', default='AK4', dest='algsize',
 		  help="The algorithm and size of the jet collections to get from the ntuple.")
 (options, args) = parser.parse_args()
 
