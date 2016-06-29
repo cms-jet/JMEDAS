@@ -110,7 +110,23 @@ class JetTester : public edm::EDAnalyzer {
       TH1D * h_ak4chs_ndau          ;
       TH1D * h_ak4chs_subjetMass    ;  
       TH1D * h_ak4chs_area          ;  
-
+      TH1D * h_ak4chs_pt200_mass          ; 
+      TH1D * h_ak4chs_pt200_prunedMass    ; 
+      TH1D * h_ak4chs_pt200_trimmedMass   ; 
+      TH1D * h_ak4chs_pt200_filteredMass  ; 
+      TH1D * h_ak4chs_pt200_softDropMass  ; 
+      TH1D * h_ak4chs_pt200_tau32         ; 
+      TH1D * h_ak4chs_pt200_tau21         ; 
+      TH1D * h_ak4chs_pt200_subjetMass    ; 
+      TH1D * h_ak4chs_pt500_mass          ; 
+      TH1D * h_ak4chs_pt500_prunedMass    ; 
+      TH1D * h_ak4chs_pt500_trimmedMass   ; 
+      TH1D * h_ak4chs_pt500_filteredMass  ; 
+      TH1D * h_ak4chs_pt500_softDropMass  ; 
+      TH1D * h_ak4chs_pt500_tau32         ; 
+      TH1D * h_ak4chs_pt500_tau21         ; 
+      TH1D * h_ak4chs_pt500_subjetMass    ; 
+  
 
       TH1D * h_ak8pf_pt            ;
       TH1D * h_ak8pf_mass          ;
@@ -128,7 +144,22 @@ class JetTester : public edm::EDAnalyzer {
       TH1D * h_ak8pf_ndau          ;
       TH1D * h_ak8pf_subjetMass    ;  
       TH1D * h_ak8pf_area          ;  
-
+      TH1D * h_ak8pf_pt200_mass          ;  
+      TH1D * h_ak8pf_pt200_prunedMass    ; 
+      TH1D * h_ak8pf_pt200_trimmedMass   ; 
+      TH1D * h_ak8pf_pt200_filteredMass  ; 
+      TH1D * h_ak8pf_pt200_softDropMass  ; 
+      TH1D * h_ak8pf_pt200_tau32         ; 
+      TH1D * h_ak8pf_pt200_tau21         ; 
+      TH1D * h_ak8pf_pt200_subjetMass    ; 
+      TH1D * h_ak8pf_pt500_mass          ; 
+      TH1D * h_ak8pf_pt500_prunedMass    ; 
+      TH1D * h_ak8pf_pt500_trimmedMass   ; 
+      TH1D * h_ak8pf_pt500_filteredMass  ; 
+      TH1D * h_ak8pf_pt500_softDropMass  ; 
+      TH1D * h_ak8pf_pt500_tau32         ; 
+      TH1D * h_ak8pf_pt500_tau21         ; 
+      TH1D * h_ak8pf_pt500_subjetMass    ; 
 
       TH1D * h_ak8chs_pt            ;
       TH1D * h_ak8chs_mass          ;
@@ -146,7 +177,22 @@ class JetTester : public edm::EDAnalyzer {
       TH1D * h_ak8chs_ndau          ;
       TH1D * h_ak8chs_subjetMass    ;  
       TH1D * h_ak8chs_area          ;  
-
+      TH1D * h_ak8chs_pt200_mass          ; 
+      TH1D * h_ak8chs_pt200_prunedMass    ; 
+      TH1D * h_ak8chs_pt200_trimmedMass   ; 
+      TH1D * h_ak8chs_pt200_filteredMass  ; 
+      TH1D * h_ak8chs_pt200_softDropMass  ; 
+      TH1D * h_ak8chs_pt200_tau32         ; 
+      TH1D * h_ak8chs_pt200_tau21         ; 
+      TH1D * h_ak8chs_pt200_subjetMass    ; 
+      TH1D * h_ak8chs_pt500_mass          ; 
+      TH1D * h_ak8chs_pt500_prunedMass    ; 
+      TH1D * h_ak8chs_pt500_trimmedMass   ; 
+      TH1D * h_ak8chs_pt500_filteredMass  ; 
+      TH1D * h_ak8chs_pt500_softDropMass  ; 
+      TH1D * h_ak8chs_pt500_tau32         ; 
+      TH1D * h_ak8chs_pt500_tau21         ; 
+      TH1D * h_ak8chs_pt500_subjetMass    ; 
 
       TH1D * h_ak8puppi_pt            ;
       TH1D * h_ak8puppi_mass          ;
@@ -164,7 +210,22 @@ class JetTester : public edm::EDAnalyzer {
       TH1D * h_ak8puppi_ndau          ;
       TH1D * h_ak8puppi_subjetMass    ;  
       TH1D * h_ak8puppi_area          ;  
-
+      TH1D * h_ak8puppi_pt200_mass          ; 
+      TH1D * h_ak8puppi_pt200_prunedMass    ; 
+      TH1D * h_ak8puppi_pt200_trimmedMass   ; 
+      TH1D * h_ak8puppi_pt200_filteredMass  ; 
+      TH1D * h_ak8puppi_pt200_softDropMass  ; 
+      TH1D * h_ak8puppi_pt200_tau32         ; 
+      TH1D * h_ak8puppi_pt200_tau21         ; 
+      TH1D * h_ak8puppi_pt200_subjetMass    ; 
+      TH1D * h_ak8puppi_pt500_mass          ; 
+      TH1D * h_ak8puppi_pt500_prunedMass    ; 
+      TH1D * h_ak8puppi_pt500_trimmedMass   ; 
+      TH1D * h_ak8puppi_pt500_filteredMass  ; 
+      TH1D * h_ak8puppi_pt500_softDropMass  ; 
+      TH1D * h_ak8puppi_pt500_tau32         ; 
+      TH1D * h_ak8puppi_pt500_tau21         ; 
+      TH1D * h_ak8puppi_pt500_subjetMass    ; 
 
 
       TH1D * h_kt8chs_pt            ;
@@ -183,7 +244,22 @@ class JetTester : public edm::EDAnalyzer {
       TH1D * h_kt8chs_ndau          ;
       TH1D * h_kt8chs_subjetMass    ;  
       TH1D * h_kt8chs_area          ;  
-
+      TH1D * h_kt8chs_pt200_mass          ; 
+      TH1D * h_kt8chs_pt200_prunedMass    ; 
+      TH1D * h_kt8chs_pt200_trimmedMass   ; 
+      TH1D * h_kt8chs_pt200_filteredMass  ; 
+      TH1D * h_kt8chs_pt200_softDropMass  ; 
+      TH1D * h_kt8chs_pt200_tau32         ; 
+      TH1D * h_kt8chs_pt200_tau21         ; 
+      TH1D * h_kt8chs_pt200_subjetMass    ; 
+      TH1D * h_kt8chs_pt500_mass          ; 
+      TH1D * h_kt8chs_pt500_prunedMass    ; 
+      TH1D * h_kt8chs_pt500_trimmedMass   ; 
+      TH1D * h_kt8chs_pt500_filteredMass  ; 
+      TH1D * h_kt8chs_pt500_softDropMass  ; 
+      TH1D * h_kt8chs_pt500_tau32         ; 
+      TH1D * h_kt8chs_pt500_tau21         ; 
+      TH1D * h_kt8chs_pt500_subjetMass    ; 
 
 
       TH1D * h_ca8chs_pt            ;
@@ -202,6 +278,22 @@ class JetTester : public edm::EDAnalyzer {
       TH1D * h_ca8chs_ndau          ;
       TH1D * h_ca8chs_subjetMass    ;  
       TH1D * h_ca8chs_area          ;  
+      TH1D * h_ca8chs_pt200_mass          ; 
+      TH1D * h_ca8chs_pt200_prunedMass    ; 
+      TH1D * h_ca8chs_pt200_trimmedMass   ; 
+      TH1D * h_ca8chs_pt200_filteredMass  ; 
+      TH1D * h_ca8chs_pt200_softDropMass  ; 
+      TH1D * h_ca8chs_pt200_tau32         ; 
+      TH1D * h_ca8chs_pt200_tau21         ; 
+      TH1D * h_ca8chs_pt200_subjetMass    ; 
+      TH1D * h_ca8chs_pt500_mass          ; 
+      TH1D * h_ca8chs_pt500_prunedMass    ; 
+      TH1D * h_ca8chs_pt500_trimmedMass   ; 
+      TH1D * h_ca8chs_pt500_filteredMass  ; 
+      TH1D * h_ca8chs_pt500_softDropMass  ; 
+      TH1D * h_ca8chs_pt500_tau32         ; 
+      TH1D * h_ca8chs_pt500_tau21         ; 
+      TH1D * h_ca8chs_pt500_subjetMass    ; 
 
       TH1D * h_ak12chs_pt            ;
       TH1D * h_ak12chs_mass          ;
@@ -219,7 +311,22 @@ class JetTester : public edm::EDAnalyzer {
       TH1D * h_ak12chs_ndau          ;
       TH1D * h_ak12chs_subjetMass    ;  
       TH1D * h_ak12chs_area          ;  
-
+      TH1D * h_ak12chs_pt200_mass          ; 
+      TH1D * h_ak12chs_pt200_prunedMass    ; 
+      TH1D * h_ak12chs_pt200_trimmedMass   ; 
+      TH1D * h_ak12chs_pt200_filteredMass  ; 
+      TH1D * h_ak12chs_pt200_softDropMass  ; 
+      TH1D * h_ak12chs_pt200_tau32         ; 
+      TH1D * h_ak12chs_pt200_tau21         ; 
+      TH1D * h_ak12chs_pt200_subjetMass    ; 
+      TH1D * h_ak12chs_pt500_mass          ; 
+      TH1D * h_ak12chs_pt500_prunedMass    ; 
+      TH1D * h_ak12chs_pt500_trimmedMass   ; 
+      TH1D * h_ak12chs_pt500_filteredMass  ; 
+      TH1D * h_ak12chs_pt500_softDropMass  ; 
+      TH1D * h_ak12chs_pt500_tau32         ; 
+      TH1D * h_ak12chs_pt500_tau21         ; 
+      TH1D * h_ak12chs_pt500_subjetMass    ; 
 
       TH1D * h_ak15chs_pt            ;
       TH1D * h_ak15chs_mass          ;
@@ -237,7 +344,22 @@ class JetTester : public edm::EDAnalyzer {
       TH1D * h_ak15chs_ndau          ;
       TH1D * h_ak15chs_subjetMass    ;  
       TH1D * h_ak15chs_area          ;  
-      
+      TH1D * h_ak15chs_pt200_mass          ; 
+      TH1D * h_ak15chs_pt200_prunedMass    ; 
+      TH1D * h_ak15chs_pt200_trimmedMass   ; 
+      TH1D * h_ak15chs_pt200_filteredMass  ; 
+      TH1D * h_ak15chs_pt200_softDropMass  ; 
+      TH1D * h_ak15chs_pt200_tau32         ; 
+      TH1D * h_ak15chs_pt200_tau21         ; 
+      TH1D * h_ak15chs_pt200_subjetMass    ; 
+      TH1D * h_ak15chs_pt500_mass          ; 
+      TH1D * h_ak15chs_pt500_prunedMass    ; 
+      TH1D * h_ak15chs_pt500_trimmedMass   ; 
+      TH1D * h_ak15chs_pt500_filteredMass  ; 
+      TH1D * h_ak15chs_pt500_softDropMass  ; 
+      TH1D * h_ak15chs_pt500_tau32         ; 
+      TH1D * h_ak15chs_pt500_tau21         ; 
+      TH1D * h_ak15chs_pt500_subjetMass    ; 
 };
 
 //
@@ -272,146 +394,281 @@ JetTester::JetTester(const edm::ParameterSet& iConfig):
 
   edm::Service<TFileService> fs;
 
-  h_ak4chs_pt            =  fs->make<TH1D>("h_ak4chs_pt"               ,"",100,0,3000); 
-  h_ak4chs_mass          =  fs->make<TH1D>("h_ak4chs_mass"             ,"",100,0,500); 
-  h_ak4chs_rapidity      =  fs->make<TH1D>("h_ak4chs_rapidity"         ,"",100,-5, 5); 
-  h_ak4chs_prunedMass    =  fs->make<TH1D>("h_ak4chs_prunedMass"       ,"",100,0,500); 
-  h_ak4chs_trimmedMass   =  fs->make<TH1D>("h_ak4chs_trimmedMass"      ,"",100,0,500); 
-  h_ak4chs_filteredMass  =  fs->make<TH1D>("h_ak4chs_filteredMass"     ,"",100,0,500); 
-  h_ak4chs_softDropMass  =  fs->make<TH1D>("h_ak4chs_softDropMass"     ,"",100,0,500); 
-  h_ak4chs_tau1          =  fs->make<TH1D>("h_ak4chs_tau1"             ,"",100,0,  1); 
-  h_ak4chs_tau2          =  fs->make<TH1D>("h_ak4chs_tau2"             ,"",100,0,  1); 
-  h_ak4chs_tau3          =  fs->make<TH1D>("h_ak4chs_tau3"             ,"",100,0,  1); 
-  h_ak4chs_tau4          =  fs->make<TH1D>("h_ak4chs_tau4"             ,"",100,0,  1); 
-  h_ak4chs_tau32         =  fs->make<TH1D>("h_ak4chs_tau32"            ,"",100,0,  1); 
-  h_ak4chs_tau21         =  fs->make<TH1D>("h_ak4chs_tau21"            ,"",100,0,  1); 
-  h_ak4chs_ndau          =  fs->make<TH1D>("h_ak4chs_ndau"             ,"",300,0,300); 
-  h_ak4chs_subjetMass    =  fs->make<TH1D>("h_ak4chs_subjetMass"       ,"",100,0,400); 
-  h_ak4chs_area          =  fs->make<TH1D>("h_ak4chs_area"             ,"",100,0,  8); 
- 
+  h_ak4chs_pt                  =  fs->make<TH1D>("h_ak4chs_pt"                     ,"",100,0,3000); 
+  h_ak4chs_mass                =  fs->make<TH1D>("h_ak4chs_mass"                   ,"",100,0,500); 
+  h_ak4chs_rapidity            =  fs->make<TH1D>("h_ak4chs_rapidity"               ,"",100,-5, 5); 
+  h_ak4chs_prunedMass          =  fs->make<TH1D>("h_ak4chs_prunedMass"             ,"",100,0,500); 
+  h_ak4chs_trimmedMass         =  fs->make<TH1D>("h_ak4chs_trimmedMass"            ,"",100,0,500); 
+  h_ak4chs_filteredMass        =  fs->make<TH1D>("h_ak4chs_filteredMass"           ,"",100,0,500); 
+  h_ak4chs_softDropMass        =  fs->make<TH1D>("h_ak4chs_softDropMass"           ,"",100,0,500); 
+  h_ak4chs_tau1                =  fs->make<TH1D>("h_ak4chs_tau1"                   ,"",100,0,  1); 
+  h_ak4chs_tau2                =  fs->make<TH1D>("h_ak4chs_tau2"                   ,"",100,0,  1); 
+  h_ak4chs_tau3                =  fs->make<TH1D>("h_ak4chs_tau3"                   ,"",100,0,  1); 
+  h_ak4chs_tau4                =  fs->make<TH1D>("h_ak4chs_tau4"                   ,"",100,0,  1); 
+  h_ak4chs_tau32               =  fs->make<TH1D>("h_ak4chs_tau32"                  ,"",100,0,  1); 
+  h_ak4chs_tau21               =  fs->make<TH1D>("h_ak4chs_tau21"                  ,"",100,0,  1); 
+  h_ak4chs_ndau                =  fs->make<TH1D>("h_ak4chs_ndau"                   ,"",300,0,300); 
+  h_ak4chs_subjetMass          =  fs->make<TH1D>("h_ak4chs_subjetMass"             ,"",100,0,400); 
+  h_ak4chs_area                =  fs->make<TH1D>("h_ak4chs_area"                   ,"",100,0,  8); 
+  h_ak4chs_pt200_mass          =  fs->make<TH1D>("h_ak4chs_pt200_mass"             ,"",100,0,500); 
+  h_ak4chs_pt200_prunedMass    =  fs->make<TH1D>("h_ak4chs_pt200_prunedMass"       ,"",100,0,500); 
+  h_ak4chs_pt200_trimmedMass   =  fs->make<TH1D>("h_ak4chs_pt200_trimmedMass"      ,"",100,0,500); 
+  h_ak4chs_pt200_filteredMass  =  fs->make<TH1D>("h_ak4chs_pt200_filteredMass"     ,"",100,0,500); 
+  h_ak4chs_pt200_softDropMass  =  fs->make<TH1D>("h_ak4chs_pt200_softDropMass"     ,"",100,0,500); 
+  h_ak4chs_pt200_tau32         =  fs->make<TH1D>("h_ak4chs_pt200_tau32"            ,"",100,0,  1); 
+  h_ak4chs_pt200_tau21         =  fs->make<TH1D>("h_ak4chs_pt200_tau21"            ,"",100,0,  1); 
+  h_ak4chs_pt200_subjetMass    =  fs->make<TH1D>("h_ak4chs_pt200_subjetMass"       ,"",100,0,400); 
+  h_ak4chs_pt500_mass          =  fs->make<TH1D>("h_ak4chs_pt500_mass"             ,"",100,0,500); 
+  h_ak4chs_pt500_prunedMass    =  fs->make<TH1D>("h_ak4chs_pt500_prunedMass"       ,"",100,0,500); 
+  h_ak4chs_pt500_trimmedMass   =  fs->make<TH1D>("h_ak4chs_pt500_trimmedMass"      ,"",100,0,500); 
+  h_ak4chs_pt500_filteredMass  =  fs->make<TH1D>("h_ak4chs_pt500_filteredMass"     ,"",100,0,500); 
+  h_ak4chs_pt500_softDropMass  =  fs->make<TH1D>("h_ak4chs_pt500_softDropMass"     ,"",100,0,500); 
+  h_ak4chs_pt500_tau32         =  fs->make<TH1D>("h_ak4chs_pt500_tau32"            ,"",100,0,  1); 
+  h_ak4chs_pt500_tau21         =  fs->make<TH1D>("h_ak4chs_pt500_tau21"            ,"",100,0,  1); 
+  h_ak4chs_pt500_subjetMass    =  fs->make<TH1D>("h_ak4chs_pt500_subjetMass"       ,"",100,0,400); 
 
-  h_ak8pf_pt            =  fs->make<TH1D>("h_ak8pf_pt"               ,"",100,0,3000); 
-  h_ak8pf_mass          =  fs->make<TH1D>("h_ak8pf_mass"             ,"",100,0,500); 
-  h_ak8pf_rapidity      =  fs->make<TH1D>("h_ak8pf_rapidity"         ,"",100,-5, 5); 
-  h_ak8pf_prunedMass    =  fs->make<TH1D>("h_ak8pf_prunedMass"       ,"",100,0,500); 
-  h_ak8pf_trimmedMass   =  fs->make<TH1D>("h_ak8pf_trimmedMass"      ,"",100,0,500); 
-  h_ak8pf_filteredMass  =  fs->make<TH1D>("h_ak8pf_filteredMass"     ,"",100,0,500); 
-  h_ak8pf_softDropMass  =  fs->make<TH1D>("h_ak8pf_softDropMass"     ,"",100,0,500); 
-  h_ak8pf_tau1          =  fs->make<TH1D>("h_ak8pf_tau1"             ,"",100,0,  1); 
-  h_ak8pf_tau2          =  fs->make<TH1D>("h_ak8pf_tau2"             ,"",100,0,  1); 
-  h_ak8pf_tau3          =  fs->make<TH1D>("h_ak8pf_tau3"             ,"",100,0,  1); 
-  h_ak8pf_tau4          =  fs->make<TH1D>("h_ak8pf_tau4"             ,"",100,0,  1); 
-  h_ak8pf_tau32         =  fs->make<TH1D>("h_ak8pf_tau32"            ,"",100,0,  1); 
-  h_ak8pf_tau21         =  fs->make<TH1D>("h_ak8pf_tau21"            ,"",100,0,  1); 
-  h_ak8pf_ndau          =  fs->make<TH1D>("h_ak8pf_ndau"             ,"",300,0,300); 
-  h_ak8pf_subjetMass    =  fs->make<TH1D>("h_ak8pf_subjetMass"       ,"",100,0,400); 
-  h_ak8pf_area          =  fs->make<TH1D>("h_ak8pf_area"             ,"",100,0,  8); 
- 
 
-  h_ak8chs_pt            =  fs->make<TH1D>("h_ak8chs_pt"               ,"",100,0,3000); 
-  h_ak8chs_mass          =  fs->make<TH1D>("h_ak8chs_mass"             ,"",100,0,500); 
-  h_ak8chs_rapidity      =  fs->make<TH1D>("h_ak8chs_rapidity"         ,"",100,-5, 5); 
-  h_ak8chs_prunedMass    =  fs->make<TH1D>("h_ak8chs_prunedMass"       ,"",100,0,500); 
-  h_ak8chs_trimmedMass   =  fs->make<TH1D>("h_ak8chs_trimmedMass"      ,"",100,0,500); 
-  h_ak8chs_filteredMass  =  fs->make<TH1D>("h_ak8chs_filteredMass"     ,"",100,0,500); 
-  h_ak8chs_softDropMass  =  fs->make<TH1D>("h_ak8chs_softDropMass"     ,"",100,0,500); 
-  h_ak8chs_tau1          =  fs->make<TH1D>("h_ak8chs_tau1"             ,"",100,0,  1); 
-  h_ak8chs_tau2          =  fs->make<TH1D>("h_ak8chs_tau2"             ,"",100,0,  1); 
-  h_ak8chs_tau3          =  fs->make<TH1D>("h_ak8chs_tau3"             ,"",100,0,  1); 
-  h_ak8chs_tau4          =  fs->make<TH1D>("h_ak8chs_tau4"             ,"",100,0,  1); 
-  h_ak8chs_tau32         =  fs->make<TH1D>("h_ak8chs_tau32"            ,"",100,0,  1); 
-  h_ak8chs_tau21         =  fs->make<TH1D>("h_ak8chs_tau21"            ,"",100,0,  1); 
-  h_ak8chs_ndau          =  fs->make<TH1D>("h_ak8chs_ndau"             ,"",300,0,300); 
-  h_ak8chs_subjetMass    =  fs->make<TH1D>("h_ak8chs_subjetMass"       ,"",100,0,400); 
-  h_ak8chs_area          =  fs->make<TH1D>("h_ak8chs_area"             ,"",100,0,  8); 
- 
+  h_ak8pf_pt                  =  fs->make<TH1D>("h_ak8pf_pt"                     ,"",100,0,3000); 
+  h_ak8pf_mass                =  fs->make<TH1D>("h_ak8pf_mass"                   ,"",100,0,500); 
+  h_ak8pf_rapidity            =  fs->make<TH1D>("h_ak8pf_rapidity"               ,"",100,-5, 5); 
+  h_ak8pf_prunedMass          =  fs->make<TH1D>("h_ak8pf_prunedMass"             ,"",100,0,500); 
+  h_ak8pf_trimmedMass         =  fs->make<TH1D>("h_ak8pf_trimmedMass"            ,"",100,0,500); 
+  h_ak8pf_filteredMass        =  fs->make<TH1D>("h_ak8pf_filteredMass"           ,"",100,0,500); 
+  h_ak8pf_softDropMass        =  fs->make<TH1D>("h_ak8pf_softDropMass"           ,"",100,0,500); 
+  h_ak8pf_tau1                =  fs->make<TH1D>("h_ak8pf_tau1"                   ,"",100,0,  1); 
+  h_ak8pf_tau2                =  fs->make<TH1D>("h_ak8pf_tau2"                   ,"",100,0,  1); 
+  h_ak8pf_tau3                =  fs->make<TH1D>("h_ak8pf_tau3"                   ,"",100,0,  1); 
+  h_ak8pf_tau4                =  fs->make<TH1D>("h_ak8pf_tau4"                   ,"",100,0,  1); 
+  h_ak8pf_tau32               =  fs->make<TH1D>("h_ak8pf_tau32"                  ,"",100,0,  1); 
+  h_ak8pf_tau21               =  fs->make<TH1D>("h_ak8pf_tau21"                  ,"",100,0,  1); 
+  h_ak8pf_ndau                =  fs->make<TH1D>("h_ak8pf_ndau"                   ,"",300,0,300); 
+  h_ak8pf_subjetMass          =  fs->make<TH1D>("h_ak8pf_subjetMass"             ,"",100,0,400); 
+  h_ak8pf_area                =  fs->make<TH1D>("h_ak8pf_area"                   ,"",100,0,  8); 
+  h_ak8pf_pt200_mass          =  fs->make<TH1D>("h_ak8pf_pt200_mass"             ,"",100,0,500); 
+  h_ak8pf_pt200_prunedMass    =  fs->make<TH1D>("h_ak8pf_pt200_prunedMass"       ,"",100,0,500); 
+  h_ak8pf_pt200_trimmedMass   =  fs->make<TH1D>("h_ak8pf_pt200_trimmedMass"      ,"",100,0,500); 
+  h_ak8pf_pt200_filteredMass  =  fs->make<TH1D>("h_ak8pf_pt200_filteredMass"     ,"",100,0,500); 
+  h_ak8pf_pt200_softDropMass  =  fs->make<TH1D>("h_ak8pf_pt200_softDropMass"     ,"",100,0,500); 
+  h_ak8pf_pt200_tau32         =  fs->make<TH1D>("h_ak8pf_pt200_tau32"            ,"",100,0,  1); 
+  h_ak8pf_pt200_tau21         =  fs->make<TH1D>("h_ak8pf_pt200_tau21"            ,"",100,0,  1); 
+  h_ak8pf_pt200_subjetMass    =  fs->make<TH1D>("h_ak8pf_pt200_subjetMass"       ,"",100,0,400); 
+  h_ak8pf_pt500_mass          =  fs->make<TH1D>("h_ak8pf_pt500_mass"             ,"",100,0,500); 
+  h_ak8pf_pt500_prunedMass    =  fs->make<TH1D>("h_ak8pf_pt500_prunedMass"       ,"",100,0,500); 
+  h_ak8pf_pt500_trimmedMass   =  fs->make<TH1D>("h_ak8pf_pt500_trimmedMass"      ,"",100,0,500); 
+  h_ak8pf_pt500_filteredMass  =  fs->make<TH1D>("h_ak8pf_pt500_filteredMass"     ,"",100,0,500); 
+  h_ak8pf_pt500_softDropMass  =  fs->make<TH1D>("h_ak8pf_pt500_softDropMass"     ,"",100,0,500); 
+  h_ak8pf_pt500_tau32         =  fs->make<TH1D>("h_ak8pf_pt500_tau32"            ,"",100,0,  1); 
+  h_ak8pf_pt500_tau21         =  fs->make<TH1D>("h_ak8pf_pt500_tau21"            ,"",100,0,  1); 
+  h_ak8pf_pt500_subjetMass    =  fs->make<TH1D>("h_ak8pf_pt500_subjetMass"       ,"",100,0,400); 
 
-  h_ak8puppi_pt            =  fs->make<TH1D>("h_ak8puppi_pt"               ,"",100,0,3000); 
-  h_ak8puppi_mass          =  fs->make<TH1D>("h_ak8puppi_mass"             ,"",100,0,500); 
-  h_ak8puppi_rapidity      =  fs->make<TH1D>("h_ak8puppi_rapidity"         ,"",100,-5, 5); 
-  h_ak8puppi_prunedMass    =  fs->make<TH1D>("h_ak8puppi_prunedMass"       ,"",100,0,500); 
-  h_ak8puppi_trimmedMass   =  fs->make<TH1D>("h_ak8puppi_trimmedMass"      ,"",100,0,500); 
-  h_ak8puppi_filteredMass  =  fs->make<TH1D>("h_ak8puppi_filteredMass"     ,"",100,0,500); 
-  h_ak8puppi_softDropMass  =  fs->make<TH1D>("h_ak8puppi_softDropMass"     ,"",100,0,500); 
-  h_ak8puppi_tau1          =  fs->make<TH1D>("h_ak8puppi_tau1"             ,"",100,0,  1); 
-  h_ak8puppi_tau2          =  fs->make<TH1D>("h_ak8puppi_tau2"             ,"",100,0,  1); 
-  h_ak8puppi_tau3          =  fs->make<TH1D>("h_ak8puppi_tau3"             ,"",100,0,  1); 
-  h_ak8puppi_tau4          =  fs->make<TH1D>("h_ak8puppi_tau4"             ,"",100,0,  1); 
-  h_ak8puppi_tau32         =  fs->make<TH1D>("h_ak8puppi_tau32"            ,"",100,0,  1); 
-  h_ak8puppi_tau21         =  fs->make<TH1D>("h_ak8puppi_tau21"            ,"",100,0,  1); 
-  h_ak8puppi_ndau          =  fs->make<TH1D>("h_ak8puppi_ndau"             ,"",300,0,300); 
-  h_ak8puppi_subjetMass    =  fs->make<TH1D>("h_ak8puppi_subjetMass"       ,"",100,0,400); 
-  h_ak8puppi_area          =  fs->make<TH1D>("h_ak8puppi_area"             ,"",100,0,  8); 
- 
 
-  h_kt8chs_pt            =  fs->make<TH1D>("h_kt8chs_pt"               ,"",100,0,3000); 
-  h_kt8chs_mass          =  fs->make<TH1D>("h_kt8chs_mass"             ,"",100,0,500); 
-  h_kt8chs_rapidity      =  fs->make<TH1D>("h_kt8chs_rapidity"         ,"",100,-5, 5); 
-  h_kt8chs_prunedMass    =  fs->make<TH1D>("h_kt8chs_prunedMass"       ,"",100,0,500); 
-  h_kt8chs_trimmedMass   =  fs->make<TH1D>("h_kt8chs_trimmedMass"      ,"",100,0,500); 
-  h_kt8chs_filteredMass  =  fs->make<TH1D>("h_kt8chs_filteredMass"     ,"",100,0,500); 
-  h_kt8chs_softDropMass  =  fs->make<TH1D>("h_kt8chs_softDropMass"     ,"",100,0,500); 
-  h_kt8chs_tau1          =  fs->make<TH1D>("h_kt8chs_tau1"             ,"",100,0,  1); 
-  h_kt8chs_tau2          =  fs->make<TH1D>("h_kt8chs_tau2"             ,"",100,0,  1); 
-  h_kt8chs_tau3          =  fs->make<TH1D>("h_kt8chs_tau3"             ,"",100,0,  1); 
-  h_kt8chs_tau4          =  fs->make<TH1D>("h_kt8chs_tau4"             ,"",100,0,  1); 
-  h_kt8chs_tau32         =  fs->make<TH1D>("h_kt8chs_tau32"            ,"",100,0,  1); 
-  h_kt8chs_tau21         =  fs->make<TH1D>("h_kt8chs_tau21"            ,"",100,0,  1); 
-  h_kt8chs_ndau          =  fs->make<TH1D>("h_kt8chs_ndau"             ,"",300,0,300); 
-  h_kt8chs_subjetMass    =  fs->make<TH1D>("h_kt8chs_subjetMass"       ,"",100,0,400); 
-  h_kt8chs_area          =  fs->make<TH1D>("h_kt8chs_area"             ,"",100,0,  8); 
- 
-  h_ca8chs_pt            =  fs->make<TH1D>("h_ca8chs_pt"               ,"",100,0,3000); 
-  h_ca8chs_mass          =  fs->make<TH1D>("h_ca8chs_mass"             ,"",100,0,500); 
-  h_ca8chs_rapidity      =  fs->make<TH1D>("h_ca8chs_rapidity"         ,"",100,-5, 5); 
-  h_ca8chs_prunedMass    =  fs->make<TH1D>("h_ca8chs_prunedMass"       ,"",100,0,500); 
-  h_ca8chs_trimmedMass   =  fs->make<TH1D>("h_ca8chs_trimmedMass"      ,"",100,0,500); 
-  h_ca8chs_filteredMass  =  fs->make<TH1D>("h_ca8chs_filteredMass"     ,"",100,0,500); 
-  h_ca8chs_softDropMass  =  fs->make<TH1D>("h_ca8chs_softDropMass"     ,"",100,0,500); 
-  h_ca8chs_tau1          =  fs->make<TH1D>("h_ca8chs_tau1"             ,"",100,0,  1); 
-  h_ca8chs_tau2          =  fs->make<TH1D>("h_ca8chs_tau2"             ,"",100,0,  1); 
-  h_ca8chs_tau3          =  fs->make<TH1D>("h_ca8chs_tau3"             ,"",100,0,  1); 
-  h_ca8chs_tau4          =  fs->make<TH1D>("h_ca8chs_tau4"             ,"",100,0,  1); 
-  h_ca8chs_tau32         =  fs->make<TH1D>("h_ca8chs_tau32"            ,"",100,0,  1); 
-  h_ca8chs_tau21         =  fs->make<TH1D>("h_ca8chs_tau21"            ,"",100,0,  1); 
-  h_ca8chs_ndau          =  fs->make<TH1D>("h_ca8chs_ndau"             ,"",300,0,300); 
-  h_ca8chs_subjetMass    =  fs->make<TH1D>("h_ca8chs_subjetMass"       ,"",100,0,400); 
-  h_ca8chs_area          =  fs->make<TH1D>("h_ca8chs_area"             ,"",100,0,  8); 
- 
-  h_ak12chs_pt            =  fs->make<TH1D>("h_ak12chs_pt"               ,"",100,0,3000); 
-  h_ak12chs_mass          =  fs->make<TH1D>("h_ak12chs_mass"             ,"",100,0,500); 
-  h_ak12chs_rapidity      =  fs->make<TH1D>("h_ak12chs_rapidity"         ,"",100,-5, 5); 
-  h_ak12chs_prunedMass    =  fs->make<TH1D>("h_ak12chs_prunedMass"       ,"",100,0,500); 
-  h_ak12chs_trimmedMass   =  fs->make<TH1D>("h_ak12chs_trimmedMass"      ,"",100,0,500); 
-  h_ak12chs_filteredMass  =  fs->make<TH1D>("h_ak12chs_filteredMass"     ,"",100,0,500); 
-  h_ak12chs_softDropMass  =  fs->make<TH1D>("h_ak12chs_softDropMass"     ,"",100,0,500); 
-  h_ak12chs_tau1          =  fs->make<TH1D>("h_ak12chs_tau1"             ,"",100,0,  1); 
-  h_ak12chs_tau2          =  fs->make<TH1D>("h_ak12chs_tau2"             ,"",100,0,  1); 
-  h_ak12chs_tau3          =  fs->make<TH1D>("h_ak12chs_tau3"             ,"",100,0,  1); 
-  h_ak12chs_tau4          =  fs->make<TH1D>("h_ak12chs_tau4"             ,"",100,0,  1); 
-  h_ak12chs_tau32         =  fs->make<TH1D>("h_ak12chs_tau32"            ,"",100,0,  1); 
-  h_ak12chs_tau21         =  fs->make<TH1D>("h_ak12chs_tau21"            ,"",100,0,  1); 
-  h_ak12chs_ndau          =  fs->make<TH1D>("h_ak12chs_ndau"             ,"",300,0,300); 
-  h_ak12chs_subjetMass    =  fs->make<TH1D>("h_ak12chs_subjetMass"       ,"",100,0,400); 
-  h_ak12chs_area          =  fs->make<TH1D>("h_ak12chs_area"             ,"",100,0,  8); 
- 
-  h_ak15chs_pt            =  fs->make<TH1D>("h_ak15chs_pt"               ,"",100,0,3000); 
-  h_ak15chs_mass          =  fs->make<TH1D>("h_ak15chs_mass"             ,"",100,0,500); 
-  h_ak15chs_rapidity      =  fs->make<TH1D>("h_ak15chs_rapidity"         ,"",100,-5, 5); 
-  h_ak15chs_prunedMass    =  fs->make<TH1D>("h_ak15chs_prunedMass"       ,"",100,0,500); 
-  h_ak15chs_trimmedMass   =  fs->make<TH1D>("h_ak15chs_trimmedMass"      ,"",100,0,500); 
-  h_ak15chs_filteredMass  =  fs->make<TH1D>("h_ak15chs_filteredMass"     ,"",100,0,500); 
-  h_ak15chs_softDropMass  =  fs->make<TH1D>("h_ak15chs_softDropMass"     ,"",100,0,500); 
-  h_ak15chs_tau1          =  fs->make<TH1D>("h_ak15chs_tau1"             ,"",100,0,  1); 
-  h_ak15chs_tau2          =  fs->make<TH1D>("h_ak15chs_tau2"             ,"",100,0,  1); 
-  h_ak15chs_tau3          =  fs->make<TH1D>("h_ak15chs_tau3"             ,"",100,0,  1); 
-  h_ak15chs_tau4          =  fs->make<TH1D>("h_ak15chs_tau4"             ,"",100,0,  1); 
-  h_ak15chs_tau32         =  fs->make<TH1D>("h_ak15chs_tau32"            ,"",100,0,  1); 
-  h_ak15chs_tau21         =  fs->make<TH1D>("h_ak15chs_tau21"            ,"",100,0,  1); 
-  h_ak15chs_ndau          =  fs->make<TH1D>("h_ak15chs_ndau"             ,"",300,0,300); 
-  h_ak15chs_subjetMass    =  fs->make<TH1D>("h_ak15chs_subjetMass"       ,"",100,0,400); 
-  h_ak15chs_area          =  fs->make<TH1D>("h_ak15chs_area"             ,"",100,0,  8); 
- 
+  h_ak8chs_pt                  =  fs->make<TH1D>("h_ak8chs_pt"                     ,"",100,0,3000); 
+  h_ak8chs_mass                =  fs->make<TH1D>("h_ak8chs_mass"                   ,"",100,0,500); 
+  h_ak8chs_rapidity            =  fs->make<TH1D>("h_ak8chs_rapidity"               ,"",100,-5, 5); 
+  h_ak8chs_prunedMass          =  fs->make<TH1D>("h_ak8chs_prunedMass"             ,"",100,0,500); 
+  h_ak8chs_trimmedMass         =  fs->make<TH1D>("h_ak8chs_trimmedMass"            ,"",100,0,500); 
+  h_ak8chs_filteredMass        =  fs->make<TH1D>("h_ak8chs_filteredMass"           ,"",100,0,500); 
+  h_ak8chs_softDropMass        =  fs->make<TH1D>("h_ak8chs_softDropMass"           ,"",100,0,500); 
+  h_ak8chs_tau1                =  fs->make<TH1D>("h_ak8chs_tau1"                   ,"",100,0,  1); 
+  h_ak8chs_tau2                =  fs->make<TH1D>("h_ak8chs_tau2"                   ,"",100,0,  1); 
+  h_ak8chs_tau3                =  fs->make<TH1D>("h_ak8chs_tau3"                   ,"",100,0,  1); 
+  h_ak8chs_tau4                =  fs->make<TH1D>("h_ak8chs_tau4"                   ,"",100,0,  1); 
+  h_ak8chs_tau32               =  fs->make<TH1D>("h_ak8chs_tau32"                  ,"",100,0,  1); 
+  h_ak8chs_tau21               =  fs->make<TH1D>("h_ak8chs_tau21"                  ,"",100,0,  1); 
+  h_ak8chs_ndau                =  fs->make<TH1D>("h_ak8chs_ndau"                   ,"",300,0,300); 
+  h_ak8chs_subjetMass          =  fs->make<TH1D>("h_ak8chs_subjetMass"             ,"",100,0,400); 
+  h_ak8chs_area                =  fs->make<TH1D>("h_ak8chs_area"                   ,"",100,0,  8); 
+  h_ak8chs_pt200_mass          =  fs->make<TH1D>("h_ak8chs_pt200_mass"             ,"",100,0,500); 
+  h_ak8chs_pt200_prunedMass    =  fs->make<TH1D>("h_ak8chs_pt200_prunedMass"       ,"",100,0,500); 
+  h_ak8chs_pt200_trimmedMass   =  fs->make<TH1D>("h_ak8chs_pt200_trimmedMass"      ,"",100,0,500); 
+  h_ak8chs_pt200_filteredMass  =  fs->make<TH1D>("h_ak8chs_pt200_filteredMass"     ,"",100,0,500); 
+  h_ak8chs_pt200_softDropMass  =  fs->make<TH1D>("h_ak8chs_pt200_softDropMass"     ,"",100,0,500); 
+  h_ak8chs_pt200_tau32         =  fs->make<TH1D>("h_ak8chs_pt200_tau32"            ,"",100,0,  1); 
+  h_ak8chs_pt200_tau21         =  fs->make<TH1D>("h_ak8chs_pt200_tau21"            ,"",100,0,  1); 
+  h_ak8chs_pt200_subjetMass    =  fs->make<TH1D>("h_ak8chs_pt200_subjetMass"       ,"",100,0,400); 
+  h_ak8chs_pt500_mass          =  fs->make<TH1D>("h_ak8chs_pt500_mass"             ,"",100,0,500); 
+  h_ak8chs_pt500_prunedMass    =  fs->make<TH1D>("h_ak8chs_pt500_prunedMass"       ,"",100,0,500); 
+  h_ak8chs_pt500_trimmedMass   =  fs->make<TH1D>("h_ak8chs_pt500_trimmedMass"      ,"",100,0,500); 
+  h_ak8chs_pt500_filteredMass  =  fs->make<TH1D>("h_ak8chs_pt500_filteredMass"     ,"",100,0,500); 
+  h_ak8chs_pt500_softDropMass  =  fs->make<TH1D>("h_ak8chs_pt500_softDropMass"     ,"",100,0,500); 
+  h_ak8chs_pt500_tau32         =  fs->make<TH1D>("h_ak8chs_pt500_tau32"            ,"",100,0,  1); 
+  h_ak8chs_pt500_tau21         =  fs->make<TH1D>("h_ak8chs_pt500_tau21"            ,"",100,0,  1); 
+  h_ak8chs_pt500_subjetMass    =  fs->make<TH1D>("h_ak8chs_pt500_subjetMass"       ,"",100,0,400); 
+
+
+  h_ak8puppi_pt                  =  fs->make<TH1D>("h_ak8puppi_pt"                     ,"",100,0,3000); 
+  h_ak8puppi_mass                =  fs->make<TH1D>("h_ak8puppi_mass"                   ,"",100,0,500); 
+  h_ak8puppi_rapidity            =  fs->make<TH1D>("h_ak8puppi_rapidity"               ,"",100,-5, 5); 
+  h_ak8puppi_prunedMass          =  fs->make<TH1D>("h_ak8puppi_prunedMass"             ,"",100,0,500); 
+  h_ak8puppi_trimmedMass         =  fs->make<TH1D>("h_ak8puppi_trimmedMass"            ,"",100,0,500); 
+  h_ak8puppi_filteredMass        =  fs->make<TH1D>("h_ak8puppi_filteredMass"           ,"",100,0,500); 
+  h_ak8puppi_softDropMass        =  fs->make<TH1D>("h_ak8puppi_softDropMass"           ,"",100,0,500); 
+  h_ak8puppi_tau1                =  fs->make<TH1D>("h_ak8puppi_tau1"                   ,"",100,0,  1); 
+  h_ak8puppi_tau2                =  fs->make<TH1D>("h_ak8puppi_tau2"                   ,"",100,0,  1); 
+  h_ak8puppi_tau3                =  fs->make<TH1D>("h_ak8puppi_tau3"                   ,"",100,0,  1); 
+  h_ak8puppi_tau4                =  fs->make<TH1D>("h_ak8puppi_tau4"                   ,"",100,0,  1); 
+  h_ak8puppi_tau32               =  fs->make<TH1D>("h_ak8puppi_tau32"                  ,"",100,0,  1); 
+  h_ak8puppi_tau21               =  fs->make<TH1D>("h_ak8puppi_tau21"                  ,"",100,0,  1); 
+  h_ak8puppi_ndau                =  fs->make<TH1D>("h_ak8puppi_ndau"                   ,"",300,0,300); 
+  h_ak8puppi_subjetMass          =  fs->make<TH1D>("h_ak8puppi_subjetMass"             ,"",100,0,400); 
+  h_ak8puppi_area                =  fs->make<TH1D>("h_ak8puppi_area"                   ,"",100,0,  8); 
+  h_ak8puppi_pt200_mass          =  fs->make<TH1D>("h_ak8puppi_pt200_mass"             ,"",100,0,500); 
+  h_ak8puppi_pt200_prunedMass    =  fs->make<TH1D>("h_ak8puppi_pt200_prunedMass"       ,"",100,0,500); 
+  h_ak8puppi_pt200_trimmedMass   =  fs->make<TH1D>("h_ak8puppi_pt200_trimmedMass"      ,"",100,0,500); 
+  h_ak8puppi_pt200_filteredMass  =  fs->make<TH1D>("h_ak8puppi_pt200_filteredMass"     ,"",100,0,500); 
+  h_ak8puppi_pt200_softDropMass  =  fs->make<TH1D>("h_ak8puppi_pt200_softDropMass"     ,"",100,0,500); 
+  h_ak8puppi_pt200_tau32         =  fs->make<TH1D>("h_ak8puppi_pt200_tau32"            ,"",100,0,  1); 
+  h_ak8puppi_pt200_tau21         =  fs->make<TH1D>("h_ak8puppi_pt200_tau21"            ,"",100,0,  1); 
+  h_ak8puppi_pt200_subjetMass    =  fs->make<TH1D>("h_ak8puppi_pt200_subjetMass"       ,"",100,0,400); 
+  h_ak8puppi_pt500_mass          =  fs->make<TH1D>("h_ak8puppi_pt500_mass"             ,"",100,0,500); 
+  h_ak8puppi_pt500_prunedMass    =  fs->make<TH1D>("h_ak8puppi_pt500_prunedMass"       ,"",100,0,500); 
+  h_ak8puppi_pt500_trimmedMass   =  fs->make<TH1D>("h_ak8puppi_pt500_trimmedMass"      ,"",100,0,500); 
+  h_ak8puppi_pt500_filteredMass  =  fs->make<TH1D>("h_ak8puppi_pt500_filteredMass"     ,"",100,0,500); 
+  h_ak8puppi_pt500_softDropMass  =  fs->make<TH1D>("h_ak8puppi_pt500_softDropMass"     ,"",100,0,500); 
+  h_ak8puppi_pt500_tau32         =  fs->make<TH1D>("h_ak8puppi_pt500_tau32"            ,"",100,0,  1); 
+  h_ak8puppi_pt500_tau21         =  fs->make<TH1D>("h_ak8puppi_pt500_tau21"            ,"",100,0,  1); 
+  h_ak8puppi_pt500_subjetMass    =  fs->make<TH1D>("h_ak8puppi_pt500_subjetMass"       ,"",100,0,400); 
+
+
+  h_kt8chs_pt                  =  fs->make<TH1D>("h_kt8chs_pt"                     ,"",100,0,3000); 
+  h_kt8chs_mass                =  fs->make<TH1D>("h_kt8chs_mass"                   ,"",100,0,500); 
+  h_kt8chs_rapidity            =  fs->make<TH1D>("h_kt8chs_rapidity"               ,"",100,-5, 5); 
+  h_kt8chs_prunedMass          =  fs->make<TH1D>("h_kt8chs_prunedMass"             ,"",100,0,500); 
+  h_kt8chs_trimmedMass         =  fs->make<TH1D>("h_kt8chs_trimmedMass"            ,"",100,0,500); 
+  h_kt8chs_filteredMass        =  fs->make<TH1D>("h_kt8chs_filteredMass"           ,"",100,0,500); 
+  h_kt8chs_softDropMass        =  fs->make<TH1D>("h_kt8chs_softDropMass"           ,"",100,0,500); 
+  h_kt8chs_tau1                =  fs->make<TH1D>("h_kt8chs_tau1"                   ,"",100,0,  1); 
+  h_kt8chs_tau2                =  fs->make<TH1D>("h_kt8chs_tau2"                   ,"",100,0,  1); 
+  h_kt8chs_tau3                =  fs->make<TH1D>("h_kt8chs_tau3"                   ,"",100,0,  1); 
+  h_kt8chs_tau4                =  fs->make<TH1D>("h_kt8chs_tau4"                   ,"",100,0,  1); 
+  h_kt8chs_tau32               =  fs->make<TH1D>("h_kt8chs_tau32"                  ,"",100,0,  1); 
+  h_kt8chs_tau21               =  fs->make<TH1D>("h_kt8chs_tau21"                  ,"",100,0,  1); 
+  h_kt8chs_ndau                =  fs->make<TH1D>("h_kt8chs_ndau"                   ,"",300,0,300); 
+  h_kt8chs_subjetMass          =  fs->make<TH1D>("h_kt8chs_subjetMass"             ,"",100,0,400); 
+  h_kt8chs_area                =  fs->make<TH1D>("h_kt8chs_area"                   ,"",100,0,  8); 
+  h_kt8chs_pt200_mass          =  fs->make<TH1D>("h_kt8chs_pt200_mass"             ,"",100,0,500); 
+  h_kt8chs_pt200_prunedMass    =  fs->make<TH1D>("h_kt8chs_pt200_prunedMass"       ,"",100,0,500); 
+  h_kt8chs_pt200_trimmedMass   =  fs->make<TH1D>("h_kt8chs_pt200_trimmedMass"      ,"",100,0,500); 
+  h_kt8chs_pt200_filteredMass  =  fs->make<TH1D>("h_kt8chs_pt200_filteredMass"     ,"",100,0,500); 
+  h_kt8chs_pt200_softDropMass  =  fs->make<TH1D>("h_kt8chs_pt200_softDropMass"     ,"",100,0,500); 
+  h_kt8chs_pt200_tau32         =  fs->make<TH1D>("h_kt8chs_pt200_tau32"            ,"",100,0,  1); 
+  h_kt8chs_pt200_tau21         =  fs->make<TH1D>("h_kt8chs_pt200_tau21"            ,"",100,0,  1); 
+  h_kt8chs_pt200_subjetMass    =  fs->make<TH1D>("h_kt8chs_pt200_subjetMass"       ,"",100,0,400); 
+  h_kt8chs_pt500_mass          =  fs->make<TH1D>("h_kt8chs_pt500_mass"             ,"",100,0,500); 
+  h_kt8chs_pt500_prunedMass    =  fs->make<TH1D>("h_kt8chs_pt500_prunedMass"       ,"",100,0,500); 
+  h_kt8chs_pt500_trimmedMass   =  fs->make<TH1D>("h_kt8chs_pt500_trimmedMass"      ,"",100,0,500); 
+  h_kt8chs_pt500_filteredMass  =  fs->make<TH1D>("h_kt8chs_pt500_filteredMass"     ,"",100,0,500); 
+  h_kt8chs_pt500_softDropMass  =  fs->make<TH1D>("h_kt8chs_pt500_softDropMass"     ,"",100,0,500); 
+  h_kt8chs_pt500_tau32         =  fs->make<TH1D>("h_kt8chs_pt500_tau32"            ,"",100,0,  1); 
+  h_kt8chs_pt500_tau21         =  fs->make<TH1D>("h_kt8chs_pt500_tau21"            ,"",100,0,  1); 
+  h_kt8chs_pt500_subjetMass    =  fs->make<TH1D>("h_kt8chs_pt500_subjetMass"       ,"",100,0,400); 
+
+
+  h_ca8chs_pt                  =  fs->make<TH1D>("h_ca8chs_pt"                     ,"",100,0,3000); 
+  h_ca8chs_mass                =  fs->make<TH1D>("h_ca8chs_mass"                   ,"",100,0,500); 
+  h_ca8chs_rapidity            =  fs->make<TH1D>("h_ca8chs_rapidity"               ,"",100,-5, 5); 
+  h_ca8chs_prunedMass          =  fs->make<TH1D>("h_ca8chs_prunedMass"             ,"",100,0,500); 
+  h_ca8chs_trimmedMass         =  fs->make<TH1D>("h_ca8chs_trimmedMass"            ,"",100,0,500); 
+  h_ca8chs_filteredMass        =  fs->make<TH1D>("h_ca8chs_filteredMass"           ,"",100,0,500); 
+  h_ca8chs_softDropMass        =  fs->make<TH1D>("h_ca8chs_softDropMass"           ,"",100,0,500); 
+  h_ca8chs_tau1                =  fs->make<TH1D>("h_ca8chs_tau1"                   ,"",100,0,  1); 
+  h_ca8chs_tau2                =  fs->make<TH1D>("h_ca8chs_tau2"                   ,"",100,0,  1); 
+  h_ca8chs_tau3                =  fs->make<TH1D>("h_ca8chs_tau3"                   ,"",100,0,  1); 
+  h_ca8chs_tau4                =  fs->make<TH1D>("h_ca8chs_tau4"                   ,"",100,0,  1); 
+  h_ca8chs_tau32               =  fs->make<TH1D>("h_ca8chs_tau32"                  ,"",100,0,  1); 
+  h_ca8chs_tau21               =  fs->make<TH1D>("h_ca8chs_tau21"                  ,"",100,0,  1); 
+  h_ca8chs_ndau                =  fs->make<TH1D>("h_ca8chs_ndau"                   ,"",300,0,300); 
+  h_ca8chs_subjetMass          =  fs->make<TH1D>("h_ca8chs_subjetMass"             ,"",100,0,400); 
+  h_ca8chs_area                =  fs->make<TH1D>("h_ca8chs_area"                   ,"",100,0,  8); 
+  h_ca8chs_pt200_mass          =  fs->make<TH1D>("h_ca8chs_pt200_mass"             ,"",100,0,500); 
+  h_ca8chs_pt200_prunedMass    =  fs->make<TH1D>("h_ca8chs_pt200_prunedMass"       ,"",100,0,500); 
+  h_ca8chs_pt200_trimmedMass   =  fs->make<TH1D>("h_ca8chs_pt200_trimmedMass"      ,"",100,0,500); 
+  h_ca8chs_pt200_filteredMass  =  fs->make<TH1D>("h_ca8chs_pt200_filteredMass"     ,"",100,0,500); 
+  h_ca8chs_pt200_softDropMass  =  fs->make<TH1D>("h_ca8chs_pt200_softDropMass"     ,"",100,0,500); 
+  h_ca8chs_pt200_tau32         =  fs->make<TH1D>("h_ca8chs_pt200_tau32"            ,"",100,0,  1); 
+  h_ca8chs_pt200_tau21         =  fs->make<TH1D>("h_ca8chs_pt200_tau21"            ,"",100,0,  1); 
+  h_ca8chs_pt200_subjetMass    =  fs->make<TH1D>("h_ca8chs_pt200_subjetMass"       ,"",100,0,400); 
+  h_ca8chs_pt500_mass          =  fs->make<TH1D>("h_ca8chs_pt500_mass"             ,"",100,0,500); 
+  h_ca8chs_pt500_prunedMass    =  fs->make<TH1D>("h_ca8chs_pt500_prunedMass"       ,"",100,0,500); 
+  h_ca8chs_pt500_trimmedMass   =  fs->make<TH1D>("h_ca8chs_pt500_trimmedMass"      ,"",100,0,500); 
+  h_ca8chs_pt500_filteredMass  =  fs->make<TH1D>("h_ca8chs_pt500_filteredMass"     ,"",100,0,500); 
+  h_ca8chs_pt500_softDropMass  =  fs->make<TH1D>("h_ca8chs_pt500_softDropMass"     ,"",100,0,500); 
+  h_ca8chs_pt500_tau32         =  fs->make<TH1D>("h_ca8chs_pt500_tau32"            ,"",100,0,  1); 
+  h_ca8chs_pt500_tau21         =  fs->make<TH1D>("h_ca8chs_pt500_tau21"            ,"",100,0,  1); 
+  h_ca8chs_pt500_subjetMass    =  fs->make<TH1D>("h_ca8chs_pt500_subjetMass"       ,"",100,0,400); 
+
+
+
+  h_ak12chs_pt                  =  fs->make<TH1D>("h_ak12chs_pt"                     ,"",100,0,3000); 
+  h_ak12chs_mass                =  fs->make<TH1D>("h_ak12chs_mass"                   ,"",100,0,500); 
+  h_ak12chs_rapidity            =  fs->make<TH1D>("h_ak12chs_rapidity"               ,"",100,-5, 5); 
+  h_ak12chs_prunedMass          =  fs->make<TH1D>("h_ak12chs_prunedMass"             ,"",100,0,500); 
+  h_ak12chs_trimmedMass         =  fs->make<TH1D>("h_ak12chs_trimmedMass"            ,"",100,0,500); 
+  h_ak12chs_filteredMass        =  fs->make<TH1D>("h_ak12chs_filteredMass"           ,"",100,0,500); 
+  h_ak12chs_softDropMass        =  fs->make<TH1D>("h_ak12chs_softDropMass"           ,"",100,0,500); 
+  h_ak12chs_tau1                =  fs->make<TH1D>("h_ak12chs_tau1"                   ,"",100,0,  1); 
+  h_ak12chs_tau2                =  fs->make<TH1D>("h_ak12chs_tau2"                   ,"",100,0,  1); 
+  h_ak12chs_tau3                =  fs->make<TH1D>("h_ak12chs_tau3"                   ,"",100,0,  1); 
+  h_ak12chs_tau4                =  fs->make<TH1D>("h_ak12chs_tau4"                   ,"",100,0,  1); 
+  h_ak12chs_tau32               =  fs->make<TH1D>("h_ak12chs_tau32"                  ,"",100,0,  1); 
+  h_ak12chs_tau21               =  fs->make<TH1D>("h_ak12chs_tau21"                  ,"",100,0,  1); 
+  h_ak12chs_ndau                =  fs->make<TH1D>("h_ak12chs_ndau"                   ,"",300,0,300); 
+  h_ak12chs_subjetMass          =  fs->make<TH1D>("h_ak12chs_subjetMass"             ,"",100,0,400); 
+  h_ak12chs_area                =  fs->make<TH1D>("h_ak12chs_area"                   ,"",100,0,  8); 
+  h_ak12chs_pt200_mass          =  fs->make<TH1D>("h_ak12chs_pt200_mass"             ,"",100,0,500); 
+  h_ak12chs_pt200_prunedMass    =  fs->make<TH1D>("h_ak12chs_pt200_prunedMass"       ,"",100,0,500); 
+  h_ak12chs_pt200_trimmedMass   =  fs->make<TH1D>("h_ak12chs_pt200_trimmedMass"      ,"",100,0,500); 
+  h_ak12chs_pt200_filteredMass  =  fs->make<TH1D>("h_ak12chs_pt200_filteredMass"     ,"",100,0,500); 
+  h_ak12chs_pt200_softDropMass  =  fs->make<TH1D>("h_ak12chs_pt200_softDropMass"     ,"",100,0,500); 
+  h_ak12chs_pt200_tau32         =  fs->make<TH1D>("h_ak12chs_pt200_tau32"            ,"",100,0,  1); 
+  h_ak12chs_pt200_tau21         =  fs->make<TH1D>("h_ak12chs_pt200_tau21"            ,"",100,0,  1); 
+  h_ak12chs_pt200_subjetMass    =  fs->make<TH1D>("h_ak12chs_pt200_subjetMass"       ,"",100,0,400); 
+  h_ak12chs_pt500_mass          =  fs->make<TH1D>("h_ak12chs_pt500_mass"             ,"",100,0,500); 
+  h_ak12chs_pt500_prunedMass    =  fs->make<TH1D>("h_ak12chs_pt500_prunedMass"       ,"",100,0,500); 
+  h_ak12chs_pt500_trimmedMass   =  fs->make<TH1D>("h_ak12chs_pt500_trimmedMass"      ,"",100,0,500); 
+  h_ak12chs_pt500_filteredMass  =  fs->make<TH1D>("h_ak12chs_pt500_filteredMass"     ,"",100,0,500); 
+  h_ak12chs_pt500_softDropMass  =  fs->make<TH1D>("h_ak12chs_pt500_softDropMass"     ,"",100,0,500); 
+  h_ak12chs_pt500_tau32         =  fs->make<TH1D>("h_ak12chs_pt500_tau32"            ,"",100,0,  1); 
+  h_ak12chs_pt500_tau21         =  fs->make<TH1D>("h_ak12chs_pt500_tau21"            ,"",100,0,  1); 
+  h_ak12chs_pt500_subjetMass    =  fs->make<TH1D>("h_ak12chs_pt500_subjetMass"       ,"",100,0,400); 
+
+
+
+  h_ak15chs_pt                  =  fs->make<TH1D>("h_ak15chs_pt"                     ,"",100,0,3000); 
+  h_ak15chs_mass                =  fs->make<TH1D>("h_ak15chs_mass"                   ,"",100,0,500); 
+  h_ak15chs_rapidity            =  fs->make<TH1D>("h_ak15chs_rapidity"               ,"",100,-5, 5); 
+  h_ak15chs_prunedMass          =  fs->make<TH1D>("h_ak15chs_prunedMass"             ,"",100,0,500); 
+  h_ak15chs_trimmedMass         =  fs->make<TH1D>("h_ak15chs_trimmedMass"            ,"",100,0,500); 
+  h_ak15chs_filteredMass        =  fs->make<TH1D>("h_ak15chs_filteredMass"           ,"",100,0,500); 
+  h_ak15chs_softDropMass        =  fs->make<TH1D>("h_ak15chs_softDropMass"           ,"",100,0,500); 
+  h_ak15chs_tau1                =  fs->make<TH1D>("h_ak15chs_tau1"                   ,"",100,0,  1); 
+  h_ak15chs_tau2                =  fs->make<TH1D>("h_ak15chs_tau2"                   ,"",100,0,  1); 
+  h_ak15chs_tau3                =  fs->make<TH1D>("h_ak15chs_tau3"                   ,"",100,0,  1); 
+  h_ak15chs_tau4                =  fs->make<TH1D>("h_ak15chs_tau4"                   ,"",100,0,  1); 
+  h_ak15chs_tau32               =  fs->make<TH1D>("h_ak15chs_tau32"                  ,"",100,0,  1); 
+  h_ak15chs_tau21               =  fs->make<TH1D>("h_ak15chs_tau21"                  ,"",100,0,  1); 
+  h_ak15chs_ndau                =  fs->make<TH1D>("h_ak15chs_ndau"                   ,"",300,0,300); 
+  h_ak15chs_subjetMass          =  fs->make<TH1D>("h_ak15chs_subjetMass"             ,"",100,0,400); 
+  h_ak15chs_area                =  fs->make<TH1D>("h_ak15chs_area"                   ,"",100,0,  8); 
+  h_ak15chs_pt200_mass          =  fs->make<TH1D>("h_ak15chs_pt200_mass"             ,"",100,0,500); 
+  h_ak15chs_pt200_prunedMass    =  fs->make<TH1D>("h_ak15chs_pt200_prunedMass"       ,"",100,0,500); 
+  h_ak15chs_pt200_trimmedMass   =  fs->make<TH1D>("h_ak15chs_pt200_trimmedMass"      ,"",100,0,500); 
+  h_ak15chs_pt200_filteredMass  =  fs->make<TH1D>("h_ak15chs_pt200_filteredMass"     ,"",100,0,500); 
+  h_ak15chs_pt200_softDropMass  =  fs->make<TH1D>("h_ak15chs_pt200_softDropMass"     ,"",100,0,500); 
+  h_ak15chs_pt200_tau32         =  fs->make<TH1D>("h_ak15chs_pt200_tau32"            ,"",100,0,  1); 
+  h_ak15chs_pt200_tau21         =  fs->make<TH1D>("h_ak15chs_pt200_tau21"            ,"",100,0,  1); 
+  h_ak15chs_pt200_subjetMass    =  fs->make<TH1D>("h_ak15chs_pt200_subjetMass"       ,"",100,0,400); 
+  h_ak15chs_pt500_mass          =  fs->make<TH1D>("h_ak15chs_pt500_mass"             ,"",100,0,500); 
+  h_ak15chs_pt500_prunedMass    =  fs->make<TH1D>("h_ak15chs_pt500_prunedMass"       ,"",100,0,500); 
+  h_ak15chs_pt500_trimmedMass   =  fs->make<TH1D>("h_ak15chs_pt500_trimmedMass"      ,"",100,0,500); 
+  h_ak15chs_pt500_filteredMass  =  fs->make<TH1D>("h_ak15chs_pt500_filteredMass"     ,"",100,0,500); 
+  h_ak15chs_pt500_softDropMass  =  fs->make<TH1D>("h_ak15chs_pt500_softDropMass"     ,"",100,0,500); 
+  h_ak15chs_pt500_tau32         =  fs->make<TH1D>("h_ak15chs_pt500_tau32"            ,"",100,0,  1); 
+  h_ak15chs_pt500_tau21         =  fs->make<TH1D>("h_ak15chs_pt500_tau21"            ,"",100,0,  1); 
+  h_ak15chs_pt500_subjetMass    =  fs->make<TH1D>("h_ak15chs_pt500_subjetMass"       ,"",100,0,400); 
+
+
+
 
 }
 
@@ -445,9 +702,11 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   edm::Handle<pat::JetCollection> AK4CHSsub;
   iEvent.getByToken(ak4PFCHSSoftDropSubjetsToken_, AK4CHSsub);
 
+  int count_AK4CHS = 0;
   for (const pat::Jet &ijet : *AK4CHS) {  
+    count_AK4CHS++;
+    if (count_AK4CHS>=2) break;
     double pt           = ijet.pt();
-    if (pt<400) continue;
     double mass         = ijet.mass();
     double rapidity     = ijet.rapidity();
     double prunedMass   = ijet.userFloat("ak4PFJetsCHSPrunedMass");
@@ -492,6 +751,27 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     h_ak4chs_ndau         ->Fill( ndau         );
     h_ak4chs_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
     h_ak4chs_area         ->Fill( ijet.jetArea() );
+
+    if (pt>200){ 
+      h_ak4chs_pt200_mass         ->Fill( mass                            );
+      h_ak4chs_pt200_prunedMass   ->Fill( prunedMass                      );
+      h_ak4chs_pt200_trimmedMass  ->Fill( trimmedMass                     );
+      h_ak4chs_pt200_filteredMass ->Fill( filteredMass                    );
+      h_ak4chs_pt200_softDropMass ->Fill( softDropMass                    );
+      h_ak4chs_pt200_tau32        ->Fill( tau32                           );
+      h_ak4chs_pt200_tau21        ->Fill( tau21                           );
+      h_ak4chs_pt200_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
+    if (pt>500){ 
+      h_ak4chs_pt500_mass         ->Fill( mass                            );
+      h_ak4chs_pt500_prunedMass   ->Fill( prunedMass                      );
+      h_ak4chs_pt500_trimmedMass  ->Fill( trimmedMass                     );
+      h_ak4chs_pt500_filteredMass ->Fill( filteredMass                    );
+      h_ak4chs_pt500_softDropMass ->Fill( softDropMass                    );
+      h_ak4chs_pt500_tau32        ->Fill( tau32                           );
+      h_ak4chs_pt500_tau21        ->Fill( tau21                           );
+      h_ak4chs_pt500_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
   }
 
 
@@ -504,9 +784,11 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   edm::Handle<pat::JetCollection> AK8PFsub;
   iEvent.getByToken(ak8PFSoftDropSubjetsToken_, AK8PFsub);
 
+  int count_AK8PF = 0;
   for (const pat::Jet &ijet : *AK8PF) {  
+    count_AK8PF++;
+    if (count_AK8PF>=2) break;  
     double pt           = ijet.pt();
-    if (pt<400) continue;
     double mass         = ijet.mass();
     double rapidity     = ijet.rapidity();
     double prunedMass   = ijet.userFloat("ak8PFJetsPrunedMass");
@@ -551,6 +833,27 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     h_ak8pf_ndau         ->Fill( ndau         );
     h_ak8pf_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
     h_ak8pf_area         ->Fill( ijet.jetArea() );
+
+    if (pt>200){ 
+      h_ak8pf_pt200_mass         ->Fill( mass                            );
+      h_ak8pf_pt200_prunedMass   ->Fill( prunedMass                      );
+      h_ak8pf_pt200_trimmedMass  ->Fill( trimmedMass                     );
+      h_ak8pf_pt200_filteredMass ->Fill( filteredMass                    );
+      h_ak8pf_pt200_softDropMass ->Fill( softDropMass                    );
+      h_ak8pf_pt200_tau32        ->Fill( tau32                           );
+      h_ak8pf_pt200_tau21        ->Fill( tau21                           );
+      h_ak8pf_pt200_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
+    if (pt>500){ 
+      h_ak8pf_pt500_mass         ->Fill( mass                            );
+      h_ak8pf_pt500_prunedMass   ->Fill( prunedMass                      );
+      h_ak8pf_pt500_trimmedMass  ->Fill( trimmedMass                     );
+      h_ak8pf_pt500_filteredMass ->Fill( filteredMass                    );
+      h_ak8pf_pt500_softDropMass ->Fill( softDropMass                    );
+      h_ak8pf_pt500_tau32        ->Fill( tau32                           );
+      h_ak8pf_pt500_tau21        ->Fill( tau21                           );
+      h_ak8pf_pt500_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
   }
   
 
@@ -563,9 +866,11 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   edm::Handle<pat::JetCollection> AK8CHSsub;
   iEvent.getByToken(ak8PFCHSSoftDropSubjetsToken_, AK8CHSsub);
 
+  int count_AK8CHS = 0;
   for (const pat::Jet &ijet : *AK8CHS) {  
+    count_AK8CHS++;
+    if (count_AK8CHS>=2) break; 
     double pt           = ijet.pt();
-    if (pt<400) continue;
     double mass         = ijet.mass();
     double rapidity     = ijet.rapidity();
     double prunedMass   = ijet.userFloat("ak8PFJetsCHSPrunedMass");
@@ -610,6 +915,27 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     h_ak8chs_ndau         ->Fill( ndau         );
     h_ak8chs_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
     h_ak8chs_area         ->Fill( ijet.jetArea() );
+
+    if (pt>200){ 
+      h_ak8chs_pt200_mass         ->Fill( mass                            );
+      h_ak8chs_pt200_prunedMass   ->Fill( prunedMass                      );
+      h_ak8chs_pt200_trimmedMass  ->Fill( trimmedMass                     );
+      h_ak8chs_pt200_filteredMass ->Fill( filteredMass                    );
+      h_ak8chs_pt200_softDropMass ->Fill( softDropMass                    );
+      h_ak8chs_pt200_tau32        ->Fill( tau32                           );
+      h_ak8chs_pt200_tau21        ->Fill( tau21                           );
+      h_ak8chs_pt200_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
+    if (pt>500){ 
+      h_ak8chs_pt500_mass         ->Fill( mass                            );
+      h_ak8chs_pt500_prunedMass   ->Fill( prunedMass                      );
+      h_ak8chs_pt500_trimmedMass  ->Fill( trimmedMass                     );
+      h_ak8chs_pt500_filteredMass ->Fill( filteredMass                    );
+      h_ak8chs_pt500_softDropMass ->Fill( softDropMass                    );
+      h_ak8chs_pt500_tau32        ->Fill( tau32                           );
+      h_ak8chs_pt500_tau21        ->Fill( tau21                           );
+      h_ak8chs_pt500_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
   }
   
 
@@ -622,9 +948,11 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   edm::Handle<pat::JetCollection> AK8PUPPIsub;
   iEvent.getByToken(ak8PFPUPPISoftDropSubjetsToken_, AK8PUPPIsub);
 
+  int count_AK8PUPPI = 0;
   for (const pat::Jet &ijet : *AK8PUPPI) {  
+    count_AK8PUPPI++;
+    if (count_AK8PUPPI>=2) break;    
     double pt           = ijet.pt();
-    if (pt<400) continue;
     double mass         = ijet.mass();
     double rapidity     = ijet.rapidity();
     double prunedMass   = ijet.userFloat("ak8PFJetsPuppiPrunedMass");
@@ -669,6 +997,27 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     h_ak8puppi_ndau         ->Fill( ndau         );
     h_ak8puppi_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
     h_ak8puppi_area         ->Fill( ijet.jetArea() );
+
+    if (pt>200){ 
+      h_ak8puppi_pt200_mass         ->Fill( mass                            );
+      h_ak8puppi_pt200_prunedMass   ->Fill( prunedMass                      );
+      h_ak8puppi_pt200_trimmedMass  ->Fill( trimmedMass                     );
+      h_ak8puppi_pt200_filteredMass ->Fill( filteredMass                    );
+      h_ak8puppi_pt200_softDropMass ->Fill( softDropMass                    );
+      h_ak8puppi_pt200_tau32        ->Fill( tau32                           );
+      h_ak8puppi_pt200_tau21        ->Fill( tau21                           );
+      h_ak8puppi_pt200_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
+    if (pt>500){ 
+      h_ak8puppi_pt500_mass         ->Fill( mass                            );
+      h_ak8puppi_pt500_prunedMass   ->Fill( prunedMass                      );
+      h_ak8puppi_pt500_trimmedMass  ->Fill( trimmedMass                     );
+      h_ak8puppi_pt500_filteredMass ->Fill( filteredMass                    );
+      h_ak8puppi_pt500_softDropMass ->Fill( softDropMass                    );
+      h_ak8puppi_pt500_tau32        ->Fill( tau32                           );
+      h_ak8puppi_pt500_tau21        ->Fill( tau21                           );
+      h_ak8puppi_pt500_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
   }
 
   //--------------------------------------------------------------------------------------------
@@ -680,9 +1029,11 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   edm::Handle<pat::JetCollection> CA8CHSsub;
   iEvent.getByToken(ca8PFCHSSoftDropSubjetsToken_, CA8CHSsub);
 
+  int count_CA8CHS = 0;
   for (const pat::Jet &ijet : *CA8CHS) {  
+    count_CA8CHS++;
+    if (count_CA8CHS>=2) break;   
     double pt           = ijet.pt();
-    if (pt<400) continue;
     double mass         = ijet.mass();
     double rapidity     = ijet.rapidity();
     double prunedMass   = ijet.userFloat("ca8PFJetsCHSPrunedMass");
@@ -727,6 +1078,27 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     h_ca8chs_ndau         ->Fill( ndau         );
     h_ca8chs_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
     h_ca8chs_area         ->Fill( ijet.jetArea() );
+
+    if (pt>200){ 
+      h_ca8chs_pt200_mass         ->Fill( mass                            );
+      h_ca8chs_pt200_prunedMass   ->Fill( prunedMass                      );
+      h_ca8chs_pt200_trimmedMass  ->Fill( trimmedMass                     );
+      h_ca8chs_pt200_filteredMass ->Fill( filteredMass                    );
+      h_ca8chs_pt200_softDropMass ->Fill( softDropMass                    );
+      h_ca8chs_pt200_tau32        ->Fill( tau32                           );
+      h_ca8chs_pt200_tau21        ->Fill( tau21                           );
+      h_ca8chs_pt200_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
+    if (pt>500){ 
+      h_ca8chs_pt500_mass         ->Fill( mass                            );
+      h_ca8chs_pt500_prunedMass   ->Fill( prunedMass                      );
+      h_ca8chs_pt500_trimmedMass  ->Fill( trimmedMass                     );
+      h_ca8chs_pt500_filteredMass ->Fill( filteredMass                    );
+      h_ca8chs_pt500_softDropMass ->Fill( softDropMass                    );
+      h_ca8chs_pt500_tau32        ->Fill( tau32                           );
+      h_ca8chs_pt500_tau21        ->Fill( tau21                           );
+      h_ca8chs_pt500_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
   }
   
 
@@ -739,9 +1111,11 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   edm::Handle<pat::JetCollection> KT8CHSsub;
   iEvent.getByToken(kt8PFCHSSoftDropSubjetsToken_, KT8CHSsub);
 
+  int count_KT8CHS = 0;
   for (const pat::Jet &ijet : *KT8CHS) {  
+    count_KT8CHS++;
+    if (count_KT8CHS>=2) break;   
     double pt           = ijet.pt();
-    if (pt<400) continue;
     double mass         = ijet.mass();
     double rapidity     = ijet.rapidity();
     double prunedMass   = ijet.userFloat("kt8PFJetsCHSPrunedMass");
@@ -786,6 +1160,27 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     h_kt8chs_ndau         ->Fill( ndau         );
     h_kt8chs_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
     h_kt8chs_area         ->Fill( ijet.jetArea() );
+
+    if (pt>200){ 
+      h_kt8chs_pt200_mass         ->Fill( mass                            );
+      h_kt8chs_pt200_prunedMass   ->Fill( prunedMass                      );
+      h_kt8chs_pt200_trimmedMass  ->Fill( trimmedMass                     );
+      h_kt8chs_pt200_filteredMass ->Fill( filteredMass                    );
+      h_kt8chs_pt200_softDropMass ->Fill( softDropMass                    );
+      h_kt8chs_pt200_tau32        ->Fill( tau32                           );
+      h_kt8chs_pt200_tau21        ->Fill( tau21                           );
+      h_kt8chs_pt200_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
+    if (pt>500){ 
+      h_kt8chs_pt500_mass         ->Fill( mass                            );
+      h_kt8chs_pt500_prunedMass   ->Fill( prunedMass                      );
+      h_kt8chs_pt500_trimmedMass  ->Fill( trimmedMass                     );
+      h_kt8chs_pt500_filteredMass ->Fill( filteredMass                    );
+      h_kt8chs_pt500_softDropMass ->Fill( softDropMass                    );
+      h_kt8chs_pt500_tau32        ->Fill( tau32                           );
+      h_kt8chs_pt500_tau21        ->Fill( tau21                           );
+      h_kt8chs_pt500_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
   }
   
 
@@ -798,9 +1193,11 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   edm::Handle<pat::JetCollection> AK12CHSsub;
   iEvent.getByToken(ak12PFCHSSoftDropSubjetsToken_, AK12CHSsub);
 
+  int count_AK12CHS = 0;
   for (const pat::Jet &ijet : *AK12CHS) {  
+    count_AK12CHS++;
+    if (count_AK12CHS>=2) break; 
     double pt           = ijet.pt();
-    if (pt<400) continue;
     double mass         = ijet.mass();
     double rapidity     = ijet.rapidity();
     double prunedMass   = ijet.userFloat("ak12PFJetsCHSPrunedMass");
@@ -845,6 +1242,27 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     h_ak12chs_ndau         ->Fill( ndau         );
     h_ak12chs_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
     h_ak12chs_area         ->Fill( ijet.jetArea() );
+
+    if (pt>200){ 
+      h_ak12chs_pt200_mass         ->Fill( mass                            );
+      h_ak12chs_pt200_prunedMass   ->Fill( prunedMass                      );
+      h_ak12chs_pt200_trimmedMass  ->Fill( trimmedMass                     );
+      h_ak12chs_pt200_filteredMass ->Fill( filteredMass                    );
+      h_ak12chs_pt200_softDropMass ->Fill( softDropMass                    );
+      h_ak12chs_pt200_tau32        ->Fill( tau32                           );
+      h_ak12chs_pt200_tau21        ->Fill( tau21                           );
+      h_ak12chs_pt200_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
+    if (pt>500){ 
+      h_ak12chs_pt500_mass         ->Fill( mass                            );
+      h_ak12chs_pt500_prunedMass   ->Fill( prunedMass                      );
+      h_ak12chs_pt500_trimmedMass  ->Fill( trimmedMass                     );
+      h_ak12chs_pt500_filteredMass ->Fill( filteredMass                    );
+      h_ak12chs_pt500_softDropMass ->Fill( softDropMass                    );
+      h_ak12chs_pt500_tau32        ->Fill( tau32                           );
+      h_ak12chs_pt500_tau21        ->Fill( tau21                           );
+      h_ak12chs_pt500_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
   }
   
 
@@ -859,9 +1277,11 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   edm::Handle<pat::JetCollection> AK15CHSsub;
   iEvent.getByToken(ak15PFCHSSoftDropSubjetsToken_, AK15CHSsub);
 
+  int count_AK15CHS = 0;
   for (const pat::Jet &ijet : *AK15CHS) {  
+    count_AK15CHS++;
+    if (count_AK15CHS>=2) break;     
     double pt           = ijet.pt();
-    if (pt<400) continue;
     double mass         = ijet.mass();
     double rapidity     = ijet.rapidity();
     double prunedMass   = ijet.userFloat("ak15PFJetsCHSPrunedMass");
@@ -906,6 +1326,27 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     h_ak15chs_ndau         ->Fill( ndau         );
     h_ak15chs_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
     h_ak15chs_area         ->Fill( ijet.jetArea() );
+
+    if (pt>200){ 
+      h_ak15chs_pt200_mass         ->Fill( mass                            );
+      h_ak15chs_pt200_prunedMass   ->Fill( prunedMass                      );
+      h_ak15chs_pt200_trimmedMass  ->Fill( trimmedMass                     );
+      h_ak15chs_pt200_filteredMass ->Fill( filteredMass                    );
+      h_ak15chs_pt200_softDropMass ->Fill( softDropMass                    );
+      h_ak15chs_pt200_tau32        ->Fill( tau32                           );
+      h_ak15chs_pt200_tau21        ->Fill( tau21                           );
+      h_ak15chs_pt200_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
+    if (pt>500){ 
+      h_ak15chs_pt500_mass         ->Fill( mass                            );
+      h_ak15chs_pt500_prunedMass   ->Fill( prunedMass                      );
+      h_ak15chs_pt500_trimmedMass  ->Fill( trimmedMass                     );
+      h_ak15chs_pt500_filteredMass ->Fill( filteredMass                    );
+      h_ak15chs_pt500_softDropMass ->Fill( softDropMass                    );
+      h_ak15chs_pt500_tau32        ->Fill( tau32                           );
+      h_ak15chs_pt500_tau21        ->Fill( tau21                           );
+      h_ak15chs_pt500_subjetMass   ->Fill( mostMassiveSDsubjetMass         );
+    }
   }
 
 
