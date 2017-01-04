@@ -476,7 +476,7 @@ for ifile in files :
         # loop over jets and fill hists
         if options.verbose :
           print jets1.size()
-          ijet = 0
+        ijet = 0
         for jet in jets1 :
             if ijet >= options.maxjets :
                 break
@@ -609,7 +609,7 @@ for ifile in files :
                 h_msoftdropAK8.Fill( jet.userFloat('ak8PFJetsCHSSoftDropMass') )
                 h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSPrunedMass') )
                 h_mpuppiAK8.Fill( jet.userFloat('ak8PFJetsPuppiValueMap:mass') )
-                ak8pt[0] = corr * uncorrJet.pt()
+	        ak8pt[0] = corr * uncorrJet.pt()
                 ak8eta[0] = jet.eta()
                 ak8phi[0] = jet.phi()
                 ak8mass[0] = jet.mass()
