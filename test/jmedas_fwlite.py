@@ -124,36 +124,36 @@ if options.correctJets :
 
     if not options.isData : 
         vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_L1FastJet_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_L2Relative_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_L3Absolute_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('80X_mcRun2_asymptotic_2016_miniAODv2_v1_L1FastJet_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('80X_mcRun2_asymptotic_2016_miniAODv2_v1_L2Relative_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('80X_mcRun2_asymptotic_2016_miniAODv2_v1_L3Absolute_AK4PFchs.txt') )
         jec = ROOT.FactorizedJetCorrector( vPar )
-        jecUnc = ROOT.JetCorrectionUncertainty( '../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_Uncertainty_AK4PFchs.txt' )
+        jecUnc = ROOT.JetCorrectionUncertainty( '80X_mcRun2_asymptotic_2016_miniAODv2_v1_Uncertainty_AK4PFchs.txt' )
 
         vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_L1FastJet_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_L2Relative_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_L3Absolute_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('80X_mcRun2_asymptotic_2016_miniAODv2_v1_L1FastJet_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('80X_mcRun2_asymptotic_2016_miniAODv2_v1_L2Relative_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('80X_mcRun2_asymptotic_2016_miniAODv2_v1_L3Absolute_AK8PFchs.txt') )
         jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
 
-        jecUncAK8 = ROOT.JetCorrectionUncertainty( '../data/Spring16_25nsV5_MC/Spring16_25nsV5_MC_Uncertainty_AK8PFchs.txt' )
+        jecUncAK8 = ROOT.JetCorrectionUncertainty( '80X_mcRun2_asymptotic_2016_miniAODv2_v1_Uncertainty_AK8PFchs.txt' )
     else :
         vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L1FastJet_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L2Relative_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L3Absolute_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L2L3Residual_AK4PFchs.txt') ) # Need residual correction for data
+        vPar.push_back( ROOT.JetCorrectorParameters('80X_dataRun2_Prompt_ICHEP16JEC_v0_L1FastJet_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('80X_dataRun2_Prompt_ICHEP16JEC_v0_L2Relative_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('80X_dataRun2_Prompt_ICHEP16JEC_v0_L3Absolute_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('80X_dataRun2_Prompt_ICHEP16JEC_v0_L2L3Residual_AK4PFchs.txt') ) # Need residual correction for data
         jec = ROOT.FactorizedJetCorrector( vPar )
-        jecUnc = ROOT.JetCorrectionUncertainty( '../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_Uncertainty_AK4PFchs.txt' )
+        jecUnc = ROOT.JetCorrectionUncertainty( '80X_dataRun2_Prompt_ICHEP16JEC_v0_Uncertainty_AK4PFchs.txt' )
 
         vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L1FastJet_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L2Relative_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L3Absolute_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_L2L3Residual_AK8PFchs.txt') ) # Need residual correction for data
+        vParAK8.push_back( ROOT.JetCorrectorParameters('80X_dataRun2_Prompt_ICHEP16JEC_v0_L1FastJet_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('80X_dataRun2_Prompt_ICHEP16JEC_v0_L2Relative_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('80X_dataRun2_Prompt_ICHEP16JEC_v0_L3Absolute_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('80X_dataRun2_Prompt_ICHEP16JEC_v0_L2L3Residual_AK8PFchs.txt') ) # Need residual correction for data
         jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
 
-        jecUncAK8 = ROOT.JetCorrectionUncertainty( '../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_Uncertainty_AK8PFchs.txt' )
+        jecUncAK8 = ROOT.JetCorrectionUncertainty( '80X_dataRun2_Prompt_ICHEP16JEC_v0_Uncertainty_AK8PFchs.txt' )
 
 
 ##   ___ ___ .__          __                                             
@@ -203,8 +203,8 @@ h_mprunedAK8 = ROOT.TH1F("h_mprunedAK8", "AK8 Pruned Jet Mass;Mass (GeV)", 100, 
 h_mpuppiAK8 = ROOT.TH1F("h_mpuppiAK8", "AK8 PUPPI Jet Mass;Mass (GeV)", 100, 0, 1000)
 h_minmassAK8 = ROOT.TH1F("h_minmassAK8", "AK8 CMS Top Tagger Min Mass Paring;m_{min} (GeV)", 100, 0, 1000)
 h_nsjAK8 = ROOT.TH1F("h_nsjAK8", "AK8 CMS Top Tagger N_{subjets};N_{subjets}", 5, 0, 5)
-h_tau21AK8 = ROOT.TH1F("h_tau21AK8", "AK8 Jet #tau_{2} / #tau_{1};Mass#tau_{21}", 100, 0, 1.0)
-h_tau32AK8 = ROOT.TH1F("h_tau32AK8", "AK8 Jet #tau_{3} / #tau_{2};Mass#tau_{32}", 100, 0, 1.0)
+h_tau21AK8 = ROOT.TH1F("h_tau21AK8", "AK8 Jet #tau_{2} / #tau_{1};#tau_{21}", 100, 0, 1.0)
+h_tau32AK8 = ROOT.TH1F("h_tau32AK8", "AK8 Jet #tau_{3} / #tau_{2};#tau_{32}", 100, 0, 1.0)
 h_ptGroomedCorrAK8 = ROOT.TH1F("h_ptGroomedCorrAK8", "AK8 Corrected Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_msoftdropCorrAK8 = ROOT.TH1F("h_msoftdropCorrAK8", "AK8 Softdrop Jet Mass, Corrected;Mass (GeV)", 100, 0, 1000)
 h_rhoRatioAK8 = ROOT.TH1F("h_rhoRatioAK8", "AK8 Jet #rho = (m/p_{T}R)^{2};#rho", 100, 0, 1.0)
