@@ -5,13 +5,13 @@ JME POG CMS Data Analysis School (CMSDAS) exercise
 
 
 
-`cmsrel CMSSW_7_4_4`
+`cmsrel CMSSW_8_0_25`
 
-`cd CMSSW_7_4_4/src`
+`cd CMSSW_8_0_25/src`
 
 `git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS`
 
-`git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_74X`
+`git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_80X`
 
 `cd Analysis/JMEDAS`
 
