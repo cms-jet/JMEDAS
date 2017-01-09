@@ -262,19 +262,19 @@ def getJER(jetEta, sysType) :
         return float(jerSF)
 
     # Values from https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution
-    etamin = [0.0,0.5,1.1,1.7,2.3,2.8,3.2]
-    etamax = [0.5,1.1,1.7,2.3,2.8,3.2,5.0]
+    etamin = [0.0,0.5,0.8,1.1,1.3,1.7,1.9,2.1,2.3,2.5,2.8,3.0,3.2]
+    etamax = [0.5,0.8,1.1,1.3,1.7,1.9,2.1,2.3,2.5,2.8,3.0,3.2,5.0]
     
-    scale_nom = [1.079,1.099,1.121,1.208,1.254,1.395,1.056]
-    scale_dn  = [1.053,1.071,1.092,1.162,1.192,1.332,0.865]
-    scale_up  = [1.105,1.127,1.150,1.254,1.316,1.458,1.247]
+    scale_nom = [1.109,1.138,1.114,1.123,1.084,1.082,1.140,1.067,1.177,1.364,1.857,1.328,1.16]
+    scale_unc = [0.008,0.013,0.013,0.024,0.011,0.035,0.047,0.053,0.041,0.039,0.071,0.022,0.029] 
+
 
     for iSF in range(0,len(scale_nom)) :
         if abs(jetEta) >= etamin[iSF] and abs(jetEta) < etamax[iSF] :
             if sysType < 0 :
-                jerSF = scale_dn[iSF]
+                jerSF =  scale_nom[iSF]-scale_unc[iSF]
             elif sysType > 0 :
-                jerSF = scale_up[iSF]
+                jerSF =  scale_nom[iSF]+scale_unc[iSF]
             else :
                 jerSF = scale_nom[iSF]
             break
@@ -301,7 +301,7 @@ nevents = 0
 for ifile in filesraw :
     if len( ifile ) > 2 : 
         s = 'root://' + options.xrootd + '/' + ifile.rstrip()
-	files.append( s )
+        files.append( s )
         print 'Added ' + s
 
 
@@ -354,14 +354,15 @@ for ifile in files :
             if jet.pt() > options.minAK4Pt and abs(jet.rapidity()) < options.maxAK4Rapidity :
                 
                 
-                #FInd the jet correction
+                #Find the jet correction
                 uncorrJet = copy.copy( jet.correctedP4(0) ) # For some reason, in python this is interfering with jet.genJet() in strange ways without the copy.copy
 
                 if uncorrJet.E() < 0.00001 :
                     print 'Very strange. Uncorrected jet E = ' + str( uncorrJet.E()) + ', but Corrected jet E = ' + str( jet.energy() )
                     continue
                     
-                # Apply jet ID to uncorrected jet
+                # Apply loose jet ID to uncorrected jet  https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2016
+                # the folling is valid only for eta < 2.4. see twiki for full definition
                 nhf = jet.neutralHadronEnergy() / uncorrJet.E()
                 nef = jet.neutralEmEnergy() / uncorrJet.E()
                 chf = jet.chargedHadronEnergy() / uncorrJet.E()
@@ -373,7 +374,8 @@ for ifile in files :
                   nef < 0.99 and \
                   chf > 0.00 and \
                   cef < 0.99 and \
-                  nch > 0
+                  nch > 0 and \
+                  nconstituents
 
 
                 if not goodJet :
@@ -609,7 +611,7 @@ for ifile in files :
                 h_msoftdropAK8.Fill( jet.userFloat('ak8PFJetsCHSSoftDropMass') )
                 h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSPrunedMass') )
                 h_mpuppiAK8.Fill( jet.userFloat('ak8PFJetsPuppiValueMap:mass') )
-	        ak8pt[0] = corr * uncorrJet.pt()
+                ak8pt[0] = corr * uncorrJet.pt()
                 ak8eta[0] = jet.eta()
                 ak8phi[0] = jet.phi()
                 ak8mass[0] = jet.mass()
