@@ -3,7 +3,7 @@ from ROOT import *
 gROOT.Macro("rootlogon.C")
 
 f1 = TFile("ttjets_short.root")
-f2 = TFile("rsgluon_ttbar_3TeV.root")
+f2 = TFile("zprime3000_short.root")
 
 h_tau32AK8_1   = f1.Get("h_tau32AK8")
 h_tau32AK8_2   = f2.Get("h_tau32AK8")
