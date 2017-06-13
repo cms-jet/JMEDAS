@@ -15,8 +15,10 @@ backgdF = TFile.Open('qcd_short.root', 'READ')
 signalTree = signalF.Get('varTree')
 backgdTree = backgdF.Get('varTree') 
 
+varString = ""
 for var in sys.argv[1:]:
 	factory.AddVariable(var)
+	varString = varString+"_"+var
 
 factory.AddSignalTree(signalTree, 1.0)
 factory.AddBackgroundTree(backgdTree, 1.0)
@@ -56,3 +58,4 @@ leg.SetLineWidth(0)
 leg.Draw()
 
 
+c1.SaveAs("computeROC{0}.png".format(varString))
