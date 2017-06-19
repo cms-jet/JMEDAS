@@ -26,7 +26,7 @@ for f, s in enumerate(settings) :
 c = tdrCanvasMultipad("c",frames,14,10,2,2)
 
 # Open the ROOT file with the ntuple
-f = TFile("pileupNtuple.root")
+f = TFile("JECNtuple_MiniAOD.root")
 
 # Access and store the necessary trees
 tAK4PFchs   = f.Get("AK4PFCHSL1L2L3/t")
