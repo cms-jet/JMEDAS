@@ -136,9 +136,9 @@ process.TFileService.fileName=cms.string(options.ofilename)
 
 process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(options.maxEvents))
 if options.doMiniAOD:
-	process.load("Analysis.JMEDAS.qcdflat_MINIAODSIM_v3_cff")
+	process.load("Analysis.JMEDAS.qcdflat_MINIAODSIM_v4_cff")
 else:
-	process.load("Analysis.JMEDAS.qcdflat_AODSIM_v3_cff")
+	process.load("Analysis.JMEDAS.qcdflat_AODSIM_v4_cff")
 
 #!           _      _____  ____  _____  _____ _______ _    _ __  __  _____ 
 #!     /\   | |    / ____|/ __ \|  __ \|_   _|__   __| |  | |  \/  |/ ____|
