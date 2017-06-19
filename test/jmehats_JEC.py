@@ -227,7 +227,7 @@ maxCL = max(maxCL,len("Correction Levels"))
 #!  \_____\____/|_| \_|_____/_____|  |_|  |_____\____/|_| \_|_____/ 
 																  
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff")
-process.GlobalTag.globaltag = cms.string('80X_mcRun2_asymptotic_2016_miniAODv2')
+process.GlobalTag.globaltag = cms.string('80X_mcRun2_asymptotic_2016_TrancheIV_v8')
 if options.applyDBFile:
 	from CondCore.DBCommon.CondDBSetup_cfi import *
 	process.jec = cms.ESSource("PoolDBESSource",CondDBSetup,
