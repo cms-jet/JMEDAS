@@ -92,9 +92,9 @@ for hs in hsettings:
 					continue
 				for jet, pt_from_tree in enumerate(event.jtpt):
 					if cor == "Uncorrected":
-						pt_updated = (pt_from_tree/event.jtjec[jet][0].second)
+						pt_updated = (pt_from_tree*event.jtjec[jet][0].second)
 					elif cor == "L1":
-						pt_updated = (pt_from_tree/event.jtjec[jet][1].second)
+						pt_updated = (pt_from_tree*event.jtjec[jet][1].second)
 					else:
 						pt_updated = pt_from_tree
 
@@ -102,7 +102,7 @@ for hs in hsettings:
 						continue
 					rsp = pt_updated/event.refpt[jet]
 					#print "JEC Level: "+str(event.jtjec[jet][0].first)+"\tJEC Factor: "+str(event.jtjec[jet][0].second)+"\tOriginal pT: "+str(pt_from_tree)+"\tUncorrected pT: "+str(pt_from_tree/event.jtjec[jet][0].second)+"\tRef pT: "+str(event.refpt[jet])
-					if rsp<2.0 and rsp>0.0 and abs(event.jteta[jet])<1.3:
+					if rsp<2.0 and rsp>0.0 and abs(event.jteta[jet])<1.3 and event.refdrjt[jet]<float(alg_size[-1:])/20:
 						if hs == "response":
 							histograms[hname].Fill(rsp)
 						elif hs == "pt":
