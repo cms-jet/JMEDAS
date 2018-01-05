@@ -124,19 +124,19 @@ if options.correctJets :
 
     if not options.isData : 
         vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vPar.push_back( ROOT.JetCorrectorParameters('80X_mcRun2_asymptotic_2016_miniAODv2_v1_L1FastJet_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('80X_mcRun2_asymptotic_2016_miniAODv2_v1_L2Relative_AK4PFchs.txt') )
-        vPar.push_back( ROOT.JetCorrectorParameters('80X_mcRun2_asymptotic_2016_miniAODv2_v1_L3Absolute_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('../data/JECs/Summer16_07Aug2017_V3_MC/Summer16_07Aug2017_V3_MC_L1FastJet_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('../data/JECs/Summer16_07Aug2017_V3_MC/Summer16_07Aug2017_V3_MC_L2Relative_AK4PFchs.txt') )
+        vPar.push_back( ROOT.JetCorrectorParameters('../data/JECs/Summer16_07Aug2017_V3_MC/Summer16_07Aug2017_V3_MC_L3Absolute_AK4PFchs.txt') )
         jec = ROOT.FactorizedJetCorrector( vPar )
-        jecUnc = ROOT.JetCorrectionUncertainty( '80X_mcRun2_asymptotic_2016_miniAODv2_v1_Uncertainty_AK4PFchs.txt' )
+        jecUnc = ROOT.JetCorrectionUncertainty( '../data/JECs/Summer16_07Aug2017_V3_MC/Summer16_07Aug2017_V3_MC_Uncertainty_AK4PFchs.txt' )
 
         vParAK8 = ROOT.vector(ROOT.JetCorrectorParameters)()
-        vParAK8.push_back( ROOT.JetCorrectorParameters('80X_mcRun2_asymptotic_2016_miniAODv2_v1_L1FastJet_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('80X_mcRun2_asymptotic_2016_miniAODv2_v1_L2Relative_AK8PFchs.txt') )
-        vParAK8.push_back( ROOT.JetCorrectorParameters('80X_mcRun2_asymptotic_2016_miniAODv2_v1_L3Absolute_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/JECs/Summer16_07Aug2017_V3_MC/Summer16_07Aug2017_V3_MC_L1FastJet_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/JECs/Summer16_07Aug2017_V3_MC/Summer16_07Aug2017_V3_MC_L2Relative_AK8PFchs.txt') )
+        vParAK8.push_back( ROOT.JetCorrectorParameters('../data/JECs/Summer16_07Aug2017_V3_MC/Summer16_07Aug2017_V3_MC_L3Absolute_AK8PFchs.txt') )
         jecAK8 = ROOT.FactorizedJetCorrector( vParAK8 )
 
-        jecUncAK8 = ROOT.JetCorrectionUncertainty( '80X_mcRun2_asymptotic_2016_miniAODv2_v1_Uncertainty_AK8PFchs.txt' )
+        jecUncAK8 = ROOT.JetCorrectionUncertainty( '../data/JECs/Summer16_07Aug2017_V3_MC/Summer16_07Aug2017_V3_MC_Uncertainty_AK8PFchs.txt' )
     else :
         vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
         vPar.push_back( ROOT.JetCorrectorParameters('80X_dataRun2_Prompt_ICHEP16JEC_v0_L1FastJet_AK4PFchs.txt') )
