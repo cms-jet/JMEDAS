@@ -33,8 +33,9 @@ More details about pileup and its removal from jets will be given as pileup pres
 ### Getting Started
 The setup/configuration of this HATS tutorial is documented at the [HATSatLPCSetup TWiki](https://twiki.cern.ch/twiki/bin/view/CMS/HATSatLPCSetup2018#JupyterSetup). This tutorial's repository is https://github.com/cms-jet/JMEDAS.git
 
+Note: If you'd like to set this code up to be used without Jupyter, follow the directions below. This is not necessary for the HATS exercises.
 <details>
-<summary>Setup directions for JECHATS@LPC 2018</summary>
+<summary>Standalone directions without Jupyter</summary>
   
   ```bash
   cmsrel CMSSW_9_4_8
