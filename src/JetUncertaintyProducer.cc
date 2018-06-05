@@ -58,29 +58,28 @@ void JetUncertaintyProducer::produce(edm::Event& iEvent, const edm::EventSetup& 
 	edm::ESHandle<JetCorrectorParametersCollection> JetCorParColl;
 	iSetup.get<JetCorrectionsRecord>().get(JetType_,JetCorParColl); 
 	JetCorrectorParameters const & JetCorPar = (*JetCorParColl)["Uncertainty"];
-	std::auto_ptr<JetCorrectionUncertainty> jecUnc( new JetCorrectionUncertainty(JetCorPar) );
+	auto jecUnc = std::make_unique<JetCorrectionUncertainty>(JetCorPar);
 
 	//get the input jet collection (nominal JECs already applied)
 	edm::Handle<edm::View<pat::Jet>> jets;
 	iEvent.getByToken(JetTok_, jets);
 
-	std::auto_ptr< std::vector<pat::Jet> > newJets ( new std::vector<pat::Jet>() );
-	newJets->reserve(jets->size());
-	std::auto_ptr< std::vector<double> > jecUncVec ( new std::vector<double>() );
-	jecUncVec->reserve(jets->size());
+    auto newJets  = std::make_unique<std::vector<pat::Jet>>();
+    newJets->reserve(jets->size());
+    auto jecUncVec  = std::make_unique<std::vector<double>>();
+    jecUncVec->reserve(jets->size());
 
-	for (edm::View<pat::Jet>::const_iterator itJet = jets->begin(); itJet != jets->end(); itJet++) {
+    for (unsigned idx = 0; idx < jets->size(); ++idx) {
 		// construct the Jet from the ref -> save ref to original object
-		unsigned int idx = std::distance(jets->begin(),itJet);
-		edm::RefToBase<pat::Jet> jetRef = jets->refAt(idx);
-		edm::Ptr<pat::Jet> jetPtr = jets->ptrAt(idx);
-		pat::Jet ajet(jetPtr);
-		math::XYZTLorentzVector vjet = ajet.p4();
-		
+        edm::Ptr<pat::Jet> jetPtr = jets->ptrAt(idx);
+        pat::Jet ajet(jetPtr);
+        math::XYZTLorentzVector vjet = ajet.p4();
+        ajet.addUserInt("origIndex",idx);
+
 		//get JEC unc for this jet, using corrected pT
-		jecUnc->setJetEta(itJet->eta());
-		jecUnc->setJetPt(itJet->pt());
-		double uncertainty = jecUnc->getUncertainty(true);
+        jecUnc->setJetEta(jets->at(idx).eta());
+        jecUnc->setJetPt(jets->at(idx).pt());
+        double uncertainty = jecUnc->getUncertainty(true);
 		//safety check if uncertainty is not available for a jet
 		if(uncertainty==-999.) uncertainty = 0;
 		
@@ -112,17 +111,17 @@ void JetUncertaintyProducer::produce(edm::Event& iEvent, const edm::EventSetup& 
 
 	if(jecUncDir_==0){
 		//store uncertainty as a userfloat
-		std::auto_ptr<edm::ValueMap<float>> out(new edm::ValueMap<float>());
-		typename edm::ValueMap<float>::Filler filler(*out);
-		filler.insert(jets, jecUncVec->begin(), jecUncVec->end());
-		filler.fill();
-		iEvent.put(out,"");
+        auto out = std::make_unique<edm::ValueMap<float>>();
+        typename edm::ValueMap<float>::Filler filler(*out);
+        filler.insert(jets, jecUncVec->begin(), jecUncVec->end());
+        filler.fill();
+        iEvent.put(std::move(out),"");
 	}
 	else{
 		//sort jets in pt
 		std::sort(newJets->begin(), newJets->end(), pTComparator_);
 	
-		iEvent.put(newJets);
+		iEvent.put(std::move(newJets));
 	}
 }
 
