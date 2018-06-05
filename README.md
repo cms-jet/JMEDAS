@@ -36,9 +36,11 @@ This tutorial uses Jupyter Notebooks as a browser-based development environment 
 #### Connect to Jupyter 
 To log in, access the login page and login using your CERN credentials. Once you successfully connect, you should see the following front page
 
+<img src="jupyter-login.png" width="600px" />
+
 The two most important buttons are
-  * The new button, which lets you open a terminal or start a new Jupyter notebook.
-  * The control panel button, which lets you shut down your notebook once you're done. It's helpful to do this to free up resources for other users.
+  * The `new` button, which lets you open a terminal or start a new Jupyter notebook.
+  * The `control panel` button, which lets you shut down your notebook once you're done. It's helpful to do this to free up resources for other users.
 
 #### Upload Grid Certificates
 We will copy your grid certificates from the LPC cluster, to do this, open the front page (shown above), and click the `New` box at the top right, then the `Terminal` option.
