@@ -34,7 +34,7 @@ More details about pileup and its removal from jets will be given as pileup pres
 This tutorial uses Jupyter Notebooks as a browser-based development environment at Vanderbilt. These Jupyter-based tutorials use a pre-configured Jupyter service usable by all CMS members.
 
 #### Connect to Jupyter 
-To log in, access the login page and login using your CERN credentials. Once you successfully connect, you should see the following front page
+To log in, access the [login](https://jupyter.accre.vanderbilt.edu/) page and login using your CERN credentials. Once you successfully connect, you should see the following front page
 
 <img src="jupyter-login.png" width="600px" />
 
@@ -69,7 +69,7 @@ Open up a terminal and run the following command from your home area:
 wget https://raw.githubusercontent.com/cms-jet/JMEDAS/master/setup-libraries.ipynb
 ```
 
-Go back to your Jupyter browser page and open/run the newly downloaded notebook (there is only one cell to run). This will cehckout the code and setup your environment for future use. At this point you can continue on to the **Tutorial** section.
+Go back to your Jupyter browser (Home) page and open/run the newly downloaded notebook (there is only one cell to run). This will cehckout the code and setup your environment for future use. At this point you can continue on to the **Tutorial** section.
 
 Note: If you'd like to set this code up to be used without Jupyter, follow the directions below. This is not necessary for the HATS exercises.
 <details>
