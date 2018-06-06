@@ -126,11 +126,12 @@ private:
   bool          doComposition_;
   bool          doFlavor_;
   unsigned int  nJetMax_;
+  double        ptMin_;
   double        deltaRMax_;
   double        deltaPhiMin_;
   double        deltaRPartonMax_;
   int           nref_;
-  
+
   JetCorrectionUncertainty* jecUnc;
   JME::JetResolutionScaleFactor resolution_sf;
 
@@ -155,6 +156,7 @@ pileupTreeMaker::pileupTreeMaker(const edm::ParameterSet& iConfig)
   , doComposition_                                       (iConfig.getParameter<bool>              ("doComposition"))
   , doFlavor_                                            (iConfig.getParameter<bool>              ("doFlavor"))
   , nJetMax_                                             (iConfig.getParameter<unsigned int>      ("nJetMax"))
+  , ptMin_                                               (iConfig.getParameter<double>            ("ptMinFilter"))
   , deltaRMax_(0.0)
   , deltaPhiMin_(3.141)
   , deltaRPartonMax_(0.0)
@@ -304,6 +306,7 @@ void pileupTreeMaker::analyze(const edm::Event& iEvent,
      //cout << "Doing jet " << iJet << endl;
 
      pat::Jet jet = jets->at(iJet);
+     if(jet.pt()<ptMin_) continue;
      const reco::GenJet* ref = jet.genJet();
 
      //if doing JER or JECU on the fly

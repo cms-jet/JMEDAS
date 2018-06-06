@@ -249,7 +249,7 @@ if options.applyDBFile:
 #  \___/|_____| |_|     |_| \___/ \___/|_____|____/ \___/_/\_\
 															 
 
-from JMEAnalysis.JetToolbox.jetToolbox_cff import *
+from Analysis.JetToolbox.jetToolbox_cff import *
 #jetToolbox( process, jetType, jetSequence, outputFile,
 #	            newPFCollection=False, nameNewPFCollection = '',
 #               PUMethod='CHS',                    #### Options: Puppi, CS, SK, Plain
@@ -489,7 +489,6 @@ for name, params in jetsCollectionsSorted.items():
 				jetCollection+= "Puppi"
 			elif params['algo'] == 'ak8':
 				jetCollection+="AK8"
-
 			#If updated the JEC using the patJetUpdater
 			if options.useUpdater:
 				from PhysicsTools.PatAlgos.tools.jetTools import updateJetCollection
@@ -527,6 +526,7 @@ for name, params in jetsCollectionsSorted.items():
 												  doSmear=True,
 												  jerUncDir=1 if options.JERUncertainty=="up" else -1 if options.JERUncertainty=="down" else 0
 												  )
+
 
 		#################################################
 		## Controls the vertex collection used in the analyzer
@@ -567,6 +567,7 @@ for name, params in jetsCollectionsSorted.items():
 							 JESUncertainty    = cms.string(options.JESUncertainty if options.UncertaintyOTF else 'none'),
 							 JESUncertaintyType= cms.string("TotalNoTime"),
 							 JESUncertaintyFile= cms.string("../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_UncertaintySources_AK4PFchs.txt"),
+				                         ptMinFilter       = cms.double(170 if params['algo'] == 'ak8' else 1.0),
 							 )
 		setattr(process,algorithm,pnm)
 
