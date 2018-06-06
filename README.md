@@ -69,7 +69,7 @@ Open up a terminal and run the following command from your home area:
 wget https://raw.githubusercontent.com/cms-jet/JMEDAS/master/setup-libraries.ipynb
 ```
 
-Go back to your Jupyter browser page and open/run the newly downloaded notebook (there is only one cell to run). This will cehckout the code and setup your environment for future use. At this point you can continue on to the **Tutorial** section.
+Go back to your Jupyter browser (Home) page and open/run the newly downloaded notebook (there is only one cell to run). This will cehckout the code and setup your environment for future use. At this point you can continue on to the **Tutorial** section.
 
 Note: If you'd like to set this code up to be used without Jupyter, follow the directions below. This is not necessary for the HATS exercises.
 <details>
