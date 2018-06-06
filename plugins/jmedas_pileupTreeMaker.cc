@@ -422,11 +422,6 @@ void pileupTreeMaker::analyze(const edm::Event& iEvent,
      //L1FastJet = 1
      //L2Relative = 2
      //L3Absolute = 3
-     //for(unsigned int ijec = 0; ijec<jet.availableJECLevels().size(); ijec++) {
-     //   cout << jet.availableJECLevels()[ijec] << endl;
-     //}
-     //cout << jet.currentJECLevel() << endl;
-     //cout << jet.currentJECSet() << endl;
      try {
         vector<pair<string,float> > jec;
         //cout << "New jet" << endl;
