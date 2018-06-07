@@ -157,8 +157,8 @@ jetsCollections = {
 					},
 	'AK8L1L2L3': 	{
 					'algo': 'ak8',
-					'pu_methods': ['CHS'], #Options: {Puppi,CHS,''}
-					'jec_payloads': ['AK8PFchs'], #Options: {AK8PFPuppi,AK8PFchs,AK8PF,AK8Calo,AK8JPT}
+					'pu_methods': ['Puppi'], #Options: {Puppi,CHS,''}
+					'jec_payloads': ['AK8PFPuppi'], #Options: {AK8PFPuppi,AK8PFchs,AK8PF,AK8Calo,AK8JPT}
 					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'], #Options: {L1FastJet,L2Relative,L3Absolute,L2L3Residual,L5Flavor,L7Parton}
 					},
 				  }
@@ -203,13 +203,13 @@ for name, params in jetsCollections.items():
 		if options.doMiniAOD and not options.doReclustering:
 			doExit = False
 			if not any(alg in params['algo'] for alg in ['ak4','ak8']):
-				print bcolors.FAIL+"ERROR::Can't continue because doReclustering is set to False and the 2016 MiniAOD files only contain AK4 and AK8 jets"+bcolors.ENDC
+				print bcolors.FAIL+"ERROR::Can't continue because doReclustering is set to False and the 2017 MiniAOD files only contain AK4 and AK8 jets"+bcolors.ENDC
 				doExit = True
 			if params['algo'] == 'ak4' and not any(pu in pu_method for pu in ['CHS','Puppi']):
-				print bcolors.FAIL+"ERROR::Can't continue because doReclustering is set to False and the 2016 MiniAOD files only have AK4 jets using CHS or PFPuppi"+bcolors.ENDC
+				print bcolors.FAIL+"ERROR::Can't continue because doReclustering is set to False and the 2017 MiniAOD files only have AK4 jets using CHS or PFPuppi"+bcolors.ENDC
 				doExit = True
-			if params['algo'] == 'ak8' and pu_method!='CHS':
-				print bcolors.FAIL+"ERROR::Can't continue because doReclustering is set to False and the 2016 MiniAOD files only have AK8 jets using CHS"+bcolors.ENDC
+			if params['algo'] == 'ak8' and pu_method!='Puppi':
+				print bcolors.FAIL+"ERROR::Can't continue because doReclustering is set to False and the 2017 MiniAOD files only have AK8 jets using Puppi"+bcolors.ENDC
 				doExit = True
 			if doExit:
 				exit(-1)
@@ -555,24 +555,28 @@ for name, params in jetsCollectionsSorted.items():
 			)
 
 		pnm = cms.EDAnalyzer('pileupTreeMaker',
-							 PileupNtupleMakerParameters,
-							 jetType 		   = cms.string(params['jec_payloads'][index]),
-							 srcJet            = cms.InputTag(jetCollection),
-							 srcRho            = cms.InputTag('fixedGridRhoFastjetAll'),
-							 srcVtx            = cms.InputTag(vtxCol),
-							 srcPileupInfo     = cms.InputTag("slimmedAddPileupInfo") if options.doMiniAOD else cms.InputTag("addPileupInfo"),
-							 JERUncertainty    = cms.string(options.JERUncertainty if options.UncertaintyOTF else 'none'),
-							 JERLegacy         = cms.bool(False),
-							 JERUncertaintyFile= cms.string(""),
-							 JESUncertainty    = cms.string(options.JESUncertainty if options.UncertaintyOTF else 'none'),
-							 JESUncertaintyType= cms.string("TotalNoTime"),
-							 JESUncertaintyFile= cms.string("../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_UncertaintySources_AK4PFchs.txt"),
-				                         ptMinFilter       = cms.double(170 if params['algo'] == 'ak8' else 1.0),
-							 )
+				     PileupNtupleMakerParameters,
+				     jetType 	       = cms.string(params['jec_payloads'][index]),
+				     srcJet            = cms.InputTag(jetCollection),
+				     srcRho            = cms.InputTag('fixedGridRhoFastjetAll'),
+				     srcVtx            = cms.InputTag(vtxCol),
+				     srcPileupInfo     = cms.InputTag("slimmedAddPileupInfo") if options.doMiniAOD else cms.InputTag("addPileupInfo"),
+				     JERUncertainty    = cms.string(options.JERUncertainty if options.UncertaintyOTF else 'none'),
+				     JERLegacy         = cms.bool(False),
+				     JERUncertaintyFile= cms.string(""),
+				     JESUncertainty    = cms.string(options.JESUncertainty if options.UncertaintyOTF else 'none'),
+				     JESUncertaintyType= cms.string("TotalNoTime"),
+				     JESUncertaintyFile= cms.string("../data/Spring16_25nsV5_DATA/Spring16_25nsV5_DATA_UncertaintySources_AK4PFchs.txt"),
+				     ptMinFilter       = cms.double(170 if params['algo'] == 'ak8' else 1.0),
+				     )
 		setattr(process,algorithm,pnm)
 
-		process.p = cms.Path()
-		path = process.p.copy()
+		# dump everything into a task so it can run unscheduled
+		process.myTask = cms.Task()
+		process.myTask.add(*[getattr(process,prod) for prod in process.producers_()])
+		process.myTask.add(*[getattr(process,filt) for filt in process.filters_()])
+
+		path = cms.Path()
 		if options.doJetToolbox:
 			path *= sequence *pnm
 		elif not options.doJetToolbox and options.doMiniAOD and options.doReclustering and not options.useUpdater:
@@ -581,7 +585,9 @@ for name, params in jetsCollectionsSorted.items():
 			path *= eval("process.patJetCorrFactorsUpdatedJEC"+params['jec_payloads'][index]) * eval("process.updatedPatJetsUpdatedJEC"+params['jec_payloads'][index]) * sequence *pnm
 		else:
 			path *= sequence *pnm
+		path.associate(process.myTask)
 		setattr(process, algorithm + 'Path', path)
+
 		print str(bcolors.BFAIL+"{A:<{widthA}s}"+bcolors.BWARNING+" {JC:<{widthJC}s}"+bcolors.OKBLUE+" {JP:<{widthJP}s}"+bcolors.BOKGREEN+" {CL:<{widthCL}s}"+bcolors.ENDC).format(A=algorithm,JC=jetCollection,JP=params['jec_payloads'][index],CL=params['jec_levels'],widthA=maxA,widthJC=maxJC,widthJP=maxJP,widthCL=maxCL)
 
 #!

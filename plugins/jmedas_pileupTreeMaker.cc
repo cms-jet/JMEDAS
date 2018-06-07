@@ -306,7 +306,7 @@ void pileupTreeMaker::analyze(const edm::Event& iEvent,
      //cout << "Doing jet " << iJet << endl;
 
      pat::Jet jet = jets->at(iJet);
-     if(jet.pt()<ptMin_) continue;
+     if(jet.pt()<ptMin_ || !jet.isPFJet()) continue;
      const reco::GenJet* ref = jet.genJet();
 
      //if doing JER or JECU on the fly
@@ -445,7 +445,7 @@ void pileupTreeMaker::analyze(const edm::Event& iEvent,
      PUNtuple_->jtphi->push_back(jet.phi());
      PUNtuple_->jty->push_back(jet.rapidity());
      PUNtuple_->jtarea->push_back(jet.jetArea());
-     
+
      if (doComposition_) {
         PUNtuple_->jtchf->push_back(jet.chargedHadronEnergyFraction());
         PUNtuple_->jtnhf->push_back(jet.neutralHadronEnergyFraction());
