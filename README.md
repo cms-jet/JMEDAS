@@ -25,6 +25,9 @@
 </details>
 
 ## Pileup & Jet Energy Correction HATS@LPC
+<details>
+<summary>Directions for HATS@LPC 2018</summary>
+  
 ### Introduction
 This Hands on Tutorial Session (HATS) is intended to provide you with basic familiarity with jet energy corrections (JEC) as they relate to CMS. Pretty much all analyses which use jets will need to make use of JECs in some way. Additionally, analyes will probably use the systematic uncertainties for those corrections as well as the jet energy resolution (JER) scale factors and their uncertainties. A general description of the JEC and JER will be provided, as well as several example of how to apply these corrections/scale factors.
 
@@ -90,3 +93,20 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
 
 ### Tutorial
 Once you've completed the setup instructions, information on the separate tutorial can be found in the `test` subdirectory.
+
+</details>
+
+## Additional Information & Resources
+
+  - ![JERC Subgroup Twiki Page](https://twiki.cern.ch/twiki/bin/view/CMS/JetEnergyScale)
+    - ![JEC and JER Reference Sample Page](https://twiki.cern.ch/twiki/bin/view/CMS/JERCReference)
+    - ![WorkBook Page on Jet Energy Corrections](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetEnergyCorrections?redirectedfrom=CMS.WorkBookJetEnergyCorrections)
+    - ![WorkBook Page on Jet Energy Resolution](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetEnergyResolution)
+  - ![JetMET/JERC/JMAR Weekly Meetings](https://indico.cern.ch/categoryDisplay.py?categId=1308)
+  - ![Run2 Weekly Discussion Group](https://indico.cern.ch/category/7082/)
+    - Every other week there is a meeting on jets and pileup
+  - SQLite files, text files, and tarballs
+    - ![JEC Database](https://github.com/cms-jet/JECDatabase)
+    - ![JER Database](https://github.com/cms-jet/JRDatabase)
+  - ![JetToolbox Twiki Page](https://twiki.cern.ch/twiki/bin/view/CMS/JetToolbox)
+  - ![2017 MiniAOD Twiki Page](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2017)
