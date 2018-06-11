@@ -2,7 +2,7 @@ from ROOT import *
 
 gROOT.Macro("rootlogon.C")
 
-f = TFile("ttjets_short.root")
+f = TFile("qcd_lowPt.root")
 
 h_ptAK4   = f.Get("h_ptAK4")
 h_etaAK4  = f.Get("h_etaAK4")
@@ -32,6 +32,12 @@ gPad.SetLogy()
 h_ptAK4.Draw()
 h_ptAK4Gen.Draw("same")
 h_ptAK4.GetXaxis().SetRangeUser(0, 1000)
+leg = TLegend(0.6, 0.6, 0.8, 0.8)
+leg.AddEntry(h_ptAK4, "RECO", "l")
+leg.AddEntry(h_ptAK4Gen, "GEN", "l")
+leg.SetFillColor(0)
+leg.SetLineColor(0)
+leg.Draw("same")
 c.cd(2)
 h_etaAK4.Draw()
 h_etaAK4Gen.Draw("same")

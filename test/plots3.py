@@ -2,7 +2,7 @@ from ROOT import *
 
 gROOT.Macro("rootlogon.C")
 
-f = TFile("ttjets_short.root")
+f = TFile("qcd_lowPt.root")
 
 h_areaAK4   = f.Get("h_areaAK4")
 h_areaAK8   = f.Get("h_areaAK8")

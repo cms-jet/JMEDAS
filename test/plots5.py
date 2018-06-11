@@ -2,8 +2,8 @@ from ROOT import *
 
 gROOT.Macro("rootlogon.C")
 
-f1 = TFile("qcd_short.root")
-f2 = TFile("zprime3000_short.root")
+f1 = TFile("qcd_highPt.root")
+f2 = TFile("zprime_ttbar_3000.root")
 
 h_msoftdropAK8_1   = f1.Get("h_msoftdropAK8")
 h_msoftdropAK8_2   = f2.Get("h_msoftdropAK8")
