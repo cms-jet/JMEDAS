@@ -1,0 +1,6 @@
+/store/mc/RunIISummer17MiniAOD/GluGluToRSGravitonToHHTo4B_M-900_narrow_13TeV-madgraph/MINIAODSIM/NZSFlatPU28to62_92X_upgrade2017_realistic_v10-v1/00000/36922E0C-8EAD-E711-9837-00259075D70C.root
+/store/mc/RunIISummer17MiniAOD/GluGluToRSGravitonToHHTo4B_M-900_narrow_13TeV-madgraph/MINIAODSIM/NZSFlatPU28to62_92X_upgrade2017_realistic_v10-v1/00000/42A36B4C-CCAC-E711-9E41-FA163ECE0E76.root
+/store/mc/RunIISummer17MiniAOD/GluGluToRSGravitonToHHTo4B_M-900_narrow_13TeV-madgraph/MINIAODSIM/NZSFlatPU28to62_92X_upgrade2017_realistic_v10-v1/00000/649D3410-87AD-E711-AD80-FA163EFC21EE.root
+/store/mc/RunIISummer17MiniAOD/GluGluToRSGravitonToHHTo4B_M-900_narrow_13TeV-madgraph/MINIAODSIM/NZSFlatPU28to62_92X_upgrade2017_realistic_v10-v1/00000/109C502C-86AD-E711-8681-0CC47AA98A0E.root
+/store/mc/RunIISummer17MiniAOD/GluGluToRSGravitonToHHTo4B_M-900_narrow_13TeV-madgraph/MINIAODSIM/NZSFlatPU28to62_92X_upgrade2017_realistic_v10-v1/00000/A6794C6C-86AD-E711-8A2A-1866DA87EE25.root
+/store/mc/RunIISummer17MiniAOD/GluGluToRSGravitonToHHTo4B_M-900_narrow_13TeV-madgraph/MINIAODSIM/NZSFlatPU28to62_92X_upgrade2017_realistic_v10-v1/00000/AC70BB15-F1B4-E711-9927-0CC47A7EEC70.root
