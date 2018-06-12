@@ -74,6 +74,7 @@ wget https://raw.githubusercontent.com/cms-jet/JMEDAS/master/setup-libraries.ipy
 
 Go back to your Jupyter browser (Home) page and open/run(double-click) the newly downloaded notebook  (setup-libraries.ipynb - downloaded just recently - only one cell to run). This will checkout the code and setup your environment for future use. After running setup-libraries.ipynb.
 After running setup-libraries.ipynb, choose "File... Close and Halt". Then you can continue on to the Tutorial section: https://github.com/cms-jet/JMEDAS/tree/master/test
+Once you've completed the setup instructions, information on the separate tutorial can be found in the test subdirectory in the path: CMSSW_9_4_8/src/Analysis/JMEDAS in the Jupyter notebook.
 
 Note: If you'd like to set this code up to be used without Jupyter, follow the directions below. This is not necessary for the HATS exercises.
 <details>
