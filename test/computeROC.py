@@ -9,8 +9,8 @@ output = TFile.Open('TMVA.root', 'RECREATE')
 
 factory = TMVA.Factory('TMVAClassification', output, '!V:!Silent:Color:DrawProgressBar:Transformations=D,G:AnalysisType=Classification')
 
-signalF = TFile.Open('zprime3000_short.root', 'READ')
-backgdF = TFile.Open('qcd_short.root', 'READ')
+signalF = TFile.Open('zprime_ttbar_3000.root', 'READ')
+backgdF = TFile.Open('qcd_highPt.root', 'READ')
 
 signalTree = signalF.Get('varTree')
 backgdTree = backgdF.Get('varTree') 
