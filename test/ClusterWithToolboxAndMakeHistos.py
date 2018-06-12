@@ -24,7 +24,7 @@ process.load("Configuration.StandardSequences.GeometryRecoDB_cff")
 process.load('Configuration.StandardSequences.MagneticField_38T_cff')
 process.load('Configuration.StandardSequences.Services_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
-process.GlobalTag.globaltag = '80X_mcRun2_asymptotic_2016_miniAODv2'
+process.GlobalTag.globaltag = '94X_mc2017_realistic_v12'
 process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(False) )
 process.options.allowUnscheduled = cms.untracked.bool(True)
 
@@ -33,7 +33,7 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
 
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
-        'root://cmseos.fnal.gov:///store/user/jdolen/HATS/2016/MINIAOD/ZprimeToTT_M-4000_W-40_RunIISpring16MiniAODv2_0C59.root'
+'/store/mc/RunIISummer17MiniAOD/ZprimeToTT_M-3000_W-300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/NZSFlatPU28to62_92X_upgrade2017_realistic_v10-v1/150000/E45A17E6-AAAC-E711-A423-00266CFFC80C.root'
     )
 )
 
@@ -51,14 +51,14 @@ jetToolbox( process, 'ak4', 'ak4JetSubs', 'out',
 )
 
 # AK R=0.8 jets from PF inputs with basic grooming, W tagging, and top tagging
-jetToolbox( process, 'ak8', 'ak8JetSubs', 'out', 
-  PUMethod='Plain',
-  addPruning=True, addSoftDrop=True ,           # add basic grooming
-  addTrimming=True, addFiltering=True, 
-  addSoftDropSubjets=True,
-  addNsub=True, maxTau=4,                       # add Nsubjettiness tau1, tau2, tau3, tau4
-  JETCorrPayload = 'AK8PF', JETCorrLevels = ['L2Relative', 'L3Absolute']
-)
+#jetToolbox( process, 'ak8', 'ak8JetSubs', 'out', 
+#  PUMethod='Plain',
+#  addPruning=True, addSoftDrop=True ,           # add basic grooming
+#  addTrimming=True, addFiltering=True, 
+#  addSoftDropSubjets=True,
+#  addNsub=True, maxTau=4,                       # add Nsubjettiness tau1, tau2, tau3, tau4
+#  JETCorrPayload = 'AK8PF', JETCorrLevels = ['L2Relative', 'L3Absolute']
+#)
 
 # AK R=0.8 jets from CHS inputs with basic grooming, W tagging, and top tagging
 jetToolbox( process, 'ak8', 'ak8JetSubs', 'out', 
@@ -126,7 +126,7 @@ process.ana = cms.EDAnalyzer('JetTester'
 
 ### OUT
 process.TFileService = cms.Service("TFileService",
-      fileName = cms.string("JetClusterHistos_ZP4.root"),
+      fileName = cms.string("JetClusterHistos_ZP3.root"),
       closeFileFast = cms.untracked.bool(True)
   )
 

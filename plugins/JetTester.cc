@@ -779,10 +779,10 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
   // AK R=0.8 PF jets - from toolbox
 
   edm::Handle<pat::JetCollection> AK8PF;
-  iEvent.getByToken(ak8PFjetToken_, AK8PF);
+  iEvent.getByToken(ak8PFCHSjetToken_, AK8PF);
 
   edm::Handle<pat::JetCollection> AK8PFsub;
-  iEvent.getByToken(ak8PFSoftDropSubjetsToken_, AK8PFsub);
+  iEvent.getByToken(ak8PFCHSSoftDropSubjetsToken_, AK8PFsub);
 
   int count_AK8PF = 0;
   for (const pat::Jet &ijet : *AK8PF) {  
@@ -791,14 +791,14 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     double pt           = ijet.pt();
     double mass         = ijet.mass();
     double rapidity     = ijet.rapidity();
-    double prunedMass   = ijet.userFloat("ak8PFJetsPrunedMass");
-    double trimmedMass  = ijet.userFloat("ak8PFJetsTrimmedMass");
-    double filteredMass = ijet.userFloat("ak8PFJetsFilteredMass");
-    double softDropMass = ijet.userFloat("ak8PFJetsSoftDropMass");
-    double tau1         = ijet.userFloat("NjettinessAK8:tau1");
-    double tau2         = ijet.userFloat("NjettinessAK8:tau2");
-    double tau3         = ijet.userFloat("NjettinessAK8:tau3");
-    double tau4         = ijet.userFloat("NjettinessAK8:tau4");
+    double prunedMass   = ijet.userFloat("ak8PFJetsCHSPrunedMass");
+    double trimmedMass  = ijet.userFloat("ak8PFJetsCHSTrimmedMass");
+    double filteredMass = ijet.userFloat("ak8PFJetsCHSFilteredMass");
+    double softDropMass = ijet.userFloat("ak8PFJetsCHSSoftDropMass");
+    double tau1         = ijet.userFloat("NjettinessAK8CHS:tau1");
+    double tau2         = ijet.userFloat("NjettinessAK8CHS:tau2");
+    double tau3         = ijet.userFloat("NjettinessAK8CHS:tau3");
+    double tau4         = ijet.userFloat("NjettinessAK8CHS:tau4");
     double ndau         = ijet.numberOfDaughters();
     double tau21 = 99;
     double tau32 = 99;
@@ -1366,21 +1366,21 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
     double mass         = ijet.mass();
     double rapidity     = ijet.rapidity();
     double ndau         = ijet.numberOfDaughters();
-    double prunedMass   = ijet.userFloat("ak8PFJetsCHSPrunedMass");
-    double softDropMass = ijet.userFloat("ak8PFJetsCHSSoftDropMass");
-    double tau1         = ijet.userFloat("NjettinessAK8:tau1");
-    double tau2         = ijet.userFloat("NjettinessAK8:tau2");
-    double tau3         = ijet.userFloat("NjettinessAK8:tau3");
+    double prunedMass   = ijet.userFloat("ak8PFJetsCHSValueMap:ak8PFJetsCHSPrunedMass");
+    double softDropMass = ijet.userFloat("ak8PFJetsCHSValueMap:ak8PFJetsCHSSoftDropMass");
+    double tau1         = ijet.userFloat("NjettinessAK8Puppi:tau1");
+    double tau2         = ijet.userFloat("NjettinessAK8Puppi:tau2");
+    double tau3         = ijet.userFloat("NjettinessAK8Puppi:tau3");
     double tau21        = 99;
     double tau32        = 99;
 
-    double puppi_pt           = ijet.userFloat("ak8PFJetsPuppiValueMap:pt");
-    double puppi_mass         = ijet.userFloat("ak8PFJetsPuppiValueMap:mass");
-    double puppi_eta          = ijet.userFloat("ak8PFJetsPuppiValueMap:eta");
-    double puppi_phi          = ijet.userFloat("ak8PFJetsPuppiValueMap:phi");
-    double puppi_tau1         = ijet.userFloat("ak8PFJetsPuppiValueMap:NjettinessAK8PuppiTau1");
-    double puppi_tau2         = ijet.userFloat("ak8PFJetsPuppiValueMap:NjettinessAK8PuppiTau2");
-    double puppi_tau3         = ijet.userFloat("ak8PFJetsPuppiValueMap:NjettinessAK8PuppiTau3");
+    double puppi_pt           = ijet.pt();//userFloat("ak8PFJetsPuppiValueMap:pt");
+    double puppi_mass         = ijet.mass();//userFloat("ak8PFJetsPuppiValueMap:mass");
+    double puppi_eta          = ijet.eta();//userFloat("ak8PFJetsPuppiValueMap:eta");
+    double puppi_phi          = ijet.phi();//userFloat("ak8PFJetsPuppiValueMap:phi");
+    double puppi_tau1         = ijet.userFloat("NjettinessAK8Puppi:tau1");
+    double puppi_tau2         = ijet.userFloat("NjettinessAK8Puppi:tau2");
+    double puppi_tau3         = ijet.userFloat("NjettinessAK8Puppi:tau3");
     double puppi_tau21        = 99;
     double puppi_tau32        = 99;
 
@@ -1405,7 +1405,7 @@ JetTester::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 
     // Get Soft drop subjets for subjet b-tagging
     double mostMassiveSDsubjetMass = 0;
-    auto const & sdSubjets = ijet.subjets("SoftDrop");
+    auto const & sdSubjets = ijet.subjets("SoftDropPuppi");
     for ( auto const & it : sdSubjets ) {
       double subjetPt       = it->pt();
       double subjetPtUncorr = it->pt();
