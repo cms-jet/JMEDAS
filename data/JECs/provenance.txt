@@ -1,0 +1,1 @@
+These JEC files were downloaded from https://twiki.cern.ch/twiki/bin/view/CMS/JECDataMC#Recommended_for_Data
