@@ -641,43 +641,43 @@ for ifile in files :
                         csv0 = subjets[0].bDiscriminator('pfDeepCSVJetTags:probb')
                     rhoRatio = pow( groomedJet.mass() / (groomedJet.pt()*0.8), 2)
                 
-                #h_ptAK8.Fill( corr * jet.userFloat('ak8PFJetsCHSValueMap:pt') )
+                h_ptAK8.Fill( corr * jet.userFloat('ak8PFJetsCHSValueMap:pt') )
                 h_ptAK8Puppi.Fill( corr * uncorrJet.pt())
                 h_JECValueAK8.Fill( corr )
                 h_ptUncorrAK8.Fill( uncorrJet.pt() )
                 h_ptDownAK8.Fill( corrDn * uncorrJet.pt() )
                 h_ptUpAK8.Fill( corrUp * uncorrJet.pt() )
-                #h_etaAK8.Fill( jet.userFloat('ak8PFJetsCHSValueMap:eta') )
+                h_etaAK8.Fill( jet.userFloat('ak8PFJetsCHSValueMap:eta') )
                 h_yAK8.Fill( jet.y() )
-                #h_phiAK8.Fill( jet.userFloat('ak8PFJetsCHSValueMap:phi') )
+                h_phiAK8.Fill( jet.userFloat('ak8PFJetsCHSValueMap:phi') )
                 h_etaAK8Puppi.Fill( jet.eta() )
                 h_phiAK8Puppi.Fill( jet.phi() )
-                #h_mAK8.Fill(  jet.userFloat('ak8PFJetsCHSValueMap:mass') )
+                h_mAK8.Fill(  jet.userFloat('ak8PFJetsCHSValueMap:mass') )
                 h_areaAK8.Fill( jet.jetArea() )
                 h_msoftdropAK8.Fill( jet.userFloat('ak8PFJetsCHSValueMap:ak8PFJetsCHSSoftDropMass') )
                 h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSValueMap:ak8PFJetsCHSPrunedMass') )
                 h_mpuppiAK8.Fill( jet.mass() )
                 h_mSDpuppiAK8.Fill( jet.userFloat('ak8PFJetsPuppiSoftDropMass') )
-                #ak8pt[0] = corr * jet.userFloat('ak8PFJetsCHSValueMap:pt')
-                #ak8eta[0] = jet.userFloat('ak8PFJetsCHSValueMap:eta')
-                #ak8phi[0] = jet.userFloat('ak8PFJetsCHSValueMap:phi')
+                ak8pt[0] = corr * jet.userFloat('ak8PFJetsCHSValueMap:pt')
+                ak8eta[0] = jet.userFloat('ak8PFJetsCHSValueMap:eta')
+                ak8phi[0] = jet.userFloat('ak8PFJetsCHSValueMap:phi')
                 ak8PUPPIpt[0] = corr * uncorrJet.pt()
                 ak8PUPPIeta[0] = jet.eta()
                 ak8PUPPIphi[0] = jet.phi()
-                #ak8mass[0] = jet.userFloat('ak8PFJetsCHSValueMap:mass')
+                ak8mass[0] = jet.userFloat('ak8PFJetsCHSValueMap:mass')
                 ak8csv[0] = jet.bDiscriminator('pfDeepCSVJetTags:probb')
-                #ak8SDmass[0] = jet.userFloat('ak8PFJetsCHSValueMap:ak8PFJetsCHSSoftDropMass')
-                #ak8PrunedMass[0] = jet.userFloat('ak8PFJetsCHSValueMap:ak8PFJetsCHSPrunedMass') 
+                ak8SDmass[0] = jet.userFloat('ak8PFJetsCHSValueMap:ak8PFJetsCHSSoftDropMass')
+                ak8PrunedMass[0] = jet.userFloat('ak8PFJetsCHSValueMap:ak8PFJetsCHSPrunedMass') 
                 ak8PUPPImass[0] = jet.mass()
-                #ak8SDPUPPImass[0] = jet.userFloat('ak8PFJetsPuppiSoftDropMass')
+                ak8SDPUPPImass[0] = jet.userFloat('ak8PFJetsPuppiSoftDropMass')
                 ak8SD_sub0_mass[0] = msubjet0
                 ak8SD_sub1_mass[0] = msubjet1
                 ak8SD_sub0_csv[0] = csv0
                 ak8SD_sub1_csv[0] = csv1
-                #ak8_N2_beta1[0] = jet.userFloat('ak8PFJetsPuppiSoftDropValueMap:nb1AK8PuppiSoftDropN2')
-                #ak8_N2_beta2[0] = jet.userFloat('ak8PFJetsPuppiSoftDropValueMap:nb2AK8PuppiSoftDropN2')
-                #ak8_N3_beta1[0] = jet.userFloat('ak8PFJetsPuppiSoftDropValueMap:nb1AK8PuppiSoftDropN3')
-                #ak8_N3_beta2[0] = jet.userFloat('ak8PFJetsPuppiSoftDropValueMap:nb2AK8PuppiSoftDropN3')
+                ak8_N2_beta1[0] = jet.userFloat('ak8PFJetsPuppiSoftDropValueMap:nb1AK8PuppiSoftDropN2')
+                ak8_N2_beta2[0] = jet.userFloat('ak8PFJetsPuppiSoftDropValueMap:nb2AK8PuppiSoftDropN2')
+                ak8_N3_beta1[0] = jet.userFloat('ak8PFJetsPuppiSoftDropValueMap:nb1AK8PuppiSoftDropN3')
+                ak8_N3_beta2[0] = jet.userFloat('ak8PFJetsPuppiSoftDropValueMap:nb2AK8PuppiSoftDropN3')
                 npv[0] = float(len(pvs))
                 if groomedJet != None : 
                     h_ptGroomedCorrAK8.Fill( groomedJet.pt() )
@@ -695,21 +695,21 @@ for ifile in files :
                     h_minmassAK8.Fill( -1.0 )
                     h_nsjAK8.Fill( -1 )
                 # Get n-subjettiness "tau" variables
-                #tau1 = jet.userFloat('NjettinessAK8Puppi:tau1')
-                #tau2 = jet.userFloat('NjettinessAK8Puppi:tau2')
-                #tau3 = jet.userFloat('NjettinessAK8Puppi:tau3')
-                #if tau1 > 0.0001 :
-                #    tau21 = tau2 / tau1
-                #    ak8tau21[0] = tau21
-                #    h_tau21AK8.Fill( tau21 )
-                #else :
-                #    h_tau21AK8.Fill( -1.0 )
-                #if tau2 > 0.0001 :
-                #    tau32 = tau3 / tau2
-                #    ak8tau32[0] = tau32
-                #    h_tau32AK8.Fill( tau32 )
-                #else :
-                #    h_tau32AK8.Fill( -1.0 )
+                tau1 = jet.userFloat('NjettinessAK8Puppi:tau1')
+                tau2 = jet.userFloat('NjettinessAK8Puppi:tau2')
+                tau3 = jet.userFloat('NjettinessAK8Puppi:tau3')
+                if tau1 > 0.0001 :
+                    tau21 = tau2 / tau1
+                    ak8tau21[0] = tau21
+                    h_tau21AK8.Fill( tau21 )
+                else :
+                    h_tau21AK8.Fill( -1.0 )
+                if tau2 > 0.0001 :
+                    tau32 = tau3 / tau2
+                    ak8tau32[0] = tau32
+                    h_tau32AK8.Fill( tau32 )
+                else :
+                    h_tau32AK8.Fill( -1.0 )
                 varTree.Fill()
                 genJet = jet.genJet()
                 if genJet != None :
