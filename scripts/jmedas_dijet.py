@@ -650,7 +650,7 @@ for ifile in files :
                     L2cor = L12cor/L1cor
                     L3cor = L123cor/L12cor
                     L23cor = L2cor*L3cor
-                    print 'L1cor '+str(L1cor)+' L2cor '+str(L2cor)+' L3cor '+str(L3cor)+' L23cor '+str(L23cor)+' L123cor '+str(L123cor)
+                    #print 'L1cor '+str(L1cor)+' L2cor '+str(L2cor)+' L3cor '+str(L3cor)+' L23cor '+str(L23cor)+' L123cor '+str(L123cor)
 
                 subjets = jet.subjets("SoftDropPuppi")
                 groomedJet = None
