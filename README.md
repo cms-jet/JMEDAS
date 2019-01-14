@@ -2,7 +2,6 @@
 (also used for HATs@LPC)
 
 ## DAS 2019
-<details>
 <summary>Directions for DAS2019</summary>
   
 ### Introduction
@@ -77,8 +76,6 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
   voms-proxy-init
   ```
   
-</details>
-
 ### Tutorial
 Once you've completed the setup instructions, information on the separate tutorial can be found in the test subdirectory in the path: CMSSW_9_4_8/src/Analysis/JMEDAS in the Jupyter notebook.
 
