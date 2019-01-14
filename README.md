@@ -1,32 +1,9 @@
 # JME POG CMS Data Analysis School (CMSDAS) exercise
 (also used for HATs@LPC)
 
-## DAS
+## DAS 2019
 <details>
-<summary>Directions for CMSDAS 2018</summary>
-  
-  ```bash
-  cmsrel CMSSW_8_0_25
-  cd CMSSW_8_0_25/src
-  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS
-  git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_80X
-  cd Analysis/JMEDAS
-  scram b -j 10
-  cd test
-  voms-proxy-init
-  python jmedas_fwlite.py --files qcdflat.txt  --outname qcdflat.root
-  ```
-  
-  Later in the exercise we will do:
-
-  ```bash
-  cr ClusterWithToolboxAndMakeHistos.py
-  ```
-</details>
-
-## Pileup & Jet Energy Correction HATS@LPC
-<details>
-<summary>Directions for HATS@LPC 2018</summary>
+<summary>Directions for DAS2019</summary>
   
 ### Introduction
 This Hands on Tutorial Session (HATS) is intended to provide you with basic familiarity with jet energy corrections (JEC) as they relate to CMS. Pretty much all analyses which use jets will need to make use of JECs in some way. Additionally, analyes will probably use the systematic uncertainties for those corrections as well as the jet energy resolution (JER) scale factors and their uncertainties. A general description of the JEC and JER will be provided, as well as several example of how to apply these corrections/scale factors.
@@ -69,7 +46,7 @@ voms-proxy-init -voms cms -valid 192:00
 #### Checkout the code
 Open up a terminal and run the following command from your home area:
 ```
-wget https://raw.githubusercontent.com/cms-jet/JMEDAS/master/setup-libraries.ipynb
+wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DAS2019/setup-libraries.ipynb
 ```
 
 Go back to your Jupyter browser (Home) page and open/run(double-click) the newly downloaded notebook  (setup-libraries.ipynb - downloaded just recently - only one cell to run). This will checkout the code and setup your environment for future use. After running setup-libraries.ipynb. After running setup-libraries.ipynb, choose "File... Close and Halt". Then you can continue on to the Tutorial section (below).
@@ -80,9 +57,9 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
 <summary>Standalone directions without Jupyter</summary>
   
   ```bash
-  cmsrel CMSSW_9_4_8
-  cd CMSSW_9_4_8/src
-  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS
+  cmsrel CMSSW_9_4_12
+  cd CMSSW_9_4_12/src
+  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2019
   git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_94X
   cd Analysis/JMEDAS
   scram b -j 4
