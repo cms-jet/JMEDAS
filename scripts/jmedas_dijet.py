@@ -517,9 +517,9 @@ for ifile in files :
                 elif this_jet_vec.Pt() > dijet_j1.Pt():
                     dijet_j1.SetPtEtaPhiM(this_jet_vec.Pt(), this_jet_vec.Eta(), this_jet_vec.Phi(), this_jet_vec.M())
 
-                if genjet != None:
+                if genJet != None:
                     this_genjet_vec = ROOT.TLorentzVector()
-                    this_genjet_vec.SetPtEtaPhiM(corr * uncorrJet.pt(), jet.eta(), jet.phi(), jet.mass())
+                    this_genjet_vec.SetPtEtaPhiM(genJet.pt(), genJet.eta(), genJet.phi(), genJet.mass())
                     if this_genjet_vec.Pt() > dijet_genj0.Pt():
                         dijet_genj1.SetPtEtaPhiM(dijet_genj0.Pt(), dijet_genj0.Eta(), dijet_genj0.Phi(), dijet_genj0.M())
                         dijet_genj0.SetPtEtaPhiM(this_genjet_vec.Pt(), this_genjet_vec.Eta(), this_genjet_vec.Phi(), this_genjet_vec.M())
