@@ -43,15 +43,6 @@ Each time you log in, open a terminal and execute:
 voms-proxy-init -voms cms -valid 192:00
 ```
 
-Alternatively, you may add a line in your logon file:
-```bash
-mkdir ~/tmp
-emacs ~/.bashrc
-      export X509_USER_PROXY=$HOME/tmp/x509up
-source ~/.bashrc
-```
-This will store your proxy in your home directory.
-
 #### Checkout the code
 Open up a terminal and run the following command from your home area:
 ```
@@ -77,7 +68,7 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
   ```
   
 ### Tutorial
-Once you've completed the setup instructions, information on the separate tutorial can be found in the test subdirectory in the path: CMSSW_9_4_8/src/Analysis/JMEDAS in the Jupyter notebook.
+Once you've completed the setup instructions, information on the separate tutorial can be found in the "notebooks" directory (inside CMSSW_9_4_8/src/Analysis/JMEDAS).
 
 </details>
 
