@@ -66,11 +66,10 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
   cd test
   voms-proxy-init
   ```
+</details>
   
 ### Tutorial
-Once you've completed the setup instructions, information on the separate tutorial can be found in the "notebooks" directory (inside CMSSW_9_4_8/src/Analysis/JMEDAS).
-
-</details>
+Once you've completed the setup instructions, change to the directory `~/CMSSW_9_4_12/src/Analysis/JMEDAS`. Information on the separate tutorial can be found in the "notebooks" subdirectory.
 
 ## Additional Information & Resources
 
