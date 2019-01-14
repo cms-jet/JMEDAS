@@ -215,8 +215,8 @@ h_mSubjet0AK8      = ROOT.TH1F("h_mSubjet0AK8", "AK8 Highest-mass Subjet Jet Mas
 h_mSubjet1AK8      = ROOT.TH1F("h_mSubjet1AK8", "AK8 Lowest-mass Subjet Jet Mass;Mass (GeV)", 100, 0, 400)
 h_ak8_N2_beta1     = ROOT.TH1F("h_ak8_N2_beta1", "AK8 N2_beta1;N_{2}^{#beta=1}", 100, 0., 1.)
 h_ak8_N2_beta2     = ROOT.TH1F("h_ak8_N2_beta2", "AK8 N2_beta2;N_{2}^{#beta=2}", 100, 0., 1.)
-h_ak8_N3_beta1     = ROOT.TH1F("h_ak8_N3_beta1", "AK8 N3_beta1;N_{3}^{#beta=1}", 100, 0., 1.)
-h_ak8_N3_beta2     = ROOT.TH1F("h_ak8_N3_beta2", "AK8 N3_beta2;N_{3}^{#beta=2}", 100, 0., 1.)
+h_ak8_N3_beta1     = ROOT.TH1F("h_ak8_N3_beta1", "AK8 N3_beta1;N_{3}^{#beta=1}", 100, 0., 3.)
+h_ak8_N3_beta2     = ROOT.TH1F("h_ak8_N3_beta2", "AK8 N3_beta2;N_{3}^{#beta=2}", 100, 0., 3.)
 
 
 
