@@ -211,6 +211,7 @@ h_tau32AK8         = ROOT.TH1F("h_tau32AK8", "AK8 Jet #tau_{3} / #tau_{2};#tau_{
 h_ptGroomedCorrAK8 = ROOT.TH1F("h_ptGroomedCorrAK8", "AK8 Corrected Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_msoftdropCorrAK8 = ROOT.TH1F("h_msoftdropCorrAK8", "AK8 Softdrop Jet Mass, Corrected;Mass (GeV)", 100, 0, 1000)
 h_rhoRatioAK8      = ROOT.TH1F("h_rhoRatioAK8", "AK8 Jet #rho = (m/p_{T}R)^{2};#rho", 100, 0, 1.0)
+h_logrhoRatioAK8   = ROOT.TH1F("h_logrhoRatioAK8", "AK8 Jet log(#rho=(m/p_{T}R)^{2});log(#rho)", 1100, -10,1.)
 h_mSubjet0AK8      = ROOT.TH1F("h_mSubjet0AK8", "AK8 Highest-mass Subjet Jet Mass;Mass (GeV)", 100, 0, 400)
 h_mSubjet1AK8      = ROOT.TH1F("h_mSubjet1AK8", "AK8 Lowest-mass Subjet Jet Mass;Mass (GeV)", 100, 0, 400)
 h_ak8_N2_beta1     = ROOT.TH1F("h_ak8_N2_beta1", "AK8 N2_beta1;N_{2}^{#beta=1}", 100, 0., 1.)
@@ -688,6 +689,8 @@ for ifile in files :
                     h_ptGroomedCorrAK8.Fill( groomedJet.pt() )
                     h_msoftdropCorrAK8.Fill( groomedJet.mass() )
                     h_rhoRatioAK8.Fill( rhoRatio )
+                    if rhoRatio > 0:
+                      h_logrhoRatioAK8.Fill( math.log(rhoRatio) )
                     h_mSubjet0AK8.Fill( msubjet0 )
                     h_mSubjet1AK8.Fill( msubjet1 )
                 # Make sure there are top tags if we want to plot them 
