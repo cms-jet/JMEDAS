@@ -2,7 +2,6 @@
 (also used for HATs@LPC)
 
 ## DAS 2019
-<details>
 <summary>Directions for DAS2019</summary>
   
 ### Introduction
@@ -43,6 +42,7 @@ Each time you log in, open a terminal and execute:
 ```bash
 voms-proxy-init -voms cms -valid 192:00
 ```
+
 #### Checkout the code
 Open up a terminal and run the following command from your home area:
 ```
@@ -66,14 +66,10 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
   cd test
   voms-proxy-init
   ```
+</details>
   
-</details>
-
 ### Tutorial
-Once you've completed the setup instructions, information on the separate tutorial can be found in the `test` subdirectory. (https://github.com/cms-jet/JMEDAS/tree/master/test)
-Once you've completed the setup instructions, information on the separate tutorial can be found in the test subdirectory in the path: CMSSW_9_4_8/src/Analysis/JMEDAS in the Jupyter notebook.
-
-</details>
+Once you've completed the setup instructions, change to the directory `~/CMSSW_9_4_12/src/Analysis/JMEDAS`. Information on the separate tutorial can be found in the "notebooks" subdirectory.
 
 ## Additional Information & Resources
 

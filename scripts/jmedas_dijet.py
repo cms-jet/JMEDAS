@@ -169,6 +169,7 @@ f = ROOT.TFile(args.outname, "RECREATE")
 f.cd()
 
 h_dijet_mass = ROOT.TH1F("h_dijet_mass", "AK4 dijet mass", 500, 0., 5000.)
+h_dijet_genmass = ROOT.TH1F("h_dijet_genmass", "AK4 dijet genjet mass", 500, 0., 5000.)
 
 h_ptAK4       = ROOT.TH1F("h_ptAK4", "AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_ptUpAK4     = ROOT.TH1F("h_ptUpAK4", "JEC Up AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
@@ -517,9 +518,9 @@ for ifile in files :
                 elif this_jet_vec.Pt() > dijet_j1.Pt():
                     dijet_j1.SetPtEtaPhiM(this_jet_vec.Pt(), this_jet_vec.Eta(), this_jet_vec.Phi(), this_jet_vec.M())
 
-                if genjet != None:
+                if genJet != None:
                     this_genjet_vec = ROOT.TLorentzVector()
-                    this_genjet_vec.SetPtEtaPhiM(corr * uncorrJet.pt(), jet.eta(), jet.phi(), jet.mass())
+                    this_genjet_vec.SetPtEtaPhiM(genJet.pt(), genJet.eta(), genJet.phi(), genJet.mass())
                     if this_genjet_vec.Pt() > dijet_genj0.Pt():
                         dijet_genj1.SetPtEtaPhiM(dijet_genj0.Pt(), dijet_genj0.Eta(), dijet_genj0.Phi(), dijet_genj0.M())
                         dijet_genj0.SetPtEtaPhiM(this_genjet_vec.Pt(), this_genjet_vec.Eta(), this_genjet_vec.Phi(), this_genjet_vec.M())
@@ -531,7 +532,7 @@ for ifile in files :
 
         if dijet_genj0.Pt() > 0. and dijet_genj1.Pt() > 0.:
             if abs(dijet_genj0.Eta() - dijet_genj1.Eta()) < 1.2:
-                h_dijet_mass.Fill((dijet_genj0 + dijet_genj1).M())
+                h_dijet_genmass.Fill((dijet_genj0 + dijet_genj1).M())
 
 
         ##    _____   ____  __. ______        ____.       __    __________.__          __          
@@ -649,7 +650,7 @@ for ifile in files :
                     L2cor = L12cor/L1cor
                     L3cor = L123cor/L12cor
                     L23cor = L2cor*L3cor
-                    print 'L1cor '+str(L1cor)+' L2cor '+str(L2cor)+' L3cor '+str(L3cor)+' L23cor '+str(L23cor)+' L123cor '+str(L123cor)
+                    #print 'L1cor '+str(L1cor)+' L2cor '+str(L2cor)+' L3cor '+str(L3cor)+' L23cor '+str(L23cor)+' L123cor '+str(L123cor)
 
                 subjets = jet.subjets("SoftDropPuppi")
                 groomedJet = None
@@ -685,10 +686,10 @@ for ifile in files :
                 h_phiAK8Puppi.Fill( jet.phi() )
                 #h_mAK8.Fill(  jet.userFloat('ak8PFJetsCHSValueMap:mass') )
                 h_areaAK8.Fill( jet.jetArea() )
-                #h_msoftdropAK8.Fill( jet.userFloat('ak8PFJetsCHSValueMap:ak8PFJetsCHSSoftDropMass') )
-                #h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSValueMap:ak8PFJetsCHSPrunedMass') )
+                h_msoftdropAK8.Fill( jet.userFloat('ak8PFJetsCHSValueMap:ak8PFJetsCHSSoftDropMass') )
+                h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSValueMap:ak8PFJetsCHSPrunedMass') )
                 h_mpuppiAK8.Fill( jet.mass() )
-                #h_mSDpuppiAK8.Fill( jet.userFloat('ak8PFJetsPuppiSoftDropMass') )
+                h_mSDpuppiAK8.Fill( jet.userFloat('ak8PFJetsPuppiSoftDropMass') )
                 #ak8pt[0] = corr * jet.userFloat('ak8PFJetsCHSValueMap:pt')
                 #ak8eta[0] = jet.userFloat('ak8PFJetsCHSValueMap:eta')
                 #ak8phi[0] = jet.userFloat('ak8PFJetsCHSValueMap:phi')
