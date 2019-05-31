@@ -338,7 +338,9 @@ filelist = file( args.files )
 filesraw = filelist.readlines()
 files = []
 nevents = 0
-for ifile in filesraw :
+for i, ifile in enumerate(filesraw):
+    if i >= args.maxFiles:
+      break
     if len( ifile ) > 2 : 
         s = 'root://' + args.xrootd + '/' + ifile.rstrip()
         files.append( s )
