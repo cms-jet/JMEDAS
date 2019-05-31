@@ -23,6 +23,7 @@ parser.add_argument('--files', type=str,
 
 parser.add_argument('--maxFiles', type=int, 
                   dest='maxFiles',
+                  default=-1,
                   help='Maximum number of files to use')
 
 parser.add_argument('--outname', type=str,
@@ -339,15 +340,16 @@ filesraw = filelist.readlines()
 files = []
 nevents = 0
 for i, ifile in enumerate(filesraw):
-    if i >= args.maxFiles:
-      break
+    if args.maxFiles >= 0:
+      if i >= args.maxFiles:
+        break
     if len( ifile ) > 2 : 
         s = 'root://' + args.xrootd + '/' + ifile.rstrip()
         files.append( s )
         print 'Added ' + s
 
-if args.maxFiles:
-  files = files[:args.maxFiles]
+#if args.maxFiles:
+#  files = files[:args.maxFiles]
 
 # loop over files
 for ifile in files :
