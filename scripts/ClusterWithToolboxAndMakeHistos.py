@@ -33,7 +33,7 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
 
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
-'/store/mc/RunIISummer17MiniAOD/ZprimeToTT_M-3000_W-300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/NZSFlatPU28to62_92X_upgrade2017_realistic_v10-v1/150000/E45A17E6-AAAC-E711-A423-00266CFFC80C.root'
+'/store/mc/RunIIFall17MiniAODv2/ZprimeToTT_M3000_W300_TuneCP2_13TeV-madgraphMLM-pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/80000/0C8FF51D-9A26-E911-A64C-24BE05C626B1.root',
     )
 )
 
@@ -49,16 +49,6 @@ jetToolbox( process, 'ak4', 'ak4JetSubs', 'out',
   addNsub=True, maxTau=4,                       # add Nsubjettiness tau1, tau2, tau3, tau4
   JETCorrPayload = 'AK4PFchs', JETCorrLevels = ['L2Relative', 'L3Absolute']
 )
-
-# AK R=0.8 jets from PF inputs with basic grooming, W tagging, and top tagging
-#jetToolbox( process, 'ak8', 'ak8JetSubs', 'out', 
-#  PUMethod='Plain',
-#  addPruning=True, addSoftDrop=True ,           # add basic grooming
-#  addTrimming=True, addFiltering=True, 
-#  addSoftDropSubjets=True,
-#  addNsub=True, maxTau=4,                       # add Nsubjettiness tau1, tau2, tau3, tau4
-#  JETCorrPayload = 'AK8PF', JETCorrLevels = ['L2Relative', 'L3Absolute']
-#)
 
 # AK R=0.8 jets from CHS inputs with basic grooming, W tagging, and top tagging
 jetToolbox( process, 'ak8', 'ak8JetSubs', 'out', 
@@ -100,7 +90,7 @@ jetToolbox( process, 'kt8', 'kt8JetSubs', 'out',
   JETCorrPayload = 'AK8PFchs', JETCorrLevels = ['L2Relative', 'L3Absolute']
 )
 
-# AK R=1.2 jets from CHS inputs with basic grooming, W tagging, and top tagging
+	# AK R=1.2 jets from CHS inputs with basic grooming, W tagging, and top tagging
 jetToolbox( process, 'ak12', 'ak12JetSubs', 'out', 
   PUMethod='CHS',
   addPruning=True, addSoftDrop=True ,           # add basic grooming
