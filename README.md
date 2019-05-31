@@ -1,8 +1,8 @@
-# JME POG CMS Data Analysis School (CMSDAS) exercise
-(also used for HATs@LPC)
+# Jet HATS Exercise
+(also used for the Data Analysis School)
 
-## DAS 2019
-<summary>Directions for DAS2019</summary>
+## HATS 2019
+<summary>Directions for HATS2019</summary>
   
 ### Introduction
 This Hands on Tutorial Session (HATS) is intended to provide you with basic familiarity with jet energy corrections (JEC) as they relate to CMS. Pretty much all analyses which use jets will need to make use of JECs in some way. Additionally, analyes will probably use the systematic uncertainties for those corrections as well as the jet energy resolution (JER) scale factors and their uncertainties. A general description of the JEC and JER will be provided, as well as several example of how to apply these corrections/scale factors.
