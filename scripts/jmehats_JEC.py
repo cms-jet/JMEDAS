@@ -151,14 +151,14 @@ jrr = cms.VPSet()
 jetsCollections = {
 	'AK4L1L2L3': 	{
 					'algo': 'ak4',
-					'pu_methods': ['CHS'], #Options: {Puppi,CHS,''}
-					'jec_payloads': ['AK4PFchs'], #Options: {AK4PFPuppi,AK4PFchs,AK4PF,AK8Calo,AK8JPT}
+					'pu_methods': ['','CHS','Puppi'], #Options: {Puppi,CHS,''}
+					'jec_payloads': ['AK4PF','AK4PFchs','AK4PFPuppi'], #Options: {AK4PFPuppi,AK4PFchs,AK4PF,AK8Calo,AK8JPT}
 					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'], #Options: {L1FastJet,L2Relative,L3Absolute,L2L3Residual,L5Flavor,L7Parton}
 					},
 	'AK8L1L2L3': 	{
 					'algo': 'ak8',
-					'pu_methods': ['Puppi'], #Options: {Puppi,CHS,''}
-					'jec_payloads': ['AK8PFPuppi'], #Options: {AK8PFPuppi,AK8PFchs,AK8PF,AK8Calo,AK8JPT}
+					'pu_methods': ['','CHS','Puppi'], #Options: {Puppi,CHS,''}
+					'jec_payloads': ['AK8PF','AK8PFchs','AK8PFPuppi'], #Options: {AK8PFPuppi,AK8PFchs,AK8PF,AK8Calo,AK8JPT}
 					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'], #Options: {L1FastJet,L2Relative,L3Absolute,L2L3Residual,L5Flavor,L7Parton}
 					},
 				  }
@@ -231,14 +231,14 @@ process.GlobalTag.globaltag = cms.string('80X_mcRun2_asymptotic_2016_TrancheIV_v
 if options.applyDBFile:
 	from CondCore.DBCommon.CondDBSetup_cfi import *
 	process.jec = cms.ESSource("PoolDBESSource",CondDBSetup,
-							   connect = cms.string('sqlite_file:'+options.era+'.db'),
+							   connect = cms.string('sqlite_file:../data/JECs/'+options.era+'.db'),
 							   #cms.string("frontier://FrontierPrep/CMS_COND_PHYSICSTOOLS"),
 							   toGet =  cms.VPSet(jcr))
 	process.es_prefer_jec = cms.ESPrefer("PoolDBESSource","jec")
 
 	if not options.jerfile == 'none':
 		process.jer = cms.ESSource("PoolDBESSource",CondDBSetup,
-								   connect = cms.string('sqlite_file:'+options.jerfile+'.db'),
+								   connect = cms.string('sqlite_file:../data/JERs/'+options.jerfile+'.db'),
 								   toGet = cms.VPSet(jrr))	
 		process.es_prefer_jer = cms.ESPrefer("PoolDBESSource","jer")
 
