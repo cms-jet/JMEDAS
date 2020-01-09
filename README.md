@@ -1,8 +1,8 @@
-# Jet HATS Exercise
-(also used for the Data Analysis School)
+# Jet CMS DAS Exercise
+(also used for the LPC HATS)
 
-## HATS 2019
-<summary>Directions for HATS2019</summary>
+## CMS DAS 2020
+<summary>Directions for CMS DAS 2020</summary>
   
 ### Introduction
 This Hands on Tutorial Session (HATS) is intended to provide you with basic familiarity with jet energy corrections (JEC) as they relate to CMS. Pretty much all analyses which use jets will need to make use of JECs in some way. Additionally, analyes will probably use the systematic uncertainties for those corrections as well as the jet energy resolution (JER) scale factors and their uncertainties. A general description of the JEC and JER will be provided, as well as several example of how to apply these corrections/scale factors.
@@ -46,7 +46,7 @@ voms-proxy-init -voms cms -valid 192:00
 #### Checkout the code
 Open up a terminal and run the following command from your home area:
 ```
-wget https://raw.githubusercontent.com/cms-jet/JMEDAS/HATS2019/setup-libraries.ipynb
+wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DAS2020/setup-libraries.ipynb
 ```
 
 Go back to your Jupyter browser (Home) page and open/run(double-click) the newly downloaded notebook  (setup-libraries.ipynb - downloaded just recently - only one cell to run). This will checkout the code and setup your environment for future use. After running setup-libraries.ipynb. After running setup-libraries.ipynb, choose "File... Close and Halt". Then you can continue on to the Tutorial section (below).
@@ -59,7 +59,7 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
   ```bash
   cmsrel CMSSW_10_2_15
   cd CMSSW_10_2_15/src
-  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b HATS2019
+  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2019
   git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X
   cd Analysis/JMEDAS
   scram b -j 4
