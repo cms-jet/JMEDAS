@@ -29,7 +29,7 @@ This will open a new tab with a bash terminal. Execute the following commands (f
 The following command will prompt you for your FNAL password
 ```bash
 kinit username@FNAL.GOV
-rsync -rLv username@cmslpc-sl6.fnal.gov:.globus/ ~/.globus/
+rsync -rLv username@cmslpc-sl7.fnal.gov:.globus/ ~/.globus/
 chmod 755 ~/.globus
 chmod 600 ~/.globus/*
 kdestroy
@@ -52,14 +52,16 @@ wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DAS2020/setup-libraries.ip
 Go back to your Jupyter browser (Home) page and open/run(double-click) the newly downloaded notebook  (setup-libraries.ipynb - downloaded just recently - only one cell to run). This will checkout the code and setup your environment for future use. After running setup-libraries.ipynb. After running setup-libraries.ipynb, choose "File... Close and Halt". Then you can continue on to the Tutorial section (below).
 
 
-Note: If you'd like to set this code up to be used without Jupyter, follow the directions below. This is not necessary for the HATS exercises.
+Note: If you'd like to set this code up to be used without Jupyter, follow the directions below. This is not necessary for the DAS or HATS exercises.
 <details>
 <summary>Standalone directions without Jupyter</summary>
   
   ```bash
-  cmsrel CMSSW_10_2_15
-  cd CMSSW_10_2_15/src
-  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2019
+  export SCRAM_ARCH=slc7_amd64_gcc700
+  cmsrel CMSSW_10_6_6
+  cd CMSSW_10_6_6/src
+  cmsenv
+  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2020
   git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X
   cd Analysis/JMEDAS
   scram b -j 4
@@ -69,7 +71,7 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
 </details>
   
 ### Tutorial
-Once you've completed the setup instructions, change to the directory `~/CMSSW_10_2_15/src/Analysis/JMEDAS`. Information on the separate tutorial can be found in the "notebooks" subdirectory.
+Once you've completed the setup instructions, change to the directory `~/CMSSW_10_6_6/src/Analysis/JMEDAS`. Information on the separate tutorial can be found in the "notebooks" subdirectory.
 
 ## Additional Information & Resources
 
