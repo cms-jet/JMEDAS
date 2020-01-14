@@ -49,7 +49,7 @@ Open up a terminal and run the following command from your home area:
 wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DAS2020/setup-libraries.ipynb
 ```
 
-Go back to your Jupyter browser (Home) page and open/run(double-click) the newly downloaded notebook  (setup-libraries.ipynb - downloaded just recently - only one cell to run). This will checkout the code and setup your environment for future use. After running setup-libraries.ipynb. After running setup-libraries.ipynb, choose "File... Close and Halt". Then you can continue on to the Tutorial section (below).
+Go back to your Jupyter browser (Home) page and open/run(double-click) the newly downloaded notebook  (setup-libraries.ipynb - downloaded just recently - only one cell to run). This will checkout the code and setup your environment for future use. After running setup-libraries.ipynb, choose "File... Close and Halt". Then you can continue on to the Tutorial section (below).
 
 
 Note: If you'd like to set this code up to be used without Jupyter, follow the directions below. This is not necessary for the DAS or HATS exercises.
