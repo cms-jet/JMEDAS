@@ -35,6 +35,12 @@ chmod 600 ~/.globus/*
 kdestroy
 ```
 
+Or, if you prefer to use lxplus, replace the `rsync` command with:
+
+```
+scp -r username@lxplus.cern.ch:.globus/ ~/.globus
+```
+
 #### Initialize Your Proxy at every Login!
 If you have a password on your grid certificate, you'll need to remember to execute the following in a terminal *each time you log in to Jupyter*. Similar to the LPC cluster, you will get a new host at each logon, and the new host won't have your old credentials.
 
@@ -46,6 +52,8 @@ voms-proxy-init -voms cms -valid 192:00
 #### Checkout the code
 Open up a terminal and run the following command from your home area:
 ```
+mkdir JMEHATS2020
+cd JMEHATS2020
 wget https://raw.githubusercontent.com/cms-jet/JMEDAS/HATS2020/setup-libraries.ipynb
 ```
 
