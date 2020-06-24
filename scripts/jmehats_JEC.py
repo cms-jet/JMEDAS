@@ -136,7 +136,7 @@ process.TFileService.fileName=cms.string(options.ofilename)
 
 process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(options.maxEvents))
 if options.doMiniAOD:
-	process.load("Analysis.JMEDAS.qcdflat_MINIAODSIM_v5_cff")
+	process.load("Analysis.JMEDAS.qcdflat_MINIAODSIM_v6_cff")
 else:
 	process.load("Analysis.JMEDAS.qcdflat_AODSIM_v5_cff")
 
@@ -151,14 +151,16 @@ jrr = cms.VPSet()
 jetsCollections = {
 	'AK4L1L2L3': 	{
 					'algo': 'ak4',
-					'pu_methods': ['','CHS','Puppi'], #Options: {Puppi,CHS,''}
-					'jec_payloads': ['AK4PF','AK4PFchs','AK4PFPuppi'], #Options: {AK4PFPuppi,AK4PFchs,AK4PF,AK8Calo,AK8JPT}
+#					'pu_methods': ['','CHS','Puppi'], #Options: {Puppi,CHS,''}
+#					'jec_payloads': ['AK4PF','AK4PFchs','AK4PFPuppi'], #Options: {AK4PFPuppi,AK4PFchs,AK4PF,AK8Calo,AK8JPT}
+					'pu_methods': ['CHS'], #Options: {Puppi,CHS,''}
+					'jec_payloads': ['AK4PFchs'], #Options: {AK4PFPuppi,AK4PFchs,AK4PF,AK8Calo,AK8JPT}
 					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'], #Options: {L1FastJet,L2Relative,L3Absolute,L2L3Residual,L5Flavor,L7Parton}
 					},
 	'AK8L1L2L3': 	{
 					'algo': 'ak8',
-					'pu_methods': ['','CHS','Puppi'], #Options: {Puppi,CHS,''}
-					'jec_payloads': ['AK8PF','AK8PFchs','AK8PFPuppi'], #Options: {AK8PFPuppi,AK8PFchs,AK8PF,AK8Calo,AK8JPT}
+					'pu_methods': ['Puppi'], #Options: {Puppi,CHS,''}
+					'jec_payloads': ['AK8PFPuppi'], #Options: {AK8PFPuppi,AK8PFchs,AK8PF,AK8Calo,AK8JPT}
 					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'], #Options: {L1FastJet,L2Relative,L3Absolute,L2L3Residual,L5Flavor,L7Parton}
 					},
 				  }
