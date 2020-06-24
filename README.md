@@ -67,7 +67,7 @@ Wherever you decide to place the code, run the following command:
 ```
 wget https://raw.githubusercontent.com/cms-jet/JMEDAS/HATS2020/setup-libraries.ipynb
 ```
-This will checkout the code to yout $HOME/Jets1HATS2020 folder and creat it, if not there, already.
+This will create, if not already there, a $HOME/Jets1HATS2020 folder and checkout the code there.
 
 Go back to your Jupyter browser (Home) page, navigate to wherever you downloaded the setup-libraries notebook (i.e. `Jets1HATS2020`), and open the newly downloaded notebook  (`setup-libraries.ipynb` - downloaded just recently - only one cell to run). This will checkout the code and setup your environment for future use. After running setup-libraries.ipynb, choose "File... Close and Halt". Then you can continue on to the Tutorial section (below).
 
