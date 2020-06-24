@@ -90,7 +90,7 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
 </details>
   
 ### Tutorial
-Once you've completed the setup instructions, change to the directory `~/Jets1HATS2020/CMSSW_10_6_13/src/Analysis/JMEDAS`. Information on the separate tutorials can be found in the "notebooks" subdirectory.
+Once you've completed the setup instructions, change to the directory `~/Jets1HATS2020/CMSSW_10_6_13/src/Analysis/JMEDAS`. Information on the separate tutorials can be found in the `notebooks/HATS` subdirectory.
 
 ### Notes for working on ACCRE
 
