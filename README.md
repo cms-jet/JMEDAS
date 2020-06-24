@@ -35,6 +35,12 @@ chmod 600 ~/.globus/*
 kdestroy
 ```
 
+Or, if you prefer to use lxplus, replace the `rsync` command with:
+
+```
+scp -r username@lxplus.cern.ch:.globus/ ~/.globus
+```
+
 #### Initialize Your Proxy at every Login!
 If you have a password on your grid certificate, you'll need to remember to execute the following in a terminal *each time you log in to Jupyter*. Similar to the LPC cluster, you will get a new host at each logon, and the new host won't have your old credentials.
 
@@ -46,7 +52,9 @@ voms-proxy-init -voms cms -valid 192:00
 #### Checkout the code
 Open up a terminal and run the following command from your home area:
 ```
-wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DAS2020/setup-libraries.ipynb
+mkdir JMEHATS2020
+cd JMEHATS2020
+wget https://raw.githubusercontent.com/cms-jet/JMEDAS/HATS2020/setup-libraries.ipynb
 ```
 
 Go back to your Jupyter browser (Home) page and open/run(double-click) the newly downloaded notebook  (setup-libraries.ipynb - downloaded just recently - only one cell to run). This will checkout the code and setup your environment for future use. After running setup-libraries.ipynb, choose "File... Close and Halt". Then you can continue on to the Tutorial section (below).
@@ -61,7 +69,7 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
   cmsrel CMSSW_10_6_6
   cd CMSSW_10_6_6/src
   cmsenv
-  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2020
+  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b HATS2020
   git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X
   cd Analysis/JMEDAS
   scram b -j 4
