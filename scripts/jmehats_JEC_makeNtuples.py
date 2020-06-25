@@ -24,7 +24,7 @@ def main(debug = False):
         else:
             child_filenames.append("JECNtuple.root")
 
-        command = "nohup cmsRun jmehats_JEC.py print " + cmd + " maxEvents=1000000 applyDBFile=1 doJetToolbox=1 era=Fall17_17Nov2017_V32_94X_MC jerfile=Fall17_V3_94X_MC"
+        command = "nohup cmsRun jmehats_JEC.py print " + cmd + " maxEvents=10000 applyDBFile=1 doJetToolbox=1 era=Fall17_17Nov2017_V32_94X_MC jerfile=Fall17_V3_94X_MC doReclustering=1"
         if debug:
             print "The current command is",command
         out=open(name+".log","w")
