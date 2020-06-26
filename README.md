@@ -59,8 +59,8 @@ voms-proxy-init -voms cms -valid 192:00
 #### Checkout the code
 Open up a new terminal. If you are worried about this exercise clashing with the other code you have on the ACCRE cluster, you can always make a new directory and place all of the code in there. For example:
 ```bash
-mkdir Jets1HATS2020
-cd Jets1HATS2020
+mkdir Jets2HATS2020
+cd Jets2HATS2020
 ```
 
 Wherever you decide to place the code, run the following command:
