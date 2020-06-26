@@ -65,7 +65,7 @@ cd Jets1HATS2020
 
 Wherever you decide to place the code, run the following command:
 ```
-wget https://raw.githubusercontent.com/cms-jet/JMEDAS/HATS2020/setup-libraries.ipynb
+wget -N https://raw.githubusercontent.com/cms-jet/JMEDAS/HATS2020/setup-libraries.ipynb
 ```
 This will create, if not already there, a $HOME/Jets1HATS2020 folder and checkout the code there.
 
