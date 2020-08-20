@@ -1,14 +1,65 @@
 # Jet CMS DAS Exercise
-(also used for the LPC HATS)
 
-## CMS DAS 2020
-<summary>Directions for CMS DAS 2020</summary>
-  
-### Introduction
+## Introduction
 This Hands on Tutorial Session (HATS) is intended to provide you with basic familiarity with jet energy corrections (JEC) as they relate to CMS. Pretty much all analyses which use jets will need to make use of JECs in some way. Additionally, analyes will probably use the systematic uncertainties for those corrections as well as the jet energy resolution (JER) scale factors and their uncertainties. A general description of the JEC and JER will be provided, as well as several example of how to apply these corrections/scale factors.
 
 More details about pileup and its removal from jets will be given as pileup presents a large issue for current and future analyses. There are several ways to mitigate the effects of pileup and this tutorial will cover the most common of those methods.
 
+## CMS DAS 2020 at CERN
+This tutorial uses Jupyer Notebooks as a browser-based development environment at [CERN-SWAN](https://swan.cern.ch). The content of these notebooks is the same as the one at the LPC, it is just a different set up.
+
+### Getting Started (Setup)
+
+Go to (https://swan.cern.ch)[https://swan.cern.ch] and log in with your CERN password. After that you need to configure your environment, please use these settings:
+
+<img src="images/SWAN_configenv.png" width="600px" />
+
+The most important configuration is the software stack, which has to be `97a Python2`. After that click on start the session.
+
+Once you are in `My Projects`, create a new project by clicking on the plus icon on the right part of `My Projects`. Enter the project name you like, for this example we will use `CMSDAS_jetExercise`.
+
+### Checkout the code
+Open up a terminal by clicking on the icon:
+
+<img src="images/SWAN_terminal.png" width="600px" />
+
+Once there, you are in your cernbox home area, and you can follow these steps:
+
+```
+cd SWAN_projects/CMSDAS_jetExercise/
+wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DAS2020/setup-libraries_SWAN.sh
+source setup-libraries_SWAN.sh 
+```
+This will take a while, but basically you are setting your CMSSW environment, cloning some packages, and creating the kernel used in this exercises. If the compilation is succesful, you should see something similar to this at the end of the messages:
+```
+Loaded CMSSW_10_6_6 into hats-jec!
+```
+
+Note: If you'd like to set this code up to be used without Jupyter, follow the directions below. This is not necessary for the DAS or HATS exercises.
+
+<details>
+<summary>Standalone directions without Jupyter</summary>
+  
+  ```bash
+  export SCRAM_ARCH=slc7_amd64_gcc700
+  cmsrel CMSSW_10_6_6
+  cd CMSSW_10_6_6/src
+  cmsenv
+  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2020
+  git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
+  cd Analysis/JMEDAS
+  scram b -j 4
+  cd test
+  voms-proxy-init
+  ```
+</details>
+
+
+
+## CMS DAS 2020 at the LPC
+<summary>Directions for CMS DAS 2020</summary>
+(also used for the LPC HATS)
+  
 ### Getting Started (Setup)
 This tutorial uses Jupyter Notebooks as a browser-based development environment at Vanderbilt. These Jupyter-based tutorials use a pre-configured Jupyter service usable by all CMS members.
 
@@ -62,7 +113,7 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
   cd CMSSW_10_6_6/src
   cmsenv
   git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2020
-  git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X
+  git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
   cd Analysis/JMEDAS
   scram b -j 4
   cd test
