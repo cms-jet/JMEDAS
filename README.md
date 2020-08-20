@@ -10,9 +10,9 @@ This tutorial uses Jupyer Notebooks as a browser-based development environment a
 
 ### Getting Started (Setup)
 
-Go to (https://swan.cern.ch)[https://swan.cern.ch] and log in with your CERN password. After that you need to configure your environment, please use these settings:
+Go to [https://swan.cern.ch] and log in with your CERN password. After that you need to configure your environment, please use these settings:
 
-<img src="images/SWAN_configenv.png" width="600px" />
+<img src="images/SWAN_configenv.png" width="400px" />
 
 The most important configuration is the software stack, which has to be `97a Python2`. After that click on start the session.
 
@@ -54,6 +54,27 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
   ```
 </details>
 
+
+### Grid certificate
+
+To access data stored remotely in different places, you need to set your grid certificate. SWAN still does not have a simple way of setting this certificate internally, but we can use a workaround. Log in to lxplus a set your certificate there as:
+```bash
+voms-proxy-init -voms cms -valid 192:00
+```
+Your certificate is located in something `/tmp/x509up_u0000`. Copy it to your cernbox area as:
+```bash
+cp /tmp/x509up_u0000 /eos/home-X/Y/    ### where X is the first letter of your cern user id, and Y is your cern user id.
+```
+Now you are ready to use your certificate in jupyter notebooks in SWAN. For this, in each notebook you need to run the cell with something similar than this:
+```python
+import os
+os.environ['X509_USER_PROXY'] = '/eos/home-X/Y/x509up_u0000'  ### remember to change this line with what you did above
+if os.path.isfile(os.environ['X509_USER_PROXY']): pass
+else: print("os.environ['X509_USER_PROXY'] ",os.environ['X509_USER_PROXY'])
+os.environ['X509_CERT_DIR'] = '/cvmfs/cms.cern.ch/grid/etc/grid-security/certificates'
+os.environ['X509_VOMS_DIR'] = '/cvmfs/cms.cern.ch/grid/etc/grid-security/vomsdir'
+```
+_REMEMBER_ to do this every day that you will try to access remote files in SWAN.
 
 
 ## CMS DAS 2020 at the LPC
@@ -121,7 +142,7 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
   ```
 </details>
   
-### Tutorial
+## Tutorial
 Once you've completed the setup instructions, change to the directory `~/CMSSW_10_6_6/src/Analysis/JMEDAS`. Information on the separate tutorial can be found in the "notebooks" subdirectory.
 
 ## Additional Information & Resources
