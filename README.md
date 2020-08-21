@@ -5,8 +5,31 @@ This Hands on Tutorial Session (HATS) is intended to provide you with basic fami
 
 More details about pileup and its removal from jets will be given as pileup presents a large issue for current and future analyses. There are several ways to mitigate the effects of pileup and this tutorial will cover the most common of those methods.
 
-## CMS DAS 2020 at CERN
-This tutorial uses Jupyer Notebooks as a browser-based development environment at [CERN-SWAN](https://swan.cern.ch). The content of these notebooks is the same as the one at the LPC, it is just a different set up.
+# CMS DAS 2020 at CERN
+
+We recommend two ways of following these tutorial: in lxplus or in SWAN. You do not need to follow both recipes below, use the one that you like the most.
+
+## Run exercises in lxplus
+
+If you Logging to lxplus and create a directory where your exercises are going to run. Then, do:
+
+```bash
+export SCRAM_ARCH=slc7_amd64_gcc700
+cmsrel CMSSW_10_6_6
+cd CMSSW_10_6_6/src
+cmsenv
+git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2020
+git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
+cd Analysis/JMEDAS
+scram b -j 4
+cd test
+```
+
+Now you are ready to continue with the exercises. Additionally, see the instructions on how to set your grid-certificate below.
+
+## Run exercises in SWAN 
+
+This version of the same tutorial uses Jupyer Notebooks as a browser-based development environment at [CERN-SWAN](https://swan.cern.ch). The content of these notebooks is the same as the one in lxplus, it is just a different set up.
 
 ### Getting Started (Setup)
 
@@ -35,33 +58,16 @@ This will take a while, but basically you are setting your CMSSW environment, cl
 Loaded CMSSW_10_6_6 into hats-jec!
 ```
 
-Note: If you'd like to set this code up to be used without Jupyter, follow the directions below. This is not necessary for the DAS or HATS exercises.
 
-<details>
-<summary>Standalone directions without Jupyter</summary>
-  
-  ```bash
-  export SCRAM_ARCH=slc7_amd64_gcc700
-  cmsrel CMSSW_10_6_6
-  cd CMSSW_10_6_6/src
-  cmsenv
-  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2020
-  git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
-  cd Analysis/JMEDAS
-  scram b -j 4
-  cd test
-  voms-proxy-init
-  ```
-</details>
+## Grid certificate
 
+To access data stored remotely in different places, you need to set your grid certificate. 
 
-### Grid certificate
-
-To access data stored remotely in different places, you need to set your grid certificate. SWAN still does not have a simple way of setting this certificate internally, but we can use a workaround. Log in to lxplus a set your certificate there as:
+ * *For lxplus*, you only need to runi (every time that you log in):
 ```bash
 voms-proxy-init -voms cms -valid 192:00
 ```
-Your certificate is located in something `/tmp/x509up_u0000`. Copy it to your cernbox area as:
+ * *SWAN* still does not have a simple way of setting this certificate internally, but we can use a workaround. First, follow the instructions for the grid certificate in lxplus. Your certificate is located in something `/tmp/x509up_u0000`. Copy it to your cernbox area as:
 ```bash
 cp /tmp/x509up_u0000 /eos/home-X/Y/    ### where X is the first letter of your cern user id, and Y is your cern user id.
 ```
@@ -76,72 +82,6 @@ os.environ['X509_VOMS_DIR'] = '/cvmfs/cms.cern.ch/grid/etc/grid-security/vomsdir
 ```
 _REMEMBER_ to do this every day that you will try to access remote files in SWAN.
 
-
-## CMS DAS 2020 at the LPC
-<summary>Directions for CMS DAS 2020</summary>
-(also used for the LPC HATS)
-  
-### Getting Started (Setup)
-This tutorial uses Jupyter Notebooks as a browser-based development environment at Vanderbilt. These Jupyter-based tutorials use a pre-configured Jupyter service usable by all CMS members.
-
-#### Connect to Jupyter 
-To log in, access the [login](https://jupyter.accre.vanderbilt.edu/) page and login using your CERN credentials. Once you successfully connect, you should see the following front page
-
-<img src="jupyter-login.png" width="600px" />
-
-The two most important buttons are
-  * The `new` button, which lets you open a terminal or start a new Jupyter notebook.
-  * The `control panel` button, which lets you shut down your notebook once you're done. It's helpful to do this to free up resources for other users.
-
-#### Upload Grid Certificates
-We will copy your grid certificates from the LPC cluster, to do this, open the front page (shown above), and click the `New` box at the top right, then the `Terminal` option.
-
-This will open a new tab with a bash terminal. Execute the following commands (following the appropriate prompts) to copy your certificate from the LPC to Jupyter (**note**: replace `username` with your `FNAL` username!)
-
-The following command will prompt you for your FNAL password
-```bash
-kinit username@FNAL.GOV
-rsync -rLv username@cmslpc-sl7.fnal.gov:.globus/ ~/.globus/
-chmod 755 ~/.globus
-chmod 600 ~/.globus/*
-kdestroy
-```
-
-#### Initialize Your Proxy at every Login!
-If you have a password on your grid certificate, you'll need to remember to execute the following in a terminal *each time you log in to Jupyter*. Similar to the LPC cluster, you will get a new host at each logon, and the new host won't have your old credentials.
-
-Each time you log in, open a terminal and execute:
-```bash
-voms-proxy-init -voms cms -valid 192:00
-```
-
-#### Checkout the code
-Open up a terminal and run the following command from your home area:
-```
-wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DAS2020/setup-libraries.ipynb
-```
-
-Go back to your Jupyter browser (Home) page and open/run(double-click) the newly downloaded notebook  (setup-libraries.ipynb - downloaded just recently - only one cell to run). This will checkout the code and setup your environment for future use. After running setup-libraries.ipynb, choose "File... Close and Halt". Then you can continue on to the Tutorial section (below).
-
-
-Note: If you'd like to set this code up to be used without Jupyter, follow the directions below. This is not necessary for the DAS or HATS exercises.
-<details>
-<summary>Standalone directions without Jupyter</summary>
-  
-  ```bash
-  export SCRAM_ARCH=slc7_amd64_gcc700
-  cmsrel CMSSW_10_6_6
-  cd CMSSW_10_6_6/src
-  cmsenv
-  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2020
-  git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
-  cd Analysis/JMEDAS
-  scram b -j 4
-  cd test
-  voms-proxy-init
-  ```
-</details>
-  
 ## Tutorial
 Once you've completed the setup instructions, change to the directory `~/CMSSW_10_6_6/src/Analysis/JMEDAS`. Information on the separate tutorial can be found in the "notebooks" subdirectory.
 
