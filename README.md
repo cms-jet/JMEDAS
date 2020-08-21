@@ -1,13 +1,11 @@
-# Jet CMS HATS Exercise
-(also used for the LPC CMS DAS)
+# Jet CMS DAS Exercise
+(also used for the LPC HATS)
 
-## LPC HATS 2020
-<summary>Directions for HATS June 2020</summary>
+## CMS DAS (virtual edition) September 2020
+<summary>Directions for DAS September 2020</summary>
   
 ### Introduction
-This Hands on Advanced Tutorial Session (HATS) is intended to provide you with basic familiarity with jet energy corrections (JEC) as they relate to CMS. Pretty much all analyses which use jets will need to make use of JECs in some way. Additionally, analyses will probably use the systematic uncertainties for those corrections as well as the jet energy resolution (JER) scale factors and their uncertainties. A general description of the JEC and JER will be provided, as well as several example of how to apply these corrections/scale factors.
-
-More details about pileup and its removal from jets will be given as pileup presents a large issue for current and future analyses. There are several ways to mitigate the effects of pileup and this tutorial will cover the most common of those methods.
+This tutorial is intended to provide you with the basic you need in order to deal with jets in your analysis. We start with the basics of what is a jet, how are they reconstructed, what algorithms are used, etc. Then we give examples with scripts on how to access jets and use them in your analysis frameworks, including corrections and systematics. In the second part of the exercise, we examine jet substructure algorithms, which have many uses including identification of hadronic decays of heavy SM particles like top quarks, W, Z, and H bosons, as well as mitigation of pileup and others.
 
 ### Getting Started (Setup)
 This tutorial uses Jupyter Notebooks as a browser-based development environment at Vanderbilt. These Jupyter-based tutorials use a pre-configured Jupyter service usable by all CMS members.
@@ -59,17 +57,17 @@ voms-proxy-init -voms cms -valid 192:00
 #### Checkout the code
 Open up a new terminal. If you are worried about this exercise clashing with the other code you have on the ACCRE cluster, you can always make a new directory and place all of the code in there. For example:
 ```bash
-mkdir Jets2HATS2020
-cd Jets2HATS2020
+mkdir JetsDASSep2020
+cd JetsDASSep2020
 ```
 
 Wherever you decide to place the code, run the following command:
 ```
-wget -N https://raw.githubusercontent.com/cms-jet/JMEDAS/HATS2020/setup-libraries.ipynb
+wget -N https://raw.githubusercontent.com/cms-jet/JMEDAS/DASSep2020/setup-libraries.ipynb
 ```
-This will create, if not already there, a $HOME/Jets1HATS2020 folder and checkout the code there.
+This will create, if not already there, a $HOME/JetsDASSep2020 folder and checkout the code there.
 
-Go back to your Jupyter browser (Home) page, navigate to wherever you downloaded the setup-libraries notebook (i.e. `Jets1HATS2020`), and open the newly downloaded notebook  (`setup-libraries.ipynb` - downloaded just recently - only one cell to run). This will checkout the code and setup your environment for future use. After running setup-libraries.ipynb, choose "File... Close and Halt". Then you can continue on to the Tutorial section (below).
+Go back to your Jupyter browser (Home) page, navigate to wherever you downloaded the setup-libraries notebook (i.e. `JetsDASSep2020`), and open the newly downloaded notebook  (`setup-libraries.ipynb` - downloaded just recently - only one cell to run). This will checkout the code and setup your environment for future use. After running setup-libraries.ipynb, choose "File... Close and Halt". Then you can continue on to the Tutorial section (below).
 
 Note: If you'd like to set this code up to be used without Jupyter, follow the directions below. This is not necessary for the DAS or HATS exercises.
 <details>
@@ -80,7 +78,7 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
   cmsrel CMSSW_10_6_13
   cd CMSSW_10_6_13/src
   cmsenv
-  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b HATS2020
+  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASSep2020
   git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X
   cd Analysis/JMEDAS
   scram b -j 4
@@ -90,7 +88,7 @@ Note: If you'd like to set this code up to be used without Jupyter, follow the d
 </details>
   
 ### Tutorial
-Once you've completed the setup instructions, change to the directory `~/Jets1HATS2020/CMSSW_10_6_13/src/Analysis/JMEDAS`. Information on the separate tutorials can be found in the `notebooks/HATS` subdirectory.
+Once you've completed the setup instructions, change to the directory `~/JetsDASSep2020/CMSSW_10_6_13/src/Analysis/JMEDAS`. Information on the separate tutorials can be found in the `notebooks/HATS` subdirectory.
 
 ### Notes for working on ACCRE
 
@@ -101,7 +99,7 @@ Once you've completed the setup instructions, change to the directory `~/Jets1HA
 
 #### If someone updates the notebooks after I've cloned the repository, how do I get they updates?
 
-In this case you will want to open a terminal, just as you did when you first cloned the repository. Move (`cd`) to the repository directory if not already there. Then do `git pull origin HATS2020`. This will pull the latest changes from GitHub. If you've already made edits to a notebook which will be updated, those changes will be conflict. You may want to stash those changes or copy your notebook.
+In this case you will want to open a terminal, just as you did when you first cloned the repository. Move (`cd`) to the repository directory if not already there. Then do `git pull origin DASSep2020`. This will pull the latest changes from GitHub. If you've already made edits to a notebook which will be updated, those changes will be conflict. You may want to stash those changes or copy your notebook.
 
 #### I want to follow along on the LPC rather than ACCRE.
 
@@ -111,7 +109,7 @@ ssh -L localhost:8888:localhost:8888 <username>@cmslpc-sl7.fnal.gov
 ```
 Replace `<username>` with your LPC username. You will need to have a CMSSW environment already setup as the LPC does not have Jupyter installed by default. You can use any CMSSW release. Then `cd` to the directory of your choice where you will clone the `setuo-libraries` notebook as before:
 ```bash
-wget https://raw.githubusercontent.com/cms-jet/JMEDAS/HATS2020/setup-libraries.ipynb
+wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DASSep2020/setup-libraries.ipynb
 ```
 Open Jupyter:
 ```bash
