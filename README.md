@@ -56,7 +56,7 @@ This will take a while, but basically you are setting your CMSSW environment, cl
 ```
 Loaded CMSSW_10_6_6 into hats-jec!
 ```
-After this you can go to [`~/CMSDAS_jetExercise/CMSSW_10_6_6/src/Analysis/JMEDAS/notebooks/`](notebooks/) and continue with the tutorial. Additionally you need to follow the instructions below to set your grid certificate.
+After this you can go to [`~/CMSDAS_jetExercise/CMSSW_10_6_6/src/Analysis/JMEDAS/notebooks/DAS/`](notebooks/DAS/) and continue with the tutorial. Additionally you need to follow the instructions below to set your grid certificate.
 
 
 ## Grid certificate
