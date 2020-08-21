@@ -150,7 +150,7 @@ export PYTHONPATH=$PYTHON27PATH
 export EOS_MGM_URL=root://eostotem.cern.ch
 
 git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2020
-git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v1
+git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
 scramv1 b -j 2
 cd ..
 
