@@ -17,7 +17,7 @@ export SCRAM_ARCH=slc7_amd64_gcc700
 cmsrel CMSSW_10_6_6
 cd CMSSW_10_6_6/src
 cmsenv
-git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2020
+git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASSep2020
 git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
 cd Analysis/JMEDAS
 scram b -j 4
@@ -49,7 +49,7 @@ Once there, you are in your cernbox home area, and you can follow these steps:
 
 ```
 cd SWAN_projects/CMSDAS_jetExercise/
-wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DAS2020/setup-libraries_SWAN.sh
+wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DASSep2020/setup-libraries_SWAN.sh
 source setup-libraries_SWAN.sh 
 ```
 This will take a while, but basically you are setting your CMSSW environment, cloning some packages, and creating the kernel used in this exercises. If the compilation is succesful, you should see something similar to this at the end of the messages:

@@ -149,7 +149,7 @@ export PYTHONHOME=/cvmfs/cms.cern.ch/slc7_amd64_gcc820/external/python/2.7.15-pa
 export PYTHONPATH=$PYTHON27PATH
 export EOS_MGM_URL=root://eostotem.cern.ch
 
-git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2020
+git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASSep2020
 git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
 scramv1 b -j 2
 cd ..
