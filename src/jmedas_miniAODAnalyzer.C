@@ -1,5 +1,6 @@
 // system include files
 #include <memory>
+#include <vector>
 
 // user include files
 #include "FWCore/Framework/interface/Frameworkfwd.h"
@@ -17,6 +18,7 @@
 //
 // class declaration
 //
+using namespace std;
 
 class MiniAnalyzer : public edm::EDAnalyzer {
    public:
@@ -27,16 +29,16 @@ class MiniAnalyzer : public edm::EDAnalyzer {
       virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
 
       // ----------member data ---------------------------
-      edm::EDGetTokenT vtxToken_;
-      edm::EDGetTokenT jetToken_;
-      edm::EDGetTokenT fatjetToken_;
+      edm::EDGetTokenT<vector<reco::Vertex>> vtxToken_;
+      edm::EDGetTokenT<pat::JetCollection> jetToken_;
+      edm::EDGetTokenT<pat::JetCollection> fatjetToken_;
 
 };
 
 MiniAnalyzer::MiniAnalyzer(const edm::ParameterSet& iConfig):
-    vtxToken_(consumes(iConfig.getParameter("vertices"))),
-    jetToken_(consumes(iConfig.getParameter("jets"))),
-    fatjetToken_(consumes(iConfig.getParameter("fatjets"))),
+    vtxToken_(consumes<vector<reco::Vertex>>(iConfig.getParameter<edm::InputTag>("vertices"))),
+    jetToken_(consumes<pat::JetCollection>(iConfig.getParameter<edm::InputTag>("jets"))),
+    fatjetToken_(consumes<pat::JetCollection>(iConfig.getParameter<edm::InputTag>("fatjets")))
 {
 }
 
@@ -48,12 +50,12 @@ void
 MiniAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 
-    edm::Handle vertices;
+    edm::Handle<vector<reco::Vertex>> vertices;
     iEvent.getByToken(vtxToken_, vertices);
     if (vertices->empty()) return; // skip the event if no PV found
     const reco::Vertex &PV = vertices->front();
 
-    edm::Handle jets;
+    edm::Handle<pat::JetCollection> jets;
     iEvent.getByToken(jetToken_, jets);
     int ijet = 0;
     for (const pat::Jet &j : *jets) {
@@ -70,7 +72,7 @@ MiniAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
         }
     }
 
-    edm::Handle fatjets;
+    edm::Handle<pat::JetCollection> fatjets;
     iEvent.getByToken(fatjetToken_, fatjets);
     for (const pat::Jet &j : *fatjets) {
         printf("AK8j with pt %5.1f (raw pt %5.1f), eta %+4.2f, mass %5.1f ungroomed, %5.1f softdrop, %5.1f pruned CHS\n",
@@ -81,7 +83,7 @@ MiniAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
         // the Soft Drop SUBJETS, which will then point to their daughters.
         // The remaining constituents are those constituents removed by soft drop but
         // still in the AK8 jet.
-   std::vector constituents;
+        std::vector<reco::Candidate const *> constituents;
         for ( unsigned ida = 0; ida < j.numberOfDaughters(); ++ida ) {
      reco::Candidate const * cand = j.daughter(ida);
      if ( cand->numberOfDaughters() == 0 )

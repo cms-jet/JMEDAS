@@ -13,6 +13,7 @@ process.source = cms.Source("PoolSource",
                             )
 
 process.demo = cms.EDAnalyzer("MiniAnalyzer",
+                                  vertices = cms.InputTag("offlineSlimmedPrimaryVertices"),
                                   jets = cms.InputTag("slimmedJets"),
                                   fatjets = cms.InputTag("slimmedJetsAK8")
                               )
