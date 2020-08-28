@@ -8,15 +8,15 @@ set -e
 SCRAM_ARCH=$(ls -d /cvmfs/cms.cern.ch/$(/cvmfs/cms.cern.ch/common/cmsos)*/cms/cmssw/${CMSSW_VER} | tail -n 1 | awk -F / '{ print $4 }')
 export SCRAM_ARCH
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-#if [ -d $CMSSW_VER ]; then
-#    rm -rf $CMSSW_VER
-#fi
-##cd $HOME
-#scramv1 project CMSSW $CMSSW_VER
-#
-#cd $CMSSW_VER/src
-#eval `scramv1 runtime -sh`
-#scram b
+if [ -d $CMSSW_VER ]; then
+    rm -rf $CMSSW_VER
+fi
+#cd $HOME
+scramv1 project CMSSW $CMSSW_VER
+
+cd $CMSSW_VER/src
+eval `scramv1 runtime -sh`
+scram b
 
 export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_10_6_6/biglib/slc7_amd64_gcc820:\
 /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_10_6_6/lib/slc7_amd64_gcc820:\
@@ -149,8 +149,8 @@ export PYTHONHOME=/cvmfs/cms.cern.ch/slc7_amd64_gcc820/external/python/2.7.15-pa
 export PYTHONPATH=$PYTHON27PATH
 export EOS_MGM_URL=root://eostotem.cern.ch
 
-#git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASSep2020
-#git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
+git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASSep2020
+git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
 scramv1 b -j 2
 cd ..
 
@@ -182,6 +182,8 @@ cat << EOF > "$HOME/.local/share/jupyter/kernels/$KERNEL_NAME/kernel.json"
 }
 EOF
 
+cd ..
+ln -s $CMSSW_BASE/src/Analysis/JMEDAS/notebooks/DAS/
 
 # Report OK
 echo "Loaded $CMSSW_VERSION into $KERNEL_NAME!"
