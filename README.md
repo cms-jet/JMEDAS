@@ -56,22 +56,24 @@ This will take a while, but basically you are setting your CMSSW environment, cl
 ```
 Loaded CMSSW_10_6_6 into hats-jec!
 ```
-After this you can go to [`~/CMSDAS_jetExercise/CMSSW_10_6_6/src/Analysis/JMEDAS/notebooks/DAS/`](notebooks/DAS/) and continue with the tutorial. Additionally you need to follow the instructions below to set your grid certificate.
+After this you can go to [`~/CMSDAS_jetExercise/DAS/`](notebooks/DAS/) and continue with the tutorial. The previous steps you have to _do it once_. Additionally, two important things:
+ * You need to follow the instructions below to set your grid certificate. 
+ * If you try to access any of the notebooks any other day, it will require you to confirm the kernel. For that please select the `hats-jec` option.
 
 
 ## Grid certificate
 
 To access data stored remotely in different places, you need to set your grid certificate. 
 
- * *For lxplus*, you only need to runi (every time that you log in):
+ * *For lxplus*, you only need to run (every time that you log in):
 ```bash
 voms-proxy-init -voms cms -valid 192:00
 ```
- * *SWAN* still does not have a simple way of setting this certificate internally, but we can use a workaround. First, follow the instructions for the grid certificate in lxplus. Your certificate is located in something `/tmp/x509up_u0000`. Copy it to your cernbox area as:
+ * *SWAN* still does not have a simple way of setting this certificate internally, but we can use a workaround. First, follow the instructions for the grid certificate in lxplus in earlier parts of this school. Once your certificates are properly installed, you can activate the certificate with the command above. So open a "normal" connection to lxplus from your computer (NOT from the SWAN command line), execute `voms-proxy-init -voms cms -valid 192:00` and look at the prints. Your certificate is located in a file with a name like this: `/tmp/x509up_u0000` (with some other numbers instead of 0000). Copy it to your cernbox area like this:
 ```bash
 cp /tmp/x509up_u0000 /eos/home-X/Y/    ### where X is the first letter of your cern user id, and Y is your cern user id.
 ```
-Now you are ready to use your certificate in jupyter notebooks in SWAN. For this, in each notebook you need to run the cell with something similar than this:
+Now you are ready to activate your certificate in jupyter notebooks in SWAN by first changing the second line of the cell with the location of your certificate file, and then running (i.e. clicking 'play' in) a cell that looks like this:
 ```python
 import os
 os.environ['X509_USER_PROXY'] = '/eos/home-X/Y/x509up_u0000'  ### remember to change this line with what you did above
@@ -80,6 +82,7 @@ else: print("os.environ['X509_USER_PROXY'] ",os.environ['X509_USER_PROXY'])
 os.environ['X509_CERT_DIR'] = '/cvmfs/cms.cern.ch/grid/etc/grid-security/certificates'
 os.environ['X509_VOMS_DIR'] = '/cvmfs/cms.cern.ch/grid/etc/grid-security/vomsdir'
 ```
+The cell should be present in every exercise where you need the authentication.
 _REMEMBER_ to do this every day that you will try to access remote files in SWAN.
 
 ## Tutorial

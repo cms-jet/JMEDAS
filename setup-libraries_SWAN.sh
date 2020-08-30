@@ -182,6 +182,8 @@ cat << EOF > "$HOME/.local/share/jupyter/kernels/$KERNEL_NAME/kernel.json"
 }
 EOF
 
+cd ..
+ln -s $CMSSW_BASE/src/Analysis/JMEDAS/notebooks/DAS/
 
 # Report OK
 echo "Loaded $CMSSW_VERSION into $KERNEL_NAME!"
