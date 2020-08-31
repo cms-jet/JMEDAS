@@ -86,7 +86,7 @@ The cell should be present in every exercise where you need the authentication.
 _REMEMBER_ to do this every day that you will try to access remote files in SWAN.
 
 ## Tutorial
-Once you've completed the setup instructions, change to the directory `~/CMSSW_10_6_6/src/Analysis/JMEDAS`. Information on the separate tutorial can be found in the "notebooks" subdirectory.
+Once you've completed the setup instructions, change to the directory `~/SWAN_projects/CMSDAS_jetExercise/DAS/` in SWAN. Information on the separate tutorial can be found in the "notebooks" subdirectory.
 
 ## Additional Information & Resources
 
