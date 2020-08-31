@@ -76,9 +76,11 @@ cp /tmp/x509up_u0000 /eos/home-X/Y/    ### where X is the first letter of your c
 Now you are ready to activate your certificate in jupyter notebooks in SWAN by first changing the second line of the cell with the location of your certificate file, and then running (i.e. clicking 'play' in) a cell that looks like this:
 ```python
 import os
-os.environ['X509_USER_PROXY'] = '/eos/home-X/Y/x509up_u0000'  ### remember to change this line with what you did above
-if os.path.isfile(os.environ['X509_USER_PROXY']): pass
-else: print("os.environ['X509_USER_PROXY'] ",os.environ['X509_USER_PROXY'])
+os.environ['X509_USER_PROXY'] = '{}/x509up_00000'.format(os.environ["HOME"])   ### remember to change this line with what you did above
+if os.path.isfile(os.environ['X509_USER_PROXY']):
+    print("Found proxy at {}".format(os.environ['X509_USER_PROXY']))
+else:
+    print("Failed to find proxy at {}".format(os.environ['X509_USER_PROXY']))
 os.environ['X509_CERT_DIR'] = '/cvmfs/cms.cern.ch/grid/etc/grid-security/certificates'
 os.environ['X509_VOMS_DIR'] = '/cvmfs/cms.cern.ch/grid/etc/grid-security/vomsdir'
 ```
