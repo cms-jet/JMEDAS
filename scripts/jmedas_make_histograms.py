@@ -88,9 +88,9 @@ parser.add_argument('--maxAK4Rapidity', type=float,
                   dest='maxAK4Rapidity',
                   help='Maximum AK4 rapidity')
 
-
 parser.add_argument('--xrootd', type=str,
-                  default='cmsxrootd.fnal.gov',
+                  #default='cmsxrootd.fnal.gov',
+                  default = "xrootd-cms.infn.it",
                   dest='xrootd',
                   help='xrootd redirect string')
 
@@ -335,7 +335,7 @@ def getJER(jetEta, sysType) :
 # IMPORTANT : Run one FWLite instance per file. Otherwise,
 # FWLite aggregates ALL of the information immediately, which
 # can take a long time to parse. 
-filelist = file( args.files )
+filelist = file(args.files)
 filesraw = filelist.readlines()
 files = []
 nevents = 0
@@ -353,10 +353,10 @@ for i, ifile in enumerate(filesraw):
 
 # loop over files
 for ifile in files :
-    print 'Processing file ' + ifile
-    events = Events (ifile)
     if args.maxevents > 0 and nevents > args.maxevents :
         break
+    print 'Processing file ' + ifile
+    events = Events(ifile)
 
     # loop over events in this file
     i = 0
