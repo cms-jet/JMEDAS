@@ -172,14 +172,14 @@ if args.correctJets:
 if args.matchPdgIdAK4:
     doMatchingAK4 = True
     matchAK4PdgId = int(args.matchPdgIdAK4[0])
-    matchAK4DR = int(args.matchPdgIdAK4[1])
+    matchAK4DR = float(args.matchPdgIdAK4[1])
 else:
     doMatchingAK4 = False
 
 if args.matchPdgIdAK8:
     doMatchingAK8 = True
     matchAK8PdgId = int(args.matchPdgIdAK8[0])
-    matchAK8DR = int(args.matchPdgIdAK8[1])
+    matchAK8DR = float(args.matchPdgIdAK8[1])
 else:
     doMatchingAK8 = False
 
