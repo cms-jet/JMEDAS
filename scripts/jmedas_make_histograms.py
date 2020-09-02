@@ -445,10 +445,10 @@ for ifile in files :
                 matched = False
                 for genPart in genPartsAK4:
                     if math.sqrt(
-                        math.acos(math.cos(genPart.phi() - jet.phi()))**2 
-                        + (genPart.eta() - jet.eta())**2) < matchAK4DR:
-                    matched = True
-                    break
+                            math.acos(math.cos(genPart.phi() - jet.phi()))**2 
+                            + (genPart.eta() - jet.eta())**2) < matchAK4DR:
+                        matched = True
+                        break
                 if not matched:
                     continue
 
@@ -593,10 +593,10 @@ for ifile in files :
                 matched = False
                 for genPart in genPartsAK8:
                     if math.sqrt(
-                        math.acos(math.cos(genPart.phi() - jet.phi()))**2 
-                        + (genPart.eta() - jet.eta())**2) < matchAK8DR:
-                    matched = True
-                    break
+                            math.acos(math.cos(genPart.phi() - jet.phi()))**2 
+                            + (genPart.eta() - jet.eta())**2) < matchAK8DR:
+                        matched = True
+                        break
                 if not matched:
                     continue
 
