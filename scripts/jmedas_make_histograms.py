@@ -94,6 +94,14 @@ parser.add_argument('--xrootd', type=str,
                   dest='xrootd',
                   help='xrootd redirect string')
 
+parser.add_argument('--matchPdgIdAK4', type=str, nargs=2,
+                  dest='matchPdgIdAK4',
+                  help='Perform truth matching of AK4 jets (specify PDG ID and DeltaR)')
+
+parser.add_argument('--matchPdgIdAK8', type=str, nargs=2,
+                  dest='matchPdgIdAK8',
+                  help='Perform truth matching of AK8 jets (specify PDG ID and DeltaR)')
+
 
 args = parser.parse_args()
 
@@ -117,7 +125,6 @@ rhoLabel = ("fixedGridRhoAll")
 
 pvHandle = Handle("std::vector<reco::Vertex>")
 pvLabel = ("offlineSlimmedPrimaryVertices")
-
 
 if args.smearJets and args.isData:
     print 'Misconfiguration. I cannot access generator-level jets on data. Not smearing jets.'
@@ -159,6 +166,23 @@ if args.correctJets:
 
         jecUncAK8 = ROOT.JetCorrectionUncertainty( os.path.expandvars('$CMSSW_BASE/src/Analysis/JMEDAS/data/JECs/{}/{}_Uncertainty_AK8PFchs.txt'.format(args.correctJets, args.correctJets) ))
 
+if args.matchPdgIdAK4:
+    doMatchingAK4 = True
+    matchAK4PdgId = int(args.matchPdgIdAK4[0])
+    matchAK4DR = int(args.matchPdgIdAK4[1])
+else:
+    doMatchingAK4 = False
+
+if args.matchPdgIdAK8:
+    doMatchingAK8 = True
+    matchAK8PdgId = int(args.matchPdgIdAK8[0])
+    matchAK8DR = int(args.matchPdgIdAK8[1])
+else:
+    doMatchingAK8 = False
+
+if doMatchingAK4 or doMatchingAK8:
+    genParticlesHandle = Handle("std::vector<reco::GenParticle>")
+    genParticlesLabel = ("prunedGenParticles")
 
 ##   ___ ___ .__          __                                             
 ##  /   |   \|__| _______/  |_  ____   ________________    _____   ______
@@ -384,6 +408,22 @@ for ifile in files :
         rhoValue = rhoHandle.product()
         pvs = pvHandle.product()
         #print rhoValue[0]
+        
+        if doMatchingAK4 or doMatchingAK8:
+            event.getByLabel(genParticlesLabel, genParticlesHandle)
+            genParticles = genParticlesHandle.product()
+
+            if doMatchingAK4:
+                genPartsAK4 = []
+                for genParticle in genParticles:
+                    if genParticle.pdgId() == matchAK4PdgId:
+                        genPartsAK4.append(genParticle)
+
+            if doMatchingAK8:
+                genPartsAK8 = []
+                for genParticle in genParticles:
+                    if genParticle.pdgId() == matchAK8PdgId:
+                        genPartsAK8.append(genParticle)
 
 
         if args.verbose :
@@ -397,6 +437,18 @@ for ifile in files :
         for jet in jets0 :
             if ijet >= args.maxjets :
                 break
+
+            if doMatchingAK4:
+                matched = False
+                for genPart in genPartsAK4:
+                    if math.sqrt(
+                        math.acos(math.cos(genPart.phi() - jet.phi()))**2 
+                        + (genPart.eta() - jet.eta())**2) < matchAK4DR:
+                    matched = True
+                    break
+                if not matched:
+                    continue
+
             if jet.pt() > args.minAK4Pt and abs(jet.rapidity()) < args.maxAK4Rapidity :
                 
                 
@@ -533,6 +585,18 @@ for ifile in files :
         for jet in jets1 :
             if ijet >= args.maxjets :
                 break
+
+            if doMatchingAK8:
+                matched = False
+                for genPart in genPartsAK8:
+                    if math.sqrt(
+                        math.acos(math.cos(genPart.phi() - jet.phi()))**2 
+                        + (genPart.eta() - jet.eta())**2) < matchAK8DR:
+                    matched = True
+                    break
+                if not matched:
+                    continue
+
             if jet.pt() > args.minAK8Pt and abs(jet.rapidity()) < args.maxAK8Rapidity :
                 
                 #FInd the jet correction
