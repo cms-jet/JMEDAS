@@ -419,13 +419,13 @@ for ifile in files :
             if doMatchingAK4:
                 genPartsAK4 = []
                 for genParticle in genParticles:
-                    if genParticle.pdgId() == matchAK4PdgId:
+                    if abs(genParticle.pdgId()) == matchAK4PdgId:
                         genPartsAK4.append(genParticle)
 
             if doMatchingAK8:
                 genPartsAK8 = []
                 for genParticle in genParticles:
-                    if genParticle.pdgId() == matchAK8PdgId:
+                    if abs(genParticle.pdgId()) == matchAK8PdgId:
                         genPartsAK8.append(genParticle)
 
 
