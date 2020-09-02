@@ -184,6 +184,7 @@ EOF
 
 cd ..
 ln -s $CMSSW_BASE/src/Analysis/JMEDAS/notebooks/DAS/
+ln -s $CMSSW_BASE/src/Analysis/JMEDAS/notebooks/files/
 
 # Report OK
 echo "Loaded $CMSSW_VERSION into $KERNEL_NAME!"
