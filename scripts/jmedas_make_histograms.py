@@ -6,6 +6,9 @@ import copy
 import re
 from array import array
 import math
+import time
+
+ts_start = time.time()
 
 ## _________                _____.__                            __  .__               
 ## \_   ___ \  ____   _____/ ____\__| ____  __ ______________ _/  |_|__| ____   ____  
@@ -856,3 +859,6 @@ for ifile in files :
 f.cd()
 f.Write()
 f.Close()
+
+ts_end = time.time()
+print "Total time: {} s".format(ts_end - ts_start)
