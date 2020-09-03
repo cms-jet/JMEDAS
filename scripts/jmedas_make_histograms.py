@@ -167,6 +167,7 @@ if args.correctJets:
         jecUncAK8 = ROOT.JetCorrectionUncertainty( os.path.expandvars('$CMSSW_BASE/src/Analysis/JMEDAS/data/JECs/{}/{}_Uncertainty_AK8PFchs.txt'.format(args.correctJets, args.correctJets) ))
 
 if args.matchPdgIdAK4:
+    print "Doing AK4 truth matching."
     doMatchingAK4 = True
     matchAK4PdgId = int(args.matchPdgIdAK4[0])
     matchAK4DR = float(args.matchPdgIdAK4[1])
@@ -174,6 +175,7 @@ else:
     doMatchingAK4 = False
 
 if args.matchPdgIdAK8:
+    print "Doing AK8 truth matching."
     doMatchingAK8 = True
     matchAK8PdgId = int(args.matchPdgIdAK8[0])
     matchAK8DR = float(args.matchPdgIdAK8[1])
@@ -367,10 +369,12 @@ for i, ifile in enumerate(filesraw):
     if args.maxFiles >= 0:
       if i >= args.maxFiles:
         break
-    if len( ifile ) > 2 : 
+    if len( ifile ) > 2 and ifile[:6] == "/store": 
         s = 'root://' + args.xrootd + '/' + ifile.rstrip()
         files.append( s )
         print 'Added ' + s
+    elif len(ifile) > 2 and ifile[:4] == "/afs":
+        files.append(ifile.rstrip())
 
 #if args.maxFiles:
 #  files = files[:args.maxFiles]
