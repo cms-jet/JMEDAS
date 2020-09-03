@@ -182,7 +182,7 @@ if args.matchPdgIdAK8:
 else:
     doMatchingAK8 = False
 
-if doMatchingAK4 or doMatchingAK8:
+if doMatchingAK4 or doMatchingAK8 or True:
     genParticlesHandle = Handle("std::vector<reco::GenParticle>")
     genParticlesLabel = ("prunedGenParticles")
 
@@ -235,7 +235,9 @@ h_mSDpuppiAK8      = ROOT.TH1F("h_mSDpuppiAK8", "AK8 PUPPI SD Jet Mass;Mass (GeV
 h_minmassAK8       = ROOT.TH1F("h_minmassAK8", "AK8 CMS Top Tagger Min Mass Paring;m_{min} (GeV)", 100, 0, 1000)
 h_nsjAK8           = ROOT.TH1F("h_nsjAK8", "AK8 CMS Top Tagger N_{subjets};N_{subjets}", 5, 0, 5)
 h_tau21AK8         = ROOT.TH1F("h_tau21AK8", "AK8 Jet #tau_{2} / #tau_{1};#tau_{21}", 100, 0, 1.0)
+h_tau21AK8_pt300   = ROOT.TH1F("h_tau21AK8_pt300", "AK8 Jet #tau_{2} / #tau_{1};#tau_{21}", 100, 0, 1.0)
 h_tau32AK8         = ROOT.TH1F("h_tau32AK8", "AK8 Jet #tau_{3} / #tau_{2};#tau_{32}", 100, 0, 1.0)
+h_tau32AK8_pt300   = ROOT.TH1F("h_tau32AK8_pt300", "AK8 Jet #tau_{3} / #tau_{2};#tau_{32}", 100, 0, 1.0)
 h_ptGroomedCorrAK8 = ROOT.TH1F("h_ptGroomedCorrAK8", "AK8 Corrected Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_msoftdropCorrAK8 = ROOT.TH1F("h_msoftdropCorrAK8", "AK8 Softdrop Jet Mass, Corrected;Mass (GeV)", 100, 0, 1000)
 h_rhoRatioAK8      = ROOT.TH1F("h_rhoRatioAK8", "AK8 Jet #rho = (m/p_{T}R)^{2};#rho", 100, 0, 1.0)
@@ -246,6 +248,8 @@ h_ak8_N2_beta1     = ROOT.TH1F("h_ak8_N2_beta1", "AK8 N2_beta1;N_{2}^{#beta=1}",
 h_ak8_N2_beta2     = ROOT.TH1F("h_ak8_N2_beta2", "AK8 N2_beta2;N_{2}^{#beta=2}", 100, 0., 1.)
 h_ak8_N3_beta1     = ROOT.TH1F("h_ak8_N3_beta1", "AK8 N3_beta1;N_{3}^{#beta=1}", 100, 0., 3.)
 h_ak8_N3_beta2     = ROOT.TH1F("h_ak8_N3_beta2", "AK8 N3_beta2;N_{3}^{#beta=2}", 100, 0., 3.)
+h_ak8_N3_beta1_pt300 = ROOT.TH1F("h_ak8_N3_beta1_pt300", "AK8 N3_beta1;N_{3}^{#beta=1}", 100, 0., 3.)
+h_ak8_N3_beta2_pt300 = ROOT.TH1F("h_ak8_N3_beta2_pt300", "AK8 N3_beta2;N_{3}^{#beta=2}", 100, 0., 3.)
 
 
 
@@ -412,10 +416,11 @@ for ifile in files :
         rhoValue = rhoHandle.product()
         pvs = pvHandle.product()
         #print rhoValue[0]
+
+        event.getByLabel(genParticlesLabel, genParticlesHandle)
+        genParticles = genParticlesHandle.product()
         
         if doMatchingAK4 or doMatchingAK8:
-            event.getByLabel(genParticlesLabel, genParticlesHandle)
-            genParticles = genParticlesHandle.product()
 
             if doMatchingAK4:
                 genPartsAK4 = []
@@ -585,6 +590,13 @@ for ifile in files :
         # loop over jets and fill hists
         if args.verbose :
           print jets1.size()
+
+        # DEBUG : Print gen info
+        #print("\n\n*** RSG particles ***")
+        #for genPart in genParticles:
+        #  if abs(genPart.pdgId()) > 1000 or abs(genPart.pdgId()) == 6 or abs(genPart.pdgId()) == 24:
+        #    print("{} {} {} {}".format(genPart.pdgId(), genPart.status(), genPart.mass(), genPart.pt()))
+
         ijet = 0
         for jet in jets1 :
             if ijet >= args.maxjets :
@@ -783,20 +795,31 @@ for ifile in files :
                     tau21 = tau2 / tau1
                     ak8tau21[0] = tau21
                     h_tau21AK8.Fill( tau21 )
+                    if corr * uncorrJet.pt() > 300:
+                      h_tau21AK8_pt300.Fill(tau21)
                 else :
                     h_tau21AK8.Fill( -1.0 )
+                    if corr * uncorrJet.pt() > 300:
+                      h_tau21AK8_pt300.Fill(-1.0)
                 if tau2 > 0.0001 :
                     tau32 = tau3 / tau2
                     ak8tau32[0] = tau32
                     h_tau32AK8.Fill( tau32 )
+                    if corr * uncorrJet.pt() > 300:
+                      h_tau32AK8_pt300.Fill( tau32 )
                 else :
                     h_tau32AK8.Fill( -1.0 )
+                    if corr * uncorrJet.pt() > 300:
+                      h_tau32AK8_pt300.Fill(-1.0)
 
                 # Energy correlation functions
                 h_ak8_N2_beta1.Fill(ak8_N2_beta1[0])
                 h_ak8_N2_beta2.Fill(ak8_N2_beta2[0])
                 h_ak8_N3_beta1.Fill(ak8_N3_beta1[0])
                 h_ak8_N3_beta2.Fill(ak8_N3_beta2[0])
+                if corr * uncorrJet.pt() > 300:
+                    h_ak8_N3_beta1_pt300.Fill(ak8_N3_beta1[0])
+                    h_ak8_N3_beta2_pt300.Fill(ak8_N3_beta2[0])
                 varTree.Fill()
                 genJet = jet.genJet()
                 if genJet != None :
