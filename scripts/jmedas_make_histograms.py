@@ -594,12 +594,6 @@ for ifile in files :
         if args.verbose :
           print jets1.size()
 
-        # DEBUG : Print gen info
-        #print("\n\n*** RSG particles ***")
-        #for genPart in genParticles:
-        #  if abs(genPart.pdgId()) > 1000 or abs(genPart.pdgId()) == 6 or abs(genPart.pdgId()) == 24:
-        #    print("{} {} {} {}".format(genPart.pdgId(), genPart.status(), genPart.mass(), genPart.pt()))
-
         ijet = 0
         for jet in jets1 :
             if ijet >= args.maxjets :
