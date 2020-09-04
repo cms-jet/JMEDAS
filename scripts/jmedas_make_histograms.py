@@ -6,6 +6,9 @@ import copy
 import re
 from array import array
 import math
+import time
+
+ts_start = time.time()
 
 ## _________                _____.__                            __  .__               
 ## \_   ___ \  ____   _____/ ____\__| ____  __ ______________ _/  |_|__| ____   ____  
@@ -94,6 +97,14 @@ parser.add_argument('--xrootd', type=str,
                   dest='xrootd',
                   help='xrootd redirect string')
 
+parser.add_argument('--matchPdgIdAK4', type=str, nargs=2,
+                  dest='matchPdgIdAK4',
+                  help='Perform truth matching of AK4 jets (specify PDG ID and DeltaR)')
+
+parser.add_argument('--matchPdgIdAK8', type=str, nargs=2,
+                  dest='matchPdgIdAK8',
+                  help='Perform truth matching of AK8 jets (specify PDG ID and DeltaR)')
+
 
 args = parser.parse_args()
 
@@ -117,7 +128,6 @@ rhoLabel = ("fixedGridRhoAll")
 
 pvHandle = Handle("std::vector<reco::Vertex>")
 pvLabel = ("offlineSlimmedPrimaryVertices")
-
 
 if args.smearJets and args.isData:
     print 'Misconfiguration. I cannot access generator-level jets on data. Not smearing jets.'
@@ -159,6 +169,25 @@ if args.correctJets:
 
         jecUncAK8 = ROOT.JetCorrectionUncertainty( os.path.expandvars('$CMSSW_BASE/src/Analysis/JMEDAS/data/JECs/{}/{}_Uncertainty_AK8PFchs.txt'.format(args.correctJets, args.correctJets) ))
 
+if args.matchPdgIdAK4:
+    print "Doing AK4 truth matching."
+    doMatchingAK4 = True
+    matchAK4PdgId = int(args.matchPdgIdAK4[0])
+    matchAK4DR = float(args.matchPdgIdAK4[1])
+else:
+    doMatchingAK4 = False
+
+if args.matchPdgIdAK8:
+    print "Doing AK8 truth matching."
+    doMatchingAK8 = True
+    matchAK8PdgId = int(args.matchPdgIdAK8[0])
+    matchAK8DR = float(args.matchPdgIdAK8[1])
+else:
+    doMatchingAK8 = False
+
+if doMatchingAK4 or doMatchingAK8:
+    genParticlesHandle = Handle("std::vector<reco::GenParticle>")
+    genParticlesLabel = ("prunedGenParticles")
 
 ##   ___ ___ .__          __                                             
 ##  /   |   \|__| _______/  |_  ____   ________________    _____   ______
@@ -170,6 +199,7 @@ if args.correctJets:
 f = ROOT.TFile(args.outname, "RECREATE")
 f.cd()
 
+h_nevents = ROOT.TH1F("h_nevents", "h_nevents", 1, -0.5, 0.5)
 h_ptAK4       = ROOT.TH1F("h_ptAK4", "AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_ptUpAK4     = ROOT.TH1F("h_ptUpAK4", "JEC Up AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_ptDownAK4   = ROOT.TH1F("h_ptDownAK4", "JEC Down AK4 Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
@@ -209,7 +239,9 @@ h_mSDpuppiAK8      = ROOT.TH1F("h_mSDpuppiAK8", "AK8 PUPPI SD Jet Mass;Mass (GeV
 h_minmassAK8       = ROOT.TH1F("h_minmassAK8", "AK8 CMS Top Tagger Min Mass Paring;m_{min} (GeV)", 100, 0, 1000)
 h_nsjAK8           = ROOT.TH1F("h_nsjAK8", "AK8 CMS Top Tagger N_{subjets};N_{subjets}", 5, 0, 5)
 h_tau21AK8         = ROOT.TH1F("h_tau21AK8", "AK8 Jet #tau_{2} / #tau_{1};#tau_{21}", 100, 0, 1.0)
+h_tau21AK8_pt450   = ROOT.TH1F("h_tau21AK8_pt450", "AK8 Jet #tau_{2} / #tau_{1};#tau_{21}", 100, 0, 1.0)
 h_tau32AK8         = ROOT.TH1F("h_tau32AK8", "AK8 Jet #tau_{3} / #tau_{2};#tau_{32}", 100, 0, 1.0)
+h_tau32AK8_pt450   = ROOT.TH1F("h_tau32AK8_pt450", "AK8 Jet #tau_{3} / #tau_{2};#tau_{32}", 100, 0, 1.0)
 h_ptGroomedCorrAK8 = ROOT.TH1F("h_ptGroomedCorrAK8", "AK8 Corrected Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_msoftdropCorrAK8 = ROOT.TH1F("h_msoftdropCorrAK8", "AK8 Softdrop Jet Mass, Corrected;Mass (GeV)", 100, 0, 1000)
 h_rhoRatioAK8      = ROOT.TH1F("h_rhoRatioAK8", "AK8 Jet #rho = (m/p_{T}R)^{2};#rho", 100, 0, 1.0)
@@ -220,8 +252,8 @@ h_ak8_N2_beta1     = ROOT.TH1F("h_ak8_N2_beta1", "AK8 N2_beta1;N_{2}^{#beta=1}",
 h_ak8_N2_beta2     = ROOT.TH1F("h_ak8_N2_beta2", "AK8 N2_beta2;N_{2}^{#beta=2}", 100, 0., 1.)
 h_ak8_N3_beta1     = ROOT.TH1F("h_ak8_N3_beta1", "AK8 N3_beta1;N_{3}^{#beta=1}", 100, 0., 3.)
 h_ak8_N3_beta2     = ROOT.TH1F("h_ak8_N3_beta2", "AK8 N3_beta2;N_{3}^{#beta=2}", 100, 0., 3.)
-
-
+h_ak8_N3_beta1_pt450 = ROOT.TH1F("h_ak8_N3_beta1_pt450", "AK8 N3_beta1;N_{3}^{#beta=1}", 100, 0., 3.)
+h_ak8_N3_beta2_pt450 = ROOT.TH1F("h_ak8_N3_beta2_pt450", "AK8 N3_beta2;N_{3}^{#beta=2}", 100, 0., 3.)
 
 h_ptAK8Gen   = ROOT.TH1F("h_ptAK8Gen", "AK8Gen Jet p_{T};p_{T} (GeV)", 300, 0, 3000)
 h_etaAK8Gen  = ROOT.TH1F("h_etaAK8Gen", "AK8Gen Jet #eta;#eta", 120, -6, 6)
@@ -343,10 +375,12 @@ for i, ifile in enumerate(filesraw):
     if args.maxFiles >= 0:
       if i >= args.maxFiles:
         break
-    if len( ifile ) > 2 : 
+    if len( ifile ) > 2 and ifile[:6] == "/store": 
         s = 'root://' + args.xrootd + '/' + ifile.rstrip()
         files.append( s )
         print 'Added ' + s
+    elif len(ifile) > 2 and ifile[:4] == "/afs":
+        files.append(ifile.rstrip())
 
 #if args.maxFiles:
 #  files = files[:args.maxFiles]
@@ -365,6 +399,7 @@ for ifile in files :
             break
         i += 1
         nevents += 1
+        h_nevents.Fill(0)
 
         if i % 1000 == 0 :
             print '    ---> Event ' + str(i)
@@ -385,6 +420,23 @@ for ifile in files :
         pvs = pvHandle.product()
         #print rhoValue[0]
 
+        
+        if doMatchingAK4 or doMatchingAK8:
+            event.getByLabel(genParticlesLabel, genParticlesHandle)
+            genParticles = genParticlesHandle.product()
+
+            if doMatchingAK4:
+                genPartsAK4 = []
+                for genParticle in genParticles:
+                    if abs(genParticle.pdgId()) == matchAK4PdgId:
+                        genPartsAK4.append(genParticle)
+
+            if doMatchingAK8:
+                genPartsAK8 = []
+                for genParticle in genParticles:
+                    if abs(genParticle.pdgId()) == matchAK8PdgId:
+                        genPartsAK8.append(genParticle)
+
 
         if args.verbose :
             print '------ AK4 jets ------'
@@ -397,6 +449,18 @@ for ifile in files :
         for jet in jets0 :
             if ijet >= args.maxjets :
                 break
+
+            if doMatchingAK4:
+                matched = False
+                for genPart in genPartsAK4:
+                    if math.sqrt(
+                            math.acos(math.cos(genPart.phi() - jet.phi()))**2 
+                            + (genPart.eta() - jet.eta())**2) < matchAK4DR:
+                        matched = True
+                        break
+                if not matched:
+                    continue
+
             if jet.pt() > args.minAK4Pt and abs(jet.rapidity()) < args.maxAK4Rapidity :
                 
                 
@@ -529,10 +593,23 @@ for ifile in files :
         # loop over jets and fill hists
         if args.verbose :
           print jets1.size()
+
         ijet = 0
         for jet in jets1 :
             if ijet >= args.maxjets :
                 break
+
+            if doMatchingAK8:
+                matched = False
+                for genPart in genPartsAK8:
+                    if math.sqrt(
+                            math.acos(math.cos(genPart.phi() - jet.phi()))**2 
+                            + (genPart.eta() - jet.eta())**2) < matchAK8DR:
+                        matched = True
+                        break
+                if not matched:
+                    continue
+
             if jet.pt() > args.minAK8Pt and abs(jet.rapidity()) < args.maxAK8Rapidity :
                 
                 #FInd the jet correction
@@ -669,6 +746,7 @@ for ifile in files :
                 h_mprunedAK8.Fill( jet.userFloat('ak8PFJetsCHSValueMap:ak8PFJetsCHSPrunedMass') )
                 h_mpuppiAK8.Fill( jet.mass() )
                 h_mSDpuppiAK8.Fill( jet.userFloat('ak8PFJetsPuppiSoftDropMass') )
+
                 ak8pt[0] = corr * jet.userFloat('ak8PFJetsCHSValueMap:pt')
                 ak8eta[0] = jet.userFloat('ak8PFJetsCHSValueMap:eta')
                 ak8phi[0] = jet.userFloat('ak8PFJetsCHSValueMap:phi')
@@ -698,6 +776,7 @@ for ifile in files :
                       h_logrhoRatioAK8.Fill( math.log(rhoRatio) )
                     h_mSubjet0AK8.Fill( msubjet0 )
                     h_mSubjet1AK8.Fill( msubjet1 )
+
                 # Make sure there are top tags if we want to plot them 
                 tagInfoLabels = jet.tagInfoLabels()
                 hasTopTagInfo = 'caTop' in tagInfoLabels 
@@ -715,20 +794,31 @@ for ifile in files :
                     tau21 = tau2 / tau1
                     ak8tau21[0] = tau21
                     h_tau21AK8.Fill( tau21 )
+                    if corr * uncorrJet.pt() > 450 and jet.userFloat('ak8PFJetsPuppiSoftDropMass') > 130.:
+                      h_tau21AK8_pt450.Fill(tau21)
                 else :
                     h_tau21AK8.Fill( -1.0 )
+                    if corr * uncorrJet.pt() > 450 and jet.userFloat('ak8PFJetsPuppiSoftDropMass') > 130.:
+                      h_tau21AK8_pt450.Fill(-1.0)
                 if tau2 > 0.0001 :
                     tau32 = tau3 / tau2
                     ak8tau32[0] = tau32
                     h_tau32AK8.Fill( tau32 )
+                    if corr * uncorrJet.pt() > 450 and jet.userFloat('ak8PFJetsPuppiSoftDropMass') > 130.:
+                      h_tau32AK8_pt450.Fill( tau32 )
                 else :
                     h_tau32AK8.Fill( -1.0 )
+                    if corr * uncorrJet.pt() > 450 and jet.userFloat('ak8PFJetsPuppiSoftDropMass') > 130.:
+                      h_tau32AK8_pt450.Fill(-1.0)
 
                 # Energy correlation functions
                 h_ak8_N2_beta1.Fill(ak8_N2_beta1[0])
                 h_ak8_N2_beta2.Fill(ak8_N2_beta2[0])
                 h_ak8_N3_beta1.Fill(ak8_N3_beta1[0])
                 h_ak8_N3_beta2.Fill(ak8_N3_beta2[0])
+                if corr * uncorrJet.pt() > 450 and jet.userFloat('ak8PFJetsPuppiSoftDropMass') > 130.:
+                    h_ak8_N3_beta1_pt450.Fill(ak8_N3_beta1[0])
+                    h_ak8_N3_beta2_pt450.Fill(ak8_N3_beta2[0])
                 varTree.Fill()
                 genJet = jet.genJet()
                 if genJet != None :
@@ -765,3 +855,6 @@ for ifile in files :
 f.cd()
 f.Write()
 f.Close()
+
+ts_end = time.time()
+print "Total time: {} s".format(ts_end - ts_start)
