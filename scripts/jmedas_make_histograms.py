@@ -422,8 +422,8 @@ for ifile in files :
 
         
         if doMatchingAK4 or doMatchingAK8:
-          event.getByLabel(genParticlesLabel, genParticlesHandle)
-          genParticles = genParticlesHandle.product()
+            event.getByLabel(genParticlesLabel, genParticlesHandle)
+            genParticles = genParticlesHandle.product()
 
             if doMatchingAK4:
                 genPartsAK4 = []
