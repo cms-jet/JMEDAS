@@ -185,7 +185,7 @@ if args.matchPdgIdAK8:
 else:
     doMatchingAK8 = False
 
-if doMatchingAK4 or doMatchingAK8 or True:
+if doMatchingAK4 or doMatchingAK8:
     genParticlesHandle = Handle("std::vector<reco::GenParticle>")
     genParticlesLabel = ("prunedGenParticles")
 
