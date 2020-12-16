@@ -1,23 +1,24 @@
 # Jet CMS DAS Exercise
 
-## CMS DAS (virtual edition) September 2020
-<summary>Directions for DAS September 2020</summary>
+## CMS DAS (virtual edition) January  2021
+<summary>Directions for DAS September 2021</summary>
   
 ### Introduction
 This tutorial is intended to provide you with the basic you need in order to deal with jets in your analysis. We start with the basics of what is a jet, how are they reconstructed, what algorithms are used, etc. Then we give examples with scripts on how to access jets and use them in your analysis frameworks, including corrections and systematics. In the second part of the exercise, we examine jet substructure algorithms, which have many uses including identification of hadronic decays of heavy SM particles like top quarks, W, Z, and H bosons, as well as mitigation of pileup and others.
 
-We recommend two ways of following this tutorial: in lxplus or in SWAN. You do not need to follow both recipes below, use the one that you like the most.
+We recommend two ways of following this tutorial: in cmslpc or in SWAN. You do not need to follow both recipes below, use the one that you like the most.
 
-## Run exercises in lxplus
+## Run exercises in cmslpc
 
-If you Logging to lxplus and create a directory where your exercises are going to run. Then, do:
+If you Logging to cmslpc and create a directory where your exercises are going to run. Then, do (in a bash shell):
 
 ```bash
 export SCRAM_ARCH=slc7_amd64_gcc700
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsrel CMSSW_10_6_6
 cd CMSSW_10_6_6/src
 cmsenv
-git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASSep2020
+git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASJan2021
 git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
 cd Analysis/JMEDAS
 scram b -j 4
@@ -49,7 +50,7 @@ Once there, you are in your cernbox home area, and you can follow these steps:
 
 ```
 cd SWAN_projects/CMSDAS_jetExercise/
-wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DASSep2020/setup-libraries_SWAN.sh
+wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DASJan2021/setup-libraries_SWAN.sh
 source setup-libraries_SWAN.sh 
 ```
 This will take a while, but basically you are setting your CMSSW environment, cloning some packages, and creating the kernel used in this exercises. If the compilation is succesful, you should see something similar to this at the end of the messages:
@@ -65,13 +66,13 @@ After this you can go to [`~/CMSDAS_jetExercise/DAS/`](notebooks/DAS/) and conti
 
 To access data stored remotely in different places, you need to set your grid certificate. 
 
- * *For lxplus*, you only need to run (every time that you log in):
+ * *For *cmslpc*, you only need to run (to get a valid certificate):
 ```bash
 voms-proxy-init -voms cms -valid 192:00
 ```
- * *SWAN* still does not have a simple way of setting this certificate internally, but we can use a workaround. First, follow the instructions for the grid certificate in lxplus in earlier parts of this school. Once your certificates are properly installed, you can activate the certificate with the command above. So open a "normal" connection to lxplus from your computer (NOT from the SWAN command line), execute `voms-proxy-init -voms cms -valid 192:00` and look at the prints. Your certificate is located in a file with a name like this: `/tmp/x509up_u0000` (with some other numbers instead of 0000). Copy it to your cernbox area like this:
+ * *SWAN* still does not have a simple way of setting this certificate internally, but we can use a workaround. First, follow the instructions for the grid certificate in lxplus in earlier parts of this school. Once your certificates are properly installed, you can activate the certificate with the command above. So open a "normal" connection to lxplus from your computer (NOT from the SWAN command line), execute `voms-proxy-init -voms cms -valid 192:00` and look at the prints. Your certificate is located in a file with a name like this: `~/x509up_u00000` (with some other numbers instead of 0000). Copy it to your cernbox area like this:
 ```bash
-cp /tmp/x509up_u0000 /eos/home-X/Y/    ### where X is the first letter of your cern user id, and Y is your cern user id.
+cp ~/x509up_u0000 /eos/home-X/Y/    ### where X is the first letter of your cern user id, and Y is your cern user id.
 ```
 Now you are ready to activate your certificate in jupyter notebooks in SWAN by first changing the second line of the cell with the location of your certificate file, and then running (i.e. clicking 'play' in) a cell that looks like this:
 ```python
