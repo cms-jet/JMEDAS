@@ -18,7 +18,7 @@ source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsrel CMSSW_10_6_6
 cd CMSSW_10_6_6/src
 cmsenv
-git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASJan2021
+git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASSep2020
 git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
 cd Analysis/JMEDAS
 scram b -j 4
