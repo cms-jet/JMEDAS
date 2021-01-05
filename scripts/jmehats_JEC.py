@@ -100,6 +100,10 @@ elif not options.doMiniAOD and options.doReclustering and options.useUpdater:
 	print bcolors.FAIL+"\tNo need to use the patJetUpdater."+bcolors.ENDC
 	exit(-7)
 
+dataTier = "AOD"
+if options.doMiniAOD:
+    dataTier = "miniAOD"
+    
 #!  _____  _____   ____   _____ ______  _____ _____ 
 #! |  __ \|  __ \ / __ \ / ____|  ____|/ ____/ ____|
 #! | |__) | |__) | |  | | |    | |__  | (___| (___  
@@ -136,7 +140,7 @@ process.TFileService.fileName=cms.string(options.ofilename)
 
 process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(options.maxEvents))
 if options.doMiniAOD:
-	process.load("Analysis.JMEDAS.qcdflat_MINIAODSIM_v5_cff")
+	process.load("Analysis.JMEDAS.qcdflat_MINIAODSIM_v6_cff")
 else:
 	process.load("Analysis.JMEDAS.qcdflat_AODSIM_v5_cff")
 
@@ -151,14 +155,16 @@ jrr = cms.VPSet()
 jetsCollections = {
 	'AK4L1L2L3': 	{
 					'algo': 'ak4',
-					'pu_methods': ['CHS'], #Options: {Puppi,CHS,''}
-					'jec_payloads': ['AK4PFchs'], #Options: {AK4PFPuppi,AK4PFchs,AK4PF,AK8Calo,AK8JPT}
+#					'pu_methods': ['','CHS','Puppi'], #Options: {Puppi,CHS,''}
+#					'jec_payloads': ['AK4PF','AK4PFchs','AK4PFPuppi'], #Options: {AK4PFPuppi,AK4PFchs,AK4PF,AK8Calo,AK8JPT}
+					'pu_methods': ['CHS','PUPPI'], #Options: {Puppi,CHS,''}
+					'jec_payloads': ['AK4PFchs','AK4PFPuppi'], #Options: {AK4PFPuppi,AK4PFchs,AK4PF,AK8Calo,AK8JPT}
 					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'], #Options: {L1FastJet,L2Relative,L3Absolute,L2L3Residual,L5Flavor,L7Parton}
 					},
 	'AK8L1L2L3': 	{
 					'algo': 'ak8',
-					'pu_methods': ['Puppi'], #Options: {Puppi,CHS,''}
-					'jec_payloads': ['AK8PFPuppi'], #Options: {AK8PFPuppi,AK8PFchs,AK8PF,AK8Calo,AK8JPT}
+					'pu_methods': ['CHS','Puppi'], #Options: {Puppi,CHS,''}
+					'jec_payloads': ['AK8PFchs','AK8PFPuppi'], #Options: {AK8PFPuppi,AK8PFchs,AK8PF,AK8Calo,AK8JPT}
 					'jec_levels': ['L1FastJet', 'L2Relative', 'L3Absolute'], #Options: {L1FastJet,L2Relative,L3Absolute,L2L3Residual,L5Flavor,L7Parton}
 					},
 				  }
@@ -231,14 +237,14 @@ process.GlobalTag.globaltag = cms.string('80X_mcRun2_asymptotic_2016_TrancheIV_v
 if options.applyDBFile:
 	from CondCore.DBCommon.CondDBSetup_cfi import *
 	process.jec = cms.ESSource("PoolDBESSource",CondDBSetup,
-							   connect = cms.string('sqlite_file:'+options.era+'.db'),
+							   connect = cms.string('sqlite_file:../data/JECs/'+options.era+'.db'),
 							   #cms.string("frontier://FrontierPrep/CMS_COND_PHYSICSTOOLS"),
 							   toGet =  cms.VPSet(jcr))
 	process.es_prefer_jec = cms.ESPrefer("PoolDBESSource","jec")
 
 	if not options.jerfile == 'none':
 		process.jer = cms.ESSource("PoolDBESSource",CondDBSetup,
-								   connect = cms.string('sqlite_file:'+options.jerfile+'.db'),
+								   connect = cms.string('sqlite_file:../data/JERs/'+options.jerfile+'.db'),
 								   toGet = cms.VPSet(jrr))	
 		process.es_prefer_jer = cms.ESPrefer("PoolDBESSource","jer")
 
@@ -282,9 +288,9 @@ if options.doJetToolbox:
 				nPFc = True
 				nNPFc = 'puppi'
 			if len(params['jec_levels'])>0:
-				jetToolbox(process, params['algo'], 'dummy', 'out', newPFCollection = nPFc, nameNewPFCollection = nNPFc, PUMethod = pu_method, JETCorrPayload = params['jec_payloads'][index], JETCorrLevels = params['jec_levels'], miniAOD = options.doMiniAOD)
+				jetToolbox(process, params['algo'], 'dummy', 'out', newPFCollection = nPFc, nameNewPFCollection = nNPFc, PUMethod = pu_method, JETCorrPayload = params['jec_payloads'][index], JETCorrLevels = params['jec_levels'], dataTier = dataTier)
 			else:
-				jetToolbox(process, params['algo'], 'dummy', 'out', newPFCollection = nPFc, nameNewPFCollection = nNPFc, PUMethod = pu_method, miniAOD = options.doMiniAOD)
+				jetToolbox(process, params['algo'], 'dummy', 'out', newPFCollection = nPFc, nameNewPFCollection = nNPFc, PUMethod = pu_method, dataTier = dataTier)
 
 elif not options.doJetToolbox and options.doMiniAOD and options.doReclustering:
 	# https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2015#Advanced_topics_re_clustering_ev

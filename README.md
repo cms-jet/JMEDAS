@@ -1,75 +1,95 @@
-# JME POG CMS Data Analysis School (CMSDAS) exercise
-(also used for HATs@LPC)
+# Jet CMS DAS Exercise
 
-## DAS 2019
-<summary>Directions for DAS2019</summary>
+## CMS DAS (virtual edition) January  2021
+<summary>Directions for DAS September 2021</summary>
   
 ### Introduction
-This Hands on Tutorial Session (HATS) is intended to provide you with basic familiarity with jet energy corrections (JEC) as they relate to CMS. Pretty much all analyses which use jets will need to make use of JECs in some way. Additionally, analyes will probably use the systematic uncertainties for those corrections as well as the jet energy resolution (JER) scale factors and their uncertainties. A general description of the JEC and JER will be provided, as well as several example of how to apply these corrections/scale factors.
+This tutorial is intended to provide you with the basic you need in order to deal with jets in your analysis. We start with the basics of what is a jet, how are they reconstructed, what algorithms are used, etc. Then we give examples with scripts on how to access jets and use them in your analysis frameworks, including corrections and systematics. In the second part of the exercise, we examine jet substructure algorithms, which have many uses including identification of hadronic decays of heavy SM particles like top quarks, W, Z, and H bosons, as well as mitigation of pileup and others.
 
-More details about pileup and its removal from jets will be given as pileup presents a large issue for current and future analyses. There are several ways to mitigate the effects of pileup and this tutorial will cover the most common of those methods.
+We recommend two ways of following this tutorial: in cmslpc or in SWAN. You do not need to follow both recipes below, use the one that you like the most.
 
-### Getting Started (Setup)
-This tutorial uses Jupyter Notebooks as a browser-based development environment at Vanderbilt. These Jupyter-based tutorials use a pre-configured Jupyter service usable by all CMS members.
+## Run exercises in cmslpc
 
-#### Connect to Jupyter 
-To log in, access the [login](https://jupyter.accre.vanderbilt.edu/) page and login using your CERN credentials. Once you successfully connect, you should see the following front page
+If you Logging to cmslpc and create a directory where your exercises are going to run. Then, do (in a bash shell):
 
-<img src="jupyter-login.png" width="600px" />
-
-The two most important buttons are
-  * The `new` button, which lets you open a terminal or start a new Jupyter notebook.
-  * The `control panel` button, which lets you shut down your notebook once you're done. It's helpful to do this to free up resources for other users.
-
-#### Upload Grid Certificates
-We will copy your grid certificates from the LPC cluster, to do this, open the front page (shown above), and click the `New` box at the top right, then the `Terminal` option.
-
-This will open a new tab with a bash terminal. Execute the following commands (following the appropriate prompts) to copy your certificate from the LPC to Jupyter (**note**: replace `username` with your `FNAL` username!)
-
-The following command will prompt you for your FNAL password
 ```bash
-kinit username@FNAL.GOV
-rsync -rLv username@cmslpc-sl6.fnal.gov:.globus/ ~/.globus/
-chmod 755 ~/.globus
-chmod 600 ~/.globus/*
-kdestroy
+export SCRAM_ARCH=slc7_amd64_gcc700
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+cmsrel CMSSW_10_6_6
+cd CMSSW_10_6_6/src
+cmsenv
+git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASSep2020
+git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
+cd Analysis/JMEDAS
+scram b -j 4
+cd test
 ```
 
-#### Initialize Your Proxy at every Login!
-If you have a password on your grid certificate, you'll need to remember to execute the following in a terminal *each time you log in to Jupyter*. Similar to the LPC cluster, you will get a new host at each logon, and the new host won't have your old credentials.
+Now you are ready to continue with the exercises. Additionally, see the instructions on how to set your grid-certificate below.
 
-Each time you log in, open a terminal and execute:
+## Run exercises in SWAN 
+
+This version of the same tutorial uses Jupyer Notebooks as a browser-based development environment at [CERN-SWAN](https://swan.cern.ch). The content of these notebooks is the same as the one in lxplus, it is just a different set up.
+
+### Getting Started (Setup)
+
+Go to https://swan.cern.ch and log in with your CERN password. After that you need to configure your environment, please use these settings:
+
+<img src="images/SWAN_configenv.png" width="400px" />
+
+The most important configuration is the software stack, which has to be `97a Python2`. After that click on start the session.
+
+Once you are in `My Projects`, create a new project by clicking on the plus icon on the right part of `My Projects`. Enter the project name you like, for this example we will use `CMSDAS_jetExercise`.
+
+### Checkout the code
+Open up a terminal by clicking on the icon:
+
+<img src="images/SWAN_terminal.png" width="600px" />
+
+Once there, you are in your cernbox home area, and you can follow these steps:
+
+```
+cd SWAN_projects/CMSDAS_jetExercise/
+wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DASJan2021/setup-libraries_SWAN.sh
+source setup-libraries_SWAN.sh 
+```
+This will take a while, but basically you are setting your CMSSW environment, cloning some packages, and creating the kernel used in this exercises. If the compilation is succesful, you should see something similar to this at the end of the messages:
+```
+Loaded CMSSW_10_6_6 into hats-jec!
+```
+After this you can go to [`~/CMSDAS_jetExercise/DAS/`](notebooks/DAS/) and continue with the tutorial. The previous steps you have to _do it once_. Additionally, two important things:
+ * You need to follow the instructions below to set your grid certificate. 
+ * If you try to access any of the notebooks any other day, it will require you to confirm the kernel. For that please select the `hats-jec` option.
+
+
+## Grid certificate
+
+To access data stored remotely in different places, you need to set your grid certificate. 
+
+ * *For *cmslpc*, you only need to run (to get a valid certificate):
 ```bash
 voms-proxy-init -voms cms -valid 192:00
 ```
-
-#### Checkout the code
-Open up a terminal and run the following command from your home area:
+ * *SWAN* still does not have a simple way of setting this certificate internally, but we can use a workaround. First, follow the instructions for the grid certificate in lxplus in earlier parts of this school. Once your certificates are properly installed, you can activate the certificate with the command above. So open a "normal" connection to lxplus from your computer (NOT from the SWAN command line), execute `voms-proxy-init -voms cms -valid 192:00` and look at the prints. Your certificate is located in a file with a name like this: `~/x509up_u00000` (with some other numbers instead of 0000). Copy it to your cernbox area like this:
+```bash
+cp ~/x509up_u0000 /eos/home-X/Y/    ### where X is the first letter of your cern user id, and Y is your cern user id.
 ```
-wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DAS2019/setup-libraries.ipynb
+Now you are ready to activate your certificate in jupyter notebooks in SWAN by first changing the second line of the cell with the location of your certificate file, and then running (i.e. clicking 'play' in) a cell that looks like this:
+```python
+import os
+os.environ['X509_USER_PROXY'] = '{}/x509up_00000'.format(os.environ["HOME"])   ### remember to change this line with what you did above
+if os.path.isfile(os.environ['X509_USER_PROXY']):
+    print("Found proxy at {}".format(os.environ['X509_USER_PROXY']))
+else:
+    print("Failed to find proxy at {}".format(os.environ['X509_USER_PROXY']))
+os.environ['X509_CERT_DIR'] = '/cvmfs/cms.cern.ch/grid/etc/grid-security/certificates'
+os.environ['X509_VOMS_DIR'] = '/cvmfs/cms.cern.ch/grid/etc/grid-security/vomsdir'
 ```
+The cell should be present in every exercise where you need the authentication.
+_REMEMBER_ to do this every day that you will try to access remote files in SWAN.
 
-Go back to your Jupyter browser (Home) page and open/run(double-click) the newly downloaded notebook  (setup-libraries.ipynb - downloaded just recently - only one cell to run). This will checkout the code and setup your environment for future use. After running setup-libraries.ipynb. After running setup-libraries.ipynb, choose "File... Close and Halt". Then you can continue on to the Tutorial section (below).
-
-
-Note: If you'd like to set this code up to be used without Jupyter, follow the directions below. This is not necessary for the HATS exercises.
-<details>
-<summary>Standalone directions without Jupyter</summary>
-  
-  ```bash
-  cmsrel CMSSW_9_4_12
-  cd CMSSW_9_4_12/src
-  git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DAS2019
-  git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_94X
-  cd Analysis/JMEDAS
-  scram b -j 4
-  cd test
-  voms-proxy-init
-  ```
-</details>
-  
-### Tutorial
-Once you've completed the setup instructions, change to the directory `~/CMSSW_9_4_12/src/Analysis/JMEDAS`. Information on the separate tutorial can be found in the "notebooks" subdirectory.
+## Tutorial
+Once you've completed the setup instructions, change to the directory `~/SWAN_projects/CMSDAS_jetExercise/DAS/` in SWAN. Information on the separate tutorial can be found in the "notebooks" subdirectory.
 
 ## Additional Information & Resources
 

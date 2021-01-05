@@ -3,12 +3,12 @@ import subprocess, shlex
 
 def get_commands():
     command_dict = {
-        "JECNtuple_MiniAOD"                    : "ofilename=JECNtuple_MiniAOD.root maxEvents=100000",
-        "JECNtuple_MiniAOD_JESUncertaintyUp"   : "ofilename=JECNtuple_MiniAOD_JESUncertaintyUp.root JESUncertainty=up maxEvents=100000",
-        "JECNtuple_MiniAOD_JESUncertaintyDown" : "ofilename=JECNtuple_MiniAOD_JESUncertaintyDown.root JESUncertainty=down maxEvents=100000",
-        "JECNtuple_MiniAOD_JER"                : "ofilename=JECNtuple_MiniAOD_JER.root JERUncertainty=nominal maxEvents=100000",
-        "JECNtuple_MiniAOD_JERUncertaintyUp"   : "ofilename=JECNtuple_MiniAOD_JERUncertaintyUp.root JERUncertainty=up maxEvents=100000",
-        "JECNtuple_MiniAOD_JERUncertaintyDown" : "ofilename=JECNtuple_MiniAOD_JERUncertaintyDown.root JERUncertainty=down maxEvents=100000",
+        "JECNtuple_MiniAOD"                    : "ofilename=JECNtuple_MiniAOD.root",
+        "JECNtuple_MiniAOD_JESUncertaintyUp"   : "ofilename=JECNtuple_MiniAOD_JESUncertaintyUp.root JESUncertainty=up",
+        "JECNtuple_MiniAOD_JESUncertaintyDown" : "ofilename=JECNtuple_MiniAOD_JESUncertaintyDown.root JESUncertainty=down",
+        "JECNtuple_MiniAOD_JER"                : "ofilename=JECNtuple_MiniAOD_JER.root JERUncertainty=nominal",
+        "JECNtuple_MiniAOD_JERUncertaintyUp"   : "ofilename=JECNtuple_MiniAOD_JERUncertaintyUp.root JERUncertainty=up",
+        "JECNtuple_MiniAOD_JERUncertaintyDown" : "ofilename=JECNtuple_MiniAOD_JERUncertaintyDown.root JERUncertainty=down",
     }
     return command_dict
 
@@ -24,7 +24,7 @@ def main(debug = False):
         else:
             child_filenames.append("JECNtuple.root")
 
-        command = "nohup cmsRun jmehats_JEC.py print " + cmd
+        command = "nohup cmsRun jmehats_JEC.py print " + cmd + " maxEvents=10000 applyDBFile=1 doJetToolbox=1 era=Fall17_17Nov2017_V32_94X_MC jerfile=Fall17_V3_94X_MC doReclustering=1"
         if debug:
             print "The current command is",command
         out=open(name+".log","w")
