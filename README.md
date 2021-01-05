@@ -18,7 +18,7 @@ source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsrel CMSSW_10_6_6
 cd CMSSW_10_6_6/src
 cmsenv
-git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASSep2020
+git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASJan2021
 git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
 cd Analysis/JMEDAS
 scram b -j 4
@@ -29,7 +29,7 @@ Now you are ready to continue with the exercises. Additionally, see the instruct
 
 ## Run exercises in SWAN 
 
-This version of the same tutorial uses Jupyer Notebooks as a browser-based development environment at [CERN-SWAN](https://swan.cern.ch). The content of these notebooks is the same as the one in lxplus, it is just a different set up.
+This version of the same tutorial uses Jupyer Notebooks as a browser-based development environment at [CERN-SWAN](https://swan.cern.ch). The content of these notebooks is the same as the one in lxplus/cmslpc, it is just a different set up.
 
 ### Getting Started (Setup)
 
