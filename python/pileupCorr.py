@@ -6,8 +6,8 @@
 
 import os, subprocess, array, time, math
 from optparse import OptionParser
-from Analysis.JMEDAS.tdrstyle_mod14 import *
-from ROOT import *
+from tdrstyle_mod14 import *
+import ROOT as r
 import FWCore.ParameterSet.Config as cms
 
 # ------------------------------------------------------------
@@ -16,7 +16,7 @@ import FWCore.ParameterSet.Config as cms
 
 def DtoF(file,get):
     hD = file.Get(get)
-    hF = TH1F()
+    hF = r.TH1F()
     hD.Copy(hF)
     return hF
 
@@ -33,9 +33,9 @@ from Analysis.JMEDAS.pileupCorr import *
 c = MakeCanvas(filename="../data/PileupHistograms.root")
 c.Draw()
 '''
-def MakeCanvas(dataHists = [], MCHist = TH1F(), weightHists = [], filename = ""):
+def MakeCanvas(dataHists = [], MCHist = r.TH1F(), weightHists = [], filename = ""):
     if filename!='':
-        f = TFile.Open(filename,"READ")
+        f = r.TFile.Open(filename,"READ")
         dataHists.append(DtoF(f,"data_pu_central"))
         dataHists[-1].SetDirectory(None)
         dataHists.append(DtoF(f,"data_pu_up"))
@@ -53,7 +53,7 @@ def MakeCanvas(dataHists = [], MCHist = TH1F(), weightHists = [], filename = "")
 
     setTDRStyle()
 
-    frame = TH1D()
+    frame = r.TH1D()
     frame.GetXaxis().SetLimits(0,100)
     frame.GetYaxis().SetRangeUser(1e-11,1e4)
     frame.GetXaxis().SetTitle("#mu")
@@ -88,7 +88,7 @@ def MakeCanvas(dataHists = [], MCHist = TH1F(), weightHists = [], filename = "")
         else:
             ey_up.append(math.sqrt((dataHists[2].GetBinContent(b)-dataHists[0].GetBinContent(b))**2+(dataHists[0].GetBinError(b))**2))
             ey_down.append(math.sqrt((dataHists[0].GetBinContent(b)-dataHists[1].GetBinContent(b))**2+(dataHists[0].GetBinError(b))**2))
-    errorBandData = TGraphAsymmErrors(len(x)-1,x,y,ex_down,ex_up,ey_down,ey_up)
+    errorBandData = r.TGraphAsymmErrors(len(x)-1,x,y,ex_down,ex_up,ey_down,ey_up)
 
     #Then we do the weight histograms
     x       = array.array('f',[])
@@ -108,15 +108,15 @@ def MakeCanvas(dataHists = [], MCHist = TH1F(), weightHists = [], filename = "")
         else:
             ey_up.append(math.sqrt((weightHists[2].GetBinContent(b)-weightHists[0].GetBinContent(b))**2+(weightHists[0].GetBinError(b))**2))
             ey_down.append(math.sqrt((weightHists[0].GetBinContent(b)-weightHists[1].GetBinContent(b))**2+(weightHists[0].GetBinError(b))**2))
-    errorBandWeight = TGraphAsymmErrors(len(x)-1,x,y,ex_down,ex_up,ey_down,ey_up)
+    errorBandWeight = r.TGraphAsymmErrors(len(x)-1,x,y,ex_down,ex_up,ey_down,ey_up)
 
     #Draw all histograms and graphs
-    tdrDraw(errorBandData,"4",kNone,kNone,kNone,kNone,3144,kGray)
-    tdrDraw(dataHists[0],"e1",kFullCircle,kBlack)
-    tdrDraw(MCHist,"e1p",kFullCircle,kGreen,kNone,kGreen,kNone,kNone)
-    tdrDraw(MCHist_reweighted,"e1p",kOpenCircle,kGreen,kNone,kGreen,kNone,kNone)
-    tdrDraw(errorBandWeight,"4",kNone,kNone,kNone,kNone,3144,kRed+2)
-    tdrDraw(weightHists[0],"e1",kFullTriangleUp,kRed)
+    tdrDraw(errorBandData,"4",r.kNone,r.kNone,r.kNone,r.kNone,3144,r.kGray)
+    tdrDraw(dataHists[0],"e1",r.kFullCircle,r.kBlack)
+    tdrDraw(MCHist,"e1p",r.kFullCircle,r.kGreen,r.kNone,r.kGreen,r.kNone,r.kNone)
+    tdrDraw(MCHist_reweighted,"e1p",r.kOpenCircle,r.kGreen,r.kNone,r.kGreen,r.kNone,r.kNone)
+    tdrDraw(errorBandWeight,"4",r.kNone,r.kNone,r.kNone,r.kNone,3144,r.kRed+2)
+    tdrDraw(weightHists[0],"e1",r.kFullTriangleUp,r.kRed)
 
     #Draw a legend
     leg = tdrLeg(0.5, 0.65, 0.88, 0.88)
@@ -163,10 +163,10 @@ if __name__ == "__main__":
     os.system("pileupCalc.py -i "+options.json+" --inputLumiJSON "+options.latest+" --calcMode true --minBiasXsec "+str(options.minbias*(1-options.uncertainty))+" --maxPileupBin "+str(options.nbins)+" --numPileupBins "+str(options.nbins)+" DownPileupHistogram.root")
     
     # open files
-    fc = TFile.Open("CentralPileupHistogram.root","read")
-    fup = TFile.Open("UpPileupHistogram.root","read")
-    fdown = TFile.Open("DownPileupHistogram.root","read")
-    fout = TFile.Open(options.outname,"RECREATE")
+    fc = r.TFile.Open("CentralPileupHistogram.root","read")
+    fup = r.TFile.Open("UpPileupHistogram.root","read")
+    fdown = r.TFile.Open("DownPileupHistogram.root","read")
+    fout = r.TFile.Open(options.outname,"RECREATE")
     
     # get histos
     hdata_central = DtoF(fc,"pileup")
@@ -187,7 +187,7 @@ if __name__ == "__main__":
     hdata_down.Write()
 
     # MC histo
-    hMC25ns = TH1F("hMC25ns", "", int(options.nbins), 0, int(options.nbins))
+    hMC25ns = r.TH1F("hMC25ns", "", int(options.nbins), 0, int(options.nbins))
     for b in xrange(0,int(options.nbins)):
         hMC25ns.SetBinContent(b+1,probvalue[b] if b < len(probvalue) else 0)
         hMC25ns.SetBinError(b+1,0)
