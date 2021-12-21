@@ -1,7 +1,6 @@
 # Jet CMS DAS Exercise
 
-## CMS DAS (virtual edition) January  2021
-<summary>Directions for DAS September 2021</summary>
+## CMS DAS (virtual edition) January  2022
   
 ### Introduction
 This tutorial is intended to provide you with the basic you need in order to deal with jets in your analysis. We start with the basics of what is a jet, how are they reconstructed, what algorithms are used, etc. Then we give examples with scripts on how to access jets and use them in your analysis frameworks, including corrections and systematics. In the second part of the exercise, we examine jet substructure algorithms, which have many uses including identification of hadronic decays of heavy SM particles like top quarks, W, Z, and H bosons, as well as mitigation of pileup and others.
@@ -15,10 +14,10 @@ If you Logging to cmslpc and create a directory where your exercises are going t
 ```bash
 export SCRAM_ARCH=slc7_amd64_gcc700
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-cmsrel CMSSW_10_6_6
-cd CMSSW_10_6_6/src
+cmsrel CMSSW_10_6_18
+cd CMSSW_10_6_18/src
 cmsenv
-git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASJan2021
+git clone https://github.com/cms-jet/JMEDAS.git Analysis/JMEDAS -b DASJan2022
 git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
 cd Analysis/JMEDAS
 scram b -j 4
@@ -50,7 +49,7 @@ Once there, you are in your cernbox home area, and you can follow these steps:
 
 ```
 cd SWAN_projects/CMSDAS_jetExercise/
-wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DASJan2021/setup-libraries_SWAN.sh
+wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DASJan2022/setup-libraries_SWAN.sh
 source setup-libraries_SWAN.sh 
 ```
 This will take a while, but basically you are setting your CMSSW environment, cloning some packages, and creating the kernel used in this exercises. If the compilation is succesful, you should see something similar to this at the end of the messages:
