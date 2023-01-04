@@ -6,7 +6,7 @@ from collections import OrderedDict
 from Analysis.JMEDAS.tdrstyle_mod14 import *
 
 # Disable pop-up windows for smoother running over ssh
-ROOT.gROOT.SetBatch(True)
+r.gROOT.SetBatch(True)
 
 # Set the ROOT style
 r.gROOT.Macro("rootlogon.C")
