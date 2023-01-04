@@ -26,40 +26,6 @@ cd test
 
 Now you are ready to continue with the exercises. Additionally, see the instructions on how to set your grid-certificate below.
 
-## Run exercises in SWAN 
-
-This version of the same tutorial uses Jupyer Notebooks as a browser-based development environment at [CERN-SWAN](https://swan.cern.ch). The content of these notebooks is the same as the one in lxplus/cmslpc, it is just a different set up.
-
-### Getting Started (Setup)
-
-Go to https://swan.cern.ch and log in with your CERN password. After that you need to configure your environment, please use these settings:
-
-<img src="images/SWAN_configenv.png" width="400px" />
-
-The most important configuration is the software stack, which has to be `97a Python2`. After that click on start the session.
-
-Once you are in `My Projects`, create a new project by clicking on the plus icon on the right part of `My Projects`. Enter the project name you like, for this example we will use `CMSDAS_jetExercise`.
-
-### Checkout the code
-Open up a terminal by clicking on the icon:
-
-<img src="images/SWAN_terminal.png" width="600px" />
-
-Once there, you are in your cernbox home area, and you can follow these steps:
-
-```
-cd SWAN_projects/CMSDAS_jetExercise/
-wget https://raw.githubusercontent.com/cms-jet/JMEDAS/DASJan2022/setup-libraries_SWAN.sh
-source setup-libraries_SWAN.sh 
-```
-This will take a while, but basically you are setting your CMSSW environment, cloning some packages, and creating the kernel used in this exercises. If the compilation is succesful, you should see something similar to this at the end of the messages:
-```
-Loaded CMSSW_10_6_6 into hats-jec!
-```
-After this you can go to [`~/CMSDAS_jetExercise/DAS/`](notebooks/DAS/) and continue with the tutorial. The previous steps you have to _do it once_. Additionally, two important things:
- * You need to follow the instructions below to set your grid certificate. 
- * If you try to access any of the notebooks any other day, it will require you to confirm the kernel. For that please select the `hats-jec` option.
-
 
 ## Grid certificate
 
@@ -69,25 +35,33 @@ To access data stored remotely in different places, you need to set your grid ce
 ```bash
 voms-proxy-init -voms cms -valid 192:00
 ```
- * *SWAN* still does not have a simple way of setting this certificate internally, but we can use a workaround. First, follow the instructions for the grid certificate in lxplus/cmslpc in earlier parts of this school. Once your certificates are properly installed, you can activate the certificate with the command above. So open a "normal" connection to lxplus/cmslpc from your computer (NOT from the SWAN command line), execute `voms-proxy-init -voms cms -valid 192:00` and look at the prints. Your certificate is located in a file with a name like this: `/tmp/x509up_u00000`(lxplus) `~/x509up_u00000`(cmslpc) (with some other numbers instead of 0000). If the location is not printed out (on cmslpc), you can run `echo $X509_USER_PROXY` to find the location. Copy it to your cernbox area like this:
-```bash
-scp $X509_USER_PROXY Y@lxplus.cern.ch:/eos/home-X/Y/    ###  (from cmslpc) where X is the first letter of your cern user id, and Y is your cern user id.
-#scp ~/x509up_u0000  Y@lxplus.cern.ch:/eos/home-X/Y/    ###  (from cmslpc) where ~/x509up_u0000 needs to be adapted to explicitly point to your personally created proxy file, X is the first letter of your cern user id, and Y is your cern user id.
-#cp /tmp/x509up_u0000  /eos/home-X/Y/    ###  (from lxplus) where X is the first letter of your cern user id, and Y is your cern user id.
+## Jet Basics
+
+This preliminary exercise will illustrate some of the basic properties of jets in CMS. Let's start by running the histogram-making code on some MC. While the script is running, take a look at the script and make sure you understand what it's doing.
+
 ```
-Now you are ready to activate your certificate in jupyter notebooks in SWAN by first changing the second line of the cell with the location of your certificate file, and then running (i.e. clicking 'play' in) a cell that looks like this:
-```python
-import os
-os.environ['X509_USER_PROXY'] = '{}/x509up_00000'.format(os.environ["HOME"])   ### remember to change this line with what you did above
-if os.path.isfile(os.environ['X509_USER_PROXY']):
-    print("Found proxy at {}".format(os.environ['X509_USER_PROXY']))
-else:
-    print("Failed to find proxy at {}".format(os.environ['X509_USER_PROXY']))
-os.environ['X509_CERT_DIR'] = '/cvmfs/cms.cern.ch/grid/etc/grid-security/certificates'
-os.environ['X509_VOMS_DIR'] = '/cvmfs/cms.cern.ch/grid/etc/grid-security/vomsdir'
+# In bash shell
+python $CMSSW_BASE/src/Analysis/JMEDAS/scripts/jmedas_make_histograms.py --files=$CMSSW_BASE/src/Analysis/JMEDAS/data/MiniAODs/RunIIFall17MiniAODv2/ttjets2023.txt --outname=$CMSSW_BASE/src/Analysis/JMEDAS/notebooks/files/ttjets.root --maxevents=2000 --maxjets=6 --maxFiles 5
 ```
-The cell should be present in every exercise where you need the authentication.
-_REMEMBER_ to do this every day that you will try to access remote files in SWAN.
+
+Now let's plot the resulting histograms:
+
+```
+python basics.py
+```
+
+Open the produced plot:
+
+```
+evince plots1.pdf
+```
+
+The first run included only 2000 events. Increase this to 10000 or more and redo the plot and see how it looks like now.
+
+The first set of plots shows only AK4 jets. Modify the basics.py code to include also AK8 jets -- the needed histograms are already available in ttjets.root.
+Add the AK8 histograms to the same canvases, they are already filled and available (draw option 'same', line color 'ROOT.kRed').
+
+How are the AK8 histograms different and why?
 
 ## Tutorial
 Once you've completed the setup instructions, change to the directory `~/SWAN_projects/CMSDAS_jetExercise/DAS/` in SWAN. Information on the separate tutorial can be found in the "notebooks" subdirectory.
