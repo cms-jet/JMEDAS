@@ -11,7 +11,7 @@ from Analysis.JMEDAS.tdrstyle_mod14 import *
 r.gROOT.SetBatch(True)
 
 # Set the ROOT style
-r.gROOT.Macro("rootlogon.C")
+r.gROOT.Macro("scripts/rootlogon.C")
 setTDRStyle()
 #r.enableJSVis()
 
