@@ -381,6 +381,10 @@ for i, ifile in enumerate(filesraw):
         print 'Added ' + s
     elif len(ifile) > 2 and ifile[:4] == "/eos":
         files.append(ifile.rstrip())
+        print 'Added ' + ifile
+    else:
+        print "Fatal error: cannot open file " + ifile
+        sys.exit()
 
 #if args.maxFiles:
 #  files = files[:args.maxFiles]
