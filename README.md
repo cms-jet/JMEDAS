@@ -9,7 +9,7 @@ The tutorial is designed to be executed at cmslpc and followed in the JMEDAS 202
 
 ## Run exercises in cmslpc
 
-Open a terminal/console, connect to cmslpc-sl7 and prepare your working area (instructios are in a bash shell syntax):
+Open a terminal/console, connect to cmslpc-sl7 and prepare your working area (instructios are in bash shell syntax):
 
 ```
 kinit username@FNAL.GOV
@@ -29,18 +29,12 @@ cd Analysis/JMEDAS
 scram b -j 4
 ```
 
-For some exercises we also need to access files in remote servers, so activate your grid certificate:
-
-
-## Grid certificate
-
-To access data stored remotely in different places, you need to set your grid certificate. 
-
- *For *cmslpc*, you only need to run (to get a valid certificate):
+In some exercises we also need to access files in remote servers, so activate your grid certificate:
 ```
 voms-proxy-init -voms cms -valid 192:00
 ```
-Now go back to the TWiki page and start with the basics in Section 1!
+
+Now you can go back to the TWiki page and start with the basics in Section 1.
 
 ## Additional Information & Resources
 
