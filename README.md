@@ -9,7 +9,7 @@ The tutorial is designed to be executed at cmslpc and followed in the JMEDAS 202
 
 ## Run exercises in cmslpc
 
-Open a terminal/console, connect to cmslpc-sl7 and prepare your working area (instructios are in bash shell syntax):
+Open a terminal/console, connect to cmslpc-sl7 and prepare your working area (instructions are in bash shell syntax):
 
 ```
 kinit username@FNAL.GOV
