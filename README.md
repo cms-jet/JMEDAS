@@ -9,30 +9,34 @@ We recommend two ways of following this tutorial: in cmslpc or in SWAN. You do n
 
 ## Run exercises in cmslpc
 
-If you Logging to cmslpc and create a directory where your exercises are going to run. Then, do (in a bash shell):
+Open a terminal/console, connect to cmslpc-sl7 and prepare your working area (instructios are in a bash shell syntax):
 
-```bash
+```
+kinit username@FNAL.GOV
+ssh -Y username@cmslpc-sl7.fnal.gov
+mkdir JMEDAS2023
+cd JMEDAS2023
+
 export SCRAM_ARCH=slc7_amd64_gcc700
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsrel CMSSW_10_6_18
 cd CMSSW_10_6_18/src
 cmsenv
+
 git clone https://github.com/juska/JMEDAS.git Analysis/JMEDAS
 git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
 cd Analysis/JMEDAS
 scram b -j 4
-#mkdir test
-#cd test
 ```
 
-Now you are ready to continue with the exercises. Additionally, see the instructions on how to set your grid-certificate below.
+For some exercises we also need to access files in remote servers, so activate your grid certificate:
 
 
 ## Grid certificate
 
 To access data stored remotely in different places, you need to set your grid certificate. 
 
- * *For *cmslpc*, you only need to run (to get a valid certificate):
+ *For *cmslpc*, you only need to run (to get a valid certificate):
 ```bash
 voms-proxy-init -voms cms -valid 192:00
 ```
