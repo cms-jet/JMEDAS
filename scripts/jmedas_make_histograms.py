@@ -92,8 +92,8 @@ parser.add_argument('--maxAK4Rapidity', type=float,
                   help='Maximum AK4 rapidity')
 
 parser.add_argument('--xrootd', type=str,
-                  #default='cmsxrootd.fnal.gov',
-                  default = "xrootd-cms.infn.it",
+                  default='cmsxrootd.fnal.gov',
+                  #default = "xrootd-cms.infn.it",
                   dest='xrootd',
                   help='xrootd redirect string')
 
