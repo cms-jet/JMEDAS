@@ -5,7 +5,7 @@
 ### Introduction
 This tutorial is intended to provide you with the basic you need in order to deal with jets in your analysis. We start with the basics of what is a jet, how are they reconstructed, what algorithms are used, etc. Then we give examples with scripts on how to access jets and use them in your analysis frameworks, including corrections and systematics. In the second part of the exercise, we examine jet substructure algorithms, which have many uses including identification of hadronic decays of heavy SM particles like top quarks, W, Z, and H bosons, as well as mitigation of pileup and others.
 
-We recommend two ways of following this tutorial: in cmslpc or in SWAN. You do not need to follow both recipes below, use the one that you like the most.
+The tutorial is designed to be executed at cmslpc and followed in the JMEDAS 2023 twiki page, where you find links to instructional slides and (read-only) notebooks that walk you through the exercises.
 
 ## Run exercises in cmslpc
 
@@ -37,39 +37,10 @@ For some exercises we also need to access files in remote servers, so activate y
 To access data stored remotely in different places, you need to set your grid certificate. 
 
  *For *cmslpc*, you only need to run (to get a valid certificate):
-```bash
+```
 voms-proxy-init -voms cms -valid 192:00
 ```
-## Jet Basics
-
-This preliminary exercise will illustrate some of the basic properties of jets in CMS. Let's start by running the histogram-making code on some MC. While the script is running, take a look at the script and make sure you understand what it's doing.
-
-```
-# In bash shell
-python $CMSSW_BASE/src/Analysis/JMEDAS/scripts/jmedas_make_histograms.py --files=$CMSSW_BASE/src/Analysis/JMEDAS/data/MiniAODs/RunIIFall17MiniAODv2/ttjets2023.txt --outname=$CMSSW_BASE/src/Analysis/JMEDAS/notebooks/files/ttjets.root --maxevents=2000 --maxjets=6 --maxFiles 5
-```
-
-Now let's plot the resulting histograms:
-
-```
-python basics.py
-```
-
-Open the produced plot:
-
-```
-evince plots1.pdf
-```
-
-The first run included only 2000 events. Increase this to 10000 or more and redo the plot and see how it looks like now.
-
-The first set of plots shows only AK4 jets. Modify the basics.py code to include also AK8 jets -- the needed histograms are already available in ttjets.root.
-Add the AK8 histograms to the same canvases, they are already filled and available (draw option 'same', line color 'ROOT.kRed').
-
-How are the AK8 histograms different and why?
-
-## Tutorial
-Once you've completed the setup instructions, change to the directory `~/SWAN_projects/CMSDAS_jetExercise/DAS/` in SWAN. Information on the separate tutorial can be found in the "notebooks" subdirectory.
+Now go back to the TWiki page and start with the basics in Section 1!
 
 ## Additional Information & Resources
 
