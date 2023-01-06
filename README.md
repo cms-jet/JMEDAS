@@ -34,6 +34,13 @@ In some exercises we also need to access files in remote servers, so activate yo
 voms-proxy-init -voms cms -valid 192:00
 ```
 
+If you like seeing your working directory in the commandline, you can do also this by adding a line to ~/.bashrc and activating it with the 'source' command:
+
+```
+echo "PS1='\W\$ '" >> ~/.bashrc
+source ~/.bashrc
+```
+
 Now you can go back to the TWiki page and start with the basics in Section 1.
 
 ## Additional Information & Resources
