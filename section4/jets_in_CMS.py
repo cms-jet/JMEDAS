@@ -11,6 +11,7 @@ ROOT.gSystem.Load("libFWCoreFWLite.so");
 ROOT.gSystem.Load("libDataFormatsFWLite.so");
 ROOT.FWLiteEnabler.enable()
 
+
 # load FWlite python libraries
 from DataFormats.FWLite import Handle, Events
 

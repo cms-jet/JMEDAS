@@ -4,6 +4,10 @@ import ROOT
 # Plotting for Exercise: Jet Energy Resolution #
 ################################################
 
+# Disable pop-up windows for smoother running over ssh
+ROOT.gROOT.SetBatch(True)
+
+
 f = ROOT.TFile("$CMSSW_BASE/src/Analysis/JMEDAS/notebooks/files/ttjets_corr_smear.root")
 h_ptAK4   = f.Get("h_ptAK4")
 h_ptAK4Up  = f.Get("h_ptUpAK4")

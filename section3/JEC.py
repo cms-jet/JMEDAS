@@ -6,6 +6,10 @@ import ROOT
 
 f = ROOT.TFile("$CMSSW_BASE/src/Analysis/JMEDAS/notebooks/files/ttjets.root")
 
+# Disable pop-up windows for smoother running over ssh
+ROOT.gROOT.SetBatch(True)
+
+
 h_ptAK4   = f.Get("h_ptAK4")
 h_ptAK4Gen   = f.Get("h_ptAK4Gen")
 
