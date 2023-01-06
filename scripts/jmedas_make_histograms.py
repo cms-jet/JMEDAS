@@ -379,7 +379,7 @@ for i, ifile in enumerate(filesraw):
         s = 'root://' + args.xrootd + '/' + ifile.rstrip()
         files.append( s )
         print 'Added ' + s
-    elif len(ifile) > 2 and ifile[:4] == "/eos":
+    elif len(ifile) > 2 and ifile[:4] == "root:":
         files.append(ifile.rstrip())
         print 'Added ' + ifile
     else:
