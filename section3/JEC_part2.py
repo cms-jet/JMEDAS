@@ -3,7 +3,11 @@ import ROOT
 # Disable pop-up windows for smoother running over ssh
 ROOT.gROOT.SetBatch(True)
 
+f = ROOT.TFile("$CMSSW_BASE/src/Analysis/JMEDAS/notebooks/files/ttjets.root")
 f_corr = ROOT.TFile("$CMSSW_BASE/src/Analysis/JMEDAS/notebooks/files/ttjets_corr.root")
+
+h_ptAK4   = f.Get("h_ptAK4")
+h_ptAK4Gen   = f.Get("h_ptAK4Gen")
 
 h_ptAK4_corr = f_corr.Get("h_ptAK4")
 h_ptAK4Gen_corr = f_corr.Get("h_ptAK4Gen")
