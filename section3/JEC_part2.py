@@ -9,6 +9,9 @@ f_corr = ROOT.TFile("$CMSSW_BASE/src/Analysis/JMEDAS/notebooks/files/ttjets_corr
 h_ptAK4   = f.Get("h_ptAK4")
 h_ptAK4Gen   = f.Get("h_ptAK4Gen")
 
+h_ptAK4Gen.SetLineStyle(2) 
+h_ptAK4Gen.SetLineColor(2) 
+
 h_ptAK4_corr = f_corr.Get("h_ptAK4")
 h_ptAK4Gen_corr = f_corr.Get("h_ptAK4Gen")
 
