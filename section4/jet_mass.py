@@ -16,7 +16,7 @@ h_massAK8_2.SetLineColor(2)
 h_massAK8_3.SetLineColor(3)
 h_massAK8_4.SetLineColor(4)
 
-leg = ROOT.TLegend(0.5, 0.5, 0.7, 0.8)
+leg = ROOT.TLegend(0.4, 0.5, 0.8, 0.8)
 leg.SetFillColor(0)
 leg.SetBorderSize(0)
 leg.AddEntry( h_massAK8_1, "", "")
