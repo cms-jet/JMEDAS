@@ -3,7 +3,7 @@ layout: page
 title: "Contributor Code of Conduct"
 ---
 
-![](fig/QRCode_CodeOfConduct.png)
+<img src="fig/QRCode_CodeOfConduct.png" alt="QRCode_CodeOfConduct" width="200"/>
 
 The CMS collaboration consists of members with varied national origin, ethnic background, race, gender identity, sexual orientation, gender, age, physical ability, and religion. As a community, we are committed to being positive and inclusive in all regards.
 
