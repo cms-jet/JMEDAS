@@ -12,7 +12,7 @@ _For general questions, problems, debugs, or asking for help from experts on jet
 
 _Follow the CMS workbook on jet analysis:_  [WorkBookJetAnalysis](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetAnalysis)
 
-## What is this set of exercises is trying to do ?
+### What is this set of exercises is trying to do ?
 
 Give you a hands-on experience on how to access jet collection in an event, plot basic jet quantities, and apply jet energy correction.
 
@@ -21,19 +21,38 @@ Give you a hands-on experience on how to access jet collection in an event, plot
  * Illustrate each exercise using real life example scripts.
  * Give you a comprehensive reference to more advanced workbook examples, additional resources, and pedagogical documentation in one place.
 
-## What are these exercises NOT meant for ?
+### What are these exercises NOT meant for ?
 
 To give a comprehensive summary of the CMS JetMET software machinery or of the jet analyses being performed at CMS.
 
-## What do we expect from you ?
+### What do we expect from you ?
 
  * You should have followed all the pre-exercises and have cmslpc account, grid certificate, and a current web browser at hand.
  * You should work through the notebooks, making sure to understand every step and every plot.
  * The exercises are prepared to be run directly from a cmslpc node, with also non-interactive notebooks to follow and discuss the exercises.
 
-### Facilitaros
+### Facilitators CMSDAS LPC 2024
+
+ * Alejandro Gomez Espinosa	
+ * Martin Kwok	
+ * Clemens Lange	
+ * Chris Madrid	
+ * Connor Moore	
+ * Grace Cummings	
+ * Henning Kirschenmann
+
+### Introductory slides
+
+We will start with this version of slides: [CMSDAS_Jets_intro_2023.pdf]().
 
 
+### Support
+
+Join the [ShortExJets Mattermost channel](https://mattermost.web.cern.ch/cmsdaslpc2024/channels/shortexjets) and don't hesitate to ask for help from the facilitators in the room.
+
+### Setup
+
+Follow the setup [here](setup.md).
 
 <!-- this is an html comment -->
 {% comment %} This is a comment in Liquid {% endcomment %}
@@ -41,6 +60,6 @@ To give a comprehensive summary of the CMS JetMET software machinery or of the j
 > ## Prerequisites
 >
 > FIXME
-{: .prereq}
+[CMS DAS Pre-exercises](https://fnallpc.github.io/cms-das-pre-exercises/) {: .prereq}
 
 {% include links.md %}
