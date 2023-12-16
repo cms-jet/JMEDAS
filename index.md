@@ -59,7 +59,7 @@ Follow the setup [here](setup.md).
 
 > ## Prerequisites
 >
-> FIXME
-[CMS DAS Pre-exercises](https://fnallpc.github.io/cms-das-pre-exercises/) {: .prereq}
+> [CMS DAS Pre-exercises](https://fnallpc.github.io/cms-das-pre-exercises/) 
+{: .prereq}
 
 {% include links.md %}
