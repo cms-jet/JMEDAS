@@ -8,8 +8,34 @@ This tutorial is intended to provide you with the basic you need in order to dea
 
 The tutorial is designed to be executed at cmslpc and followed in the JMEDAS 2023 twiki page, where you find links to instructional slides and (read-only) notebooks that walk you through the exercises.
 
-<!-- this is an html comment -->
+_For general questions, problems, debugs, or asking for help from experts on jets and missing ET:_ [CMS Talk JetMET category](https://cms-talk.web.cern.ch/c/pog/jetmet/51)
 
+_Follow the CMS workbook on jet analysis:_  [WorkBookJetAnalysis](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetAnalysis)
+
+## What is this set of exercises is trying to do ?
+
+Give you a hands-on experience on how to access jet collection in an event, plot basic jet quantities, and apply jet energy correction.
+
+ * A 101 on how to access jets in the CMS framework without assuming prior knowledge of jet analysis.
+ * Make you familiar with basic jet types and algorithms and how to use them in your analysis.
+ * Illustrate each exercise using real life example scripts.
+ * Give you a comprehensive reference to more advanced workbook examples, additional resources, and pedagogical documentation in one place.
+
+## What are these exercises NOT meant for ?
+
+To give a comprehensive summary of the CMS JetMET software machinery or of the jet analyses being performed at CMS.
+
+## What do we expect from you ?
+
+ * You should have followed all the pre-exercises and have cmslpc account, grid certificate, and a current web browser at hand.
+ * You should work through the notebooks, making sure to understand every step and every plot.
+ * The exercises are prepared to be run directly from a cmslpc node, with also non-interactive notebooks to follow and discuss the exercises.
+
+### Facilitaros
+
+
+
+<!-- this is an html comment -->
 {% comment %} This is a comment in Liquid {% endcomment %}
 
 > ## Prerequisites
