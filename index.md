@@ -50,9 +50,6 @@ We will start with this version of slides: [CMSDAS_Jets_intro_2023.pdf]().
 
 Join the [ShortExJets Mattermost channel](https://mattermost.web.cern.ch/cmsdaslpc2024/channels/shortexjets) and don't hesitate to ask for help from the facilitators in the room.
 
-### Setup
-
-Follow the setup [here](setup.md).
 
 <!-- this is an html comment -->
 {% comment %} This is a comment in Liquid {% endcomment %}
