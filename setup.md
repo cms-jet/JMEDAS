@@ -6,37 +6,64 @@ title: Setup
 
 Open a terminal/console, connect to cmslpc-sl7 and prepare your working area (instructions are in bash shell syntax):
 
-```
+~~~
 kinit username@FNAL.GOV
-ssh -Y username@cmslpc-sl7.fnal.gov
-mkdir JMEDAS2023
-cd JMEDAS2023
+ssh -L localhost:8888:localhost:8888 <YOUR USERNAME>@cmslpc-sl7.fnal.gov
+~~~
+{: .language-bash}
 
-export SCRAM_ARCH=slc7_amd64_gcc700
-source /cvmfs/cms.cern.ch/cmsset_default.sh
-cmsrel CMSSW_10_6_18
-cd CMSSW_10_6_18/src
-cmsenv
+If you haven't done it yet, go to your `nobackup` area (`/uscms_data/d3/<YOUR USERNAME>/`) and create a folder for the CMSDAS exercises. Once you are there you can clone our repository:
 
-git clone https://github.com/juska/JMEDAS.git Analysis/JMEDAS
-git clone https://github.com/cms-jet/JetToolbox Analysis/JetToolbox -b jetToolbox_102X_v3
-cd Analysis/JMEDAS
-scram b -j 4
-```
+~~~
+git clone git@github.com:cms-jet/JMEDAS.git -b DASJan2024
+cd JMEDAS/
+~~~
+{: .language-bash}
 
-In some exercises we also need to access files in remote servers, so activate your grid certificate:
-```
+
+Activate your grid certificate:
+~~~
 voms-proxy-init -voms cms -valid 192:00
-```
+~~~
+{: .language-bash}
+
+The following commands one has to do it *everytime you log in into a new session*. They load the
+environment and the packages needed for the exercises and open a jupyter notebook:
+~~~
+source /cvmfs/sft.cern.ch/lcg/views/LCG_103/x86_64-centos7-gcc11-opt/setup.sh
+jupyter notebook --no-browser --port=8888 --ip 127.0.0.1
+~~~
+{: .language-bash}
+
+If these two lines are running sucessfully, you should see something like this:
+~~~
+[I 11:09:47.019 NotebookApp] Serving notebooks from local directory: /uscms_data/d3/user/CMSDAS/ShortExJets2024/JMEDAS/notebooks/master
+[I 11:09:47.019 NotebookApp] Jupyter Notebook 6.4.0 is running at:
+[I 11:09:47.019 NotebookApp] http://127.0.0.1:8888/?token=7b7fed77cb9d6b3b18708b86bgfdsgsd069c6bc8ce0a9abad2
+[I 11:09:47.019 NotebookApp]  or http://127.0.0.1:8888/?token=7b7fed77cb9d6b3b18708b86bgfdsgsd069c6bc8ce0a9abad2
+[I 11:09:47.019 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 11:09:47.028 NotebookApp]
+
+    To access the notebook, open this file in a browser:
+        file:///uscms/homes/u/user/.local/share/jupyter/runtime/nbserver-10677-open.html
+    Or copy and paste one of these URLs:
+        http://127.0.0.1:8888/?token=7b7fed77cb9d6b3b18708b86bgfdsgsd069c6bc8ce0a9abad2
+     or http://127.0.0.1:8888/?token=7b7fed77cb9d6b3b18708b86bgfdsgsd069c6bc8ce0a9abad2
+
+~~~
+{: .output}
+
+Copy and paste one of the last two urls in your favorite browser and now you can continue with the lesson 1 (Episode 1).
+
+## Useful settings
 
 If you like seeing your working directory in the commandline, you can do also this by adding a line to ~/.bashrc and activating it with the 'source' command:
 
-```
+~~~
 echo "PS1='\W\$ '" >> ~/.bashrc
 source ~/.bashrc
-```
-
-Now you can go back to the TWiki page and start with the basics in Section 1.
+~~~
+{: .bash}
 
 
 
