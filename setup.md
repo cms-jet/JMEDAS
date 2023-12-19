@@ -4,7 +4,7 @@ title: Setup
 
 # Run exercises in cmslpc
 
-Open a terminal/console, connect to cmslpc-sl7 and prepare your working area (instructions are in bash shell syntax):
+Open a terminal/console, connect to cmslpc-sl7 and prepare your working area:
 
 ~~~
 kinit username@FNAL.GOV
@@ -63,7 +63,7 @@ If you like seeing your working directory in the commandline, you can do also th
 echo "PS1='\W\$ '" >> ~/.bashrc
 source ~/.bashrc
 ~~~
-{: .bash}
+{: .language-bash}
 
 
 
