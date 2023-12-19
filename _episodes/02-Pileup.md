@@ -12,7 +12,6 @@ keypoints:
 
 Full set of intro slides: Slides 30-44 (FIXME)
 
----
 
 > ## After following the instructions in the setup (if you have not done it yet) :
 >
@@ -24,7 +23,6 @@ Full set of intro slides: Slides 30-44 (FIXME)
 > {: .language-bash}
 >
 > This will open a jupyter notebook tree with various notebooks. 
-
 {: .callout}
 
 ## Measuring pileup
@@ -72,6 +70,9 @@ There are 12 interactions before and 3 after.
 > <img src="../fig/efracs_particles_8TeV.png" alt="Jet Composition MC" width="380px" />
 {: .solution}
 
+## Pileup reweighting
+
+(FIXME)
 
 {% include links.md %}
 
