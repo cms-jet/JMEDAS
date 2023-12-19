@@ -54,6 +54,55 @@ For further reading, several measurements have been performed about jet substruc
 > Note that the histogram has two peaks. What do these correspond to? How do the algorithms affect the relative size of the two populations?
 {: .challenge}
 
+## Substructure variables
+
+> ## Open a notebook
+>
+> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 2.
+{: .checklist}
+
+In this exercise we are defining a few variables: nsubjetiness ratios (tau21, tau32) and energy correlation
+functions (N2, N3).
+Let's start with n-subjetiness ratios. The variable $\tau_N$ gives a sense of how many N prongs or cores can be find inside the jet. It is known that the n-subjetiness variables itself ($\tau_{N}$) do not provide good discrimination power, but its ratios do. Then, a $\tau_{MN} = \dfrac{\tau_M}{\tau_N}$ basically tests if the jet is more M-prong compared to N-prong. For instance, we expect 2 prongs for boosted jets originated from hadronic Ws, while we expect 1 prongs for high-pt jets from QCD multijet processes. The most common nsubjetiness ratio are $\tau_{21}$ and $\tau_{32}$. 
+
+> ## Question 4.2
+> Look at the histogram comparing $\tau_{21}$. What can you say about the histogram? Is $\tau_{21}$ telling you something about the nature of the boosted jets selected?
+{: .challenge}
+
+> ## Question 4.3
+> Look at the histogram comparing $\tau_{32}$. What can you say about the histogram? Is $\tau_{32}$ telling you something about the nature of the boosted jets selected?
+{: .challenge}
+
+Another subtructure variable commonly used is the energy correlation function $N2$. Similarly than $\tau_{21}$, $N2$ tests if the boosted jet is compatible with a 2-prong jet hypothesis.
+
+> ## Question 4.4
+> Look at the histograms comparing $N2$ and $N3. What can you say about the histogram? Are these variables telling you something about the nature of the boosted jets selected?
+{: .challenge}
+
+### Rho parameter
+
+A useful variable for massive, fat jets is the QCD scaling parameter $\rho$, defined as:
+
+$\rho=\log(m^2/(p_{\mathrm{T}}R)^2)$.
+
+(Sometimes $\rho$ is defined without the log). One useful feature of this variable is that QCD jet mass grows with $p_{\mathrm{T}}$, i.e. the two quantities are strongly correlated, while $\rho$ is much less correlated with $p_{\mathrm{T}}$.
+
+> ## Open a notebook
+>
+> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 3.
+{: .checklist}
+
+> ## Question 4.5
+> After running Exercise 3, in which cases do you think the $\rho$ variable can be used? 
+{: .challenge}
+
+> ## Solution 4.5
+> The following two plots show what QCD events look like in different $p_{T}$ ranges. It's clear that the mass depends very strongly on $p_{T}$, while the $\rho$ shape is fairly constant vs. $p_{T}$ (ignoring $\rho<7$ or so, which is the non-perturbative region). Having a stable shape is useful when studying QCD across a wide $p_{T}$ range.
+> <img src="../fig/qcdpt_mass.png" width=600px/>
+> <img src="../fig/qcdpt_rho.png" width=600px/>
+{: .solution}
+
+
 
 {% include links.md %}
 
