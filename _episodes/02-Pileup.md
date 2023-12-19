@@ -14,7 +14,7 @@ Full set of intro slides: Slides 30-44 (FIXME)
 
 ---
 
-> ## (If you have not done it yet) After following the instructions in the setup:
+> ## After following the instructions in the setup (if you have not done it yet) :
 >
 > ~~~
 > cd <YOUR WORKING DIRECTORY>/notebooks/
@@ -64,12 +64,12 @@ There are 12 interactions before and 3 after.
 
 > ## Question 2.3
 > This plot shows the jet composition. Generally, why do we see the mixture of photons, neutral hadrons and charged hadrons that we see?</font>
-> <img src="fig/composition_combo_pt_pfpaper_final_v2.png" alt="Jet Composition Vs. Pt" width="400px" style="float: right;" />
+> <img src="../fig/composition_combo_pt_pfpaper_final_v2.png" alt="Jet Composition Vs. Pt" width="400px" />
 {: .challenge}
 
 > ## Solution 2.3
 > A majority of the constituents in a jet come from pions. Pions come in neutral ($\pi^{0}$) and charged ($\pi^{\pm}$) varieties. Naively you would expect the composition to be two thirds charged hadrons and one third neutral hadrons. However, we know that $\pi^{0}$ decays to two photons, which leads to a large photon fraction.
-> <img src="../fig/efracs_particles_8TeV.png" alt="Jet Composition MC" width="380px" style="float: left;" />
+> <img src="../fig/efracs_particles_8TeV.png" alt="Jet Composition MC" width="380px" />
 {: .solution}
 
 
