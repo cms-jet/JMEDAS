@@ -80,7 +80,7 @@ Here we are going to produce a file containing the weights used for pileup rewei
 
 > ## Open a notebook
 >
-> For this part open the notebook called `Jet_Types_and_Algorithms.ipynb` and run the Exercise 2.
+> For this part open the notebook called `Pileup.ipynb` and run the Exercise 2.
 {: .checklist}
 
 > ## Question 2.4
@@ -122,7 +122,7 @@ The JetMET POG recommends a single jet ID for most physics analysess in CMS, whi
 
 > ## Open a notebook
 >
-> For this part open the notebook called `Jet_Types_and_Algorithms.ipynb` and run the Exercise 3.
+> For this part open the notebook called `Pileup.ipynb` and run the Exercise 3.
 {: .checklist}
 
 In nanoAOD is trivial to apply jetID. They are stored as Flags, where `events.Jet.jetId>=2` corresponds to *tightID* and `events.Jet.jetId>=6` corresponds to *tightLepVetoID*. 

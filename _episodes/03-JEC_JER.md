@@ -5,16 +5,14 @@ questions:
 - "What are jet energy correction?"
 - "What is jet energy resolution?"
 objectives:
-- "First learning objective. (FIXME)"
+- "Learn about how we calibrate jets in CMS."
+- "Learn about the resolution of the jets and its effect."
 keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
+- "The energy of jets in data and simulations is different, for many reasons, and in CMS we calibrate them in a series of steps."
+- "Jets are stochastic objects which its content fluctuates a lot. We measure the jet energy resolution to mitigate this effects."
 ---
 
-Navigate to directory section3 and follow the instructions in the below notebooks.
-
-Covered notebooks: Jet energy corrections (Ex 3.1) and Jet energy resolution (Ex 3.2)
-
-(Following slides 27-38 from these slides) 
+(Following slides 27-38 from these slides)  (FIXME)
 
 ---
 
@@ -35,7 +33,7 @@ Covered notebooks: Jet energy corrections (Ex 3.1) and Jet energy resolution (Ex
 
 > ## Open a notebook
 >
-> For the first part of this introduction open the notebook called `Jet_Energy_Corrections.ipynb`.
+> For this part open the notebook called `Jet_Energy_Corrections.ipynb` and run the Exercise 1 and 2.
 {: .checklist}
 
 > ## Discussion 1.1
@@ -95,6 +93,11 @@ labeling the JECs. In this example:
 
 Since we've applied the JEC corrections to the distributions, we should also assign a systematic uncertainty to the procedure. The procedure is explained in [this link](https://cms-jerc.web.cern.ch/JECUncertaintySources/), and this is part of the Exercise 3 of the notebook.
 
+> ## Open a notebook
+>
+> For this part open the notebook called `Jet_Energy_Corrections.ipynb` and run the Exercise 3.
+{: .checklist}
+
 > ## Question 1.1
 > After running the Exercise 3 of the notebook, does the result make sense? Is the nominal histogram always between the up and down variations, and should it be?
 {: .challenge}
@@ -112,13 +115,23 @@ The resolution is measured in data for different eta bins, and was approximately
 
 > ## Open a notebook
 >
-> For the first part of this introduction open the notebook called `Jet_Resolution.ipynb`.
+> For this part open the notebook called `Jet_Energy_Corrections.ipynb` and run the Exercise 4.
 {: .checklist}
 
-In the notebook we will use the `coffea` implementation to apply JER to nanoAOD events. 
+In the notebook we will use the `coffea` implementation to apply JER to nanoAOD events. Notice that
+the function used to apply corrections will be updated soon to be compatible with `json-pog`.
 
-(FIXME)
 
+> ## Discussion
+>
+> Let's look at a simple dijet resonance peak shown below. 
+>
+> <img src="../fig/JER_RSplot.png" alt="Jet Resolution plot for a dijet resonance analysis." width="400px" />
+>
+> It corresponds to a dijet resonance peaks analysis. The plot was produced an MC sample of Randall-Sundrum gravitons (RSGs) with m=3 TeV decaying to two quarks. The resulting signature is two high-$p_{\mathrm{T}}$ jets, with a truth-level invariant mass of 3 TeV.
+>
+> Can you see the effect the correction and the smearing has?
+{: .discussion}
 
 {% include links.md %}
 
