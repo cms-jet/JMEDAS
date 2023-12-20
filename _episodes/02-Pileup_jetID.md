@@ -75,7 +75,34 @@ There are 12 interactions before and 3 after.
 
 ## Pileup reweighting
 
-(FIXME)
+Here we are going to produce a file containing the weights used for pileup reweighting using
+`json-pog` and `correctionlib`. 
+
+> ## Open a notebook
+>
+> For this part open the notebook called `Jet_Types_and_Algorithms.ipynb` and run the Exercise 2.
+{: .checklist}
+
+> ## Question 2.4
+> Ask yourself what pileup reweighting is doing. How large do you expect the pileup weights to be?
+{: .challenge}
+
+> ## Question 2.5
+> In what unit will the x-axis be plotted? Another way of asking this is what pileup variable can be measured in both data and MC and is fairly robust?
+{: .challenge}
+
+> ## Solution 2.5
+> The x-axis is plotted as a function of $\mu$ as this is a true measurement of pileup (additional interactions) and not just some variable which is correlated with pileup. Other options might have been $N_{PV}$, which has an efficiency which is less than 100%, and $\rho$, which assumes that the pileup energy density is uniform. We also get different values of $\rho$ if we measure it for different regions in $\eta$ (i.e. $|\eta|<3$ or $|\eta|<5$).
+>
+> <img src="../files/Zmumu_npv.png" alt="Zmumu_npv" width="400px" />
+> <img src="../files/Zmumu_rho.png" alt="Zmumu_rho" width="400px" />
+> <img src="../files/Zmumu_npv_nputruth.png" alt="Zmumu_npv_nputruth" width="400px" />
+> <img src="../files/Zmumu_rho_nputruth.png" alt="Zmumu_rho_nputruth" width="400px" /></details>
+{: .solution}
+
+> ## Question 2.6
+> Why do the green and red histograms end arount $\mu\approx38$?
+{: .challenge}
 
 
 
