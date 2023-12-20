@@ -1,13 +1,18 @@
 ---
 title: "Jet Substructure"
-teaching: 0
-exercises: 0
+teaching: 1h30
+exercises: 6
 questions:
 - "What is jet substructure?"
+- "How to distinguished jets originating from W or top quarks?"
 objectives:
-- "Learn how to identify the origin of jets with high pt"
+- "Learn about high pt ak8jets (FatJet)"
+- "Learn about the different substructure variables and taggers"
+- "Learn ways to identify boosted W and top quarks"
 keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
+- "Jet substructure is the field study the internakl structure of high pt jets, usually clustered with a bigger jet radius (AK8)."
+- "Grooming algorithms like softdrop, and substructure variables like the nsubjettiness ratio help us to identify the origin of these jets."
+- "Over the years more state-of-the-art taggers involving ML have been implemented in CMS. Those help us indentify more effectively boosted jets."
 ---
 
 Full set of intro slides: Slides 58-76 (FIXME)

@@ -1,6 +1,6 @@
 ---
 title: "JEC and JER"
-teaching: 0
+teaching: 1h30
 exercises: 0
 questions:
 - "What are jet energy correction?"
@@ -118,6 +118,7 @@ The resolution is measured in data for different eta bins, and was approximately
 
 In the notebook we will use the `coffea` implementation to apply JER to nanoAOD events. 
 
+(FIXME)
 
 
 {% include links.md %}
