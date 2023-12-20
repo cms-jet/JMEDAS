@@ -94,10 +94,10 @@ Here we are going to produce a file containing the weights used for pileup rewei
 > ## Solution 2.5
 > The x-axis is plotted as a function of $\mu$ as this is a true measurement of pileup (additional interactions) and not just some variable which is correlated with pileup. Other options might have been $N_{PV}$, which has an efficiency which is less than 100%, and $\rho$, which assumes that the pileup energy density is uniform. We also get different values of $\rho$ if we measure it for different regions in $\eta$ (i.e. $|\eta|<3$ or $|\eta|<5$).
 >
-> <img src="../files/Zmumu_npv.png" alt="Zmumu_npv" width="400px" />
-> <img src="../files/Zmumu_rho.png" alt="Zmumu_rho" width="400px" />
-> <img src="../files/Zmumu_npv_nputruth.png" alt="Zmumu_npv_nputruth" width="400px" />
-> <img src="../files/Zmumu_rho_nputruth.png" alt="Zmumu_rho_nputruth" width="400px" /></details>
+> <img src="../fig/Zmumu_npv.png" alt="Zmumu_npv" width="400px" />
+> <img src="../fig/Zmumu_rho.png" alt="Zmumu_rho" width="400px" />
+> <img src="../fig/Zmumu_npv_nputruth.png" alt="Zmumu_npv_nputruth" width="400px" />
+> <img src="../fig/Zmumu_rho_nputruth.png" alt="Zmumu_rho_nputruth" width="400px" /></details>
 {: .solution}
 
 > ## Question 2.6
