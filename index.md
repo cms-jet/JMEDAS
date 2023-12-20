@@ -4,32 +4,32 @@ root: .  # Is the only page that doesn't follow the pattern /:path/index.html
 permalink: index.html  # Is the only page that doesn't follow the pattern /:path/index.html
 ---
 
-This tutorial is intended to provide you with the basic you need in order to deal with jets in your analysis. We start with the basics of what is a jet, how are they reconstructed, what algorithms are used, etc. Then we give examples with scripts on how to access jets and use them in your analysis frameworks, including corrections and systematics. In the second part of the exercise, we examine jet substructure algorithms, which have many uses including identification of hadronic decays of heavy SM particles like top quarks, W, Z, and H bosons, as well as mitigation of pileup and others.
+This tutorial will give you the basics you need to deal with jets in your analysis. We start with the basics of a jet, how they are reconstructed, what algorithms are used, etc. Then, we give examples with scripts on how to access jets and use them in your analysis frameworks, including corrections and systematics. In the second part of the exercise, we examine jet substructure algorithms, which have many uses, including the identification of hadronic decays of heavy SM particles like top quarks, W, Z, and H bosons, as well as mitigation of pileup and others.
 
-The tutorial is designed to be executed at cmslpc and followed in the JMEDAS 2023 twiki page, where you find links to instructional slides and (read-only) notebooks that walk you through the exercises.
+The tutorial is designed to be executed at cmslpc, following the setup step, using jupyter notebooks. On this website, you will find links to instructional slides and more information about the topics to walk you through the exercises.
+
 
 _For general questions, problems, debugs, or asking for help from experts on jets and missing ET:_ [CMS Talk JetMET category](https://cms-talk.web.cern.ch/c/pog/jetmet/51)
 
 _Follow the CMS workbook on jet analysis:_  [WorkBookJetAnalysis](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetAnalysis)
 
-### What is this set of exercises is trying to do ?
+### What is this set of exercises trying to do?
 
-Give you a hands-on experience on how to access jet collection in an event, plot basic jet quantities, and apply jet energy correction.
-
- * A 101 on how to access jets in the CMS framework without assuming prior knowledge of jet analysis.
+It gives you hands-on experience accessing jet collection in an event, plotting basic jet quantities, and applying jet energy correction.
+ * This is a 101 on accessing jets in the CMS framework without assuming prior knowledge of jet analysis.
  * Make you familiar with basic jet types and algorithms and how to use them in your analysis.
- * Illustrate each exercise using real life example scripts.
- * Give you a comprehensive reference to more advanced workbook examples, additional resources, and pedagogical documentation in one place.
+ * Illustrate each exercise using real-life example scripts.
+ * Give a comprehensive reference to more advanced workbook examples, additional resources, and pedagogical documentation in one place.
 
-### What are these exercises NOT meant for ?
+### What are these exercises NOT meant for?
 
-To give a comprehensive summary of the CMS JetMET software machinery or of the jet analyses being performed at CMS.
+To summarize the CMS JetMET software machinery comprehensively or the jet analyses performed at CMS.
 
-### What do we expect from you ?
+### What do we expect from you?
 
- * You should have followed all the pre-exercises and have cmslpc account, grid certificate, and a current web browser at hand.
- * You should work through the notebooks, making sure to understand every step and every plot.
- * The exercises are prepared to be run directly from a cmslpc node, with also non-interactive notebooks to follow and discuss the exercises.
+ * You should have followed all the pre-exercises and have a cmslpc account, grid certificate, and a current web browser.
+ * It would be best if you worked through the notebooks, ensuring you understand every step and every plot.
+ * The exercises are prepared to be run directly from a cmslpc node, with non-interactive notebooks to follow and discuss the exercises.
 
 ### Facilitators CMSDAS LPC 2024
 
@@ -38,12 +38,11 @@ To give a comprehensive summary of the CMS JetMET software machinery or of the j
  * Clemens Lange	
  * Chris Madrid	
  * Connor Moore	
- * Grace Cummings	
  * Henning Kirschenmann
 
 ### Introductory slides
 
-We will start with this version of slides: [CMSDAS_Jets_intro_2023.pdf]().
+We will start with this version of slides: [CMSDAS_Jets_intro_2023.pdf](). (FIXME)
 
 
 ### Support
