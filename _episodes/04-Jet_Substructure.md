@@ -102,7 +102,66 @@ $\rho=\log(m^2/(p_{\mathrm{T}}R)^2)$.
 > <img src="../fig/qcdpt_rho.png" width=600px/>
 {: .solution}
 
+## Jet mass
 
+We can also use jet mass to distinguish our boosted W and top jets from QCD. Let's compare the AK8 jet mass of the boosted top quarks from the RS KK sample and the jets from the QCD sample. Let's also look at the and the softdrop groomed jet mass combined with the PUPPI pileup subtraction algorithm for different samples.
+
+> ## Open a notebook
+>
+> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 4.
+{: .checklist}
+
+> ## Question 4.6
+>
+> Do you think the jet softdrop mass alone can be used to identify boosted W and top jets? 
+{: .challenge}
+
+
+## W and top tagging
+
+In this part of the tutorial, we will look at how different substructure algorithms can be used to identify jets originating from boosted W's and tops. Specifically, we'll see how these identification tools are used to separate these boosted jets from those originating from Standard Model QCD, a dominant process at the LHC.
+
+### W tagging
+
+We will now investigate how to identify W bosons using the substructure techniques we've learned.
+Compare the tau2 / tau1 ratio for the AK8 jets from Standard Model top quarks to those from the QCD samples. 
+
+> ## Open a notebook
+>
+> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 5.
+{: .checklist}
+
+> ## Question 4.7
+>
+> * Why can we use a ttbar sample to talk about W-tagging?
+> * What cuts would you place on these variables to distinguish W bosons from QCD?
+> * So far, which variable looks more promising?
+{: .challenge}
+
+### top tagging
+
+We will now investigate how to identify top quarks using the substructure techniques we've learned.
+
+> ## Open a notebook
+>
+> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 6.
+{: .checklist}
+
+> ## Question 4.8
+> * What cut would you apply to select boosted top quarks?
+> * For both the W and top selections, what other variable(s) could we cut on in addition?
+{: .challenge}
+
+### Go Further
+
+ * You can learn more about jet grooming from the jet substructure exercise and PUPPI from the pileup mitigation exercise.
+ * We briefly mentioned that you can combine variables for even better discrimination. In CMS, we do this to build our jet taggers. For the simple taggers, we often combine cuts on jet substructure variables and jet mass. The more sophisticated taggers, which are used more and more widely within CMS, use deep neural networks. To learn about building a machine learning tagger, check out the [machine learning short exercise](https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideCMSDataAnalysisSchoolCERN2020MLShortExercise). (FIXME)
+
+> ## What about boosted Higgs?
+>
+> CMS has also a rich program for booted Higgs to bb/cc taggers, however they are usually studied by
+> the btagging group (BTV). Look at their documentation for more information.
+{: .callout}
 
 {% include links.md %}
 
