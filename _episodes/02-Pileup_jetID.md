@@ -104,7 +104,9 @@ Here we are going to produce a file containing the weights used for pileup rewei
 > Why do the green and red histograms end arount $\mu\approx38$?
 {: .challenge}
 
-
+> ## More information
+> To learn more about pileup, you can follow the CMSDAS short exercise about pileup here: (FIXME)
+{: .callout}
 
 ## Jet ID
 
@@ -185,10 +187,10 @@ C++ from a miniAOD file:
 > It is also possible to use the `PFJetIDSelectionFunctor` C++ selector (actually, either in C++ or python), but this was primarily developed in the days before PF when applying CaloJet ID was not possible very easily. Nevertheless, the functionality of more complicated selection still exists for PFJets, but is almost never used other than the few lines above. If you would still like to use that C++ class, it is documented as an example here.
 {: .solution}
 
-> ## Discussion 1.4
+> ## Question 2.7
 >
 > What do the jets with jetId represent? Were you expecting more or less jets with jetId==0?
-{: .discussion}
+{: .challenge}
 
 {% include links.md %}
 
