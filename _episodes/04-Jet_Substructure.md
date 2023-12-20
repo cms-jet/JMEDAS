@@ -1,7 +1,6 @@
 ---
 title: "Jet Substructure"
 teaching: 1h30
-exercises: 6
 questions:
 - "What is jet substructure?"
 - "How to distinguished jets originating from W or top quarks?"
@@ -20,7 +19,7 @@ Full set of intro slides: Slides 58-76 (FIXME)
 > ## After following the instructions in the setup:
 >
 > ~~~
-> cd <YOUR WORKING DIRECTORY>/notebooks/
+> cd <YOUR WORKING DIRECTORY>/notebooks/DAS/
 > source /cvmfs/sft.cern.ch/lcg/views/LCG_103/x86_64-centos7-gcc11-opt/setup.sh
 > jupyter notebook --no-browser --port=8888 --ip 127.0.0.1
 > ~~~

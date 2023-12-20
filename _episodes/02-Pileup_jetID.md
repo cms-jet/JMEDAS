@@ -1,7 +1,6 @@
 ---
 title: "Pileup and jetID"
-teaching: 0
-exercises: 0
+teaching: 1h30
 questions:
 - "What is pileup and how does it afffect to jets?"
 - "What is the basic jet quality criteria?"
@@ -9,7 +8,8 @@ objectives:
 - "Learn about the pileup mitigation techniques used at CMS."
 - "Learn about about the basic jet quality criteria."
 keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
+- "We call pileup to the amount of other processes not coming from the main interaction point. We must mitigates its effects to reduce the amount of noise in our events."
+- "Many event variables help us to learn how different pileup was during the data taking period, compared to the pileup that we use in our simulations. The _pileup reweighting_ procedure help us to calibrate the pileup profile in our simulations."
 - "The so-called jetID is the basic jet quality criteria to remove fake jets."
 ---
 
@@ -19,7 +19,7 @@ Full set of intro slides: Slides 30-44 (FIXME)
 > ## After following the instructions in the setup (if you have not done it yet) :
 >
 > ~~~
-> cd <YOUR WORKING DIRECTORY>/notebooks/
+> cd <YOUR WORKING DIRECTORY>/notebooks/DAS/
 > source /cvmfs/sft.cern.ch/lcg/views/LCG_103/x86_64-centos7-gcc11-opt/setup.sh
 > jupyter notebook --no-browser --port=8888 --ip 127.0.0.1
 > ~~~
