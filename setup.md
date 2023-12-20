@@ -16,10 +16,14 @@ If you haven't done it yet, go to your `nobackup` area (`/uscms_data/d3/<YOUR US
 
 ~~~
 git clone git@github.com:cms-jet/JMEDAS.git -b DASJan2024
-cd JMEDAS/
+cd JMEDAS/notebooks/DAS/
 ~~~
 {: .language-bash}
 
+> ## Remember
+> Once you clone the repository, using the `DASJan2024` branch, the exercise notebooks are located
+> in `JMEDAS/notebooks/DAS/`
+{: .callout}
 
 Activate your grid certificate:
 ~~~
@@ -54,6 +58,7 @@ If these two lines are running sucessfully, you should see something like this:
 {: .output}
 
 Copy and paste one of the last two urls in your favorite browser and now you can continue with the lesson 1 (Episode 1).
+
 
 ## Useful settings
 

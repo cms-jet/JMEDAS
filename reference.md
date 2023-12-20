@@ -2,7 +2,7 @@
 layout: reference
 ---
 
-## Glossary
+## Useful links
 
   - [JERC Subgroup Twiki Page](https://twiki.cern.ch/twiki/bin/view/CMS/JetEnergyScale)
     - [JEC and JER Reference Sample Page](https://twiki.cern.ch/twiki/bin/view/CMS/JERCReference)
