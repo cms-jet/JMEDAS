@@ -13,23 +13,26 @@ _For general questions, problems, debugs, or asking for help from experts on jet
 
 _Follow the CMS workbook on jet analysis:_  [WorkBookJetAnalysis](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetAnalysis)
 
-### What is this set of exercises trying to do?
+> # What is this set of exercises trying to do?
+>
+>It gives you hands-on experience accessing jet collection in an event, plotting basic jet quantities, and applying jet energy correction.
+> * This is a 101 on accessing jets in the CMS framework without assuming prior knowledge of jet analysis.
+> * Make you familiar with basic jet types and algorithms and how to use them in your analysis.
+> * Illustrate each exercise using real-life example scripts.
+> * Give a comprehensive reference to more advanced workbook examples, additional resources, and pedagogical documentation in one place.
+{: .objectives}
 
-It gives you hands-on experience accessing jet collection in an event, plotting basic jet quantities, and applying jet energy correction.
- * This is a 101 on accessing jets in the CMS framework without assuming prior knowledge of jet analysis.
- * Make you familiar with basic jet types and algorithms and how to use them in your analysis.
- * Illustrate each exercise using real-life example scripts.
- * Give a comprehensive reference to more advanced workbook examples, additional resources, and pedagogical documentation in one place.
+> # What are these exercises NOT meant for?
+>
+> To summarize the CMS JetMET software machinery comprehensively or the jet analyses performed at CMS.
+{: .keypoints}
 
-### What are these exercises NOT meant for?
-
-To summarize the CMS JetMET software machinery comprehensively or the jet analyses performed at CMS.
-
-### What do we expect from you?
-
- * You should have followed all the pre-exercises and have a cmslpc account, grid certificate, and a current web browser.
- * It would be best if you worked through the notebooks, ensuring you understand every step and every plot.
- * The exercises are prepared to be run directly from a cmslpc node, with non-interactive notebooks to follow and discuss the exercises.
+> # What do we expect from you?
+>
+> * You should have followed all the pre-exercises and have a cmslpc account, grid certificate, and a current web browser.
+> * It would be best if you worked through the notebooks, ensuring you understand every step and every plot.
+> * The exercises are prepared to be run directly from a cmslpc node, with non-interactive notebooks to follow and discuss the exercises.
+{: .testimonial}
 
 ### Facilitators CMSDAS LPC 2024
 

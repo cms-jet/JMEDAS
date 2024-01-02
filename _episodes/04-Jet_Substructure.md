@@ -1,6 +1,7 @@
 ---
 title: "Jet Substructure"
-teaching: 1h30
+teaching: 10
+exercises: 20
 questions:
 - "What is jet substructure?"
 - "How to distinguished jets originating from W or top quarks?"

@@ -1,6 +1,7 @@
 ---
 title: "Pileup and jetID"
-teaching: 1h30
+teaching: 10
+exercises: 20
 questions:
 - "What is pileup and how does it afffect to jets?"
 - "What is the basic jet quality criteria?"

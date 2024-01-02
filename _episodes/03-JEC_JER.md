@@ -1,6 +1,7 @@
 ---
 title: "JEC and JER"
-teaching: 1h30
+teaching: 10
+exercises: 20
 questions:
 - "What are jet energy correction?"
 - "What is jet energy resolution?"
