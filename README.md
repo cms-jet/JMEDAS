@@ -1,3 +1,35 @@
+# Jet CMSDAS Exercise repository
+
+This repository contains code use for several years for each CMS Data Analysis School, and therefore there is one branch for the specific CMSDAS school. 
+
+## For students
+
+If you want to follow the CMSDAS short jet exercise check the website: [http://cms-jet.github.io/JMEDAS/](http://cms-jet.github.io/JMEDAS)
+
+The latest version of the school is on January 2024 and therefore use the branch `DASJan2024`:
+
+```
+git clone git@github.com:cms-jet/JMEDAS.git -b DASJan2024
+```
+
+
+## For contributors
+
+This is the master branch which contains all the code used in several CMSDAS schools. This means that many of the code is obsolete or uses tools that are not longer recommended by CMS. 
+
+### To update the website
+
+The website uses the [carpentry software](https://github.com/carpentries/styles/). If you want to modify it, use the `gh-pages` branch and follow the recommendations from the carpentry style.
+
+### To update the exercises
+
+The latest version of the exercises, for Jan 2024, use `jupyter notebooks`, `nanoAOD` and `coffea`. This is located under `notebooks/master/`.
+
+All the previous notebooks are stored under `notebooks/obsolete/`.
+
+The code in `interface/`, `plugins/`, `scripts/` and `src/`, is the code use under CMSSW using miniAOD. These scripts are not longer used by kept here for documentation.
+
+
 ## CMSDAS Jet Short Exercise - January  2024
   
 ### Introduction
