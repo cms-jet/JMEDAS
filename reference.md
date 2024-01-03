@@ -2,6 +2,28 @@
 layout: reference
 ---
 
+## Jet Resources
+
+### JetMET - Physics Object Group (POG) dedicated to jet and missing transverse momentum performance
+
+ * TWiki: https://twiki.cern.ch/twiki/bin/view/CMS/JetMET
+ * Hypernews: https://hypernews.cern.ch/HyperNews/CMS/get/JetMET.html
+ * Meetings: https://indico.cern.ch/category/1308
+ * Recommendations: https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetMET#Quick_links_to_current_recommend
+
+#### Subgroups
+ * Jet Energy Resolutions and Corrections (JERC) - TWiki, HN
+ * JetMET Algorithms and Reconstruction (JMAR) - TWiki, HN
+ * Missing ET (MET) - TWiki, HN
+ * JetMET DQM and Validation - TWiki, HN
+ * JetMET Trigger - TWiki, HN
+ * Physics analysis group (PAG) contacts
+ * B2G, Higgs, Top, SUSY
+
+FNAL LPC Resources
+Weekly Run 2 Discussion Groups
+Hands-On Advanced Tutorial Sessions (HATS) (long versions of these exercises each summer, already remote/recorded in June 2020)
+
 ## Useful links
 
   - [JERC Subgroup Twiki Page](https://twiki.cern.ch/twiki/bin/view/CMS/JetEnergyScale)
