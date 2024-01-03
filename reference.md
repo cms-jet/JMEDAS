@@ -6,8 +6,8 @@ layout: reference
 
 ### JetMET - Physics Object Group (POG) dedicated to jet and missing transverse momentum performance
 
- * TWiki: https://twiki.cern.ch/twiki/bin/view/CMS/JetMET
- * Hypernews: https://hypernews.cern.ch/HyperNews/CMS/get/JetMET.html
+ * TWiki: [https://twiki.cern.ch/twiki/bin/view/CMS/JetMET](https://twiki.cern.ch/twiki/bin/view/CMS/JetMET)
+ * Hypernews: [https://hypernews.cern.ch/HyperNews/CMS/get/JetMET.html]
  * Meetings: https://indico.cern.ch/category/1308
  * Recommendations: https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetMET#Quick_links_to_current_recommend
 
