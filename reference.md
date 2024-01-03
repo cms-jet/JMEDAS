@@ -6,25 +6,29 @@ layout: reference
 
 ### JetMET - Physics Object Group (POG) dedicated to jet and missing transverse momentum performance
 
- * TWiki: [https://twiki.cern.ch/twiki/bin/view/CMS/JetMET](https://twiki.cern.ch/twiki/bin/view/CMS/JetMET)
- * Hypernews: [https://hypernews.cern.ch/HyperNews/CMS/get/JetMET.html]
- * Meetings: https://indico.cern.ch/category/1308
- * Recommendations: https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetMET#Quick_links_to_current_recommend
+ * [TWiki](https://twiki.cern.ch/twiki/bin/view/CMS/JetMET)
+ * [cms-talk](https://cms-talk.web.cern.ch/c/physics/jme/51)
+ * [Meetings](https://indico.cern.ch/category/1308)
+ * [Recommendations](https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetMET#Quick_links_to_current_recommend)
 
 #### Subgroups
- * Jet Energy Resolutions and Corrections (JERC) - TWiki, HN
- * JetMET Algorithms and Reconstruction (JMAR) - TWiki, HN
- * Missing ET (MET) - TWiki, HN
- * JetMET DQM and Validation - TWiki, HN
- * JetMET Trigger - TWiki, HN
- * Physics analysis group (PAG) contacts
- * B2G, Higgs, Top, SUSY
+ * Jet Energy Resolutions and Corrections (JERC) - [website](https://cms-jerc.web.cern.ch), [cms-talk](https://cms-talk.web.cern.ch/c/physics/jme/jme-jes/69)
+ * JetMET Algorithms and Reconstruction (JMAR) - [TWiki](https://twiki.cern.ch/twiki/bin/view/CMS/JetMETAlgorithmsReconstruction), [cms-talk](https://cms-talk.web.cern.ch/c/physics/jme/jme-algorithms/56)
+ * Missing ET (MET) - [TWiki](https://twiki.cern.ch/twiki/bin/view/CMS/MissingET), [cms-talk](https://cms-talk.web.cern.ch/c/physics/jme/jme-met/62)
+ * JetMET DQM and Validation - [TWiki](https://twiki.cern.ch/twiki/bin/view/CMS/JetMETDQMValRun2)
+ * JetMET Trigger - [TWiki](https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetMETTriggers), [cms-talk](https://cms-talk.web.cern.ch/c/physics/jme/jme-trigger/63)
+ * Physics analysis group (PAG) contacts:
+    * [B2G](https://twiki.cern.ch/twiki/bin/view/CMS/B2G#Contacts)
+    * [Higgs](https://twiki.cern.ch/twiki/bin/view/CMS/HiggsWG#Contacts)
+    * [Top](https://twiki.cern.ch/twiki/bin/view/CMS/TWikiTopQuark#Contact_persons)
+    * [SUSY](https://twiki.cern.ch/twiki/bin/view/CMS/SUSY)
 
-FNAL LPC Resources
-Weekly Run 2 Discussion Groups
-Hands-On Advanced Tutorial Sessions (HATS) (long versions of these exercises each summer, already remote/recorded in June 2020)
+### FNAL LPC Resources
 
-## Useful links
+ * [Weekly Run 2 Discussion Groups](https://indico.cern.ch/category/7082/)
+ * [Hands-On Advanced Tutorial Sessions (HATS)](https://indico.cern.ch/category/371/) (long versions of these exercises each summer, already remote/recorded in June 2020)
+
+### Other useful links
 
   - [JERC Subgroup Twiki Page](https://twiki.cern.ch/twiki/bin/view/CMS/JetEnergyScale)
     - [JEC and JER Reference Sample Page](https://twiki.cern.ch/twiki/bin/view/CMS/JERCReference)
