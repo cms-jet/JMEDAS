@@ -47,7 +47,7 @@ kind: "lesson"
 repository: cms-jet/JMEDAS
 
 # Email address, no mailto:
-email: "team@carpentries.org"
+email: "cmstalk+jme@dovecotmta.cern.ch"
 
 # Sites.
 coc: "https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html"
@@ -61,7 +61,7 @@ example_site: "https://carpentries.github.io/lesson-example"
 lc_site: "https://librarycarpentry.org/"
 swc_github: "https://github.com/swcarpentry"
 swc_pages: "https://swcarpentry.github.io"
-swc_site: "https://software-carpentry.org"
+swc_site: "https://cms-info.web.cern.ch/"
 template_repo: "https://github.com/carpentries/styles"
 training_site: "https://carpentries.github.io/instructor-training"
 workshop_repo: "https://github.com/carpentries/workshop-template"
