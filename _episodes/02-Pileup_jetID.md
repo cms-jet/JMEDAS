@@ -28,7 +28,7 @@ keypoints:
 
 ## What is pileup?
 
-<img src="../fig/episode2/pileup_elephants.jpg" alt="" style="width:50%">
+<img src="../fig/episode2/pileup_elephants.jpg" alt="" style="width:30%">
 
 The additional interactions that occur in each bunch crossing because the instantaneous bunch-by-bunch luminosity is very high. Here _additional_ implies that there is a hard-scatter interaction that has caused the event to fire the trigger. The total inelastic cross section is approximately 80mb, so if the luminosity per crossing is of the order 80mb-1 you will get one interaction per crossing, on average.
 
@@ -50,8 +50,29 @@ We need to simulate out-of-time interactions, time structure of detector sensiti
 
 <img src="../fig/episode2/pileup_bx.png" alt="" style="width:50%">
 
-## Measuring pileup
+## Pileup mitigation algorithms
 
+<img src="../fig/episode2/pileup_eta.png" alt="" style="width:50%">
+
+Many clever ways have been devised to remove the effects of pileup from physics analyses and
+objects. Pileup affects all objects (MET, muons, etc.). We are focusing on jets today.
+
+### Charged Hadron Subtraction (CHS)
+
+Tracking is a major tool in CMS. We can identify most charged particles from non-leading primary vertices, CHS removes these particles. 
+
+<img src="../fig/episode2/pfenergyfractions.png" alt="" style="width:50%">
+
+### $\rho$ pileup correction
+
+Imagine making a grid out of your detector, then $\rho$ is the median patch value (pT/area). Therefore, the corrected jet momentum is:
+$$p_T^{corr} = p_T^{raw} - (\rho x area)$$
+
+This works because pileup is expected to be isotropic. This is a simplistic version of what the L1 JECs do to remove pileup. More about JECs later.
+
+<img src="../fig/episode2/rho.png" alt="" style="width:50%">
+
+## Measuring pileup
 
 Before we get into mitigating pileup effects, let's first examine measures of pileup in more detail. We will discuss event-by-event variables that can be used to characterize the pileup and this will give us some hints into thinking about how to deal with it.
 
