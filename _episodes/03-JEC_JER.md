@@ -1,6 +1,6 @@
 ---
-title: "JEC and JER"
-teaching: 10
+title: "Jet energy corrections and resolution"
+teaching: 40
 exercises: 20
 questions:
 - "What are jet energy correction?"
@@ -11,10 +11,6 @@ objectives:
 keypoints:
 - "The energy of jets in data and simulations is different, for many reasons, and in CMS we calibrate them in a series of steps."
 - "Jets are stochastic objects which its content fluctuates a lot. We measure the jet energy resolution to mitigate this effects."
----
-
-(Following slides 27-38 from these slides)  (FIXME)
-
 ---
 
 > ## After following the instructions in the setup (if you have not done it yet) :
@@ -32,9 +28,29 @@ keypoints:
 
 ## Jet Energy Corrections
 
+<img src="../fig/episode3/jet_response.svg" alt="" style="width:50%">
+
+Let's define the jet pt response $R$ as the ratio between the _measured_ and the _true_ pt of a jet
+from simulation. We expect that the average response is different from 1 because of pileup adding
+energy or non-linear calorimeter response. 
+
+__Jet energy corrections (JEC)__ corrects reconstructed jets (on average) back to particle level.
+This is done against many useful metrics, like $p_T^{gen}$, $\eta$, area, pileup. CMS uses a
+_factorized approach to JECs_:
+
+<img src="../fig/episode3/Run2-JERC.png" alt="" style="width:50%">
+
+ * Pileup corrections to correct for offset energy (noPU vs. PU jet matching). This is usually called L1FastJet.
+ * Correction to particle level jet vs. 𝑝𝑇 and η from simulation. This is called L2Relative and L3Absolute, or L2L3 together.
+ * Only for data: Small residual corrections (Pileup/relative and absolute) to correct for differences between data and simulation. This is called L2L3Residuals.
+
+<img src="../fig/episode3/l1l2_jecs.svg" alt="" style="width:70%">
+
+### Exercise 3.1
+
 > ## Open a notebook
 >
-> For this part open the notebook called `Jet_Energy_Corrections.ipynb` and run the Exercise 1 and 2.
+> For this part open the notebook called `Jet_Energy_Corrections.ipynb` and run the Exercise 3.1
 {: .checklist}
 
 > ## Discussion 1.1

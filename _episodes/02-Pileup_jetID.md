@@ -120,7 +120,6 @@ There are 12 interactions before and 3 after.
 
 Tracking is a major tool in CMS. We can identify most charged particles from non-leading primary vertices, CHS removes these particles. 
 
-<img src="../fig/episode2/pfenergyfractions.png" alt="" style="width:30%">
 
 ### PileUp Per Particle Identification (PUPPI)
 
