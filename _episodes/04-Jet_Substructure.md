@@ -21,7 +21,7 @@ Full set of intro slides: Slides 58-76 (FIXME)
 >
 > ~~~
 > cd <YOUR WORKING DIRECTORY>/notebooks/DAS/
-> source /cvmfs/sft.cern.ch/lcg/views/LCG_103/x86_64-centos7-gcc11-opt/setup.sh
+> source /cvmfs/sft.cern.ch/lcg/views/LCG_104/x86_64-centos7-gcc11-opt/setup.sh
 > jupyter notebook --no-browser --port=8888 --ip 127.0.0.1
 > ~~~
 > {: .language-bash}
