@@ -46,6 +46,19 @@ _factorized approach to JECs_:
 
 <img src="../fig/episode3/l1l2_jecs.svg" alt="" style="width:70%">
 
+### Jet energy scale determination in data
+
+<img src="../fig/episode3/jes_data1.png" alt="" style="width:70%">
+
+<img src="../fig/episode3/jes_data2.png" alt="" style="width:70%">
+
+> ## Reminder for PUPPI jets
+>
+> PUPPI jets do not need the L1 Pileup corrections. Starting Run3, PUPPI jets are the primary jet collection. 
+>
+> <img src="../fig/episode3/Run3-JERC.png" alt="" style="width:70%">
+{: .callout}
+
 ### Exercise 3.1
 
 > ## Open a notebook
