@@ -1,5 +1,5 @@
 ---
-title: "Pileup and jetID"
+title: "Pileup Reweighting and Pileup Mitigation""
 teaching: 40
 exercises: 20
 questions:
@@ -26,7 +26,32 @@ keypoints:
 > This will open a jupyter notebook tree with various notebooks. 
 {: .callout}
 
+## What is pileup?
+
+<img src="../fig/episode2/pileup_elephants.jpg" alt="" style="width:50%">
+
+The additional interactions that occur in each bunch crossing because the instantaneous bunch-by-bunch luminosity is very high. Here _additional_ implies that there is a hard-scatter interaction that has caused the event to fire the trigger. The total inelastic cross section is approximately 80mb, so if the luminosity per crossing is of the order 80mb-1 you will get one interaction per crossing, on average.
+
+<img src="https://cern.ch/cmslumi/publicplots/pileup_allYears.png" alt="" style="width:50%">
+
+<img src="../fig/episode2/cms_pileup_picture.png" alt="" style="width:50%">
+
+## Types of pileup
+
+We can define two types of pileup:
+
+ * In-time pileup: the interactions which occur in the bunch crossing that fired the trigger
+ * Out-of-time pileup: the interactions which occur in the bunch crossings which precede or follow the one which fired the trigger
+
+We need to simulate out-of-time interactions, time structure of detector sensitivity and read-out, and bunch train structure. According to the detector elements used for measuring pileup:
+ * Tracker: only sensitive to in-time pileup
+ * Calorimeters: sensitive to out-of-time pileup
+ * Muon chambers: sensitive to out-of-time pileup
+
+<img src="../fig/episode2/pileup_bx.png" alt="" style="width:50%">
+
 ## Measuring pileup
+
 
 Before we get into mitigating pileup effects, let's first examine measures of pileup in more detail. We will discuss event-by-event variables that can be used to characterize the pileup and this will give us some hints into thinking about how to deal with it.
 
