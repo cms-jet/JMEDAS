@@ -1,5 +1,5 @@
 ---
-title: "Pileup Reweighting and Pileup Mitigation""
+title: "Pileup Reweighting and Pileup Mitigation"
 teaching: 40
 exercises: 20
 questions:
@@ -57,28 +57,27 @@ We need to simulate out-of-time interactions, time structure of detector sensiti
 Many clever ways have been devised to remove the effects of pileup from physics analyses and
 objects. Pileup affects all objects (MET, muons, etc.). We are focusing on jets today.
 
-### Charged Hadron Subtraction (CHS)
-
-Tracking is a major tool in CMS. We can identify most charged particles from non-leading primary vertices, CHS removes these particles. 
-
-<img src="../fig/episode2/pfenergyfractions.png" alt="" style="width:50%">
-
 ### $\rho$ pileup correction
 
 Imagine making a grid out of your detector, then $\rho$ is the median patch value (pT/area). Therefore, the corrected jet momentum is:
-$$p_T^{corr} = p_T^{raw} - (\rho x area)$$
+$$p_T^{corr} = p_T^{raw} - (\rho \times area)$$
 
 This works because pileup is expected to be isotropic. This is a simplistic version of what the L1 JECs do to remove pileup. More about JECs later.
 
 <img src="../fig/episode2/rho.png" alt="" style="width:50%">
 
-## Measuring pileup
+### Exercise 2.1
 
-Before we get into mitigating pileup effects, let's first examine measures of pileup in more detail. We will discuss event-by-event variables that can be used to characterize the pileup and this will give us some hints into thinking about how to deal with it.
+Before we get into mitigating pileup effects, let's first examine measures of pileup in more detail. We will discuss event-by-event variables that can be used to characterize the pileup and this will give us some hints into thinking about how to deal with it. We can define:
+
+ * NPU: the number of pileup interactions that have been added to the event in the current bunch crossing
+ * mu: the true mean number of the poisson distribution for this event from which the number of interactions each bunch crossing has been sampled
+ * $\rho$: rho from all PF Candidates, used e.g. for JECs
+ * NPV: total number of reconstructed primary vertices
 
 > ## Open a notebook
 >
-> For the first part of this introduction open the notebook called `Pileup.ipynb`.
+> For the first part, open the notebook called `Pileup.ipynb` and run exercise 2.1.
 {: .checklist}
 
 > ## Question 2.1
@@ -116,6 +115,34 @@ There are 12 interactions before and 3 after.
 > A majority of the constituents in a jet come from pions. Pions come in neutral ($\pi^{0}$) and charged ($\pi^{\pm}$) varieties. Naively you would expect the composition to be two thirds charged hadrons and one third neutral hadrons. However, we know that $\pi^{0}$ decays to two photons, which leads to a large photon fraction.
 > <img src="../fig/efracs_particles_8TeV.png" alt="Jet Composition MC" width="380px" />
 {: .solution}
+
+### Charged Hadron Subtraction (CHS)
+
+Tracking is a major tool in CMS. We can identify most charged particles from non-leading primary vertices, CHS removes these particles. 
+
+<img src="../fig/episode2/pfenergyfractions.png" alt="" style="width:50%">
+
+### PileUp Per Particle Identification (PUPPI)
+
+Unfortunately, pileup is not really isotropic, it is uneven:
+
+<img src="../fig/episode2/puppi_rho.svg" alt="" style="width:50%">
+
+PUPPI is trying to have an inherently local correction based on the following information: A particle from the hard scatter process is likely near (geometrically) other particles from the same interaction and have a generally higher pT. We expect particles from pileup to have no shower structure, have generally lower pT, and be uncorrelated with particles from the leading vertex.
+
+<img src="../fig/episode2/puppi.svg" alt="" style="width:50%">
+
+
+### Exercise 2.2
+
+> ## Open a notebook
+>
+> For this part open the notebook called `Pileup.ipynb` and run the Exercise 2.2
+{: .checklist}
+
+> ## Discussion 2.1
+> Do you see any difference in the jet pt for CHS and PUPPI jets? Where you expecting these results?
+{: .discussion}
 
 ## Pileup reweighting
 
