@@ -121,7 +121,9 @@ labeling the JECs. In this example:
 
 ## JEC Uncertainties
 
-Since we've applied the JEC corrections to the distributions, we should also assign a systematic uncertainty to the procedure. The procedure is explained in [this link](https://cms-jerc.web.cern.ch/JECUncertaintySources/), and this is part of the Exercise 3 of the notebook.
+Since we've applied the JEC corrections to the distributions, we should also assign a systematic uncertainty to the procedure. The procedure is explained in [this link](https://cms-jerc.web.cern.ch/JECUncertaintySources/), and this is part of the Exercise 2.3 of the notebook.
+
+### Exercise 3.2
 
 > ## Open a notebook
 >
@@ -156,7 +158,7 @@ the function used to apply corrections will be updated soon to be compatible wit
 >
 > Let's look at a simple dijet resonance peak shown below. 
 >
-> <img src="../fig/JER_RSplot.png" alt="Jet Resolution plot for a dijet resonance analysis." width="400px" />
+> <img src="../fig/episode3/JER_RSplot.png" alt="Jet Resolution plot for a dijet resonance analysis." width="400px" />
 >
 > It corresponds to a dijet resonance peaks analysis. The plot was produced an MC sample of Randall-Sundrum gravitons (RSGs) with m=3 TeV decaying to two quarks. The resulting signature is two high-$p_{\mathrm{T}}$ jets, with a truth-level invariant mass of 3 TeV.
 >
