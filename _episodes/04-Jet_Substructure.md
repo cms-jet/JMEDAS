@@ -67,7 +67,17 @@ $$\Delta R \sim \frac{2m}{p_T}$$
 
 CMS uses R = 0.8 for heavy object reconstruction. That is merged W/Z at pT ~200 GeV and merged top at pT ~400 GeV.
 
-<img src="../fig/episode4/jet_mass.png" alt="" style="width:70%">
+<img src="../fig/episode4/jet_mass.png" alt="" style="width:40%">
+
+### Rho parameter
+
+A useful variable for massive, fat jets is the QCD scaling parameter $\rho$, defined as:
+
+$\rho=\log(m^2/(p_{\mathrm{T}}R)^2)$.
+
+(Sometimes $\rho$ is defined without the log). One useful feature of this variable is that QCD jet mass grows with $p_{\mathrm{T}}$, i.e. the two quantities are strongly correlated, while $\rho$ is much less correlated with $p_{\mathrm{T}}$.
+
+<img src="../fig/episode4/rho.png" alt="" style="width:40%">
 
 ### Exercise 4.1
 
@@ -82,6 +92,17 @@ We can use jet mass to distinguish our boosted W and top jets from QCD. Let's co
 >
 > Do you think the jet mass alone can be used to identify boosted W and top jets? 
 {: .challenge}
+
+> ## Question 4.2
+> After running Exercise 3, in which cases do you think the $\rho$ variable can be used? 
+{: .challenge}
+
+> ## Solution 4.2
+> The following two plots show what QCD events look like in different $p_{T}$ ranges. It's clear that the mass depends very strongly on $p_{T}$, while the $\rho$ shape is fairly constant vs. $p_{T}$ (ignoring $\rho<7$ or so, which is the non-perturbative region). Having a stable shape is useful when studying QCD across a wide $p_{T}$ range.
+> <img src="../fig/qcdpt_mass.png" width=600px/>
+> <img src="../fig/qcdpt_rho.png" width=600px/>
+{: .solution}
+
 
 ## Jet Substructure
 
@@ -99,21 +120,51 @@ For further reading, several measurements have been performed about jet substruc
  * [More theory slides]( http://indico.hep.manchester.ac.uk/getFile.py/access?contribId=14&resId=0&materialId=slides&confId=4413)
  * [Talk from Phil Harris](https://web.pa.msu.edu/seminars/hep_seminars/abstracts/2018/Harris-HEPSeminar-Slides-4172018.pdf) on searching for boosted $W$ bosons.
 
+
+### Jet Grooming Algorithms
+
+There has been many different approaches to jet grooming during the years. The standard idea is to remove soft and wide-angle radiation from within the jet, then recluster with smaller R, remove subjets and then remove constituents during clustering.
+
+The next cartoon provides a good summary of all these algorithms:
+
+<img src="../fig/episode4/grooming.png" alt="" style="width:40%">
+
+The softdrop algorithm is the one choosen at CMS by default. Softdrop recursively decluster jet. Remove the softer component unless the soft drop condition is
+satisfied.
+
+<img src="../fig/episode4/softdrop.png" alt="" style="width:70%">
+
+Soft wide angle radiation fails the condition:
+ * As $z_{cut}$ increases, then more aggressive grooming
+ * As $\beta$ decreases, then more aggressive grooming
+
+Example (zcut = 0.1) :
+ * If $\beta =0$,  remove softer subjet if pT fraction < 0.1 (~equivalent to MMDT)
+ * If $\beta > 0$,  remove softer subjet if pT fraction < x, where x increases with ΔR and has maximum value 0.1 
+ * If $\beta \goto \infty$ no grooming
+ * If $\beta <0$ soft drop becomes a tagger instead of a groomer (finds jets with hard, large angle subjets)
+
+Jet grooming algorithms dramatically improves the separation of QCD and top quark jets. Merged top quarks can be identified with a window around the top quark mass.
+
+<img src="../fig/episode4/grooming_comparison.svg" alt="" style="width:70%">
+
+### Exercise 4.2
+
  In this part of the tutorial, we will compare different subtructure algorithms as well as some usually subtructure variables.
 
 > ## Open a notebook
 >
-> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 1.
+> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 4.2.
 {: .checklist}
 
-> ## Question 4.1
+> ## Question 4.2
 > Look at the following histogram, which compares ungroomed, pruned, soft drop (SD), PUPPI, and
 > SD+PUPPI jets. 
-> <img src="../fig/ex5_rsg_jetmass.png" width=400px/>
+> <img src="../fig/episode4/ex5_rsg_jetmass.png" width=400px/>
 > Note that the histogram has two peaks. What do these correspond to? How do the algorithms affect the relative size of the two populations?
 {: .challenge}
 
-## Substructure variables
+### Substructure variables
 
 > ## Open a notebook
 >
@@ -137,29 +188,6 @@ Another subtructure variable commonly used is the energy correlation function $N
 > ## Question 4.4
 > Look at the histograms comparing $N2$ and $N3. What can you say about the histogram? Are these variables telling you something about the nature of the boosted jets selected?
 {: .challenge}
-
-### Rho parameter
-
-A useful variable for massive, fat jets is the QCD scaling parameter $\rho$, defined as:
-
-$\rho=\log(m^2/(p_{\mathrm{T}}R)^2)$.
-
-(Sometimes $\rho$ is defined without the log). One useful feature of this variable is that QCD jet mass grows with $p_{\mathrm{T}}$, i.e. the two quantities are strongly correlated, while $\rho$ is much less correlated with $p_{\mathrm{T}}$.
-
-> ## Open a notebook
->
-> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 3.
-{: .checklist}
-
-> ## Question 4.5
-> After running Exercise 3, in which cases do you think the $\rho$ variable can be used? 
-{: .challenge}
-
-> ## Solution 4.5
-> The following two plots show what QCD events look like in different $p_{T}$ ranges. It's clear that the mass depends very strongly on $p_{T}$, while the $\rho$ shape is fairly constant vs. $p_{T}$ (ignoring $\rho<7$ or so, which is the non-perturbative region). Having a stable shape is useful when studying QCD across a wide $p_{T}$ range.
-> <img src="../fig/qcdpt_mass.png" width=600px/>
-> <img src="../fig/qcdpt_rho.png" width=600px/>
-{: .solution}
 
 
 ## W and top tagging
