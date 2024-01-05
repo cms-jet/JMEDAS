@@ -38,18 +38,7 @@ _Follow the CMS workbook on jet analysis:_  [WorkBookJetAnalysis](https://twiki.
 
 ### Facilitators CMSDAS LPC 2024
 
- * Alejandro Gomez Espinosa	
- * Martin Kwok	
- * Clemens Lange	
- * Chris Madrid	
- * Connor Moore	
- * Henning Kirschenmann
-
 <img src="fig/foto_facilitators.png" alt="" style="width:70%">
-
-### Introductory slides
-
-We will start with this version of slides: [CMSDAS_Jets_intro_2023.pdf](). (FIXME)
 
 
 ### Support

@@ -22,6 +22,9 @@ The repository contains the old files to run inside CMSSW, and therefore the fol
 follows that paradigm. In the current version of this notes, the c++ and python files are there for
 students to look at them if needed. They are not used in the context of the class.
 
+## Old google slides
+
+To see the shared google slides with all the content you can save a copy here: [https://docs.google.com/presentation/d/1TKgKRX_BV885NoKyxCdbFZKEjYn_IG5TDsZp9IYgPQk/edit](https://docs.google.com/presentation/d/1TKgKRX_BV885NoKyxCdbFZKEjYn_IG5TDsZp9IYgPQk/edit)
 
 
 {% include links.md %}
