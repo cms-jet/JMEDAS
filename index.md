@@ -45,7 +45,7 @@ _Follow the CMS workbook on jet analysis:_  [WorkBookJetAnalysis](https://twiki.
  * Connor Moore	
  * Henning Kirschenmann
 
-<img src="fig/"foto_facilitators.png alt="" style="width:70%">
+<img src="fig/foto_facilitators.png" alt="" style="width:70%">
 
 ### Introductory slides
 

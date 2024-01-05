@@ -99,8 +99,8 @@ We can use jet mass to distinguish our boosted W and top jets from QCD. Let's co
 
 > ## Solution 4.2
 > The following two plots show what QCD events look like in different $p_{T}$ ranges. It's clear that the mass depends very strongly on $p_{T}$, while the $\rho$ shape is fairly constant vs. $p_{T}$ (ignoring $\rho<7$ or so, which is the non-perturbative region). Having a stable shape is useful when studying QCD across a wide $p_{T}$ range.
-> <img src="../fig/qcdpt_mass.png" width=600px/>
-> <img src="../fig/qcdpt_rho.png" width=600px/>
+> <img src="../fig/episode4/qcdpt_mass.png" width=600px/>
+> <img src="../fig/episode4/qcdpt_rho.png" width=600px/>
 {: .solution}
 
 
@@ -141,7 +141,7 @@ Soft wide angle radiation fails the condition:
 Example (zcut = 0.1) :
  * If $\beta =0$,  remove softer subjet if pT fraction < 0.1 (~equivalent to MMDT)
  * If $\beta > 0$,  remove softer subjet if pT fraction < x, where x increases with ΔR and has maximum value 0.1 
- * If $\beta \goto \infty$ no grooming
+ * If $\beta \lim \infty$ no grooming
  * If $\beta <0$ soft drop becomes a tagger instead of a groomer (finds jets with hard, large angle subjets)
 
 Jet grooming algorithms dramatically improves the separation of QCD and top quark jets. Merged top quarks can be identified with a window around the top quark mass.
