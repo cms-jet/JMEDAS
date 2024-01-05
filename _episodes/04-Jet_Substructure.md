@@ -186,36 +186,47 @@ Another subtructure variable commonly used is the energy correlation function $N
 
 > ## Open a notebook
 >
-> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 2.
+> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 4.3.
 {: .checklist}
 
 
-> ## Question 4.2
+> ## Question 4.4
 > Look at the histogram comparing $\tau_{21}$. What can you say about the histogram? Is $\tau_{21}$ telling you something about the nature of the boosted jets selected?
 {: .challenge}
 
-> ## Question 4.3
+> ## Question 4.5
 > Look at the histogram comparing $\tau_{32}$. What can you say about the histogram? Is $\tau_{32}$ telling you something about the nature of the boosted jets selected?
 {: .challenge}
 
 
-> ## Question 4.4
+> ## Question 4.6
 > Look at the histograms comparing $N2$ and $N3. What can you say about the histogram? Are these variables telling you something about the nature of the boosted jets selected?
 {: .challenge}
 
 
-## W and top tagging
+## Taggers
 
 In this part of the tutorial, we will look at how different substructure algorithms can be used to identify jets originating from boosted W's and tops. Specifically, we'll see how these identification tools are used to separate these boosted jets from those originating from Standard Model QCD, a dominant process at the LHC.
 
 ### W tagging
 
-We will now investigate how to identify W bosons using the substructure techniques we've learned.
-Compare the tau2 / tau1 ratio for the AK8 jets from Standard Model top quarks to those from the QCD samples. 
+<img src="../fig/episode4/wtagging.svg" alt="" style="width:70%">
+
+### top tagging
+
+<img src="../fig/episode4/toptagging.svg" alt="" style="width:70%">
+
+### Tagging with machine learning
+
+W/Top tagging was one of the first places where ML was adopted in CMS. We have study several of these algorithms (JME-18-002), being “deepAK8/ParticleNet” the most used within CMS. 
+
+<img src="../fig/episode4/mltagging.svg" alt="" style="width:70%">
+
+### Exercise 4.4
 
 > ## Open a notebook
 >
-> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 5.
+> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 4.4.
 {: .checklist}
 
 > ## Question 4.7
@@ -224,15 +235,6 @@ Compare the tau2 / tau1 ratio for the AK8 jets from Standard Model top quarks to
 > * What cuts would you place on these variables to distinguish W bosons from QCD?
 > * So far, which variable looks more promising?
 {: .challenge}
-
-### top tagging
-
-We will now investigate how to identify top quarks using the substructure techniques we've learned.
-
-> ## Open a notebook
->
-> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 6.
-{: .checklist}
 
 > ## Question 4.8
 > * What cut would you apply to select boosted top quarks?
