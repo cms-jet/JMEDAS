@@ -49,6 +49,40 @@ objects. Let's analyze the example of a top quark. If the top quarks are boosted
 
 <img src="../fig/episode4/examples_of_boostedjets.svg" alt="" style="width:70%">
 
+## Jet mass
+
+QCD jet mass is a perturbative quantity. From the initial (almost) massless partons, pQCD gives rise to a jet mass of order:
+
+$$\left< M^2 \right> \simeq C \cdot \frac{\alpha^2}{\pi} p_T^2 R^2$$
+
+Jet mass is proportional to R and pT. C is a form factor related to originating parton and clustering algorithm. For non-cone algorithms:
+
+$$ \left< M^2 \right> \simeq a \times \alpha_S p^2_T R^2 $$ 
+
+where $a$ is 0.16 for quarks and 0.37 for gluons. For heavy objects, the LO mass scale is the heavy object mass. 
+
+The mass of QCD jets changes as a function of momentum, but the mass of heavy particle jets is relatively stable. For a given mass and pT scale, choose an appropriate jet radius: 
+
+$$\Delta R \sim \frac{2m}{p_T}$$
+
+CMS uses R = 0.8 for heavy object reconstruction. That is merged W/Z at pT ~200 GeV and merged top at pT ~400 GeV.
+
+<img src="../fig/episode4/jet_mass.png" alt="" style="width:70%">
+
+### Exercise 4.1
+
+We can use jet mass to distinguish our boosted W and top jets from QCD. Let's compare the AK8 jet mass of the boosted top quarks from the RS KK sample and the jets from the QCD sample. Let's also look at the and the softdrop groomed jet mass combined with the PUPPI pileup subtraction algorithm for different samples.
+
+> ## Open a notebook
+>
+> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 4.1.
+{: .checklist}
+
+> ## Question 4.1
+>
+> Do you think the jet mass alone can be used to identify boosted W and top jets? 
+{: .challenge}
+
 ## Jet Substructure
 
 Because boosted jets represent the hadronic products of a heavy particle produced with high momentum, some tools have been developed to study the internal structure of these jets. This topic is usually called Jet Substructure.
@@ -126,20 +160,6 @@ $\rho=\log(m^2/(p_{\mathrm{T}}R)^2)$.
 > <img src="../fig/qcdpt_mass.png" width=600px/>
 > <img src="../fig/qcdpt_rho.png" width=600px/>
 {: .solution}
-
-## Jet mass
-
-We can also use jet mass to distinguish our boosted W and top jets from QCD. Let's compare the AK8 jet mass of the boosted top quarks from the RS KK sample and the jets from the QCD sample. Let's also look at the and the softdrop groomed jet mass combined with the PUPPI pileup subtraction algorithm for different samples.
-
-> ## Open a notebook
->
-> For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 4.
-{: .checklist}
-
-> ## Question 4.6
->
-> Do you think the jet softdrop mass alone can be used to identify boosted W and top jets? 
-{: .challenge}
 
 
 ## W and top tagging
