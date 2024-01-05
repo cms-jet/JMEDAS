@@ -1,6 +1,6 @@
 ---
 title: "Jet Substructure"
-teaching: 10
+teaching: 40
 exercises: 20
 questions:
 - "What is jet substructure?"
@@ -15,8 +15,6 @@ keypoints:
 - "Over the years more state-of-the-art taggers involving ML have been implemented in CMS. Those help us indentify more effectively boosted jets."
 ---
 
-Full set of intro slides: Slides 58-76 (FIXME)
-
 > ## After following the instructions in the setup:
 >
 > ~~~
@@ -28,6 +26,28 @@ Full set of intro slides: Slides 58-76 (FIXME)
 >
 > This will open a jupyter notebook tree with various notebooks. 
 {: .callout}
+
+## What is a jet? 
+
+In the previous episodes we discussed that the jet is a physical object representing the
+hadronization of quakrs and gluons. Perhaps we have encounter that a jet can be formed from random
+noise or pileup particles in our detectors, not necessarily coming from hard scattered quarks and
+gluons, but jets can be so much more:
+
+<img src="../fig/episode4/jet_types.svg" alt="" style="width:70%">
+
+The internal structure of the jet constituents help us to understand their origin.
+
+<img src="../fig/episode4/jet_substructure.svg" alt="" style="width:50%">
+
+## Boosted Objects
+
+Heavy particles which are created not at rest but with some momentum are referred as boosted
+objects. Let's analyze the example of a top quark. If the top quarks are boosted, e.g. when coming from a new massive particle, what happens?. Hadronic decay products collimated so then they can be reconstructed in the same final-state object! Hadronic final states now become accessible with a dijet final state (in this case)
+
+<img src="../fig/episode4/boosted_top.svg" alt="" style="width:70%">
+
+<img src="../fig/episode4/examples_of_boostedjets.svg" alt="" style="width:70%">
 
 ## Jet Substructure
 
