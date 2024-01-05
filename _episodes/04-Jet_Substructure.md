@@ -157,7 +157,7 @@ Jet grooming algorithms dramatically improves the separation of QCD and top quar
 > For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 4.2.
 {: .checklist}
 
-> ## Question 4.2
+> ## Question 4.3
 > Look at the following histogram, which compares ungroomed, pruned, soft drop (SD), PUPPI, and
 > SD+PUPPI jets. 
 > <img src="../fig/episode4/ex5_rsg_jetmass.png" width=400px/>
@@ -166,14 +166,29 @@ Jet grooming algorithms dramatically improves the separation of QCD and top quar
 
 ### Substructure variables
 
+Knowing how many final state objects to expect from these decays we can look inside the jet for the expected substructure:
+ * Top decays →  3 subjets
+ * W/Z/H decays → 2 subjets
+ *
+A quantity called N-subjettiness is a measure of how consistent a jet is with a hypothesized number of subjets. N-subjetiness is defined as:
+
+$$\tau_N = \frac{1}{\sum_i P_{T,i} \cdot R} \sum_i p_{T,i} \cdot min ( \Delta R_{1,i}, ... \Delta R_{N,i} )$$
+
+The variable $\tau_N$ gives a sense of how many N prongs or cores can be find inside the jet. It is known that the n-subjetiness variables itself ($\tau_{N}$) do not provide good discrimination power, but its ratios do. Then, a $\tau_{MN} = \dfrac{\tau_M}{\tau_N}$ basically tests if the jet is more M-prong compared to N-prong. For instance, we expect 2 prongs for boosted jets originated from hadronic Ws, while we expect 1 prongs for high-pt jets from QCD multijet processes. The most common nsubjetiness ratio are $\tau_{21}$ and $\tau_{32}$. 
+
+<img src="../fig/episode4/nsubjettiness.png" alt="" style="width:70%">
+
+Another subtructure variable commonly used is the energy correlation function $N2$. Similarly than $\tau_{21}$, $N2$ tests if the boosted jet is compatible with a 2-prong jet hypothesis.
+
+<img src="../fig/episode4/energy_correlations.svg" alt="" style="width:70%">
+
+### Exercise 4.3
+
 > ## Open a notebook
 >
 > For this part, open the notebook called `Jet_Substructure.ipynb` and run Exercise 2.
 {: .checklist}
 
-In this exercise we are defining a few variables: nsubjetiness ratios (tau21, tau32) and energy correlation
-functions (N2, N3).
-Let's start with n-subjetiness ratios. The variable $\tau_N$ gives a sense of how many N prongs or cores can be find inside the jet. It is known that the n-subjetiness variables itself ($\tau_{N}$) do not provide good discrimination power, but its ratios do. Then, a $\tau_{MN} = \dfrac{\tau_M}{\tau_N}$ basically tests if the jet is more M-prong compared to N-prong. For instance, we expect 2 prongs for boosted jets originated from hadronic Ws, while we expect 1 prongs for high-pt jets from QCD multijet processes. The most common nsubjetiness ratio are $\tau_{21}$ and $\tau_{32}$. 
 
 > ## Question 4.2
 > Look at the histogram comparing $\tau_{21}$. What can you say about the histogram? Is $\tau_{21}$ telling you something about the nature of the boosted jets selected?
@@ -183,7 +198,6 @@ Let's start with n-subjetiness ratios. The variable $\tau_N$ gives a sense of ho
 > Look at the histogram comparing $\tau_{32}$. What can you say about the histogram? Is $\tau_{32}$ telling you something about the nature of the boosted jets selected?
 {: .challenge}
 
-Another subtructure variable commonly used is the energy correlation function $N2$. Similarly than $\tau_{21}$, $N2$ tests if the boosted jet is compatible with a 2-prong jet hypothesis.
 
 > ## Question 4.4
 > Look at the histograms comparing $N2$ and $N3. What can you say about the histogram? Are these variables telling you something about the nature of the boosted jets selected?
