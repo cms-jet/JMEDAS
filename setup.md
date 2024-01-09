@@ -59,7 +59,7 @@ If these two lines are running sucessfully, you should see something like this:
 
 Copy and paste one of the last two urls in your favorite browser and now you can continue with the lesson 1 (Episode 1).
 
-> If you are using PUTTY
+> ## If you are using PUTTY
 > Go to ssh tab on the left then type in source port (ex. 8888) with destination (ex. localhost:8888) and then hit "add" to add this to the list of ports
 > If 8888 is occupied, use another port (ex. anything above 8000) instead
 {: .callout}
