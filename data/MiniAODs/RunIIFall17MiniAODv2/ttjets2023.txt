@@ -1,5 +1,0 @@
-root://cmseos.fnal.gov//store/user/cmsdas/2023/short_exercises/jets/ttbar2017/TTJets_2017_A0D1E8AF-4471-E811-B5ED-141877410ACD_300.root
-root://cmseos.fnal.gov//store/user/cmsdas/2023/short_exercises/jets/ttbar2017/TTJets_2017_0E988FEC-F3B8-E811-9E5C-0242AC1C0501_55k.root
-root://cmseos.fnal.gov//store/user/cmsdas/2023/short_exercises/jets/ttbar2017/TTJets_2017_60EAD587-54B9-E811-8206-0242AC1C0505_61k.root
-root://cmseos.fnal.gov//store/user/cmsdas/2023/short_exercises/jets/ttbar2017/TTJets_2017_6E101B89-BC68-E811-B965-782BCB38D552_55k.root
-root://cmseos.fnal.gov//store/user/cmsdas/2023/short_exercises/jets/ttbar2017/TTJets_2017_D2965D3E-2168-E811-9250-782BCB558E3C_59k.root
