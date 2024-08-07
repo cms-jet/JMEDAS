@@ -13,7 +13,7 @@ The tutorial is designed to be executed at cmslpc, following the setup step, usi
 
 _For general questions, problems, debugs, or asking for help from experts on jets and missing ET:_ [CMS Talk JetMET category](https://cms-talk.web.cern.ch/c/pog/jetmet/51)
 
-_Follow the CMS workbook on jet analysis:_  [WorkBookJetAnalysis](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetAnalysis)
+_Follow the CMS workbook on jet analysis:_ [WorkBookJetAnalysis](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetAnalysis)
 
 > ## What is this set of exercises trying to do?
 >
