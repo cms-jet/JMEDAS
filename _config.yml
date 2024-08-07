@@ -11,7 +11,7 @@
 carpentry: "swc"
 
 # Overall title for pages.
-title: "CMS Data Analysis School 2024: Jet Analysis Short Exercise "
+title: "HATS@LPC 2024: Jets"
 
 # Life cycle stage of the lesson
 # See this page for more details: https://cdh.carpentries.org/the-lesson-life-cycle.html
@@ -23,7 +23,7 @@ title: "CMS Data Analysis School 2024: Jet Analysis Short Exercise "
 # 'transition-step-2': notice encouraging to use new version
 # 'transition-step-3': notice indicating the lesson is deprecated,
 #                      with automated redirect
-life_cycle: "alpha"
+life_cycle: "beta"
 
 # For lessons in the life stages in 'transition-step-1' or later:
 # - 'transition_url' holds the URL for the version of the lesson that
