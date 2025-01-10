@@ -7,21 +7,21 @@ title: Setup
 Open a terminal/console, connect to cmslpc-sl7 and prepare your working area:
 
 ~~~
-kinit username@FNAL.GOV
-ssh -L localhost:8888:localhost:8888 <YOUR USERNAME>@cmslpc-sl7.fnal.gov
+kinit <YOUR USERNAME>@FNAL.GOV
+ssh -L localhost:8888:localhost:8888 <YOUR USERNAME>@cmslpc-el9.fnal.gov
 ~~~
 {: .language-bash}
 
 If you haven't done it yet, go to your `nobackup` area (`/uscms_data/d3/<YOUR USERNAME>/`) and create a folder for the CMSDAS exercises. Once you are there you can clone our repository:
 
 ~~~
-git clone git@github.com:cms-jet/JMEDAS.git -b DASJan2024
+git clone git@github.com:cms-jet/JMEDAS.git -b DASJan2025
 cd JMEDAS/notebooks/DAS/
 ~~~
 {: .language-bash}
 
 > ## Remember
-> Once you clone the repository, using the `DASJan2024` branch, the exercise notebooks are located
+> Once you clone the repository, using the `DASJan2025` branch, the exercise notebooks are located
 > in `JMEDAS/notebooks/DAS/`
 {: .callout}
 
