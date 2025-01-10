@@ -44,7 +44,7 @@ _Follow the CMS workbook on jet analysis:_ [WorkBookJetAnalysis](https://twiki.c
 
 ### Support
 
-Join the [ShortExJets Mattermost channel](https://mattermost.web.cern.ch/cmsdaslpc2024/channels/shortexjets) and don't hesitate to ask for help from the facilitators in the room.
+Join the [ShortExJets Mattermost channel](https://mattermost.web.cern.ch/cmsdaslpc2025/channels/shortexjets) and don't hesitate to ask for help from the facilitators in the room.
 
 
 <!-- this is an html comment -->
