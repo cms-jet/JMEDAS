@@ -52,7 +52,7 @@ We need to simulate out-of-time interactions, time structure of detector sensiti
 
 ## Pileup mitigation algorithms
 
-<img src="../fig/episode2/pileup_eta.png" alt="" style="width:50%">
+<img src="../fig/episode2/pileup_eta.png" alt="" style="width:60%">
 
 Many clever ways have been devised to remove the effects of pileup from physics analyses and
 objects. Pileup affects all objects (MET, muons, etc.). We are focusing on jets today.
@@ -147,7 +147,7 @@ PUPPI is trying to have an inherently local correction based on the following in
 
 Start with chosen input distribution – the instantaneous luminosity for a given event is sampled from this distribution to obtain the mean number of interactions in each beam crossing. The number of interactions for each beam crossing that will be part of the event (in- and out-of-time) is taken from a poisson distribution with the predetermined mean. The input distribution is thus smeared by convolving with a poisson distribution in each bin. This is what the observed distribution should look like after the poisson fluctuations of each interaction
 
-<img src="../fig/episode2/pu_reweight.svg" alt="" style="width:50%">
+<img src="../fig/episode2/pu_reweight.svg" alt="" style="width:80%">
 
 The __Goal__ of the pileup reweighting procedure is to match the generated pileup distribution to the one found in data:
  * Step 1: Create the weights
@@ -183,6 +183,7 @@ Here we are going to produce a file containing the weights used for pileup rewei
 > <img src="../fig/episode2/Zmumu_rho_nputruth.png" alt="Zmumu_rho_nputruth" width="400px" /></details>
 {: .solution}
 
+<!--
 > ## Question 2.6
 > Why do the green and red histograms end arount $\mu\approx38$?
 {: .challenge}
@@ -190,7 +191,7 @@ Here we are going to produce a file containing the weights used for pileup rewei
 > ## More information
 > To learn more about pileup, you can follow the CMSDAS short exercise about pileup here: (FIXME)
 {: .callout}
-
+-->
 ## Noise Jet ID
 
 In order to avoid using fake jets, which can originate from a hot calorimeter cell or electronic read-out box, we need to require some basic quality criteria for jets. These criteria are collectively called "jet ID". Details on the jet ID for PFJets can be found in the following twiki:
