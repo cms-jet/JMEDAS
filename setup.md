@@ -34,7 +34,7 @@ voms-proxy-init -voms cms -valid 192:00
 The following commands one has to do it *everytime you log in into a new session*. They load the
 environment and the packages needed for the exercises and open a jupyter notebook:
 ~~~
-source source /cvmfs/sft.cern.ch/lcg/views/LCG_105/x86_64-el9-gcc11-opt/setup.sh
+source /cvmfs/sft.cern.ch/lcg/views/LCG_105/x86_64-el9-gcc11-opt/setup.sh
 jupyter notebook --no-browser --port=8888 --ip 127.0.0.1
 ~~~
 {: .language-bash}
