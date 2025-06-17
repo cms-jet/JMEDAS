@@ -13,10 +13,10 @@ jobs:
       fail-fast: false
       matrix:
         lesson: [swcarpentry/shell-novice, datacarpentry/r-intro-geospatial, librarycarpentry/lc-git]
-        os: [ubuntu-20.04, macos-latest, windows-latest]
+        os: [ubuntu-24.04, macos-latest, windows-latest]
         experimental: [false]
         include:
-          - os: ubuntu-20.04
+          - os: ubuntu-24.04
             os-name: Linux
           - os: macos-latest
             os-name: macOS
@@ -31,12 +31,12 @@ jobs:
           - lesson: datacarpentry/astronomy-python
             lesson-name: (DC) Foundations of Astronomical Data Science
             experimental: true
-            os: ubuntu-20.04
+            os: ubuntu-24.04
             os-name: Linux
           - lesson: carpentries/lesson-example
             lesson-name: (CP) Lesson Example
             experimental: false
-            os: ubuntu-20.04
+            os: ubuntu-24.04
             os-name: Linux
     defaults:
       run:
