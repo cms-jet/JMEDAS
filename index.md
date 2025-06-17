@@ -6,11 +6,18 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 
 <img src="fig/20140806_01_jet_pileup.png" alt="" style="width: 400px;"/>
 
+This tutorial will provide you with the basics you need to deal with jets in your analysis.
+We start with the basics of a jet, how they are reconstructed, what algorithms are used, etc.
+Then, we give examples with scripts on how to access jets and use them in your analysis frameworks,
+including corrections and systematics.
+In the second part of the exercise, we examine jet substructure algorithms,
+which have many uses, including the identification of hadronic decays of heavy SM particles
+such as top quarks, W, Z, and H bosons, as well as mitigation of pileup and others.
 
-This tutorial will give you the basics you need to deal with jets in your analysis. We start with the basics of a jet, how they are reconstructed, what algorithms are used, etc. Then, we give examples with scripts on how to access jets and use them in your analysis frameworks, including corrections and systematics. In the second part of the exercise, we examine jet substructure algorithms, which have many uses, including the identification of hadronic decays of heavy SM particles like top quarks, W, Z, and H bosons, as well as mitigation of pileup and others.
-
-The tutorial is designed to be executed at cmslpc, following the setup step, using jupyter notebooks. On this website, you will find links to instructional slides and more information about the topics to walk you through the exercises.
-
+The tutorial is designed to be executed on CERN LXPLUS, following the setup step,
+using jupyter notebooks.
+On this website, you will find links to instructional slides and more information
+about the topics to walk you through the exercises.
 
 _For general questions, problems, debugs, or asking for help from experts on jets and missing ET:_ [CMS Talk JetMET category](https://cms-talk.web.cern.ch/c/pog/jetmet/51)
 
@@ -41,18 +48,18 @@ _Follow the CMS workbook on jet analysis:_ [WorkBookJetAnalysis](https://twiki.c
 
 <img src="fig/team.png" alt="" style="width:95%">
 
-
 ### Support
 
-Join the [ShortExJets Mattermost channel](https://mattermost.web.cern.ch/cmsdaslpc2025/channels/shortexjets) and don't hesitate to ask for help from the facilitators in the room.
-
+Join the
+[SE-JetMET Mattermost channel](https://mattermost.web.cern.ch/cmsdasiithjune2025/channels/jetmet-se)
+and don't hesitate to ask for help from the facilitators in the room.
 
 <!-- this is an html comment -->
 {% comment %} This is a comment in Liquid {% endcomment %}
 
 > ## Prerequisites
 >
-> [CMS DAS Pre-exercises](https://fnallpc.github.io/cms-das-pre-exercises/) 
+> [CMS DAS Pre-exercises](https://indico.cern.ch/event/1553817/) 
 {: .prereq}
 
 {% include links.md %}

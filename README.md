@@ -1,7 +1,6 @@
 # CMS Data Analysis School 2023: Jet Analysis Short Exercise 
 
-
-This repository generates the corresponding lesson website from [The Carpentries](https://carpentries.org/) repertoire of lessons. 
+This repository generates the corresponding lesson website from [The Carpentries](https://carpentries.org/) repertoire of lessons.
 
 ## Contributing
 
@@ -21,10 +20,9 @@ Look for the tag ![good_first_issue](https://img.shields.io/badge/-good%20first%
 
 ## Maintainer(s)
 
-There have been many maintainers of these exercises during the years. Current maintainers of this lesson are 
+There have been many maintainers of these exercises during the years. Current maintainers of this lesson are:
 
 * [Alejandro Gomez Espinosa](mailto:alejandro.gomez@cern.ch)
-
 
 ## Authors
 

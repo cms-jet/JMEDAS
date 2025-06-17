@@ -12,7 +12,7 @@ Here are some of the names who have contribute to this over the years:
  * Henning Kirschenmann
  * Raffaele Gerosa
  * John Hakala
- * Kevin Pedro 
+ * Kevin Pedro
  * Chin Lung Tan
  * Caleb James Smith
  * Juska Pekkanen
@@ -23,6 +23,7 @@ Here are some of the names who have contribute to this over the years:
  * Tongguang Cheng
  * Jim Dolen
  * Salvatore Rappoccio
+ * Clemens Lange
  * and many many more.
 
 
