@@ -16,9 +16,10 @@ keypoints:
 
 > ## After following the instructions in the setup (if you have not done it yet) :
 >
+> If using LXPLUS:
 > ~~~
 > cd <YOUR WORKING DIRECTORY>/notebooks/DAS/
-> source /cvmfs/sft.cern.ch/lcg/views/LCG_105/x86_64-el9-gcc11-opt/setup.sh
+> source /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el9-gcc13-opt/setup.sh
 > jupyter notebook --no-browser --port=8888 --ip 127.0.0.1
 > ~~~
 > {: .language-bash}
@@ -30,7 +31,10 @@ keypoints:
 
 <img src="../fig/episode2/pileup_elephants.jpg" alt="" style="width:30%">
 
-The additional interactions that occur in each bunch crossing because the instantaneous bunch-by-bunch luminosity is very high. Here _additional_ implies that there is a hard-scatter interaction that has caused the event to fire the trigger. The total inelastic cross section is approximately 80mb, so if the luminosity per crossing is of the order 80mb-1 you will get one interaction per crossing, on average.
+Pileup are the additional interactions that occur in each bunch crossing because
+the instantaneous bunch-by-bunch luminosity is very high.
+Here _additional_ implies that there is a hard-scatter interaction that has caused
+the event to fire the trigger. The total inelastic cross section is approximately 80mb, so if the luminosity per crossing is of the order 80mb-1 you will get one interaction per crossing, on average.
 
 <img src="../fig/episode2/pileup_allYears.png" alt="" style="width:50%">
 
