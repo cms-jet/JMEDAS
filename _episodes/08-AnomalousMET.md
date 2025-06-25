@@ -34,7 +34,7 @@ These anomalous MET events can arise from:
 In such events, the MET value may be much higher than expected and does not reflect true missing energy from invisible particles (like neutrinos or dark matter candidates).
 
 <figure>
-  <img src="../fig/episode8/met_scanning_fig.pdf" alt="" style="width:70%">
+  <img src="../fig/episode8/met_scanning_fig.png" alt="" style="width:70%">
   <center><figcaption> An example of identifying the source of anomalous MET.</figcaption></center>
 </figure>
 
@@ -46,7 +46,7 @@ These cleaning algorithms, or filters, run in separate processing paths, and the
 Analyzers can use this decision bit to filter out noisy events. These filters are specifically designed to reject events with unusually large MET values caused by spurious signals.
 
 <figure>
-  <img src="../fig/episode8/CMS-JME-17-001_Figure_004.pdf" alt="" style="width:70%">
+  <img src="../fig/episode8/CMS-JME-17-001_Figure_004.png" alt="" style="width:70%">
   <center><figcaption> MET $p_T$ and leading jet $\phi$ distributions, with and without the application of event filters.</figcaption></center>
 </figure>
 

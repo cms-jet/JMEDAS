@@ -74,7 +74,7 @@ $$\vec{p}_{T}^{~miss,~Type-1} = - \sum_{i}^{nJets} \vec{p}_{T, jet}^{~corr} - \s
 
 
 <figure>
-  <img src="../fig/episode6/Response-2.pdf" alt="" style="width:40%">
+  <img src="../fig/episode6/Response-2.png" alt="" style="width:40%">
   <center><figcaption>We will revisit this in MET performance, but this figure shows a comparison between the MET scale for raw and Type-1 corrected MET.</figcaption></center>
 </figure>
 
@@ -103,10 +103,10 @@ The possible causes of this modulation include:
 The amplitude of the modulation increases roughly linearly with the number of pile-up interactions.
 
 For example, following plot shows the MET $\phi$ distribution without the XY correction in events with an electron and a muon where $t\bar{t}$+jets background dominates:
-<img src="../fig/episode6/emu-inclusive-metphi-uncorr.pdf" alt="" style="width:40%">
+<img src="../fig/episode6/emu-inclusive-metphi-uncorr.png" alt="" style="width:40%">
 
 After applying the correction the data/MC agreement improves:
-<img src="../fig/episode6/emu-inclusive-metphi-corr.pdf" alt="" style="width:40%">
+<img src="../fig/episode6/emu-inclusive-metphi-corr.png" alt="" style="width:40%">
 
 ## MET Uncertainty
 
@@ -122,7 +122,7 @@ The physics objects that contribute the most are:
 The scale and resolution of each component must be systematically varied within their respective uncertainties. These variations are then propagated to the MET calculation to calculate their impact on the analysis.
 
 Following figure shows the distribution of the Type 1 corrected MET reconstructed by the PF algorithm in MC and in data along with the uncertainties in the ratio plot.
-<img src="../fig/episode6/PFMET_Type1XY-2.pdf" alt="" style="width:40%">
+<img src="../fig/episode6/PFMET_Type1XY-2.png" alt="" style="width:40%">
 
 ## Exercise 2.1
 
