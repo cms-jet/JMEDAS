@@ -47,7 +47,7 @@ Specifically, the mean of the distribution of the magnitude of $$q_{T} + u_{\par
 
 An example of the $$q_{T} + u_{\parallel}$$ and $u_{\perp}$ distributions is shown in the following plots.
 
-<img src="../fig/episode7/CMS-JME-17-001_Figure_008-a.pdf" alt="" style="width:70%">
+<img src="../fig/episode7/CMS-JME-17-001_Figure_008-a.png" alt="" style="width:70%">
 
 Use the distribution of the parallel and perpendicular components of the hadronic recoil to measure the MET scale and resolution
 - Get the mean of the parallel component to estimate MET scale.
