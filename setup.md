@@ -108,7 +108,7 @@ Copy and paste one of the last two urls in your favorite browser and now you can
 
 Open the SWAN projects page in the browser and click on
 "CERNBox", then navigate to
-`JMEDAS` --> `notebooks` --> `DAS`.
+`JMEDAS` --> `notebooks`.
 
 ## Useful settings
 

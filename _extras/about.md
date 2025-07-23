@@ -9,6 +9,7 @@ Here are some of the names who have contribute to this over the years:
 
  * Cristina Ana Mantilla Suarez
  * Christine McLean
+ * Garvita Agarwal
  * Henning Kirschenmann
  * Raffaele Gerosa
  * John Hakala
