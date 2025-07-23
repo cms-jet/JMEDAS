@@ -1,21 +1,21 @@
 # Jet CMSDAS Exercise repository
 
 This repository contains code used for several CMS Data Analysis Schools
-There is one branch for each CMSDAS school.
+There is one branch for each CMSDAS school/HATS.
 
 ## For students
 
-To follow the CMSDAS short jet exercise check the website: [http://cms-jet.github.io/JMEDAS/](http://cms-jet.github.io/JMEDAS)
+To follow the JetMET HATS check the website: [http://cms-jet.github.io/JMEDAS/](http://cms-jet.github.io/JMEDAS)
 
-This version of the school is June 2025 and therefore use the branch `DASJune2025`:
+This version of the school is HATS 2025 and therefore use the branch `HATS2025`:
 
 ```shell
-git clone git@github.com:cms-jet/JMEDAS.git -b DASJan2025
+git clone git@github.com:cms-jet/JMEDAS.git -b HATS2025
 ```
 
 ## For contributors
 
-The master branch contains the history of all code used in several CMSDAS schools.
+The master branch contains the history of all code used in several CMSDAS and HATS schools.
 This means that some code might be obsolete or use tools that are not longer recommended by CMS.
 
 ### To update the website
@@ -31,7 +31,7 @@ All the previous notebooks are stored under `notebooks/obsolete/`.
 The code in `interface/`, `plugins/`, `scripts/` and `src/`, is the code use under CMSSW using miniAOD.
 These scripts are not longer used by kept here for documentation.
 
-## CMSDAS Jet Short Exercise - June 2025
+## HATS@LPC 2025
   
 ### Introduction
 
@@ -44,5 +44,5 @@ which have many uses including identification of hadronic decays of heavy SM par
 W, Z, and H bosons, as well as mitigation of pileup and others.
 
 The tutorial is designed to be executed on LXPLUS and followed in the
-[JMEDAS 2025 website](http://cms-jet.github.io/JMEDAS),
+[HATS 2025 website](http://cms-jet.github.io/JMEDAS),
 where you find links to instructional slides and instructions that walk you through the exercises.
