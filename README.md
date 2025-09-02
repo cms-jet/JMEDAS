@@ -7,10 +7,10 @@ There is one branch for each CMSDAS school.
 
 To follow the CMSDAS short jet exercise check the website: [http://cms-jet.github.io/JMEDAS/](http://cms-jet.github.io/JMEDAS)
 
-This version of the school is June 2025 and therefore use the branch `DASJune2025`:
+This version of the school is Oct 2025 and therefore use the branch `DASOct2025`:
 
 ```shell
-git clone git@github.com:cms-jet/JMEDAS.git -b DASJan2025
+git clone git@github.com:cms-jet/JMEDAS.git -b DASOct2025
 ```
 
 ## For contributors
@@ -31,7 +31,7 @@ All the previous notebooks are stored under `notebooks/obsolete/`.
 The code in `interface/`, `plugins/`, `scripts/` and `src/`, is the code use under CMSSW using miniAOD.
 These scripts are not longer used by kept here for documentation.
 
-## CMSDAS Jet Short Exercise - June 2025
+## CMSDAS Jet Short Exercise - Oct 2025
   
 ### Introduction
 
