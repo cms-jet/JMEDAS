@@ -30,7 +30,7 @@ In your browser, open the [SWAN website](https://swan.cern.ch/) and
 log in with your CERN credentials.
 
 When presented with the "Configure Environment" page, make sure to **change** the
-"Software stack" to _105a_ (from the 107 default in June 2025),
+"Software stack" to _105a_ (from the 107 default in Oct 2025),
 keep "Platform" _AlmaLinux 9 (gcc13)_
 and click "Start my session".
 
@@ -47,13 +47,13 @@ cp -r ~/.globus /eos/user/${USER:0:1}/${USER}
 ## Cloning the repository
 
 ~~~
-git clone https://github.com/cms-jet/JMEDAS.git -b DASJune2025 --single-branch --depth=1
+git clone https://github.com/cms-jet/JMEDAS.git -b DASOct2025 --single-branch --depth=1
 cd JMEDAS/notebooks/DAS/
 ~~~
 {: .language-bash}
 
 > ## Remember
-> Once you clone the repository, using the `DASJune2025` branch, the exercise notebooks are located
+> Once you clone the repository, using the `DASOct2025` branch, the exercise notebooks are located
 > in `JMEDAS/notebooks/DAS/`
 {: .callout}
 
